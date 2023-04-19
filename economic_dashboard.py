@@ -14,7 +14,7 @@ import plotly.express as px
 st.title('MONITOR ECONÓMICO CPP USS')
 
 path=""
-imacec=pd.read_excel(path+"/IMACEC.xlsx").dropna()
+imacec=pd.read_excel("/IMACEC.xlsx").dropna()
 imacec=imacec.set_index(imacec.columns.values[0])
 imacec.columns=imacec.iloc[0]
 imacec=imacec.drop(imacec.index.values[0], axis=0)
