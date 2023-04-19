@@ -59,7 +59,7 @@ with tab1:
     st.plotly_chart(fig2, theme="streamlit", use_container_width=True)
         
     col1, col2, col3 = st.columns(3)
-    """   
+       
     with col1:
        st.header("A cat")
        st.image("https://static.streamlit.io/examples/cat.jpg")
@@ -71,7 +71,7 @@ with tab1:
     with col3:
        st.header("An owl")
        st.image("https://static.streamlit.io/examples/owl.jpg")
-    """
+    
 
 
 
