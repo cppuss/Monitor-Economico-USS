@@ -13,7 +13,7 @@ import plotly.express as px
 
 st.title('MONITOR ECONÓMICO CPP USS')
 
-path=""
+
 imacec=pd.read_excel("IMACEC.xlsx").dropna()
 imacec=imacec.set_index(imacec.columns.values[0])
 imacec.columns=imacec.iloc[0]
@@ -59,7 +59,7 @@ with tab1:
     st.plotly_chart(fig2, theme="streamlit", use_container_width=True)
         
     col1, col2, col3 = st.columns(3)
-    
+    """   
     with col1:
        st.header("A cat")
        st.image("https://static.streamlit.io/examples/cat.jpg")
@@ -71,7 +71,7 @@ with tab1:
     with col3:
        st.header("An owl")
        st.image("https://static.streamlit.io/examples/owl.jpg")
-
+    """
 
 
 
