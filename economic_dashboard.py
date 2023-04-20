@@ -18,7 +18,7 @@ st.title('MONITOR ECONÓMICO CPP USS')
 
 # path="/Users/matias.otthgmail.com/Desktop/USS/Monitor Económico/"
 
-data=pd.read_parquet(path+"datafull.parquet")
+data=pd.read_parquet("datafull.parquet")
 
 
 # "ACTIVIDAD ECONÓMICA","INFLACIÓN","MERCADO LABORAL","CUENTAS CORRIENTES"
