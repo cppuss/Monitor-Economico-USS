@@ -20,7 +20,6 @@ from pptx.dml.color import RGBColor
 
 st.set_page_config(layout="wide")
 st.title('MONITOR ECONÓMICO CPP USS')
-today = date.today()
 
 st.header('Generar presentación con información económica')
 
