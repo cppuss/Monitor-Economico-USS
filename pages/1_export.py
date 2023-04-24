@@ -98,7 +98,7 @@ else:
 
 
     
-submit = st.checkbox(label='RESUMEN')
+#submit = st.checkbox(label='RESUMEN')
 
 if submit:     
     inputs=pd.DataFrame()
