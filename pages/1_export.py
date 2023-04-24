@@ -100,25 +100,25 @@ else:
     
 #submit = st.checkbox(label='RESUMEN')
 
-if submit:     
-    inputs=pd.DataFrame()
-    try:    
-        inputs=inputs.append(user_input)
-    except:
-        pass    
-    try:    
-        inputs=inputs.append(user_input_2)
-    except:
-        pass    
-    try:    
-        inputs=inputs.append(user_input_3)
-    except:
-        pass    
-    try:    
-        inputs=inputs.append(user_input_4)
-    except:
-        pass    
-    st.table(inputs)
+#if submit:     
+#    inputs=pd.DataFrame()
+#    try:    
+#        inputs=inputs.append(user_input)
+#    except:
+#        pass    
+#    try:    
+#        inputs=inputs.append(user_input_2)
+#    except:
+#        pass    
+#    try:    
+#        inputs=inputs.append(user_input_3)
+#    except:
+#        pass    
+#    try:    
+#        inputs=inputs.append(user_input_4)
+#    except:
+#        pass    
+#    st.table(inputs)
 
 
 
