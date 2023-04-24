@@ -14,9 +14,8 @@ import numpy as np
 st.set_page_config(layout="wide")
 st.title('MONITOR ECONÓMICO CPP USS')
 
+st.header('Visualización de series económicas')
 
-
-# path="/Users/matias.otthgmail.com/Desktop/USS/Monitor Económico/"
 
 data=pd.read_parquet("datafull.parquet")
 
@@ -171,6 +170,5 @@ with tab4:
                 CUENTAS CORREINTES - JURIDICAS Corresponde a los datos XXX...
                 
                 """)
-                        
                   
                     
