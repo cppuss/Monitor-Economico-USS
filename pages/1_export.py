@@ -23,6 +23,7 @@ st.title('MONITOR ECONÓMICO CPP USS')
 
 st.header('Generar presentación con información económica')
 
+today = date.today()
 
 data=pd.read_parquet("datafull.parquet")
 data1=data[data["CATEGORIA"]=="ACTIVIDAD ECONOMICA"]
