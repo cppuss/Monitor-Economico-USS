@@ -149,7 +149,7 @@ if sub1:
     
     elif submit and user_input != "":
         with st.spinner('Generating awesome slides for you...'):
-            prs=Presentation(path+"BASE PRESENTACION USS_STGO-BES.pptx")
+            prs=Presentation("BASE PRESENTACION USS_STGO-BES.pptx")
             xml_slides = prs.slides._sldIdLst  
             slides = list(xml_slides)
             
