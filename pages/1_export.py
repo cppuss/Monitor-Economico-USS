@@ -191,7 +191,7 @@ if sub1:
         st.warning("Selecionar una portada")
     
     elif submit and user_input != "":
-        with st.spinner('Generating awesome slides for you...'):
+        with st.spinner('Preparando... :man_cook_tone1:'):
             prs=Presentation("BASE PRESENTACION USS_STGO-BES.pptx")
             xml_slides = prs.slides._sldIdLst  
             slides = list(xml_slides)
@@ -330,7 +330,7 @@ if sub1:
                     sacar.append(15)
             except:
                 pass   
-            st.table(sacar)
+            
               
             x=1
             for i in sacar:
