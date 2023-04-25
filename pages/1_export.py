@@ -269,24 +269,23 @@ if sub1:
             os.remove("desagregadas.png")
     
             
-            if submit:     
-                inputs=pd.DataFrame()
-                try:    
-                    inputs=inputs.append(user_input_1)
-                except:
-                    pass    
-                try:    
-                    inputs=inputs.append(user_input_2)
-                except:
-                    pass    
-                try:    
-                    inputs=inputs.append(user_input_3)
-                except:
-                    pass    
-                try:    
-                    inputs=inputs.append(user_input_4)
-                except:
-                    pass    
+            inputs=pd.DataFrame()
+            try:    
+                inputs=inputs.append(user_input_1)
+            except:
+                pass    
+            try:    
+                inputs=inputs.append(user_input_2)
+            except:
+                pass    
+            try:    
+                inputs=inputs.append(user_input_3)
+            except:
+                pass    
+            try:    
+                inputs=inputs.append(user_input_4)
+            except:
+                pass    
             st.table(inputs)
 
             sacar=[]
