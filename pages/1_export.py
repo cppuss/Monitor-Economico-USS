@@ -13,11 +13,11 @@ import plotly.express as px
 import numpy as np
 from datetime import time
 from pptx import Presentation
-from io import BytesIO
+#from io import BytesIO
 from datetime import date
 from pptx.dml.color import RGBColor
 from pptx.util import Inches
-import os
+#import os
 
 
 def add_image(slide, image, left, top, width):
