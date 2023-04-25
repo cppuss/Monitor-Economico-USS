@@ -298,6 +298,8 @@ if sub1:
                     sacar.append(6)
             except:
                 sacar.append(2)
+                sacar.append(5)
+                sacar.append(6)
             try:
                 if "YoY" not in user_input_2.values:
                     sacar.append(8)
@@ -305,7 +307,10 @@ if sub1:
                     sacar.append(9)           
             except:
                 sacar.append(7) 
-            
+                sacar.append(8)           
+                sacar.append(9)           
+      
+
             try:
                 if "DESOCUPACIÓN" not in user_input_3.values:
                     sacar.append(11)
@@ -313,7 +318,10 @@ if sub1:
                     sacar.append(12)
             except:
                 sacar.append(10)
-            
+                sacar.append(11)           
+                sacar.append(12)           
+
+                
             try:
                 if "TOTAL" not in user_input_4.values:
                     sacar.append(14)
@@ -321,6 +329,8 @@ if sub1:
                     sacar.append(15)
             except:
                 sacar.append(13)  
+                sacar.append(14)           
+                sacar.append(15)           
             
               
             x=1
