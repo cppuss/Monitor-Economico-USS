@@ -286,7 +286,7 @@ if sub1:
                 inputs=inputs.append(user_input_4)
             except:
                 pass    
-            st.table(inputs)
+            st.table(user_input_1)
 
             sacar=[]
             if "IMACEC" not in inputs.values and "CRECIMIENTO ECONÓMICO" not in inputs.values:
