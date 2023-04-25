@@ -268,60 +268,68 @@ if sub1:
             add_image(prs.slides[14], image=desagregadass, left=left, width=width, top=top)
             os.remove("desagregadas.png")
     
+            try:       
+                user_input_1=pd.DataFrame(user_input_1)
+            except:
+                pass
             
-            # if submit:     
-            #     inputs=pd.DataFrame()
-            #     try:    
-            #         inputs=inputs.append(user_input_1)
-            #     except:
-            #         pass    
-            #     try:    
-            #         inputs=inputs.append(user_input_2)
-            #     except:
-            #         pass    
-            #     try:    
-            #         inputs=inputs.append(user_input_3)
-            #     except:
-            #         pass    
-            #     try:    
-            #         inputs=inputs.append(user_input_4)
-            #     except:
-            #         pass    
-            # st.table(inputs)
-            user_input_1=pd.DataFrame(user_input_1)
+            try:       
+                user_input_2=pd.DataFrame(user_input_2)
+            except:
+                pass
+            try:       
+                user_input_3=pd.DataFrame(user_input_3)
+            except:
+                pass
+            try:       
+                user_input_4=pd.DataFrame(user_input_4)
+            except:
+                pass
+            
+            
             sacar=[]
-            if "IMACEC" not in user_input_1.values and "CRECIMIENTO ECONÓMICO" not in user_input_1.values:
-                sacar.append(2)
-                
-            if "IMACEC" not in user_input_1.values:
-                sacar.append(3)
-                sacar.append(4)
-            if "CRECIMIENTO ECONÓMICO" not in user_input_1.values:
-                sacar.append(5)
-                sacar.append(6)
-                
-            if "YoY" not in user_input_2.values and "MENSUAL" not in user_input_2.values:
-                sacar.append(7)
-                
-            if "YoY" not in user_input_2.values:
-                sacar.append(8)
-            if "MENSUAL" not in user_input_2.values:
-                sacar.append(9)           
-                
-            if "DESOCUPACIÓN" not in user_input_3.values and "OCUPACIÓN Y PARTICIPACIÓN" not in user_input_3.values:    
-                sacar.append(10)
-            if "DESOCUPACIÓN" not in user_input_3.values:
-                sacar.append(11)
-            if "OCUPACIÓN Y PARTICIPACIÓN" not in user_input_3.values:
-                sacar.append(12)
-                
-            if "TOTAL" not in user_input_4.values and "DESAGREGADAS" not in user_input_4.values:
-                sacar.append(13)
-            if "TOTAL" not in user_input_4.values:
-                sacar.append(14)
-            if "DESAGREGADAS" not in user_input_4.values:
-                sacar.append(15)
-                
+            try:
+                if "IMACEC" not in user_input_1.values and "CRECIMIENTO ECONÓMICO" not in user_input_1.values:
+                    sacar.append(2)
+
+                if "IMACEC" not in user_input_1.values:
+                    sacar.append(3)
+                    sacar.append(4)
+                if "CRECIMIENTO ECONÓMICO" not in user_input_1.values:
+                    sacar.append(5)
+                    sacar.append(6)
+            except:
+                pass
+            try:
+                if "YoY" not in user_input_2.values and "MENSUAL" not in user_input_2.values:
+                    sacar.append(7)
+
+                if "YoY" not in user_input_2.values:
+                    sacar.append(8)
+                if "MENSUAL" not in user_input_2.values:
+                    sacar.append(9)           
+            except:
+                pass  
+            
+            try:
+                if "DESOCUPACIÓN" not in user_input_3.values and "OCUPACIÓN Y PARTICIPACIÓN" not in user_input_3.values:    
+                    sacar.append(10)
+                if "DESOCUPACIÓN" not in user_input_3.values:
+                    sacar.append(11)
+                if "OCUPACIÓN Y PARTICIPACIÓN" not in user_input_3.values:
+                    sacar.append(12)
+            except:
+                pass
+            
+            try:
+                if "TOTAL" not in user_input_4.values and "DESAGREGADAS" not in user_input_4.values:
+                    sacar.append(13)
+                if "TOTAL" not in user_input_4.values:
+                    sacar.append(14)
+                if "DESAGREGADAS" not in user_input_4.values:
+                    sacar.append(15)
+            except:
+                pass   
             st.table(sacar)
               
             x=1
