@@ -17,7 +17,7 @@ from io import BytesIO
 from datetime import date
 from pptx.dml.color import RGBColor
 from pptx.util import Inches
-#import os
+import os
 
 
 def add_image(slide, image, left, top, width):
