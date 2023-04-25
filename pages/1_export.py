@@ -191,7 +191,7 @@ if sub1:
         st.warning("Selecionar una portada")
     
     elif submit and user_input != "":
-        with st.spinner('Preparando... :man_cook_tone1:'):
+        with st.spinner('Preparando... :cook:'):
             prs=Presentation("BASE PRESENTACION USS_STGO-BES.pptx")
             xml_slides = prs.slides._sldIdLst  
             slides = list(xml_slides)
