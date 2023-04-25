@@ -112,11 +112,11 @@ if sub1:
     col1, col2 = st.columns(2)
     with col1:
        st.subheader("Formato claro")
-       st.image(path+"OPCION1.png")
+       st.image("OPCION1.png")
        
     with col2:
        st.subheader("Formato oscuro")
-       st.image(path+"OPCION2.png")
+       st.image("OPCION2.png")
     
    
     
