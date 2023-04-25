@@ -288,7 +288,7 @@ if sub1:
             #     except:
             #         pass    
             # st.table(inputs)
-
+            user_input_1=pd.DataFrame(user_input_1)
             sacar=[]
             if "IMACEC" not in user_input_1.values and "CRECIMIENTO ECONÓMICO" not in user_input_1.values:
                 sacar.append(2)
