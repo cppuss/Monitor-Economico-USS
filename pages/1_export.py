@@ -31,8 +31,8 @@ today = date.today()
 st.header('Generar presentación con información económica')
 
 
-path="/Users/matias.otthgmail.com/Desktop/Monitor_Economico/"
-data=pd.read_parquet(path+"datafull.parquet")
+#path="/Users/matias.otthgmail.com/Desktop/Monitor_Economico/"
+data=pd.read_parquet("datafull.parquet")
 data1=data[data["CATEGORIA"]=="ACTIVIDAD ECONOMICA"]
 data2=data[data["CATEGORIA"]=="INFLACION"]
 data3=data[data["CATEGORIA"]=="MERCADO LABORAL"]
