@@ -335,7 +335,7 @@ if sub1:
             
 
             #GENERAR ARCHIVO
-            filename = 'presentación.pptx'.format("Economía", today)
+            filename = 'presentacion_{}_{}.pptx'.format("economia", today)
             binary_output = BytesIO()
             prs.save(binary_output)
             st.download_button(label='Presiona para descargar',
