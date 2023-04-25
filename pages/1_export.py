@@ -288,10 +288,8 @@ if sub1:
             
             
             sacar=[]
+ 
             try:
-                if "IMACEC" not in user_input_1.values and "CRECIMIENTO ECONÓMICO" not in user_input_1.values:
-                    sacar.append(2)
-
                 if "IMACEC" not in user_input_1.values:
                     sacar.append(3)
                     sacar.append(4)
@@ -299,37 +297,30 @@ if sub1:
                     sacar.append(5)
                     sacar.append(6)
             except:
-                pass
+                sacar.append(2)
             try:
-                if "YoY" not in user_input_2.values and "MENSUAL" not in user_input_2.values:
-                    sacar.append(7)
-
                 if "YoY" not in user_input_2.values:
                     sacar.append(8)
                 if "MENSUAL" not in user_input_2.values:
                     sacar.append(9)           
             except:
-                pass  
+                sacar.append(7) 
             
             try:
-                if "DESOCUPACIÓN" not in user_input_3.values and "OCUPACIÓN Y PARTICIPACIÓN" not in user_input_3.values:    
-                    sacar.append(10)
                 if "DESOCUPACIÓN" not in user_input_3.values:
                     sacar.append(11)
                 if "OCUPACIÓN Y PARTICIPACIÓN" not in user_input_3.values:
                     sacar.append(12)
             except:
-                pass
+                sacar.append(10)
             
             try:
-                if "TOTAL" not in user_input_4.values and "DESAGREGADAS" not in user_input_4.values:
-                    sacar.append(13)
                 if "TOTAL" not in user_input_4.values:
                     sacar.append(14)
                 if "DESAGREGADAS" not in user_input_4.values:
                     sacar.append(15)
             except:
-                pass   
+                sacar.append(13)  
             
               
             x=1
