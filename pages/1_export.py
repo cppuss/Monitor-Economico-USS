@@ -300,6 +300,9 @@ if sub1:
                 sacar.append(2)
                 sacar.append(5)
                 sacar.append(6)
+                sacar.append(3)
+                sacar.append(4)      
+    
             try:
                 if "YoY" not in user_input_2.values:
                     sacar.append(8)
