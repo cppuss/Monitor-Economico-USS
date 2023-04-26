@@ -163,11 +163,11 @@ nom=eje_porcentaje(nom)
 
 import base64
 
-def descargar_grafico(grafico):
-    imagen = grafico.to_image(format="png")
-    base64_imagen = base64.b64encode(imagen).decode('utf-8')
-    href = f'<a href="data:image/png;base64,{base64_imagen}" download="grafico.png">Descargar gráfico</a>'
-    return href
+#def descargar_grafico(grafico):
+#    imagen = grafico.to_image(format="png")
+#    base64_imagen = base64.b64encode(imagen).decode('utf-8')
+#    href = f'<a href="data:image/png;base64,{base64_imagen}" download="grafico.png">Descargar gráfico</a>'
+#    return href
 
 with tab1:
     st.write('¡En esta sección se encuentras las variables de crecimiento económico!')
