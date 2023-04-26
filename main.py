@@ -116,11 +116,6 @@ data_imacec_or=imacec_or.copy(deep=True)
 data_imacec_or=data_imacec_or[["PERIODO","VALOR","SERIE"]]
 ext_imacec_or=extremos(imacec_or)
 
-# imacec_or = px.line(imacec_or, x="PERIODO", y="VALOR", color="SERIE")
-# imacec_or=fechas_2(imacec_or)
-# imacec_or=eje_porcentaje(imacec_or)
-
-
 
 data12=data1[data1["CATEGORIA2"]=="IMACEC - COMPONENTES"]
 data12["VALOR"]=data12["VALOR"]/100
@@ -161,13 +156,8 @@ nom= px.line(nom, x="PERIODO", y="VALOR", color="SERIE")
 nom=fechas_2(nom)
 nom=eje_porcentaje(nom)
 
-import base64
 
-#def descargar_grafico(grafico):
-#    imagen = grafico.to_image(format="png")
-#    base64_imagen = base64.b64encode(imagen).decode('utf-8')
-#    href = f'<a href="data:image/png;base64,{base64_imagen}" download="grafico.png">Descargar gráfico</a>'
-#    return href
+
 
 with tab1:
     st.write('¡En esta sección se encuentras las variables de crecimiento económico!')
@@ -176,11 +166,6 @@ with tab1:
     
     with tab11:
         st.write('¡Índice Mensual de Actividad Económica! :tractor: ')
-    
-        
-      
-        
-        
         
         appointment = st.slider(
             "Seleccione el rango de fechas",
@@ -199,19 +184,8 @@ with tab1:
                                             data=df_xlsx ,
                                             file_name= 'df_test.xlsx')
 
-            # st.download_button(label='Download Current Result',
-            #                     data=data_imacec_or ,
-            #                     file_name= 'df_test.xlsx')
-        
-        appointment_2 = st.slider(
-            "Seleccione el rango de fechasasd",
-            value=(ext_imacec_des[0],ext_imacec_des[1]),
-            format="YYYY/MM")
-        submit=st.button(label='Generarxd')
-        
-        
-        if submit:
-            imacec_des=gen(imacec_des,appointment_2)
+          
+            imacec_des=gen(imacec_des,appointment)
             imacec_des=fechas_2(imacec_des)
             imacec_des=eje_porcentaje(imacec_des)
             st.plotly_chart(imacec_des, theme="streamlit", use_container_width=True)
