@@ -19,7 +19,7 @@ st.sidebar.image("ESCUDOUSS_vertical_color.png", use_column_width=True)
 st.title('MONITOR ECONÓMICO CPP USS')
 st.header('Visualización de series económicas')
 
-"""
+
 data=pd.read_parquet("datos_monitor.parquet")
 
 def fechas_1(grafico):
@@ -155,7 +155,7 @@ nom["SERIE"]="PIB Trimestral (variación anual)"
 nom= px.line(nom, x="PERIODO", y="VALOR", color="SERIE")
 nom=fechas_2(nom)
 nom=eje_porcentaje(nom)
-"""
+
 
 
 
