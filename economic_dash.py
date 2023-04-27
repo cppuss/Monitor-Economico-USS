@@ -10,7 +10,7 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 import numpy as np
-from io import BytesIO
+#from io import BytesIO
 
 st.set_page_config(layout="wide")
 
@@ -76,17 +76,17 @@ def gen(imacec_des,rango):
     return imacec_des
 
 
-def to_excel(df):
-    output = BytesIO()
-    writer = pd.ExcelWriter(output, engine='xlsxwriter')
-    df.to_excel(writer, index=False, sheet_name='Sheet1')
-    workbook = writer.book
-    worksheet = writer.sheets['Sheet1']
-    format1 = workbook.add_format({'num_format': '0.00'}) 
-    worksheet.set_column('A:A', None, format1)  
-    writer.save()
-    processed_data = output.getvalue()
-    return processed_data
+#def to_excel(df):
+#    output = BytesIO()
+#    writer = pd.ExcelWriter(output, engine='xlsxwriter')
+#    df.to_excel(writer, index=False, sheet_name='Sheet1')
+#    workbook = writer.book
+#    worksheet = writer.sheets['Sheet1']
+#    format1 = workbook.add_format({'num_format': '0.00'}) 
+#    worksheet.set_column('A:A', None, format1)  
+#    writer.save()
+#    processed_data = output.getvalue()
+#    return processed_data
 
 
 
@@ -179,10 +179,10 @@ with tab1:
             imacec_or=fechas_2(imacec_or)
             imacec_or=eje_porcentaje(imacec_or)
             st.plotly_chart(imacec_or, theme="streamlit", use_container_width=True)
-            df_xlsx = to_excel(data_imacec_or)
-            st.download_button(label='📥 Download Current Result',
-                                            data=df_xlsx ,
-                                            file_name= 'df_test.xlsx')
+        #    df_xlsx = to_excel(data_imacec_or)
+        #    st.download_button(label='📥 Download Current Result',
+        #                                    data=df_xlsx ,
+        #                                    file_name= 'df_test.xlsx')
 
           
             imacec_des=gen(imacec_des,appointment)
