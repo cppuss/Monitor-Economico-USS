@@ -226,3 +226,177 @@ with tab1:
                 PIB: Corresponde a los datos XXX...
                 """) 
             
+
+#INFLACIÓN
+
+data2=data[data["CATEGORIA"]=="INFLACION"]
+data2["VALOR"]=data2["VALOR"]/100
+
+
+men="IPC, IPC sin volátiles e IPC volátiles, variación mensual, información empalmada"
+anu="IPC, IPC sin volátiles e IPC volátiles, variación anual, información empalmada"
+
+inf_men=data2[(data2["NOMBRE_1"]==men)&(data2["NOMBRE_2"]=="IPC General")]
+inf_men["SERIE"]=inf_men["NOMBRE_2"]
+inf_anu=data2[(data2["NOMBRE_1"]==anu)&(data2["NOMBRE_2"]=="IPC General")]
+inf_anu["SERIE"]=inf_anu["NOMBRE_2"]
+
+comp_men=data2[(data2["NOMBRE_1"]==men)&~(data2["NOMBRE_2"]=="IPC General")]
+comp_men["SERIE"]=comp_men["NOMBRE_2"]
+com_anu=data2[(data2["NOMBRE_1"]==anu)&~(data2["NOMBRE_2"]=="IPC General")]
+com_anu["SERIE"]=com_anu["NOMBRE_2"]
+
+
+
+inf_men= px.line(inf_men, x="PERIODO", y="VALOR", color="SERIE")
+inf_men=fechas_2(inf_men)
+inf_men=eje_porcentaje_2(inf_men)
+
+inf_anu= px.line(inf_anu, x="PERIODO", y="VALOR", color="SERIE")
+inf_anu=fechas_1(inf_anu)
+inf_anu=eje_porcentaje_2(inf_anu)
+
+
+
+
+comp_men= px.line(comp_men, x="PERIODO", y="VALOR", color="SERIE")
+comp_men=fechas_2(comp_men)
+comp_men=eje_porcentaje_2(comp_men)
+
+com_anu= px.line(com_anu, x="PERIODO", y="VALOR", color="SERIE")
+com_anu=fechas_1(com_anu)
+com_anu=eje_porcentaje_2(com_anu)
+
+
+
+
+
+
+with tab2:
+    st.write('¡En esta sección se encuentras las distitnas componentes de inflación!')
+      
+    tab21,tab22=st.tabs(["INFLACIÓN ANUAL","INFLACIÓN MENSUAL"])
+    
+    with tab21:
+
+        st.plotly_chart(inf_men, theme="streamlit", use_container_width=True)
+        
+        st.plotly_chart(comp_men, theme="streamlit", use_container_width=True)
+        
+           
+
+    with tab22:
+        st.plotly_chart(inf_anu, theme="streamlit", use_container_width=True)
+        
+        st.plotly_chart(com_anu, theme="streamlit", use_container_width=True)
+        
+ 
+
+
+    with st.expander("Detalle"):
+        st.write("""
+            IPC: Corresponde a los datos XXX...
+            """)
+
+
+data3=data[data["CATEGORIA"]=="MERCADO LABORAL"]
+#MERCADO LABORAL
+
+emp="Empleo ( promedio móvil trimestral, miles de personas )"
+
+
+emp=data3[(data3["CATEGORIA3"]=="NACIONAL")&(data3["NOMBRE_2"]==emp)]
+emp["SERIE"]="Empleo (miles de personas)"
+emp= px.line(emp, x="PERIODO", y="VALOR", color="SERIE")
+emp=fechas_2(emp)
+
+
+oc=data3[(data3["CATEGORIA2"]=="TASAS")&(data3["NOMBRE_2"]=="Tasa de desocupación")]
+oc["SERIE"]=oc["NOMBRE_1"]
+oc["VALOR"]=oc["VALOR"]/100
+oc= px.line(oc, x="PERIODO", y="VALOR", color="SERIE")
+oc=fechas_2(oc)
+oc=eje_porcentaje(oc)
+
+des=data3[(data3["CATEGORIA2"]=="TASAS")&~(data3["NOMBRE_2"]=="Tasa de desocupación")]
+des["SERIE"]=des["NOMBRE_1"]
+des["VALOR"]=des["VALOR"]/100
+des= px.line(des, x="PERIODO", y="VALOR", color="SERIE")
+des=fechas_2(des)
+des=eje_porcentaje(des)
+
+
+with tab3:
+ 
+    st.write('¡En esta sección se encuentran las distintas tasas del mercado laboral y el número de empleados!')
+     
+    st.plotly_chart(oc, theme="streamlit", use_container_width=True)
+    st.plotly_chart(des, theme="streamlit", use_container_width=True)
+    st.plotly_chart(emp, theme="streamlit", use_container_width=True)
+
+        
+        
+
+    with st.expander("Detalle"):
+        st.write("""
+            Tasas de ocupación : Corresponde a los datos XXX...
+            Tasas de desocupados : Corresponde a los datos XXX...
+            Tasas de participación : Corresponde a los datos XXX...
+           
+            """)
+  
+#CUENTAS CORRIENTES
+
+data4=data[data["CATEGORIA"]=="CUENTAS CORRIENTES"]
+cuentas=data4[(data4["NOMBRE_1"]=="TOTAL")&~(data4["CATEGORIA2"]=="Jurídica")]
+
+cuentas["SERIE"]=cuentas["NOMBRE_1"]
+cuentas=px.line(cuentas, x="PERIODO", y="VALOR", color="SERIE")
+cuentas=fechas_1(cuentas)
+            
+
+cuentas_2=data4[(data4["NOMBRE_1"]=="TOTAL")&(data4["CATEGORIA2"]=="Jurídica")]
+cuentas_2["SERIE"]=cuentas_2["NOMBRE_1"]
+cuentas_2=px.line(cuentas_2, x="PERIODO", y="VALOR", color="SERIE")
+cuentas_2=fechas_1(cuentas_2)
+            
+
+desagregadas=data4[~(data4["NOMBRE_1"]=="TOTAL")&~(data4["CATEGORIA2"]=="Jurídica")]
+desagregadas["SERIE"]=desagregadas["NOMBRE_1"]
+desagregadas=px.line(desagregadas, x="PERIODO", y="VALOR", color="SERIE")
+desagregadas=fechas_1(desagregadas)
+
+
+desagregadas_2=data4[~(data4["NOMBRE_1"]=="TOTAL")&(data4["CATEGORIA2"]=="Jurídica")]
+desagregadas_2["SERIE"]=desagregadas_2["NOMBRE_1"]
+desagregadas_2=px.line(desagregadas_2, x="PERIODO", y="VALOR", color="SERIE")
+desagregadas_2=fechas_1(desagregadas_2)
+
+
+
+
+
+with tab4:
+    tab41,tab42=st.tabs(["TOTALES","DESAGREGADAS"])
+    with tab41:
+        st.plotly_chart(cuentas, theme="streamlit", use_container_width=True)
+        st.plotly_chart(cuentas_2, theme="streamlit", use_container_width=True)
+     
+        with st.expander("Detalle"):
+            st.write("""
+                CUENTAS CORREINTES - NATURALES Corresponde a los datos XXX...
+                CUENTAS CORREINTES - JURIDICAS Corresponde a los datos XXX...
+                
+                """)
+                    
+    with tab42:
+        st.plotly_chart(desagregadas, theme="streamlit", use_container_width=True)
+        st.plotly_chart(desagregadas_2, theme="streamlit", use_container_width=True)
+        
+        with st.expander("Detalle"):
+            st.write("""
+                CUENTAS CORREINTES - NATURALES Corresponde a los datos XXX...
+                CUENTAS CORREINTES - JURIDICAS Corresponde a los datos XXX...
+                
+                """)
+            
