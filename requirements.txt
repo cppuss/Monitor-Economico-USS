@@ -7,4 +7,3 @@ fastparquet==2023.2.0
 python-dateutil== 2.8.2
 python-pptx==0.6.21
 kaleido==0.2.1
-base64io=1.0.3
