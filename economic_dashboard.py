@@ -14,8 +14,7 @@ import numpy as np
 
 st.set_page_config(layout="wide")
 
-
-st.sidebar.image("ESCUDOUSS_vertical_color.png", use_column_width=True)
+#st.sidebar.image("ESCUDOUSS_vertical_color.png", use_column_width=True)
 st.title('MONITOR ECONÓMICO CPP USS')
 st.header('Visualización de series económicas')
 
