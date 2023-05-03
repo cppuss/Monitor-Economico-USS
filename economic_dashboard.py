@@ -122,7 +122,7 @@ def to_excel(df):
     worksheet = writer.sheets['Sheet1']
     format1 = workbook.add_format({'num_format': '0.00'}) 
     worksheet.set_column('A:A', None, format1)  
-    writer.save(binary_output)
+    writer.save()
     processed_data = output.getvalue()
     return processed_data
 
