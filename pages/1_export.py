@@ -20,10 +20,50 @@ from pptx.util import Inches
 import os
 
 
-
 def add_image(slide, image, left, top, width):
     slide.shapes.add_picture(image, left=left, top=top, width=width)
 
+def fechas_2(grafico):
+    grafico.update_xaxes(
+        rangeselector=dict(
+            buttons=list([
+                dict(count=3, label="3A", step="year", stepmode="backward"),
+                dict(count=5, label="5A", step="year", stepmode="backward"),
+                dict(count=10, label="10A", step="year", stepmode="backward"),
+                dict(step="all")
+            ])
+        )
+    )
+    grafico.update_yaxes(rangemode="tozero")
+
+
+    return grafico
+
+def eje_porcentaje(grafico):
+    grafico.layout.yaxis.tickformat = ',.1%'
+    
+    return grafico
+
+
+def gen(imacec_des,rango,titulo):
+    imacec_des=imacec_des[(imacec_des["PERIODO"]> rango[0])&(imacec_des["PERIODO"]< rango[1])]
+    imacec_des = px.line(imacec_des, x="PERIODO", y="VALOR", color="SERIE" ,title='Mi gráfico de línea', 
+              labels={'x': 'Eje X', 'y': 'Eje Y'}, 
+              template='plotly_white', 
+              width=700, height=600)
+    imacec_des.update_layout(title={
+        'text': titulo,
+        'x':0.5,
+         'xanchor': 'center',
+         'yanchor': 'top' 
+          },legend=dict(
+            orientation="h",
+            yanchor="top",
+            y=-0.2,
+            xanchor="left",
+            x=0.01
+        ))
+    return imacec_des
 
 st.set_page_config(layout="wide")
 st.title('MONITOR ECONÓMICO CPP USS')
@@ -32,8 +72,8 @@ today = date.today()
 st.header('Generar presentación con información económica')
 
 
-#path="/Users/matias.otthgmail.com/Desktop/Monitor_Economico/"
-data=pd.read_parquet("datos_monitor.parquet")
+path="/Users/matias.otthgmail.com/Desktop/Monitor_Economico/"
+data=pd.read_parquet("datafull.parquet")
 data1=data[data["CATEGORIA"]=="ACTIVIDAD ECONOMICA"]
 data2=data[data["CATEGORIA"]=="INFLACION"]
 data3=data[data["CATEGORIA"]=="MERCADO LABORAL"]
@@ -55,7 +95,10 @@ dic_options={"ACTIVIDAD ECONÓMICA":["IMACEC","CRECIMIENTO ECONÓMICO"],
              "CUENTAS CORRIENTES":["TOTAL","DESAGREGADAS"]
              }
 
-
+submit=st.checkbox(label='Seleccionar todas las categorías')
+if submit:
+    user_input=["ACTIVIDAD ECONÓMICA","INFLACIÓN","MERCADO LABORAL","CUENTAS CORRIENTES"]
+    
 
 
 if options[0] in user_input:
@@ -65,8 +108,43 @@ if options[0] in user_input:
     appointment_1 = st.slider(
         "Seleccione el rango de fechas para la serie " + serie,
         value=(extremos_1[0],extremos_1[1]),
-        format="YYYY/MM/DD")
+        format="YYYY/MM")
+    try:
+        if appointment_1 and user_input_1[0]=="IMACEC":
+            dataimacec=data1[(data1["PERIODO"]> appointment_1[0])&(data1["PERIODO"]< appointment_1[1])]
+    except:
+        pass
+    try:        
+        if appointment_1 and user_input_1[1]=="IMACEC":
+            dataimacec=data1[(data1["PERIODO"]> appointment_1[0])&(data1["PERIODO"]< appointment_1[1])]
+    except:
+        pass
+    
+    col1, col2 = st.columns(2)
+    with col1:
+        try: 
+            if appointment_1 :
+               imacec = px.line(dataimacec[dataimacec["SERIE"]=="1.Imacec"], x="PERIODO", y="VALOR", color="SERIE", template='simple_white')            
+               imacec.write_image("imacec.png")
+               im="imacec.png"
+               st.image("imacec.png")
+               os.remove("imacec.png")
+        except:
+            pass
+            
+    with col2:
+        try: 
+            if appointment_1:
 
+                componentes_imacec=px.line(dataimacec[dataimacec["CATEGORIA2"]=="IMACEC"], x="PERIODO", y="VALOR", color="SERIE", template='simple_white')
+                componentes_imacec.write_image("imacec_des.png")
+                im="imacec_des.png"
+                st.image("imacec_des.png")
+                os.remove("imacec_des.png")
+        except:
+            pass
+ 
+        
     
 if options[1] in user_input:
     serie=options[1]
@@ -113,11 +191,11 @@ if sub1:
     col1, col2 = st.columns(2)
     with col1:
        st.subheader("Formato claro")
-       st.image("OPCION1.png")
+       st.image(path+"OPCION1.png")
        
     with col2:
        st.subheader("Formato oscuro")
-       st.image("OPCION2.png")
+       st.image(path+"OPCION2.png")
     
    
     
@@ -192,7 +270,7 @@ if sub1:
         st.warning("Selecionar una portada")
     
     elif submit and user_input != "":
-        with st.spinner('Preparando su pedido... 🧑‍🍳'):
+        with st.spinner('Generando presentación...'):
             prs=Presentation("BASE PRESENTACION USS_STGO-BES.pptx")
             xml_slides = prs.slides._sldIdLst  
             slides = list(xml_slides)
@@ -287,9 +365,9 @@ if sub1:
             except:
                 pass
             
-            
+
             sacar=[]
- 
+            
             try:
                 if "IMACEC" not in user_input_1.values:
                     sacar.append(3)
@@ -334,8 +412,9 @@ if sub1:
             except:
                 sacar.append(13)  
                 sacar.append(14)           
-                sacar.append(15)           
-            
+                sacar.append(15)  
+              
+                
               
             x=1
             for i in sacar:
@@ -343,18 +422,20 @@ if sub1:
                 slides = list(xml_slides)
                 xml_slides.remove(slides[i-x]) 
                 x=x+1
+                
             
             
 
             #GENERAR ARCHIVO
-            filename = 'presentacion_{}_{}.pptx'.format("economia", today)
+            filename = 'presentación_{}_{}.pptx'.format("Economía", today)
             binary_output = BytesIO()
             prs.save(binary_output)
-            st.download_button(label='Presiona para descargar',
+            st.download_button(label='Descargar',
                                data=binary_output.getvalue(),
                                file_name=filename)
 else:
     pass
+
 
 
 
