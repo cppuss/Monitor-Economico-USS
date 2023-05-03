@@ -241,7 +241,7 @@ with tab1:
               imacec_des=eje_porcentaje(imacec_des)
               st.plotly_chart(imacec_des, theme="streamlit", use_container_width=True)
               df_xlsx2 = to_excel(data_des)
-              st.download_button(label='Descargar serie 📥',
+              st.download_button(label='Descargar serie  📥',
                                               data=df_xlsx2 ,
                                               file_name= 'data.xlsx')
          
@@ -272,7 +272,7 @@ with tab1:
                est=eje_porcentaje(est)
                st.plotly_chart(est, theme="streamlit", use_container_width=True)
                df_xlsx = to_excel(data_imacec_or)
-               st.download_button(label='Descargar serie 📥',
+               st.download_button(label='Descargar serie  📥',
                                                data=df_xlsx ,
                                                file_name= 'data.xlsx')
            
