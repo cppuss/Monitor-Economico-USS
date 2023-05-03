@@ -228,7 +228,7 @@ with tab1:
                 
                st.plotly_chart(imacec_or, theme="streamlit", use_container_width=True)
                df_xlsx = to_excel(data_est)
-               st.download_button(label='Descargar serie 📥',
+               st.download_button(label='Descargar serie (1)',
                                                data=df_xlsx ,
                                                file_name= 'data.xlsx')
            
@@ -241,7 +241,7 @@ with tab1:
               imacec_des=eje_porcentaje(imacec_des)
               st.plotly_chart(imacec_des, theme="streamlit", use_container_width=True)
               df_xlsx2 = to_excel(data_des)
-              st.download_button(label='Descargar serie  📥',
+              st.download_button(label='Descargar serie  (2)',
                                               data=df_xlsx2 ,
                                               file_name= 'data.xlsx')
          
@@ -272,7 +272,7 @@ with tab1:
                est=eje_porcentaje(est)
                st.plotly_chart(est, theme="streamlit", use_container_width=True)
                df_xlsx = to_excel(data_imacec_or)
-               st.download_button(label='Descargar serie  📥',
+               st.download_button(label='Descargar serie  (3)',
                                                data=df_xlsx ,
                                                file_name= 'data.xlsx')
            
@@ -285,7 +285,7 @@ with tab1:
               des=eje_porcentaje(des)
               st.plotly_chart(des, theme="streamlit", use_container_width=True)
               df_xlsx2 = to_excel(data_imacec_des)
-              st.download_button(label='Descargar serie 📥',
+              st.download_button(label='Descargar serie (4)',
                                               data=df_xlsx2 ,
                                               file_name= 'data.xlsx')
          
@@ -319,7 +319,7 @@ with tab1:
 
                 st.plotly_chart(nom, theme="streamlit", use_container_width=True)
                 df_xlsx = to_excel(data_nom)
-                st.download_button(label='Descargar serie 📥',
+                st.download_button(label='Descargar serie (5)',
                                                 data=df_xlsx ,file_name= 'data.xlsx')
            
                 
@@ -336,7 +336,7 @@ with tab1:
                 st.plotly_chart(per, theme="streamlit", use_container_width=True)
                 
                 df_xlsx2 = to_excel(data_per)
-                st.download_button(label='Descargar serie 📥',
+                st.download_button(label='Descargar serie (6)',
                                               data=df_xlsx2 ,file_name= 'data.xlsx')
               
         with st.expander("Detalle"):
@@ -411,7 +411,7 @@ with tab2:
 
                 st.plotly_chart(inf_anu, theme="streamlit", use_container_width=True)
                 df_xlsx = to_excel(data_inf_anu)
-                st.download_button(label='Descargar serie 📥',
+                st.download_button(label='Descargar serie (7)',
                                                 data=df_xlsx ,file_name= 'data.xlsx')
         
         with col2:
@@ -424,7 +424,7 @@ with tab2:
                 st.plotly_chart(com_anu, theme="streamlit", use_container_width=True)
                 
                 df_xlsx2 = to_excel(data_com_anu)
-                st.download_button(label='Descargar serie 📥',
+                st.download_button(label='Descargar serie (8)',
                                               data=df_xlsx2 ,file_name= 'data.xlsx')
 
     with tab22:
@@ -444,7 +444,7 @@ with tab2:
 
                 st.plotly_chart(inf_men, theme="streamlit", use_container_width=True)
                 df_xlsx = to_excel(data_inf_men)
-                st.download_button(label='Descargar serie 📥',
+                st.download_button(label='Descargar serie (9)',
                                                 data=df_xlsx ,file_name= 'data.xlsx')
                       
         with col2:
@@ -457,7 +457,7 @@ with tab2:
                 st.plotly_chart(comp_men, theme="streamlit", use_container_width=True)
                 
                 df_xlsx2 = to_excel(data_comp_men)
-                st.download_button(label='Descargar serie 📥',
+                st.download_button(label='Descargar serie (10)',
                                               data=df_xlsx2 ,file_name= 'data.xlsx')
              
     with st.expander("Detalle"):
@@ -526,7 +526,7 @@ with tab3:
     
             st.plotly_chart(oc, theme="streamlit", use_container_width=True)
             df_xlsx = to_excel(data_oc)
-            st.download_button(label='Descargar serie 📥',
+            st.download_button(label='Descargar serie (11)',
                                             data=df_xlsx ,file_name= 'data.xlsx')
                   
     with col2:
@@ -539,7 +539,7 @@ with tab3:
             st.plotly_chart(des, theme="streamlit", use_container_width=True)
             
             df_xlsx2 = to_excel(data_des)
-            st.download_button(label='Descargar serie 📥',
+            st.download_button(label='Descargar serie (12)',
                                           data=df_xlsx2 ,file_name= 'data.xlsx')
     
     appointment_2 = st.slider(
@@ -553,7 +553,7 @@ with tab3:
         st.plotly_chart(emp, theme="streamlit", use_container_width=True)
         
         df_xlsx3 = to_excel(data_emp)
-        st.download_button(label='Descargar serie 📥',
+        st.download_button(label='Descargar serie (13)',
                                       data=df_xlsx3 ,file_name= 'data.xlsx')    
             
         
@@ -626,7 +626,7 @@ with tab4:
         st.plotly_chart(cuentas, theme="streamlit", use_container_width=True)
         
         df_xlsx = to_excel(data_cuentas)
-        st.download_button(label='Descargar serie 📥',
+        st.download_button(label='Descargar serie (14)',
                                       data=df_xlsx ,file_name= 'data.xlsx')    
             
         
@@ -637,7 +637,7 @@ with tab4:
         st.plotly_chart(cuentas_2, theme="streamlit", use_container_width=True)
         
         df_xlsx2 = to_excel(data_cuentas_2)
-        st.download_button(label='Descargar serie 📥',
+        st.download_button(label='Descargar serie (15)',
                                       data=df_xlsx2 ,file_name= 'data.xlsx')    
             
         
@@ -656,7 +656,7 @@ with tab4:
         st.plotly_chart(desagregadas, theme="streamlit", use_container_width=True)
         
         df_xlsx = to_excel(data_desagregadas)
-        st.download_button(label='Descargar serie 📥',
+        st.download_button(label='Descargar serie (16)',
                                       data=df_xlsx ,file_name= 'data.xlsx')    
             
         
@@ -667,7 +667,7 @@ with tab4:
         st.plotly_chart(desagregadas_2, theme="streamlit", use_container_width=True)
         
         df_xlsx2 = to_excel(data_desagregadas_2)
-        st.download_button(label='Descargar serie 📥',
+        st.download_button(label='Descargar serie (17)',
                                       data=df_xlsx2 ,file_name= 'data.xlsx')    
         
         
