@@ -532,7 +532,7 @@ with tab3:
     with col2:
         
         if appointment_1:
-            des=gen(des,appointment_1,"Tasas de desocupación")
+            des=gen(des,appointment_1,"Tasa de desocupación")
             des=fechas_2(des)
             des=eje_porcentaje(des)
             
