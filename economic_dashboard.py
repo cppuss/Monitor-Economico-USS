@@ -12,6 +12,7 @@ import plotly.express as px
 import numpy as np
 from io import BytesIO
 from pyxlsb import open_workbook as open_xlsb
+import xlsxwriter
 st.set_page_config(layout="wide")
 
 
