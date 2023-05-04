@@ -67,10 +67,15 @@ def gen(imacec_des,rango,titulo):
     return imacec_des
 
 st.set_page_config(layout="wide")
-st.title('MONITOR ECONÓMICO CPP USS')
-today = date.today()
 
-st.header('Generar presentación con información económica')
+
+st.markdown("<h1 style='text-align: center; color: black;'>MONITOR ECONÓMICO CPP USS</h1>", unsafe_allow_html=True)
+st.markdown("<h2 style='text-align: center; color: grey;'>Generar presentación con información económica</h2>", unsafe_allow_html=True)
+
+
+st.write(' ')
+
+today = date.today()
 
 
 path="/Users/matias.otthgmail.com/Desktop/Monitor_Economico/"
