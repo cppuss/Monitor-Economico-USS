@@ -19,6 +19,7 @@ from pptx.dml.color import RGBColor
 from pptx.util import Inches
 import os
 
+st.sidebar.image("ESCUDOUSS_vertical_color.png", use_column_width=True)
 
 def add_image(slide, image, left, top, width):
     slide.shapes.add_picture(image, left=left, top=top, width=width)
