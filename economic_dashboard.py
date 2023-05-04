@@ -32,9 +32,9 @@ st.write(' ')
 
 col1, col2 = st.columns(2)
 with col1:
-    st.markdown("<h5 style='text-align: center; color: black;'>Esta sección está destinada a generar vistas gráficas de forma automatizada para la visualización y construcción de documentos en el CPP. </h5>", unsafe_allow_html=True)
+    st.markdown("<h5 style='text-align: center; color: black;'>Sección destinada a generar gráficas para la visualización de datos económicos. </h5>", unsafe_allow_html=True)
 with col2:
-    st.markdown("<h5 style='text-align: center; color: black;'>En la parte superior derecha de los graficos existen múltiples opciones, al inferior existe más información y está la posibildiad de descargar en formato excel. </h5>", unsafe_allow_html=True)
+    st.markdown("<h5 style='text-align: center; color: black;'>En la parte superior derecha de los graficos existen opciones para el ajuste de los gráficos. </h5>", unsafe_allow_html=True)
 
 
 st.write(' ')
@@ -251,7 +251,7 @@ with tab1:
         
         with st.expander("Detalle"):
              st.write("""
-                 IMACEC: Corresponde a los datos XXX...
+                 El Índice Mensual de Actividad Económica (Imacec) es una estimación que resume la actividad de los distintos sectores de la economía en un determinado mes, a precios del año anterior; su variación interanual constituye una aproximación de la evolución del PIB. El cálculo del Imacec se basa en múltiples indicadores de oferta que son ponderados por la participación de las actividades económicas dentro del PIB en el año anterior.
                  """)    
            
     
@@ -295,7 +295,7 @@ with tab1:
         
         with st.expander("Detalle"):
              st.write("""
-                 IMACEC: Corresponde a los datos XXX...
+                 El Índice Mensual de Actividad Económica (Imacec) es una estimación que resume la actividad de los distintos sectores de la economía en un determinado mes, a precios del año anterior; su variación interanual constituye una aproximación de la evolución del PIB. El cálculo del Imacec se basa en múltiples indicadores de oferta que son ponderados por la participación de las actividades económicas dentro del PIB en el año anterior.
                  """)    
            
     
@@ -343,7 +343,7 @@ with tab1:
               
         with st.expander("Detalle"):
             st.write("""
-                PIB: Corresponde a los datos XXX...
+                El Producto Interno Bruto (PIB) se define como el valor total de la producción de bienes y servicios de una economía, para un período determinado, realizada por agentes económicos (empresas, hogares, y gobierno) que residen dentro del territorio nacional. El PIB es uno de los principales indicadores de actividad económica de un país, y se produce, típicamente, en frecuencia trimestral.
                 """) 
 
 
@@ -464,10 +464,14 @@ with tab2:
              
     with st.expander("Detalle"):
         st.write("""
-            IPC: Corresponde a los datos XXX...
+            La serie de IPC general es proporcionada por el Instituto Nacional de Estadísticas (INE). La serie IPC sin volátiles es calculada por el Banco Central de Chile hasta el 2018. De enero de 2019 en adelante corresponde a cifras calculadas por el INE.
             """)
-
-
+        st.write("""
+            1.- El IPC General, para el período marzo 1929 a diciembre 2009, corresponde a las serie empalmada por el INE 1928-2009 (base diciembre 2008=100). Para el período enero - diciembre 2010 se usa la serie referencial del INE (base 2009=100), y para el período enero 2011 a diciembre 2013 se usa la serie IPC base 2009=100. Para el período enero - diciembre 2014 se usa la serie referencial del INE (base 2013=100), y para el período enero 2015 a diciembre 2018 se usa la serie IPC base 2013=100. Desde Enero 2019 se usa la serie referencial del INE (base 2018=100).
+            """)
+        st.write("""
+            2.- IPC sin volátiles : Es una medida de exclusión fija que excluye las subclases más volátiles en base a una función de pérdida que considera: volatilidad, persistencia, relación con la brecha producto, sesgo y poder predictivo. Posee 90 subclases del IPC General, disponibles para el periodo entre enero de 2002 y octubre de 2019, representando el 65,1% del IPC General canasta 2018(ver Carlomagno y Sansone (2019)).
+            """)
 data3=data[data["CATEGORIA"]=="MERCADO LABORAL"]
 #MERCADO LABORAL
 
@@ -676,8 +680,6 @@ with tab4:
         
     with st.expander("Detalle"):
         st.write("""
-            CUENTAS CORREINTES - NATURALES Corresponde a los datos XXX...
-            CUENTAS CORREINTES - JURIDICAS Corresponde a los datos XXX...
-            
+            Fuente: CMF							
             """)
                         
