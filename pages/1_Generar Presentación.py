@@ -19,6 +19,7 @@ from pptx.dml.color import RGBColor
 from pptx.util import Inches
 import os
 
+st.set_page_config(layout="wide")
 st.sidebar.image("ESCUDOUSS_vertical_color.png", use_column_width=True)
 
 def add_image(slide, image, left, top, width):
@@ -66,7 +67,6 @@ def gen(imacec_des,rango,titulo):
         ))
     return imacec_des
 
-st.set_page_config(layout="wide")
 
 
 st.markdown("<h1 style='text-align: center; color: black;'>MONITOR ECONÓMICO CPP USS</h1>", unsafe_allow_html=True)
