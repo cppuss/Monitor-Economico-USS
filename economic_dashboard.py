@@ -877,7 +877,7 @@ with tab3:
             df_xlsx9 = to_excel(data_series_adm_2)
         
 
-
+        with tab35:
 
        
             ind_rem_men_r=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="REAL")]
