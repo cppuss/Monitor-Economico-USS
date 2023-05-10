@@ -879,65 +879,9 @@ with tab3:
 
 
 
-        with tab35:
-            ind_rem_anual=data[(data["CATEGORIA2"]=="INDICES DE REMUNERACIONES")&(data["CATEGORIA3"]=="ANUAL")]
-
-            ind_rem_anual_r=ind_rem_anual[ind_rem_anual["NOMBRE_2"]=="Índice general de remuneraciones nominal "]
-            ind_rem_anual_n=ind_rem_anual[ind_rem_anual["NOMBRE_2"]=="Índice general de remuneraciones real"]
-            ind_rem_anual_r["SERIE"]="Variación real Y/Y"     
-            ind_rem_anual_n["SERIE"]="Variación nominal Y/Y"    
-            
-            ind_rem_anual_r["VALOR"]=ind_rem_anual_r["VALOR"]/ind_rem_anual_r["VALOR"].shift(1)-1
-            ind_rem_anual_r=ind_rem_anual_r.dropna()
-
-            ind_rem_anual_n["VALOR"]=ind_rem_anual_n["VALOR"]/ind_rem_anual_n["VALOR"].shift(1)-1
-            ind_rem_anual_n=ind_rem_anual_n.dropna()
-            
-            ind_rem_anual_n=ind_rem_anual_n.sort_values(by="PERIODO")
-            ind_rem_anual_r=ind_rem_anual_r.sort_values(by="PERIODO")
-             
-              
-            ext_ind_rem_anual_n=extremos(ind_rem_anual_n)
-            data_ind_rem_anual_n=ind_rem_anual_n.copy(deep=True)
-            data_ind_rem_anual_n=data_ind_rem_anual_n[["PERIODO","VALOR","SERIE"]]
-            
-            ext_ind_rem_anual_n=extremos(ind_rem_anual_r)
-            data_ind_rem_anual_r=ind_rem_anual_r.copy(deep=True)
-            data_ind_rem_anual_r=data_ind_rem_anual_r[["PERIODO","VALOR","SERIE"]]
-           
-            
-            appointment_41 = st.slider(
-                        "Seleccione el rango de fechas   ",
-                        value=(ext_ind_rem_anual_n[0],ext_ind_rem_anual_n[1]),
-                        format="YYYY/MM")
-            
-            col1, col2 = st.columns(2)
-             
-            with col1:
-                
-                if appointment_41:
-                    ind_rem_anual_r=gen(ind_rem_anual_r,appointment_41,"Variación anual Índice de remuneraciones [real] Y/Y ")
-                    ind_rem_anual_r=fechas_2(ind_rem_anual_r)
-                    ind_rem_anual_r=eje_porcentaje(ind_rem_anual_r)
-            
-                    st.plotly_chart(ind_rem_anual_r, theme="streamlit", use_container_width=True)
-                    df_xlsx = to_excel(data_ind_rem_anual_n)
-                          
-            with col2:
-                
-                if appointment_1:
-                    ind_rem_anual_n=gen(ind_rem_anual_n,appointment_41,"Variación anual Índice de remuneraciones [nom] Y/Y ")
-                    ind_rem_anual_n=fechas_2(ind_rem_anual_n)
-                    ind_rem_anual_n=eje_porcentaje(ind_rem_anual_n)
-                    
-                    st.plotly_chart(ind_rem_anual_n, theme="streamlit", use_container_width=True)
-                    
-                    df_xlsx2 = to_excel(data_ind_rem_anual_n)
-             
-            ind_rem_men=data[(data["CATEGORIA2"]=="INDICES DE REMUNERACIONES")&(data["CATEGORIA3"]=="MENSUAL")]
-
-            ind_rem_men_r=ind_rem_men[ind_rem_men["NOMBRE_2"]=="Índice general de remuneraciones nominal "]
-            ind_rem_men_n=ind_rem_men[ind_rem_men["NOMBRE_2"]=="Índice general de remuneraciones real"]
+       
+            ind_rem_men_r=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="REAL")]
+            ind_rem_men_n=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="NOMINAL")]
             ind_rem_men_r["SERIE"]="Variación real M/M"     
             ind_rem_men_n["SERIE"]="Variación nominal M/M"    
         
@@ -951,7 +895,7 @@ with tab3:
             ind_rem_men_r=ind_rem_men_r.sort_values(by="PERIODO")
             ind_rem_men_n=ind_rem_men_n.sort_values(by="PERIODO")
           
-           
+            
             ext_ind_rem_men_n=extremos(ind_rem_men_n)
             data_ind_rem_men_n=ind_rem_men_n.copy(deep=True)
             data_ind_rem_men_n=data_ind_rem_men_n[["PERIODO","VALOR","SERIE"]]
@@ -972,7 +916,7 @@ with tab3:
              
             with col1:
                 
-                if appointment_41:
+                if appointment_44:
                     ind_rem_men_r=gen(ind_rem_men_r,appointment_44,"Variación mensual Índice de remuneraciones [real] M/M ")
                     ind_rem_men_r=fechas_2(ind_rem_men_r)
                     ind_rem_men_r=eje_porcentaje(ind_rem_men_r)
@@ -982,7 +926,7 @@ with tab3:
                           
             with col2:
                 
-                if appointment_1:
+                if appointment_44:
                     ind_rem_men_n=gen(ind_rem_men_n,appointment_44,"Variación mensual Índice de remuneraciones [nom] M/M ")
                     ind_rem_men_n=fechas_2(ind_rem_men_n)
                     ind_rem_men_n=eje_porcentaje(ind_rem_men_n)
@@ -990,13 +934,11 @@ with tab3:
                     st.plotly_chart(ind_rem_men_n, theme="streamlit", use_container_width=True)
                     
                     df_xlsx2 = to_excel(data_ind_rem_men_r)
-               
-            ind_rem_men=data[(data["CATEGORIA2"]=="INDICES DE REMUNERACIONES")&(data["CATEGORIA3"]=="MENSUAL")]
-        
-            ind_rem_men_r=ind_rem_men[ind_rem_men["NOMBRE_2"]=="Índice general de remuneraciones nominal "]
-            ind_rem_men_n=ind_rem_men[ind_rem_men["NOMBRE_2"]=="Índice general de remuneraciones real"]
-            ind_rem_men_r["SERIE"]="Variación real M/M"     
-            ind_rem_men_n["SERIE"]="Variación nominal M/M"    
+           
+            ind_rem_men_r=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="REAL")]
+            ind_rem_men_n=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="NOMINAL")]
+            ind_rem_men_r["SERIE"]="Variación real Y/Y"     
+            ind_rem_men_n["SERIE"]="Variación nominal Y/Y"    
         
             ind_rem_men_r["VALOR"]=ind_rem_men_r["VALOR"]/ind_rem_men_r["VALOR"].shift(12)-1
             ind_rem_men_r=ind_rem_men_r.dropna()
@@ -1029,7 +971,7 @@ with tab3:
              
             with col1:
                 
-                if appointment_41:
+                if appointment_44:
                     ind_rem_men_r=gen(ind_rem_men_r,appointment_44,"Variación mensual Índice de remuneraciones [real] Y/Y ")
                     ind_rem_men_r=fechas_2(ind_rem_men_r)
                     ind_rem_men_r=eje_porcentaje(ind_rem_men_r)
@@ -1039,7 +981,7 @@ with tab3:
                           
             with col2:
                 
-                if appointment_1:
+                if appointment_44:
                     ind_rem_men_n=gen(ind_rem_men_n,appointment_44,"Variación mensual Índice de remuneraciones [nom] Y/Y ")
                     ind_rem_men_n=fechas_2(ind_rem_men_n)
                     ind_rem_men_n=eje_porcentaje(ind_rem_men_n)
@@ -1047,7 +989,9 @@ with tab3:
                     st.plotly_chart(ind_rem_men_n, theme="streamlit", use_container_width=True)
                     
                     df_xlsx2 = to_excel(data_ind_rem_men_r)
-              
+          
+        
+
         
 
 
