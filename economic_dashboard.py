@@ -778,7 +778,7 @@ with tab3:
         if appointment_6 or user_input:
             if len(user_input)==1:
                 cate_sex=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&~(data3["CATEGORIA3"]=="(AS)")]
-                cate_sex["SERIE"]=cate_sex["NOMBRE_1"]]
+                cate_sex["SERIE"]=cate_sex["NOMBRE_1"]
                 cate_sex["VALOR"]=cate_sex["VALOR"]*1000
               
                 cate_sex=cate_sex[(cate_sex["NOMBRE_1"].isin([user_input[0]+" (H)",user_input[0]+" (M)"]))]
