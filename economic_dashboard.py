@@ -651,6 +651,7 @@ with tab3:
            if len(user_input)==1:
                emp_bruto=data3[(data3["CATEGORIA2"]=="EMPLEO - BRUTOS")&~(data3["CATEGORIA3"]=="N")]
                emp_bruto["SERIE"]=emp_bruto["NOMBRE_2"]
+               emp_bruto["VALOR"]=emp_bruto["VALOR"]*1000
                emp_bruto=emp_bruto[(emp_bruto["NOMBRE_1"].isin([user_input[0]+" H",user_input[0]+" M"]))]
                emp_bruto=gen(emp_bruto,appointment_1,"Comparación por sexo: "+user_input[0])
                emp_bruto=fechas_2(emp_bruto)
@@ -661,6 +662,7 @@ with tab3:
            if len(user_input)==2:
                emp_bruto=data3[(data3["CATEGORIA2"]=="EMPLEO - BRUTOS")&~(data3["CATEGORIA3"]=="N")]
                emp_bruto["SERIE"]=emp_bruto["NOMBRE_2"]
+               emp_bruto["VALOR"]=emp_bruto["VALOR"]*1000
                emp_bruto=emp_bruto[(emp_bruto["NOMBRE_1"].isin([user_input[0]+" H",user_input[0]+" M",user_input[1]+" H",user_input[1]+" M"]))]
                emp_bruto=gen(emp_bruto,appointment_1,"Comparación por sexo: "+user_input[0] +" y "+user_input[1])
                emp_bruto=fechas_2(emp_bruto)
@@ -672,6 +674,7 @@ with tab3:
            if len(user_input)>2:
                emp_bruto=data3[(data3["CATEGORIA2"]=="EMPLEO - BRUTOS")&~(data3["CATEGORIA3"]=="N")]
                emp_bruto["SERIE"]=emp_bruto["NOMBRE_2"]
+               emp_bruto["VALOR"]=emp_bruto["VALOR"]*1000
                series=[]
                for i in np.linspace(0,len(user_input)-1,len(user_input)):
                    i=int(i)
@@ -775,7 +778,8 @@ with tab3:
         if appointment_6 or user_input:
             if len(user_input)==1:
                 cate_sex=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&~(data3["CATEGORIA3"]=="(AS)")]
-                cate_sex["SERIE"]=cate_sex["NOMBRE_1"]
+                cate_sex["SERIE"]=cate_sex["NOMBRE_1"]]
+                cate_sex["VALOR"]=cate_sex["VALOR"]*1000
               
                 cate_sex=cate_sex[(cate_sex["NOMBRE_1"].isin([user_input[0]+" (H)",user_input[0]+" (M)"]))]
                 cate_sex=gen(cate_sex,appointment_6,"Comparación ocupados por sexo: "+user_input[0])
@@ -789,6 +793,8 @@ with tab3:
             if len(user_input)==2:
                 cate_sex=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&~(data3["CATEGORIA3"]=="(AS)")]
                 cate_sex["SERIE"]=cate_sex["NOMBRE_1"]
+                cate_sex["VALOR"]=cate_sex["VALOR"]*1000
+             
                 cate_sex=cate_sex[(cate_sex["NOMBRE_1"].isin([user_input[0]+" (H)",user_input[0]+" (M)",user_input[1]+" (H)",user_input[1]+" (M)"]))]
                 cate_sex=gen(cate_sex,appointment_6,"Comparación ocupados por sexo: "+user_input[0] +" y "+user_input[1])
                 cate_sex=fechas_2(cate_sex)
@@ -800,6 +806,8 @@ with tab3:
             if len(user_input)>2:
                 cate_sex=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&~(data3["CATEGORIA3"]=="(AS)")]
                 cate_sex["SERIE"]=cate_sex["NOMBRE_1"]
+                cate_sex["VALOR"]=cate_sex["VALOR"]*1000
+             
                 series=[]
                 for i in np.linspace(0,len(user_input)-1,len(user_input)):
                     i=int(i)
