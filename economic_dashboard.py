@@ -257,9 +257,6 @@ with tab1:
                 
                st.plotly_chart(imacec_or, theme="streamlit", use_container_width=True)
                df_xlsx = to_excel(data_est)
-               st.download_button(label='Descargar serie 📥',
-                                               data=df_xlsx ,
-                                               file_name= 'data.xlsx')
            
                 
         with col2:
@@ -270,10 +267,7 @@ with tab1:
               imacec_des=eje_porcentaje(imacec_des)
               st.plotly_chart(imacec_des, theme="streamlit", use_container_width=True)
               df_xlsx2 = to_excel(data_des)
-              st.download_button(label='Descargar serie 📥',
-                                              data=df_xlsx2 ,
-                                              file_name= 'data.xlsx')
-         
+              
         
         
         with st.expander("Detalle"):
@@ -301,10 +295,7 @@ with tab1:
                est=eje_porcentaje(est)
                st.plotly_chart(est, theme="streamlit", use_container_width=True)
                df_xlsx = to_excel(data_imacec_or)
-               st.download_button(label='Descargar serie 📥',
-                                               data=df_xlsx ,
-                                               file_name= 'data.xlsx')
-           
+              
                 
         with col2:
             if appointment:
@@ -314,10 +305,7 @@ with tab1:
               des=eje_porcentaje(des)
               st.plotly_chart(des, theme="streamlit", use_container_width=True)
               df_xlsx2 = to_excel(data_imacec_des)
-              st.download_button(label='Descargar serie 📥',
-                                              data=df_xlsx2 ,
-                                              file_name= 'data.xlsx')
-         
+             
         
         
         with st.expander("Detalle"):
@@ -348,9 +336,6 @@ with tab1:
 
                 st.plotly_chart(nom, theme="streamlit", use_container_width=True)
                 df_xlsx = to_excel(data_nom)
-                st.download_button(label='Descargar serie 📥',
-                                                data=df_xlsx ,file_name= 'data.xlsx')
-           
                 
         with col2:
             appointment_2 = st.slider(
@@ -365,9 +350,7 @@ with tab1:
                 st.plotly_chart(per, theme="streamlit", use_container_width=True)
                 
                 df_xlsx2 = to_excel(data_per)
-                st.download_button(label='Descargar serie 📥',
-                                              data=df_xlsx2 ,file_name= 'data.xlsx')
-              
+               
         with st.expander("Detalle"):
             st.write("""
                 PIB: Corresponde a los datos XXX...
@@ -440,9 +423,7 @@ with tab2:
 
                 st.plotly_chart(inf_anu, theme="streamlit", use_container_width=True)
                 df_xlsx = to_excel(data_inf_anu)
-                st.download_button(label='Descargar serie 📥',
-                                                data=df_xlsx ,file_name= 'data.xlsx')
-        
+              
         with col2:
             
             if appointment_1:
@@ -453,9 +434,7 @@ with tab2:
                 st.plotly_chart(com_anu, theme="streamlit", use_container_width=True)
                 
                 df_xlsx2 = to_excel(data_com_anu)
-                st.download_button(label='Descargar serie 📥',
-                                              data=df_xlsx2 ,file_name= 'data.xlsx')
-
+               
     with tab22:
         appointment_1 = st.slider(
                    "Seleccione el rango de fechas",
@@ -473,8 +452,6 @@ with tab2:
 
                 st.plotly_chart(inf_men, theme="streamlit", use_container_width=True)
                 df_xlsx = to_excel(data_inf_men)
-                st.download_button(label='Descargar serie 📥',
-                                                data=df_xlsx ,file_name= 'data.xlsx')
                       
         with col2:
             
@@ -486,8 +463,6 @@ with tab2:
                 st.plotly_chart(comp_men, theme="streamlit", use_container_width=True)
                 
                 df_xlsx2 = to_excel(data_comp_men)
-                st.download_button(label='Descargar serie 📥',
-                                              data=df_xlsx2 ,file_name= 'data.xlsx')
              
     with st.expander("Detalle"):
         st.write("""
@@ -559,8 +534,6 @@ with tab3:
         
                 st.plotly_chart(oc, theme="streamlit", use_container_width=True)
                 df_xlsx = to_excel(data_oc)
-                st.download_button(label='Descargar serie 📥',
-                                                data=df_xlsx ,file_name= 'data.xlsx')
                       
         with col2:
             
@@ -572,9 +545,7 @@ with tab3:
                 st.plotly_chart(des, theme="streamlit", use_container_width=True)
                 
                 df_xlsx2 = to_excel(data_des)
-                st.download_button(label='Descargar serie 📥',
-                                              data=df_xlsx2 ,file_name= 'data.xlsx')
-         
+           
         
         emp_bruto=gen(emp_bruto,appointment_1,"Desagregación población en Edad de Trabajar")
         emp_bruto=fechas_2(emp_bruto)
@@ -582,8 +553,6 @@ with tab3:
         st.plotly_chart(emp_bruto, theme="streamlit", use_container_width=True)
         
         df_xlsx3 = to_excel(data_emp_bruto)
-        st.download_button(label='Descargar serie 📥',
-                                      data=df_xlsx3 ,file_name= 'data.xlsx')    
       
         
         
@@ -611,8 +580,6 @@ with tab3:
              st.plotly_chart(informalidad, theme="streamlit", use_container_width=True)
              
              df_xlsx4 = to_excel(data_infor)
-             st.download_button(label='Descargar serie 📥',
-                                           data=df_xlsx4 ,file_name= 'data.xlsx')
          
     
     with tab32:
@@ -658,8 +625,6 @@ with tab3:
        
                st.plotly_chart(oc, theme="streamlit", use_container_width=True)
                df_xlsx = to_excel(data_oc)
-               st.download_button(label='Descargar serie 📥',
-                                               data=df_xlsx ,file_name= 'data.xlsx')
                      
        with col2:
            
@@ -671,8 +636,6 @@ with tab3:
                st.plotly_chart(des, theme="streamlit", use_container_width=True)
                
                df_xlsx2 = to_excel(data_des)
-               st.download_button(label='Descargar serie 📥',
-                                         data=df_xlsx2 ,file_name= 'data.xlsx')
        
        options = [
 "Población en edad de trabajar",
@@ -695,8 +658,6 @@ with tab3:
                st.plotly_chart(emp_bruto, theme="streamlit", use_container_width=True)
                
                df_xlsx3 = to_excel(data_emp_bruto)
-               st.download_button(label='Descargar serie 📥',
-                                             data=df_xlsx3 ,file_name= 'data.xlsx')    
            if len(user_input)==2:
                emp_bruto=data3[(data3["CATEGORIA2"]=="EMPLEO - BRUTOS")&~(data3["CATEGORIA3"]=="N")]
                emp_bruto["SERIE"]=emp_bruto["NOMBRE_2"]
@@ -707,9 +668,7 @@ with tab3:
                st.plotly_chart(emp_bruto, theme="streamlit", use_container_width=True)
                 
                df_xlsx3 = to_excel(data_emp_bruto)
-               st.download_button(label='Descargar serie 📥',
-                                              data=df_xlsx3 ,file_name= 'data.xlsx')
-
+        
            if len(user_input)>2:
                emp_bruto=data3[(data3["CATEGORIA2"]=="EMPLEO - BRUTOS")&~(data3["CATEGORIA3"]=="N")]
                emp_bruto["SERIE"]=emp_bruto["NOMBRE_2"]
@@ -728,8 +687,6 @@ with tab3:
                st.plotly_chart(emp_bruto, theme="streamlit", use_container_width=True)
                 
                df_xlsx3 = to_excel(data_emp_bruto)
-               st.download_button(label='Descargar serie 📥',
-                                              data=df_xlsx3 ,file_name= 'data.xlsx')
              
        informalidad=data3[(data3["CATEGORIA2"]=="INFORMALIDAD")&~(data3["NOMBRE_1"]=="Tasa de informalidad (AS)")]
        informalidad["SERIE"]=informalidad["NOMBRE_2"]
@@ -755,9 +712,7 @@ with tab3:
             st.plotly_chart(informalidad, theme="streamlit", use_container_width=True)
             
             df_xlsx4 = to_excel(data_infor)
-            st.download_button(label='Descargar serie 📥',
-                                          data=df_xlsx4 ,file_name= 'data.xlsx')
-
+     
   
     
   
@@ -784,8 +739,6 @@ with tab3:
              st.plotly_chart(cate_nac, theme="streamlit", use_container_width=True)
              
              df_xlsx6 = to_excel(data_cate_nac)
-             st.download_button(label='Descargar serie 📥',
-                                           data=df_xlsx6 ,file_name= 'data.xlsx')
         
         
         
@@ -831,8 +784,6 @@ with tab3:
                 st.plotly_chart(cate_sex, theme="streamlit", use_container_width=True)
                 
                 df_xlsx3 = to_excel(data_cate_sex)
-                st.download_button(label='Descargar serie 📥',
-                                              data=df_xlsx3 ,file_name= 'data.xlsx')    
                 
                 
             if len(user_input)==2:
@@ -845,9 +796,7 @@ with tab3:
                 st.plotly_chart(cate_sex, theme="streamlit", use_container_width=True)
                  
                 df_xlsx3 = to_excel(data_cate_sex)
-                st.download_button(label='Descargar serie 📥',
-                                                data=df_xlsx3 ,file_name= 'data.xlsx')
- 
+      
             if len(user_input)>2:
                 cate_sex=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&~(data3["CATEGORIA3"]=="(AS)")]
                 cate_sex["SERIE"]=cate_sex["NOMBRE_1"]
@@ -866,8 +815,6 @@ with tab3:
                 st.plotly_chart(cate_sex, theme="streamlit", use_container_width=True)
                  
                 df_xlsx3 = to_excel(data_cate_sex)
-                st.download_button(label='Descargar serie 📥',
-                                                data=df_xlsx3 ,file_name= 'data.xlsx')
               
              
         
@@ -897,8 +844,6 @@ with tab3:
                   st.plotly_chart(series_adm, theme="streamlit", use_container_width=True)
                  
                   df_xlsx6 = to_excel(data_cate_nac)
-                  st.download_button(label='Descargar serie 📥 ',
-                                                data=df_xlsx6 ,file_name= 'data.xlsx')
         
             if appointment_1 and sub11:
                 series_adm=data3[(data3["CATEGORIA2"]=="SERIES ADMINISTRATIVAS")&(data3["CATEGORIA3"]=="COTIZANTES")]
@@ -911,8 +856,6 @@ with tab3:
                 st.plotly_chart(series_adm, theme="streamlit", use_container_width=True)
                 
                 df_xlsx8 = to_excel(data_series_adm)
-                st.download_button(label='Descargar serie 📥      ',
-                                               data=df_xlsx8 ,file_name= 'data.xlsx')
       
             
             series_adm_2=data3[(data3["CATEGORIA2"]=="SERIES ADMINISTRATIVAS")&(data3["CATEGORIA3"]=="VARIACIONES ANUALES")]
@@ -932,9 +875,7 @@ with tab3:
             st.plotly_chart(series_adm_2, theme="streamlit", use_container_width=True)
            
             df_xlsx9 = to_excel(data_series_adm_2)
-            st.download_button(label='Descargar serie 📥   ',
-                                          data=df_xlsx9 ,file_name= 'data.xlsx')
-      
+        
 
 
 
@@ -981,8 +922,6 @@ with tab3:
             
                     st.plotly_chart(ind_rem_anual_r, theme="streamlit", use_container_width=True)
                     df_xlsx = to_excel(data_ind_rem_anual_n)
-                    st.download_button(label='Descargar serie 📥',
-                                                    data=df_xlsx ,file_name= 'data.xlsx')
                           
             with col2:
                 
@@ -994,9 +933,7 @@ with tab3:
                     st.plotly_chart(ind_rem_anual_n, theme="streamlit", use_container_width=True)
                     
                     df_xlsx2 = to_excel(data_ind_rem_anual_n)
-                    st.download_button(label='Descargar serie  📥',
-                                              data=df_xlsx2 ,file_name= 'data.xlsx')
-          
+             
             ind_rem_men=data[(data["CATEGORIA2"]=="INDICES DE REMUNERACIONES")&(data["CATEGORIA3"]=="MENSUAL")]
 
             ind_rem_men_r=ind_rem_men[ind_rem_men["NOMBRE_2"]=="Índice general de remuneraciones nominal "]
@@ -1042,8 +979,6 @@ with tab3:
             
                     st.plotly_chart(ind_rem_men_r, theme="streamlit", use_container_width=True)
                     df_xlsx = to_excel(data_ind_rem_men_n)
-                    st.download_button(label='Descargar serie 📥',
-                                                    data=df_xlsx ,file_name= 'data.xlsx')
                           
             with col2:
                 
@@ -1055,9 +990,7 @@ with tab3:
                     st.plotly_chart(ind_rem_men_n, theme="streamlit", use_container_width=True)
                     
                     df_xlsx2 = to_excel(data_ind_rem_men_r)
-                    st.download_button(label='Descargar serie  📥',
-                                              data=df_xlsx2 ,file_name= 'data.xlsx')
-          
+               
             ind_rem_men=data[(data["CATEGORIA2"]=="INDICES DE REMUNERACIONES")&(data["CATEGORIA3"]=="MENSUAL")]
         
             ind_rem_men_r=ind_rem_men[ind_rem_men["NOMBRE_2"]=="Índice general de remuneraciones nominal "]
@@ -1103,8 +1036,6 @@ with tab3:
             
                     st.plotly_chart(ind_rem_men_r, theme="streamlit", use_container_width=True)
                     df_xlsx = to_excel(data_ind_rem_men_n)
-                    st.download_button(label='Descargar serie 📥',
-                                                    data=df_xlsx ,file_name= 'data.xlsx')
                           
             with col2:
                 
@@ -1116,9 +1047,7 @@ with tab3:
                     st.plotly_chart(ind_rem_men_n, theme="streamlit", use_container_width=True)
                     
                     df_xlsx2 = to_excel(data_ind_rem_men_r)
-                    st.download_button(label='Descargar serie  📥',
-                                              data=df_xlsx2 ,file_name= 'data.xlsx')
-          
+              
         
 
 
@@ -1183,8 +1112,6 @@ with tab4:
         st.plotly_chart(cuentas, theme="streamlit", use_container_width=True)
         
         df_xlsx = to_excel(data_cuentas)
-        st.download_button(label='Descargar serie 📥',
-                                      data=df_xlsx ,file_name= 'data.xlsx')    
             
         
         
@@ -1194,8 +1121,6 @@ with tab4:
         st.plotly_chart(cuentas_2, theme="streamlit", use_container_width=True)
         
         df_xlsx2 = to_excel(data_cuentas_2)
-        st.download_button(label='Descargar serie 📥',
-                                      data=df_xlsx2 ,file_name= 'data.xlsx')    
             
         
     
@@ -1213,8 +1138,6 @@ with tab4:
         st.plotly_chart(desagregadas, theme="streamlit", use_container_width=True)
         
         df_xlsx = to_excel(data_desagregadas)
-        st.download_button(label='Descargar serie 📥',
-                                      data=df_xlsx ,file_name= 'data.xlsx')    
             
         
         
@@ -1224,8 +1147,6 @@ with tab4:
         st.plotly_chart(desagregadas_2, theme="streamlit", use_container_width=True)
         
         df_xlsx2 = to_excel(data_desagregadas_2)
-        st.download_button(label='Descargar serie 📥',
-                                      data=df_xlsx2 ,file_name= 'data.xlsx')    
         
         
         
