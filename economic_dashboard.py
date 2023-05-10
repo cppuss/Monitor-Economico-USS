@@ -724,6 +724,7 @@ with tab3:
             
         cate_nac=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&(data3["CATEGORIA3"]=="(AS)")]
         cate_nac["SERIE"]=cate_nac["NOMBRE_2"]
+        cate_nac["VALOR"]=cate_nac["VALOR"]*1000
         cate_nac=cate_nac.sort_values(by="PERIODO")
         ext_cate_nac=extremos(cate_nac)
         data_cate_nac=cate_nac.copy(deep=True)
