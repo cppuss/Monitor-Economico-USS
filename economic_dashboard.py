@@ -6,16 +6,11 @@ Created on Tue Apr 18 12:09:40 2023
 @author: matias.otthgmail.com
 """
 
-import streamlit as st
-import pandas as pd
-import plotly.express as px
-import numpy as np
-from io import BytesIO
-
 st.set_page_config(layout="wide")
+path="/Users/matias.otthgmail.com/Desktop/Monitor_Economico/"
 
 
-st.sidebar.image("ESCUDOUSS_vertical_color.png", use_column_width=True)
+st.sidebar.image(path+"ESCUDOUSS_vertical_color.png", use_column_width=True)
 
 
 
@@ -37,8 +32,6 @@ with col2:
 
 st.write(' ')
 st.write(' ')
-
-data=pd.read_parquet("datos_monitor.parquet")
 
 
 def fechas_1(grafico):
@@ -92,7 +85,7 @@ def extremos(data):
     return [data["PERIODO"].iloc[0].to_pydatetime(),data["PERIODO"].iloc[-1].to_pydatetime()]
 
 def gen(imacec_des,rango,titulo):
-    imacec_des=imacec_des[(imacec_des["PERIODO"]> rango[0])&(imacec_des["PERIODO"]< rango[1])]
+    imacec_des=imacec_des[(imacec_des["PERIODO"]>= rango[0])&(imacec_des["PERIODO"]<= rango[1])]
     imacec_des = px.line(imacec_des, x="PERIODO", y="VALOR", color="SERIE" ,title='Mi gráfico de línea', 
               labels={'x': 'Eje X', 'y': 'Eje Y'}, 
               template='plotly_white', 
@@ -111,14 +104,10 @@ def gen(imacec_des,rango,titulo):
         ))
     return imacec_des
 
-def gen_2(imacec_des,rango,titulo):
-    imacec_des=imacec_des[(imacec_des["PERIODO"]> rango[0])&(imacec_des["PERIODO"]< rango[1])]
-    
-    # rename_dict = {}
-    # for i in imacec_des["SERIE"].drop_duplicates():
-    #     rename_dict[i]=i
-        
-    imacec_des = px.line(imacec_des, x="PERIODO", y="VALOR", color="SERIE", line_dash="line_style", title='Mi gráfico de línea', 
+
+def gen_bar(imacec_des,rango,titulo):
+    imacec_des=imacec_des[(imacec_des["PERIODO"] >=rango[0])&(imacec_des["PERIODO"] <= rango[1])]    
+    imacec_des = px.bar(imacec_des, x="PERIODO", y="VALOR", color="SERIE", title='Mi gráfico de línea', 
               labels={'x': 'Eje X', 'y': 'Eje Y'}, 
               template='plotly_white', 
               width=700, height=600)
@@ -146,10 +135,12 @@ def to_excel(df):
     worksheet = writer.sheets['Sheet1']
     format1 = workbook.add_format({'num_format': '0.00'}) 
     worksheet.set_column('A:A', None, format1)  
-    #writer.save()
+    writer.save()
     processed_data = output.getvalue()
     return processed_data
 
+
+data=pd.read_parquet(path+"datos_monitor.parquet")
 
 
 tab1, tab2,tab3,tab4 = st.tabs(["ACTIVIDAD ECONÓMICA","INFLACIÓN","MERCADO LABORAL","CUENTAS CORRIENTES"])
@@ -161,7 +152,7 @@ data11=data1[data1["CATEGORIA2"]=="IMACEC"]
 
 imacec_des="Imacec empalmado, desestacionalizado (índice 2018=100)"
 imacec_des=data11[data11["NOMBRE_2"]==imacec_des]
-imacec_des["VALOR"]=imacec_des["VALOR"]/imacec_des["VALOR"].shift(12)-1
+imacec_des["VALOR"]=imacec_des["VALOR"]/imacec_des["VALOR"].shift(1)-1
 imacec_des=imacec_des.dropna()
 imacec_des["SERIE"]="Imacec desestacionalizado"
 data_imacec_des=imacec_des.copy(deep=True)
@@ -185,8 +176,16 @@ data12["VALOR"]=data12["VALOR"]/100
 
 est="Indicador mensual de actividad económica, Imacec, contribución porcentual respecto de igual periodo del año anterior, referencia 2018"
 est=data12[data12["NOMBRE_1"]==est]
-est=est[~(est["NOMBRE_2"]=="Imacec no minero")]
 est["SERIE"]=est["NOMBRE_2"]
+
+
+prod_bienes=est[est["NOMBRE_2"].isin(["Minería","Industria","Resto de bienes"])]
+prod_bienes_2=est[est["NOMBRE_2"]=="Producción de bienes"]
+componentes=est[est["NOMBRE_2"].isin(["Producción de bienes","Comercio","Servicios"])]
+no_minero=est[est["NOMBRE_2"]=="Imacec no minero"]
+
+
+
 data_est=est.copy(deep=True)
 data_est=data_est[["PERIODO","VALOR","SERIE"]]
 ext_est=extremos(est)
@@ -195,8 +194,13 @@ ext_est=extremos(est)
 
 des="Indicador mensual de actividad económica, Imacec, contribución porcentual respecto al periodo anterior, desestacionalizado, referencia 2018"
 des=data12[data12["NOMBRE_1"]==des]
-des=des[~(des["NOMBRE_2"]=="Imacec no minero")]
+
 des["SERIE"]=des["NOMBRE_2"]
+des_prod_bienes=des[des["NOMBRE_2"].isin(["Minería","Industria","Resto de bienes"])]
+des_prod_bienes_2=des[des["NOMBRE_2"]=="Producción de bienes"]
+des_componentes=des[des["NOMBRE_2"].isin(["Producción de bienes","Comercio","Servicios"])]
+des_no_minero=des[des["NOMBRE_2"]=="Imacec no minero"]
+
 data_des=des.copy(deep=True)
 data_des=data_des[["PERIODO","VALOR","SERIE"]]
 ext_des=extremos(des)
@@ -220,24 +224,27 @@ nom="PIB, volumen a precios del año anterior encadenado, referencia 2018 (miles
 nom=data13[data13["NOMBRE_2"]==nom]
 nom["VALOR"]=nom["VALOR"]/nom["VALOR"].shift(4)-1
 nom=nom.dropna()
-nom["SERIE"]="PIB Trimestral (variación anual)"
+nom["SERIE"]="PIB Trimestral (variación YoY)"
 ext_nom=extremos(nom)
 data_nom=nom.copy(deep=True)
 data_nom=data_nom[["PERIODO","VALOR","SERIE"]]
 
 
-
-
-
-
-
+nom_2="PIB (millones USD, últimos 12 meses)"
+nom_2=data13[data13["NOMBRE_2"]==nom_2]
+nom_2["VALOR"]=nom_2["VALOR"]
+nom_2=nom_2.dropna()
+nom_2["SERIE"]=nom_2["NOMBRE_2"]
+ext_nom_2=extremos(nom_2)
+data_nom_2=nom_2.copy(deep=True)
+data_nom_2=data_nom_2[["PERIODO","VALOR","SERIE"]]
 
 
 
 with tab1:
     st.write('En esta sección se encuentras las variables de actividad económica y crecimiento.')
     
-    tab11,tab12,tab13=st.tabs(["IMACEC","COMPONENTES IMACEC","PRODUCTO INTERNO BRUTO"])
+    tab11,tab12,tab13,tab14=st.tabs(["IMACEC","COMPONENTES IMACEC","PRODUCTO INTERNO BRUTO","FORMACIÓN DE CAPITAL"])
     
     with tab11:
         st.write('Índice Mensual de Actividad Económica :tractor: ')
@@ -250,24 +257,24 @@ with tab1:
         col1, col2 = st.columns(2)
         with col1:
            if appointment:
-               imacec_or=gen(imacec_or,appointment,"Imacec")
-               imacec_or=fechas_2(imacec_or)
-               imacec_or=eje_porcentaje(imacec_or)
+               imacec_or_1=gen(imacec_or,appointment,"Variación anual del IMACEC")
+               imacec_or_1=fechas_2(imacec_or_1)
+               imacec_or_1=eje_porcentaje(imacec_or_1)
              
                 
-               st.plotly_chart(imacec_or, theme="streamlit", use_container_width=True)
-               df_xlsx = to_excel(data_est)
-           
+               st.plotly_chart(imacec_or_1, theme="streamlit", use_container_width=True)
+
+
                 
         with col2:
             if appointment:
           
-              imacec_des=gen(imacec_des,appointment,"Imacec desestacionalizado")
+              imacec_des=gen(imacec_des,appointment,"Variación mensual del IMACEC desestacionalizado")
               imacec_des=fechas_2(imacec_des)
               imacec_des=eje_porcentaje(imacec_des)
               st.plotly_chart(imacec_des, theme="streamlit", use_container_width=True)
-              df_xlsx2 = to_excel(data_des)
-              
+
+         
         
         
         with st.expander("Detalle"):
@@ -290,31 +297,54 @@ with tab1:
         col1, col2 = st.columns(2)
         with col1:
            if appointment:
-               est=gen(est,appointment,"Componentes Imacec")
-               est=fechas_2(est)
-               est=eje_porcentaje(est)
-               st.plotly_chart(est, theme="streamlit", use_container_width=True)
-               df_xlsx = to_excel(data_imacec_or)
+               st.markdown("<h5 style=' color: black;'>Series estacionales. </h5>", unsafe_allow_html=True)
+
+               prod_bienes=gen_bar(prod_bienes,appointment,"Componentes producción de bienes")
+               prod_bienes.add_trace(px.line(prod_bienes_2, x='PERIODO', y='VALOR', color="SERIE").data[0])
+               prod_bienes=fechas_2(prod_bienes)
+               prod_bienes=eje_porcentaje(prod_bienes)
+               
+               st.plotly_chart(prod_bienes, theme="streamlit", use_container_width=True)
               
+           
+               componentes=gen_bar(componentes,appointment,"Componentes principales IMACEC")
+               componentes=fechas_2(componentes)
+               componentes=eje_porcentaje(componentes)
                 
+               st.plotly_chart(componentes, theme="streamlit", use_container_width=True)
+
+     
         with col2:
             if appointment:
-          
-              des=gen(des,appointment,"Componentes Imacec desestacionalizado")
-              des=fechas_2(des)
-              des=eje_porcentaje(des)
-              st.plotly_chart(des, theme="streamlit", use_container_width=True)
-              df_xlsx2 = to_excel(data_imacec_des)
-             
-        
-        
-        with st.expander("Detalle"):
-             st.write("""
-                 IMACEC: Corresponde a los datos XXX...
-                 """)    
-           
-    
+                st.markdown("<h5 style=' color: black;'>Series desestacionalizadas. </h5>", unsafe_allow_html=True)
+
+                des_prod_bienes=gen_bar(des_prod_bienes,appointment,"Componentes producción de bienes")
+                des_prod_bienes_2_=des_prod_bienes_2[(des_prod_bienes_2["PERIODO"]>= appointment[0])&(des_prod_bienes_2["PERIODO"]<= appointment[1])]
+                des_prod_bienes.add_trace(px.line(des_prod_bienes_2_, x='PERIODO', y='VALOR', color="SERIE").data[0])
+                des_prod_bienes=fechas_2(des_prod_bienes)
+                des_prod_bienes=eje_porcentaje(des_prod_bienes)
                 
+                st.plotly_chart(des_prod_bienes, theme="streamlit", use_container_width=True)
+               
+            
+                des_componentes=gen_bar(des_componentes,appointment,"Componentes principales IMACEC")
+                des_componentes=fechas_2(des_componentes)
+                des_componentes=eje_porcentaje(des_componentes)
+                 
+                st.plotly_chart(des_componentes, theme="streamlit", use_container_width=True)
+
+
+
+        no_minero=gen(no_minero,appointment,"IMACEC e IMACEC No minero")
+        no_minero=fechas_2(no_minero)
+        no_minero=eje_porcentaje(no_minero)
+        no_minero.add_trace(px.line(imacec_or, x='PERIODO', y='VALOR', color="SERIE",color_discrete_sequence=["red"]).data[0])
+
+        st.plotly_chart(no_minero, theme="streamlit", use_container_width=True)
+         
+
+      
+       
                 
                 
     with tab13:    
@@ -330,12 +360,13 @@ with tab1:
                     format="YYYY/MM")
             
             if appointment_1:
-                nom=gen(nom,appointment_1,"PIB Trimestral YoY [USD]")
+                nom=gen(nom,appointment_1,"Variación Trimestral PIB YoY")
                 nom=fechas_2(nom)
                 nom=eje_porcentaje(nom)
 
                 st.plotly_chart(nom, theme="streamlit", use_container_width=True)
-                df_xlsx = to_excel(data_nom)
+
+           
                 
         with col2:
             appointment_2 = st.slider(
@@ -348,13 +379,51 @@ with tab1:
                 per=fechas_2(per)
                 
                 st.plotly_chart(per, theme="streamlit", use_container_width=True)
-                
-                df_xlsx2 = to_excel(data_per)
-               
-        with st.expander("Detalle"):
-            st.write("""
-                PIB: Corresponde a los datos XXX...
-                """) 
+          
+        appointment_3 = st.slider(
+                 "Seleccione el rango de fechas (3)",
+                 value=(ext_nom_2[0],ext_nom_2[1]),
+                 format="YYYY/MM")
+        nom_2=gen(nom_2,appointment_3,"PIB Anual [USD]")
+        nom_2=fechas_2(nom_2)
+        
+        st.plotly_chart(nom_2, theme="streamlit", use_container_width=True)
+        
+    data14=data[data["CATEGORIA3"]=="FBCF"]
+    
+    # data14.loc[data14['NOMBRE_2'] == "Formación bruta de capital fijo", 'VALOR'] = data14.loc[data14['NOMBRE_2'] == "Formación bruta de capital fijo", 'VALOR']/data14.loc[data14['NOMBRE_2'] == "Formación bruta de capital fijo", 'VALOR'].shift(4)-1
+    # data14.loc[data14['NOMBRE_2'] == "Construcción y otras obras", 'VALOR'] = data14.loc[data14['NOMBRE_2'] == "Construcción y otras obras", 'VALOR']/data14.loc[data14['NOMBRE_2'] == "Construcción y otras obras", 'VALOR'].shift(4)-1
+    # data14.loc[data14['NOMBRE_2'] == "Maquinaria y equipo", 'VALOR'] = data14.loc[data14['NOMBRE_2'] == "Maquinaria y equipo", 'VALOR']/data14.loc[data14['NOMBRE_2'] == "Maquinaria y equipo", 'VALOR'].shift(4)-1
+    # data14=data14.dropna()
+    data14["SERIE"]=data14["NOMBRE_2"]
+    data14["VALOR"]=data14["VALOR"]/100
+    fbcf=data14[data14['NOMBRE_2'] == "Formación bruta de capital fijo"]
+    fbcf=fbcf.sort_values("PERIODO")
+    componentes14=data14[~(data14['NOMBRE_2'] == "Formación bruta de capital fijo")]
+    componentes14=componentes14.sort_values("PERIODO")
+   
+    ext_data14=extremos(data14)
+    data_data14=data14.copy(deep=True)
+    data_data14=data_data14[["PERIODO","VALOR","SERIE"]]
+
+    with tab14:    
+         st.write('Formación brutade capital')
+         appointment = st.slider(
+            "Seleccione el rango de fechas ",
+            value=(ext_data14[0],ext_data14[1]),
+            format="YYYY/MM")
+  
+         if appointment:
+           componentes14=gen_bar(componentes14,appointment,"Formación bruta de capital")
+           des_prod_bienes_2_=des_prod_bienes_2[(des_prod_bienes_2["PERIODO"]>= appointment[0])&(des_prod_bienes_2["PERIODO"]<= appointment[1])]
+           fbcf_=fbcf[(fbcf["PERIODO"] >= appointment[0])&(fbcf["PERIODO"]<=appointment[1])]
+           componentes14.add_trace(px.line(fbcf_, x='PERIODO', y='VALOR', color="SERIE").data[0])
+           componentes14=fechas_2(componentes14)
+           prod_bienes=eje_porcentaje(componentes14)
+           
+           st.plotly_chart(componentes14, theme="streamlit", use_container_width=True)
+  
+   
 
 
 
@@ -371,11 +440,14 @@ inf_men=data2[(data2["NOMBRE_1"]==men)&(data2["NOMBRE_2"]=="IPC General")]
 inf_men["SERIE"]=inf_men["NOMBRE_2"]
 inf_anu=data2[(data2["NOMBRE_1"]==anu)&(data2["NOMBRE_2"]=="IPC General")]
 inf_anu["SERIE"]=inf_anu["NOMBRE_2"]
+inf_anu1=inf_anu.copy(deep=True)
 
 comp_men=data2[(data2["NOMBRE_1"]==men)&~(data2["NOMBRE_2"]=="IPC General")]
 comp_men["SERIE"]=comp_men["NOMBRE_2"]
 com_anu=data2[(data2["NOMBRE_1"]==anu)&~(data2["NOMBRE_2"]=="IPC General")]
 com_anu["SERIE"]=com_anu["NOMBRE_2"]
+comp_1=com_anu[com_anu["SERIE"].isin(["IPC sin volátiles","IPC volátil"])]
+comp_2=com_anu[~com_anu["SERIE"].isin(["IPC sin volátiles","IPC volátil"])]
 
 ext_inf_men=extremos(inf_men)
 data_inf_men=inf_men.copy(deep=True)
@@ -422,19 +494,64 @@ with tab2:
                 inf_anu=eje_porcentaje(inf_anu)
 
                 st.plotly_chart(inf_anu, theme="streamlit", use_container_width=True)
-                df_xlsx = to_excel(data_inf_anu)
-              
+
+        
         with col2:
             
             if appointment_1:
-                com_anu=gen(com_anu,appointment_1,"Variación porcentual componentes IPC YoY")
+                com_anu=gen(com_anu,appointment_1,"Principales componentes IPC YoY")
                 com_anu=fechas_2(com_anu)
                 com_anu=eje_porcentaje(com_anu)
                 
                 st.plotly_chart(com_anu, theme="streamlit", use_container_width=True)
                 
-                df_xlsx2 = to_excel(data_com_anu)
+    
+        col1, col2 = st.columns(2)
+    
+        with col1:
+           
+           if appointment_1:
+               comp_1.loc[comp_1['NOMBRE_2'] == "IPC sin volátiles", 'VALOR'] = comp_1.loc[comp_1['NOMBRE_2'] == "IPC sin volátiles", 'VALOR']*0.651
+               comp_1.loc[comp_1['NOMBRE_2'] == "IPC volátil", 'VALOR'] = comp_1.loc[comp_1['NOMBRE_2'] == "IPC volátil", 'VALOR']*0.349
+               comp_1=gen_bar(comp_1,appointment_1,"Variación porcentual IPC YoY")
+              
+               inf_anu_=inf_anu1[(inf_anu1["PERIODO"] >= appointment_1[0])&(inf_anu1["PERIODO"]<=appointment_1[1])]
+               comp_1.add_trace(px.line(inf_anu_, x='PERIODO', y='VALOR', color="SERIE").data[0])
                
+               
+               comp_1=fechas_2(comp_1)
+               comp_1=eje_porcentaje(comp_1)
+    
+               st.plotly_chart(comp_1, theme="streamlit", use_container_width=True)
+    
+       
+        with col2:
+           
+           if appointment_1:
+     
+               
+               comp_2.loc[comp_2['NOMBRE_2'] == "IPC Servicios sin volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] == "IPC Servicios sin volátiles", 'VALOR']*0.384
+               comp_2.loc[comp_2['NOMBRE_2'] == "IPC Bienes sin volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] == "IPC Bienes sin volátiles", 'VALOR']*0.267
+               comp_2.loc[comp_2['NOMBRE_2'] == "IPC Alimentos volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] =="IPC Alimentos volátiles" , 'VALOR']*0.101
+               comp_2.loc[comp_2['NOMBRE_2'] == "IPC Energía volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] =="IPC Energía volátiles", 'VALOR']*0.075
+               comp_2.loc[comp_2['NOMBRE_2'] == "IPC Resto de volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] == "IPC Resto de volátiles", 'VALOR']*0.172
+
+               comp_2=gen_bar(comp_2,appointment_1,"Componentes secundarias IPC YoY")
+              
+               inf_anu_=inf_anu1[(inf_anu1["PERIODO"] >= appointment_1[0])&(inf_anu1["PERIODO"]<=appointment_1[1])]
+               comp_2.add_trace(px.line(inf_anu_, x='PERIODO', y='VALOR', color="SERIE").data[0])
+               
+               
+               comp_2=fechas_2(comp_2)
+               comp_2=eje_porcentaje(comp_2)
+    
+               st.plotly_chart(comp_2, theme="streamlit", use_container_width=True)
+    
+               
+               
+               
+               
+
     with tab22:
         appointment_1 = st.slider(
                    "Seleccione el rango de fechas",
@@ -451,7 +568,7 @@ with tab2:
                 inf_men=eje_porcentaje(inf_men)
 
                 st.plotly_chart(inf_men, theme="streamlit", use_container_width=True)
-                df_xlsx = to_excel(data_inf_men)
+
                       
         with col2:
             
@@ -462,7 +579,7 @@ with tab2:
                 
                 st.plotly_chart(comp_men, theme="streamlit", use_container_width=True)
                 
-                df_xlsx2 = to_excel(data_comp_men)
+
              
     with st.expander("Detalle"):
         st.write("""
@@ -533,7 +650,7 @@ with tab3:
                 oc=eje_porcentaje(oc)
         
                 st.plotly_chart(oc, theme="streamlit", use_container_width=True)
-                df_xlsx = to_excel(data_oc)
+
                       
         with col2:
             
@@ -544,15 +661,15 @@ with tab3:
                 
                 st.plotly_chart(des, theme="streamlit", use_container_width=True)
                 
-                df_xlsx2 = to_excel(data_des)
-           
+
+         
         
         emp_bruto=gen(emp_bruto,appointment_1,"Desagregación población en Edad de Trabajar")
         emp_bruto=fechas_2(emp_bruto)
 
         st.plotly_chart(emp_bruto, theme="streamlit", use_container_width=True)
         
-        df_xlsx3 = to_excel(data_emp_bruto)
+  
       
         
         
@@ -579,7 +696,7 @@ with tab3:
              
              st.plotly_chart(informalidad, theme="streamlit", use_container_width=True)
              
-             df_xlsx4 = to_excel(data_infor)
+
          
     
     with tab32:
@@ -624,7 +741,8 @@ with tab3:
                oc=eje_porcentaje(oc)
        
                st.plotly_chart(oc, theme="streamlit", use_container_width=True)
-               df_xlsx = to_excel(data_oc)
+
+
                      
        with col2:
            
@@ -635,7 +753,8 @@ with tab3:
                
                st.plotly_chart(des, theme="streamlit", use_container_width=True)
                
-               df_xlsx2 = to_excel(data_des)
+
+
        
        options = [
 "Población en edad de trabajar",
@@ -651,30 +770,28 @@ with tab3:
            if len(user_input)==1:
                emp_bruto=data3[(data3["CATEGORIA2"]=="EMPLEO - BRUTOS")&~(data3["CATEGORIA3"]=="N")]
                emp_bruto["SERIE"]=emp_bruto["NOMBRE_2"]
-               emp_bruto["VALOR"]=emp_bruto["VALOR"]*1000
                emp_bruto=emp_bruto[(emp_bruto["NOMBRE_1"].isin([user_input[0]+" H",user_input[0]+" M"]))]
                emp_bruto=gen(emp_bruto,appointment_1,"Comparación por sexo: "+user_input[0])
                emp_bruto=fechas_2(emp_bruto)
         
                st.plotly_chart(emp_bruto, theme="streamlit", use_container_width=True)
                
-               df_xlsx3 = to_excel(data_emp_bruto)
+
+    
            if len(user_input)==2:
                emp_bruto=data3[(data3["CATEGORIA2"]=="EMPLEO - BRUTOS")&~(data3["CATEGORIA3"]=="N")]
                emp_bruto["SERIE"]=emp_bruto["NOMBRE_2"]
-               emp_bruto["VALOR"]=emp_bruto["VALOR"]*1000
                emp_bruto=emp_bruto[(emp_bruto["NOMBRE_1"].isin([user_input[0]+" H",user_input[0]+" M",user_input[1]+" H",user_input[1]+" M"]))]
                emp_bruto=gen(emp_bruto,appointment_1,"Comparación por sexo: "+user_input[0] +" y "+user_input[1])
                emp_bruto=fechas_2(emp_bruto)
          
                st.plotly_chart(emp_bruto, theme="streamlit", use_container_width=True)
                 
-               df_xlsx3 = to_excel(data_emp_bruto)
-        
+
+
            if len(user_input)>2:
                emp_bruto=data3[(data3["CATEGORIA2"]=="EMPLEO - BRUTOS")&~(data3["CATEGORIA3"]=="N")]
                emp_bruto["SERIE"]=emp_bruto["NOMBRE_2"]
-               emp_bruto["VALOR"]=emp_bruto["VALOR"]*1000
                series=[]
                for i in np.linspace(0,len(user_input)-1,len(user_input)):
                    i=int(i)
@@ -689,7 +806,7 @@ with tab3:
          
                st.plotly_chart(emp_bruto, theme="streamlit", use_container_width=True)
                 
-               df_xlsx3 = to_excel(data_emp_bruto)
+
              
        informalidad=data3[(data3["CATEGORIA2"]=="INFORMALIDAD")&~(data3["NOMBRE_1"]=="Tasa de informalidad (AS)")]
        informalidad["SERIE"]=informalidad["NOMBRE_2"]
@@ -714,8 +831,8 @@ with tab3:
             
             st.plotly_chart(informalidad, theme="streamlit", use_container_width=True)
             
-            df_xlsx4 = to_excel(data_infor)
-     
+
+
   
     
   
@@ -724,7 +841,6 @@ with tab3:
             
         cate_nac=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&(data3["CATEGORIA3"]=="(AS)")]
         cate_nac["SERIE"]=cate_nac["NOMBRE_2"]
-        cate_nac["VALOR"]=cate_nac["VALOR"]*1000
         cate_nac=cate_nac.sort_values(by="PERIODO")
         ext_cate_nac=extremos(cate_nac)
         data_cate_nac=cate_nac.copy(deep=True)
@@ -742,7 +858,7 @@ with tab3:
              
              st.plotly_chart(cate_nac, theme="streamlit", use_container_width=True)
              
-             df_xlsx6 = to_excel(data_cate_nac)
+
         
         
         
@@ -780,7 +896,6 @@ with tab3:
             if len(user_input)==1:
                 cate_sex=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&~(data3["CATEGORIA3"]=="(AS)")]
                 cate_sex["SERIE"]=cate_sex["NOMBRE_1"]
-                cate_sex["VALOR"]=cate_sex["VALOR"]*1000
               
                 cate_sex=cate_sex[(cate_sex["NOMBRE_1"].isin([user_input[0]+" (H)",user_input[0]+" (M)"]))]
                 cate_sex=gen(cate_sex,appointment_6,"Comparación ocupados por sexo: "+user_input[0])
@@ -788,27 +903,23 @@ with tab3:
          
                 st.plotly_chart(cate_sex, theme="streamlit", use_container_width=True)
                 
-                df_xlsx3 = to_excel(data_cate_sex)
+
                 
                 
             if len(user_input)==2:
                 cate_sex=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&~(data3["CATEGORIA3"]=="(AS)")]
                 cate_sex["SERIE"]=cate_sex["NOMBRE_1"]
-                cate_sex["VALOR"]=cate_sex["VALOR"]*1000
-             
                 cate_sex=cate_sex[(cate_sex["NOMBRE_1"].isin([user_input[0]+" (H)",user_input[0]+" (M)",user_input[1]+" (H)",user_input[1]+" (M)"]))]
                 cate_sex=gen(cate_sex,appointment_6,"Comparación ocupados por sexo: "+user_input[0] +" y "+user_input[1])
                 cate_sex=fechas_2(cate_sex)
           
                 st.plotly_chart(cate_sex, theme="streamlit", use_container_width=True)
                  
-                df_xlsx3 = to_excel(data_cate_sex)
-      
+
+ 
             if len(user_input)>2:
                 cate_sex=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&~(data3["CATEGORIA3"]=="(AS)")]
                 cate_sex["SERIE"]=cate_sex["NOMBRE_1"]
-                cate_sex["VALOR"]=cate_sex["VALOR"]*1000
-             
                 series=[]
                 for i in np.linspace(0,len(user_input)-1,len(user_input)):
                     i=int(i)
@@ -823,8 +934,6 @@ with tab3:
           
                 st.plotly_chart(cate_sex, theme="streamlit", use_container_width=True)
                  
-                df_xlsx3 = to_excel(data_cate_sex)
-              
              
         
         with tab34:
@@ -852,7 +961,9 @@ with tab3:
                  
                   st.plotly_chart(series_adm, theme="streamlit", use_container_width=True)
                  
-                  df_xlsx6 = to_excel(data_cate_nac)
+
+
+
         
             if appointment_1 and sub11:
                 series_adm=data3[(data3["CATEGORIA2"]=="SERIES ADMINISTRATIVAS")&(data3["CATEGORIA3"]=="COTIZANTES")]
@@ -863,8 +974,9 @@ with tab3:
        
                 
                 st.plotly_chart(series_adm, theme="streamlit", use_container_width=True)
-                
-                df_xlsx8 = to_excel(data_series_adm)
+            
+
+
       
             
             series_adm_2=data3[(data3["CATEGORIA2"]=="SERIES ADMINISTRATIVAS")&(data3["CATEGORIA3"]=="VARIACIONES ANUALES")]
@@ -884,11 +996,13 @@ with tab3:
             st.plotly_chart(series_adm_2, theme="streamlit", use_container_width=True)
            
             df_xlsx9 = to_excel(data_series_adm_2)
-        
+
+      
+
+
 
         with tab35:
-
-       
+    
             ind_rem_men_r=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="REAL")]
             ind_rem_men_n=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="NOMINAL")]
             ind_rem_men_r["SERIE"]="Variación real M/M"     
@@ -926,24 +1040,25 @@ with tab3:
             with col1:
                 
                 if appointment_44:
-                    ind_rem_men_r=gen(ind_rem_men_r,appointment_44,"Variación mensual Índice de remuneraciones [real] M/M ")
+                    ind_rem_men_r=gen(ind_rem_men_r,appointment_44,"Variación Índice de remuneraciones [real] M/M ")
                     ind_rem_men_r=fechas_2(ind_rem_men_r)
                     ind_rem_men_r=eje_porcentaje(ind_rem_men_r)
             
                     st.plotly_chart(ind_rem_men_r, theme="streamlit", use_container_width=True)
-                    df_xlsx = to_excel(data_ind_rem_men_n)
+
+
                           
             with col2:
                 
                 if appointment_44:
-                    ind_rem_men_n=gen(ind_rem_men_n,appointment_44,"Variación mensual Índice de remuneraciones [nom] M/M ")
+                    ind_rem_men_n=gen(ind_rem_men_n,appointment_44,"Variación Índice de remuneraciones [nom] M/M ")
                     ind_rem_men_n=fechas_2(ind_rem_men_n)
                     ind_rem_men_n=eje_porcentaje(ind_rem_men_n)
                     
                     st.plotly_chart(ind_rem_men_n, theme="streamlit", use_container_width=True)
-                    
-                    df_xlsx2 = to_excel(data_ind_rem_men_r)
-           
+
+
+          
             ind_rem_men_r=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="REAL")]
             ind_rem_men_n=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="NOMINAL")]
             ind_rem_men_r["SERIE"]="Variación real Y/Y"     
@@ -981,26 +1096,24 @@ with tab3:
             with col1:
                 
                 if appointment_44:
-                    ind_rem_men_r=gen(ind_rem_men_r,appointment_44,"Variación mensual Índice de remuneraciones [real] Y/Y ")
+                    ind_rem_men_r=gen(ind_rem_men_r,appointment_44,"Variación Índice de remuneraciones [real] Y/Y ")
                     ind_rem_men_r=fechas_2(ind_rem_men_r)
                     ind_rem_men_r=eje_porcentaje(ind_rem_men_r)
             
                     st.plotly_chart(ind_rem_men_r, theme="streamlit", use_container_width=True)
-                    df_xlsx = to_excel(data_ind_rem_men_n)
+                  
                           
             with col2:
                 
                 if appointment_44:
-                    ind_rem_men_n=gen(ind_rem_men_n,appointment_44,"Variación mensual Índice de remuneraciones [nom] Y/Y ")
+                    ind_rem_men_n=gen(ind_rem_men_n,appointment_44,"Variación Índice de remuneraciones [nom] Y/Y ")
                     ind_rem_men_n=fechas_2(ind_rem_men_n)
                     ind_rem_men_n=eje_porcentaje(ind_rem_men_n)
                     
                     st.plotly_chart(ind_rem_men_n, theme="streamlit", use_container_width=True)
-                    
-                    df_xlsx2 = to_excel(data_ind_rem_men_r)
+
           
         
-
         
 
 
@@ -1063,8 +1176,7 @@ with tab4:
         cuentas=fechas_2(cuentas)
 
         st.plotly_chart(cuentas, theme="streamlit", use_container_width=True)
-        
-        df_xlsx = to_excel(data_cuentas)
+              
             
         
         
@@ -1072,9 +1184,8 @@ with tab4:
         cuentas_2=fechas_2(cuentas_2)
 
         st.plotly_chart(cuentas_2, theme="streamlit", use_container_width=True)
-        
-        df_xlsx2 = to_excel(data_cuentas_2)
-            
+
+
         
     
 
@@ -1090,7 +1201,7 @@ with tab4:
     
         st.plotly_chart(desagregadas, theme="streamlit", use_container_width=True)
         
-        df_xlsx = to_excel(data_desagregadas)
+  
             
         
         
@@ -1099,8 +1210,7 @@ with tab4:
     
         st.plotly_chart(desagregadas_2, theme="streamlit", use_container_width=True)
         
-        df_xlsx2 = to_excel(data_desagregadas_2)
-        
+
         
         
     with st.expander("Detalle"):
