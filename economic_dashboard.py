@@ -6,6 +6,12 @@ Created on Tue Apr 18 12:09:40 2023
 @author: matias.otthgmail.com
 """
 
+import streamlit as st
+import pandas as pd
+import plotly.express as px
+import numpy as np
+from io import BytesIO
+
 st.set_page_config(layout="wide")
 path=""
 
