@@ -7,7 +7,7 @@ Created on Tue Apr 18 12:09:40 2023
 """
 
 st.set_page_config(layout="wide")
-path="/Users/matias.otthgmail.com/Desktop/Monitor_Economico/"
+path=""
 
 
 st.sidebar.image(path+"ESCUDOUSS_vertical_color.png", use_column_width=True)
