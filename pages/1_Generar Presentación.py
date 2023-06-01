@@ -118,16 +118,16 @@ if options[0] in user_input:
         "Seleccione el rango de fechas para la serie " + serie,
         value=(extremos_1[0],extremos_1[1]),
         format="YYYY/MM")
-    try:
-        if appointment_1 and user_input_1[0]=="IMACEC":
-            dataimacec=data1[(data1["PERIODO"]> appointment_1[0])&(data1["PERIODO"]< appointment_1[1])]
-    except:
-        pass
-    try:        
-        if appointment_1 and user_input_1[1]=="IMACEC":
-            dataimacec=data1[(data1["PERIODO"]> appointment_1[0])&(data1["PERIODO"]< appointment_1[1])]
-    except:
-        pass
+   # try:
+   #     if appointment_1 and user_input_1[0]=="IMACEC":
+   #         dataimacec=data1[(data1["PERIODO"]> appointment_1[0])&(data1["PERIODO"]< appointment_1[1])]
+   # except:
+   #     pass
+   # try:        
+   #     if appointment_1 and user_input_1[1]=="IMACEC":
+   #         dataimacec=data1[(data1["PERIODO"]> appointment_1[0])&(data1["PERIODO"]< appointment_1[1])]
+   # except:
+   #     pass
     
   #  col1, col2 = st.columns(2)
   #  with col1:
@@ -226,48 +226,95 @@ if sub1:
         pass
     
     #ACTIVIDAD ECONÓMICA
+    def gen(imacec_des,rango,titulo):
+        imacec_des=imacec_des[(imacec_des["PERIODO"]>= rango[0])&(imacec_des["PERIODO"]<= rango[1])]
+        imacec_des = px.line(imacec_des, x="PERIODO", y="VALOR", color="SERIE" ,title='Mi gráfico de línea', 
+                  labels={'x': 'Eje X', 'y': 'Eje Y'}, 
+                  template='plotly_white', 
+                  width=700, height=600)
+        imacec_des.update_layout(title={
+            'text': titulo,
+            'x':0.5,
+             'xanchor': 'center',
+             'yanchor': 'top' 
+              },legend=dict(
+                orientation="h",
+                yanchor="top",
+                y=-0.2,
+                xanchor="left",
+                x=0.01
+            ))
+        return imacec_des
+    def fechas_2(grafico):
+        grafico.update_xaxes(
+            rangeselector=dict(
+                buttons=list([
+                    dict(count=3, label="3A", step="year", stepmode="backward"),
+                    dict(count=5, label="5A", step="year", stepmode="backward"),
+                    dict(count=10, label="10A", step="year", stepmode="backward"),
+                    dict(step="all")
+                ])
+            )
+        )
+        grafico.update_yaxes(rangemode="tozero")
+    def eje_porcentaje(grafico):
+        grafico.layout.yaxis.tickformat = ',.1%'
+
+        return grafico    
+    
+#SLIDE 1 ACTIVIAD ECONOMICA
+    data11=data1[data1["CATEGORIA2"]=="IMACEC"]    
+    imacec_or="Imacec empalmado, serie original (índice 2018=100)"
+    imacec_or=data11[data11["NOMBRE_2"]==imacec_or]
+    imacec_or["VALOR"]=imacec_or["VALOR"]/imacec_or["VALOR"].shift(12)-1
+    imacec_or=imacec_or.dropna()
+    imacec_or["SERIE"]="Imacec (variación anual)"
+    imacec_or_1=gen(imacec_or,appointment_1,"Variación anual del IMACEC")
+    imacec_or_1=fechas_2(imacec_or_1)
+    imacec_or_1=eje_porcentaje(imacec_or_1)
+
+    data13=data1[data1["CATEGORIA2"]=="PIB"]
+    nom="PIB, volumen a precios del año anterior encadenado, referencia 2018 (miles de millones de pesos encadenados)"
+    nom=data13[data13["NOMBRE_2"]==nom]
+    nom["VALOR"]=nom["VALOR"]/nom["VALOR"].shift(4)-1
+    nom=nom.dropna()
+    nom["SERIE"]="PIB Trimestral (variación YoY)"
+    nom=gen(nom,appointment_1,"Variación Trimestral PIB YoY")
+    nom=fechas_2(nom)
+    nom=eje_porcentaje(nom)
+    
+#SLIDE 2 COMPONENTES
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     imacec = px.line(data1[data1["SERIE"]=="1.Imacec"], x="PERIODO", y="VALOR", color="SERIE", template='simple_white')
-    # imacec.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
-
-    componentes_imacec=px.line(data1[data1["CATEGORIA2"]=="IMACEC"], x="PERIODO", y="VALOR", color="SERIE", template='simple_white')
-    # componentes_imacec.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
-   
+    componentes_imacec=px.line(data1[data1["CATEGORIA2"]=="IMACEC"], x="PERIODO", y="VALOR", color="SERIE", template='simple_white') 
     pib_anual= px.line(data1[data1["SERIE"]=="PIB ANUAL"], x="PERIODO", y="VALOR", color="SERIE", template='simple_white')
-    # pib_anual.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
- 
     pib_TRIMESTRAL= px.line(data1[data1["SERIE"].isin(["YoY","Desestacionalizado (Variación Trimestral)"])], x="PERIODO", y="VALOR", color="SERIE", template='simple_white')
-    # pib_TRIMESTRAL.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
-
+   
     
     #INFLACIÓN
     
     ipcs=["Variación Mensual", "YoY"]
     ipc_a= px.line(data2[data2["SERIE"]==ipcs[1]], x="PERIODO", y="VALOR", color="SERIE", template='simple_white')
-    # ipc_a.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
-
     ipc_m= px.line(data2[data2["SERIE"]==ipcs[0]], x="PERIODO", y="VALOR", color="SERIE", template='simple_white')
-    # ipc_m.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
-
+    
+ 
     #MERCADO LABORAL
     desocupados=px.line(data3[data3["SERIE"]=="Tasa de desocupación"], x="PERIODO", y="VALOR", color="SERIE", template='simple_white')
-    # desocupados.user_input_update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
-
     oc_part=px.line(data3[data3["SERIE"].isin(["Tasa de ocupación","Tasa de participación"])], x="PERIODO", y="VALOR", color="SERIE", template='simple_white')
-    # oc_part.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
-
-      
-    #CUENTAS CORRIENTES
-    cuentas=px.line(data4[(data4["SERIE"]=="TOTAL")&~(data4["CATEGORIA2"]=="Jurídica")], x="PERIODO", y="VALOR", color="SERIE", template='simple_white')
-    # cuentas.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
-
-    cuentas_2=px.line(data4[(data4["SERIE"]=="TOTAL")&(data4["CATEGORIA2"]=="Jurídica")], x="PERIODO", y="VALOR", color="SERIE", template='simple_white')
-    # cuentas_2.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
-            
-    desagregadas=px.line(data4[~(data4["SERIE"]=="TOTAL")&~(data4["CATEGORIA2"]=="Jurídica")], x="PERIODO", y="VALOR", color="SERIE", template='simple_white')
-    # desagregadas.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
-
-    desagregadas_2=px.line(data4[~(data4["SERIE"]=="TOTAL")&(data4["CATEGORIA2"]=="Jurídica")], x="PERIODO", y="VALOR", color="SERIE", template='simple_white')
-    # desagregadas_2.update_layout(paper_bgcolor='rgba(0,0,0,0)', plot_bgcolor='rgba(0,0,0,0)')
+ 
 
         
     title_1 = st.text_input('Título de la presentación', 'Informe de Actividad Económica')
