@@ -450,7 +450,7 @@ with tab1:
            prod_bienes=eje_porcentaje(componentes14)
            
            st.plotly_chart(componentes14, theme="streamlit", use_container_width=True)
-          with st.expander("Detalle"):
+           with st.expander("Detalle"):
              st.write("""
                 Fuente: Banco Central.
              """)   
@@ -474,7 +474,7 @@ with tab1:
            
            st.plotly_chart(principales, theme="streamlit", use_container_width=True)
           
-          with st.expander("Detalle"):
+           with st.expander("Detalle"):
                  st.write("""
                     Fuente: Banco Central.
                  """)
