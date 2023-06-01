@@ -18,10 +18,6 @@ path=""
 
 st.sidebar.image(path+"ESCUDOUSS_vertical_color.png", use_column_width=True)
 
-
-
-
-
 st.markdown("<h1 style='text-align: center; color: black;'>MONITOR ECONÓMICO CPP USS</h1>", unsafe_allow_html=True)
 st.markdown("<h2 style='text-align: center; color: grey;'>Visualización de series económicas </h2>", unsafe_allow_html=True)
 
@@ -311,7 +307,7 @@ with tab1:
         
         with st.expander("Detalle"):
              st.write("""
-                 IMACEC: Corresponde a los datos XXX...
+                 Fuente: Banco Central.
                  """)    
            
     
@@ -345,6 +341,12 @@ with tab1:
                 
                st.plotly_chart(componentes, theme="streamlit", use_container_width=True)
 
+            with st.expander("Detalle"):
+                 st.write("""
+                    Fuente: Banco Central.
+                 """)    
+ 
+            
      
         with col2:
             if appointment:
@@ -365,6 +367,7 @@ with tab1:
                  
                 st.plotly_chart(des_componentes, theme="streamlit", use_container_width=True)
 
+                
 
 
         no_minero=gen(no_minero,appointment,"IMACEC e IMACEC No minero")
@@ -374,7 +377,10 @@ with tab1:
 
         st.plotly_chart(no_minero, theme="streamlit", use_container_width=True)
          
-
+        with st.expander("Detalle"):
+             st.write("""
+                Fuente: Banco Central.
+             """)  
       
        
                 
@@ -397,7 +403,6 @@ with tab1:
                 nom=eje_porcentaje(nom)
 
                 st.plotly_chart(nom, theme="streamlit", use_container_width=True)
-
            
                 
         with col2:
@@ -420,7 +425,12 @@ with tab1:
         nom_2=fechas_2(nom_2)
         
         st.plotly_chart(nom_2, theme="streamlit", use_container_width=True)
-        
+   
+
+        with st.expander("Detalle"):
+             st.write("""
+                Fuente: Banco Central.
+             """)   
     
 
 
@@ -440,6 +450,10 @@ with tab1:
            prod_bienes=eje_porcentaje(componentes14)
            
            st.plotly_chart(componentes14, theme="streamlit", use_container_width=True)
+          with st.expander("Detalle"):
+             st.write("""
+                Fuente: Banco Central.
+             """)   
   
    
     with tab15:    
@@ -459,7 +473,11 @@ with tab1:
            principales=eje_porcentaje(principales)
            
            st.plotly_chart(principales, theme="streamlit", use_container_width=True)
-
+          
+          with st.expander("Detalle"):
+                 st.write("""
+                    Fuente: Banco Central.
+                 """)
 
 
 #INFLACIÓN
