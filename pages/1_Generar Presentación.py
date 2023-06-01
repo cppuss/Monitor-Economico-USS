@@ -257,9 +257,10 @@ if sub1:
             )
         )
         grafico.update_yaxes(rangemode="tozero")
+        return grafico
+    
     def eje_porcentaje(grafico):
         grafico.layout.yaxis.tickformat = ',.1%'
-
         return grafico    
     
 #SLIDE 1 ACTIVIAD ECONOMICA
