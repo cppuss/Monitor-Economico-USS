@@ -81,6 +81,7 @@ today = date.today()
 
 data=pd.read_parquet(path+"datos_monitor.parquet")
 
+
 data1=data[data["CATEGORIA"]=="ACTIVIDAD ECONOMICA"]
 data2=data[data["CATEGORIA"]=="INFLACION"]
 data3=data[data["CATEGORIA"]=="MERCADO LABORAL"]
