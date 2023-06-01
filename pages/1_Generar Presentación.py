@@ -18,6 +18,7 @@ from datetime import date
 from pptx.dml.color import RGBColor
 from pptx.util import Inches
 import os
+import datetime 
 
 st.set_page_config(layout="wide")
 st.sidebar.image("ESCUDOUSS_vertical_color.png", use_column_width=True)
@@ -89,10 +90,10 @@ data4=data[data["CATEGORIA"]=="CUENTAS CORRIENTES"]
 
 
 
-extremos_1=[data1["PERIODO"].iloc[0].to_pydatetime(),data1["PERIODO"].iloc[-1].to_pydatetime()]
-extremos_2=[data2["PERIODO"].iloc[0].to_pydatetime(),data2["PERIODO"].iloc[-1].to_pydatetime()]
-extremos_3=[data3["PERIODO"].iloc[0].to_pydatetime(),data3["PERIODO"].iloc[-1].to_pydatetime()]
-extremos_4=[data4["PERIODO"].iloc[0].to_pydatetime(),data4["PERIODO"].iloc[-1].to_pydatetime()]
+extremos_1=[data1["PERIODO"].iloc[0].to_pydatetime(),datetime.datetime.now()]
+extremos_2=[data2["PERIODO"].iloc[0].to_pydatetime(),datetime.datetime.now()]
+extremos_3=[data3["PERIODO"].iloc[0].to_pydatetime(),datetime.datetime.now()]
+extremos_4=[data4["PERIODO"].iloc[0].to_pydatetime(),datetime.datetime.now()]
 
 
 options = [ "ACTIVIDAD ECONÓMICA","INFLACIÓN","MERCADO LABORAL","CUENTAS CORRIENTES"]
