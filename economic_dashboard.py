@@ -246,11 +246,45 @@ data_nom_2=nom_2.copy(deep=True)
 data_nom_2=data_nom_2[["PERIODO","VALOR","SERIE"]]
 
 
+data14["SERIE"]=data14["NOMBRE_2"]
+data14["VALOR"]=data14["VALOR"]/100
+fbcf=data14[data14['NOMBRE_2'] == "Formación bruta de capital fijo"]
+fbcf=fbcf.sort_values("PERIODO")
+componentes14=data14[~(data14['NOMBRE_2'] == "Formación bruta de capital fijo")]
+componentes14=componentes14.sort_values("PERIODO")
+
+ext_data14=extremos(data14)
+data_data14=data14.copy(deep=True)
+data_data14=data_data14[["PERIODO","VALOR","SERIE"]]
+
+
+
+
+data15=data1[data1["CATEGORIA2"]=="PIB-COMPONENTES"]
+data15["VALOR"]=data15["VALOR"]/100
+prin=["Agropecuario-silvícola ","Pesca","Minería","Industria Manufacturera","Electricidad, gas, agua y gestión de desechos","Construcción",
+"Comercio, restaurantes y hoteles","Transporte","Comunicaciones y servicios de información","Servicios financieros y empresariales",
+"Servicios de vivienda e inmobiliarios","Servicios personales","Administración pública","Impuestos sobre los productos"]
+sub1=["Minería del cobre","Otras actividades mineras"]
+sub2=["Alimentos, bebidas y tabaco","Textil, prendas de vestir, cuero y calzado","Maderas y muebles","Celulosa, papel e imprentas","Química, petróleo, caucho y plástico","Minerales no metálicos y metálica básica","Productos metálicos, maquinaria, equipos y otros"]
+sub3=["Comercio","Restaurantes y hoteles"]
+sub4=["Servicios financieros","Servicios empresariales"]
+
+
+principales=data15[data15["NOMBRE_2"].isin(prin)]
+ext_dataprincipales=extremos(principales)
+# data_dataprincipales=principales.copy(deep=True)
+# data_dataprincipales=data_dataprincipales[["PERIODO","VALOR","SERIE"]]
+principales["SERIE"]=principales["NOMBRE_2"]
+
+
+
+
 
 with tab1:
     st.write('En esta sección se encuentras las variables de actividad económica y crecimiento.')
     
-    tab11,tab12,tab13,tab14=st.tabs(["IMACEC","COMPONENTES IMACEC","PRODUCTO INTERNO BRUTO","FORMACIÓN DE CAPITAL"])
+    tab11,tab12,tab13,tab14,tab15=st.tabs(["IMACEC","COMPONENTES IMACEC","PRODUCTO INTERNO BRUTO","FORMACIÓN DE CAPITAL","COMPONENTES PIB"])
     
     with tab11:
         st.write('Índice Mensual de Actividad Económica :tractor: ')
@@ -397,20 +431,7 @@ with tab1:
         
     data14=data[data["CATEGORIA3"]=="FBCF"]
     
-    # data14.loc[data14['NOMBRE_2'] == "Formación bruta de capital fijo", 'VALOR'] = data14.loc[data14['NOMBRE_2'] == "Formación bruta de capital fijo", 'VALOR']/data14.loc[data14['NOMBRE_2'] == "Formación bruta de capital fijo", 'VALOR'].shift(4)-1
-    # data14.loc[data14['NOMBRE_2'] == "Construcción y otras obras", 'VALOR'] = data14.loc[data14['NOMBRE_2'] == "Construcción y otras obras", 'VALOR']/data14.loc[data14['NOMBRE_2'] == "Construcción y otras obras", 'VALOR'].shift(4)-1
-    # data14.loc[data14['NOMBRE_2'] == "Maquinaria y equipo", 'VALOR'] = data14.loc[data14['NOMBRE_2'] == "Maquinaria y equipo", 'VALOR']/data14.loc[data14['NOMBRE_2'] == "Maquinaria y equipo", 'VALOR'].shift(4)-1
-    # data14=data14.dropna()
-    data14["SERIE"]=data14["NOMBRE_2"]
-    data14["VALOR"]=data14["VALOR"]/100
-    fbcf=data14[data14['NOMBRE_2'] == "Formación bruta de capital fijo"]
-    fbcf=fbcf.sort_values("PERIODO")
-    componentes14=data14[~(data14['NOMBRE_2'] == "Formación bruta de capital fijo")]
-    componentes14=componentes14.sort_values("PERIODO")
-   
-    ext_data14=extremos(data14)
-    data_data14=data14.copy(deep=True)
-    data_data14=data_data14[["PERIODO","VALOR","SERIE"]]
+
 
     with tab14:    
          st.write('Formación brutade capital')
@@ -430,6 +451,23 @@ with tab1:
            st.plotly_chart(componentes14, theme="streamlit", use_container_width=True)
   
    
+    with tab15:    
+         st.write('Componentes PIB ')
+         appointment = st.slider(
+            "Seleccione el rango de fechas ",
+            value=(ext_dataprincipales[0],ext_dataprincipales[1]),
+            format="YYYY/MM")
+  
+         if appointment:
+           principales=gen_bar(principales,appointment,"Componentes del PIB")
+           # des_prod_bienes_2_=des_prod_bienes_2[(des_prod_bienes_2["PERIODO"]>= appointment[0])&(des_prod_bienes_2["PERIODO"]<= appointment[1])]
+           # fbcf_=fbcf[(fbcf["PERIODO"] >= appointment[0])&(fbcf["PERIODO"]<=appointment[1])]
+         
+           # componentes15.add_trace(px.line(fbcf_, x='PERIODO', y='VALOR', color="SERIE").data[0])
+           # componentes15=fechas_2(componentes15)
+           principales=eje_porcentaje(principales)
+           
+           st.plotly_chart(principales, theme="streamlit", use_container_width=True)
 
 
 
