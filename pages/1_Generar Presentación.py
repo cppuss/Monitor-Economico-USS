@@ -78,12 +78,14 @@ st.write(' ')
 today = date.today()
 
 
-path="/Users/matias.otthgmail.com/Desktop/Monitor_Economico/"
-data=pd.read_parquet("datafull.parquet")
+
+data=pd.read_parquet(path+"datos_monitor.parquet")
+
 data1=data[data["CATEGORIA"]=="ACTIVIDAD ECONOMICA"]
 data2=data[data["CATEGORIA"]=="INFLACION"]
 data3=data[data["CATEGORIA"]=="MERCADO LABORAL"]
 data4=data[data["CATEGORIA"]=="CUENTAS CORRIENTES"]
+
 
 
 extremos_1=[data1["PERIODO"].iloc[0].to_pydatetime(),data1["PERIODO"].iloc[-1].to_pydatetime()]
