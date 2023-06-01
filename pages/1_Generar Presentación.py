@@ -96,13 +96,12 @@ extremos_3=[data3["PERIODO"].iloc[0].to_pydatetime(),datetime.datetime.now()]
 extremos_4=[data4["PERIODO"].iloc[0].to_pydatetime(),datetime.datetime.now()]
 
 
-options = [ "ACTIVIDAD ECONÓMICA","INFLACIÓN","MERCADO LABORAL","CUENTAS CORRIENTES"]
+options = [ "ACTIVIDAD ECONÓMICA","INFLACIÓN","MERCADO LABORAL"]
 user_input = st.multiselect(label='Selecciones la serie a utilizar', options=options)
 
-dic_options={"ACTIVIDAD ECONÓMICA":["IMACEC","CRECIMIENTO ECONÓMICO"],
-             "INFLACIÓN":["YoY","MENSUAL"],
-             "MERCADO LABORAL":["DESOCUPACIÓN","OCUPACIÓN Y PARTICIPACIÓN"],
-             "CUENTAS CORRIENTES":["TOTAL","DESAGREGADAS"]
+dic_options={"ACTIVIDAD ECONÓMICA":["ACTIVIDAD","COMPONENTES"],
+             "INFLACIÓN":["ANUAL","COMPONENTES"],
+             "MERCADO LABORAL":["DESOCUPACIÓN","INFORMALIDAD","GÉNERO"]
              }
 
 submit=st.checkbox(label='Seleccionar todas las categorías')
@@ -130,29 +129,29 @@ if options[0] in user_input:
     except:
         pass
     
-    col1, col2 = st.columns(2)
-    with col1:
-        try: 
-            if appointment_1 :
-               imacec = px.line(dataimacec[dataimacec["SERIE"]=="1.Imacec"], x="PERIODO", y="VALOR", color="SERIE", template='simple_white')            
-               imacec.write_image("imacec.png")
-               im="imacec.png"
-               st.image("imacec.png")
-               os.remove("imacec.png")
-        except:
-            pass
+  #  col1, col2 = st.columns(2)
+  #  with col1:
+  #      try: 
+  #          if appointment_1 :
+  #             imacec = px.line(dataimacec[dataimacec["SERIE"]=="1.Imacec"], x="PERIODO", y="VALOR", color="SERIE", template='simple_white')            
+  #             imacec.write_image("imacec.png")
+  #             im="imacec.png"
+  #             st.image("imacec.png")
+  #             os.remove("imacec.png")
+  #      except:
+  #          pass
             
-    with col2:
-        try: 
-            if appointment_1:
-
-                componentes_imacec=px.line(dataimacec[dataimacec["CATEGORIA2"]=="IMACEC"], x="PERIODO", y="VALOR", color="SERIE", template='simple_white')
-                componentes_imacec.write_image("imacec_des.png")
-                im="imacec_des.png"
-                st.image("imacec_des.png")
-                os.remove("imacec_des.png")
-        except:
-            pass
+  #  with col2:
+  #      try: 
+  #          if appointment_1:
+  #  
+  #              componentes_imacec=px.line(dataimacec[dataimacec["CATEGORIA2"]=="IMACEC"], x="PERIODO", y="VALOR", color="SERIE", template='simple_white')
+  #              componentes_imacec.write_image("imacec_des.png")
+  #              im="imacec_des.png"
+  #              st.image("imacec_des.png")
+  #              os.remove("imacec_des.png")
+  #      except:
+  #          pass
  
         
     
