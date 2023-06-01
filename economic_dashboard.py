@@ -341,7 +341,7 @@ with tab1:
                 
                st.plotly_chart(componentes, theme="streamlit", use_container_width=True)
 
-            with st.expander("Detalle"):
+               with st.expander("Detalle"):
                  st.write("""
                     Fuente: Banco Central.
                  """)    
