@@ -176,14 +176,14 @@ if options[2]in user_input:
         format="YYYY/MM/DD")
 
 
-if options[3] in user_input:
-    serie=options[3]
-    st.subheader(serie)
-    user_input_4 = st.multiselect(label='Selecciones la serie a utilizar', options=dic_options[serie])
-    appointment_4 = st.slider(
-        "Seleccione el rango de fechas para la serie " + serie,
-        value=(extremos_4[0],extremos_4[1]),
-        format="YYYY/MM/DD")
+#if options[3] in user_input:
+#    serie=options[3]
+#    st.subheader(serie)
+#    user_input_4 = st.multiselect(label='Selecciones la serie a utilizar', options=dic_options[serie])
+#    appointment_4 = st.slider(
+#        "Seleccione el rango de fechas para la serie " + serie,
+#        value=(extremos_4[0],extremos_4[1]),
+#       format="YYYY/MM/DD")
     
 
 
