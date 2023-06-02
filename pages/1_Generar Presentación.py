@@ -509,7 +509,7 @@ if sub1:
                 if "ANUAL" not in user_input_2.values:
                     sacar.append(5)
                     sacar.append(6)
-                except:
+            except:
                 sacar.append(5)
                 sacar.append(6)
   
