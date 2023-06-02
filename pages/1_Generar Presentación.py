@@ -101,7 +101,7 @@ user_input = st.multiselect(label='Selecciones la serie a utilizar', options=opt
 
 dic_options={"ACTIVIDAD ECONÓMICA":["ACTIVIDAD","COMPONENTES"],
              "INFLACIÓN":["ANUAL","COMPONENTES"],
-             "MERCADO LABORAL":["DESOCUPACIÓN","INFORMALIDAD","GÉNERO"]
+             "MERCADO LABORAL":["DESOCUPACIÓN","INFORMALIDAD","REMUNERACIONES"]
              }
 
 submit=st.checkbox(label='Seleccionar todas las categorías')
@@ -302,17 +302,87 @@ if sub1:
     componentes=eje_porcentaje(componentes)
  
 #SLIDE 3 
+
+    data2=data[data["CATEGORIA"]=="INFLACION"]
+    data2["VALOR"]=data2["VALOR"]/100
+    anu="IPC, IPC sin volátiles e IPC volátiles, variación anual, información empalmada"
+    inf_anu=data2[(data2["NOMBRE_1"]==anu)&(data2["NOMBRE_2"]=="IPC General")]
+    inf_anu["SERIE"]=inf_anu["NOMBRE_2"]
+    inf_anu=gen(inf_anu,appointment_1,"Variación porcentual IPC YoY")
+    inf_anu=fechas_2(inf_anu)
+    inf_anu=eje_porcentaje(inf_anu)
+
+    com_anu=data2[(data2["NOMBRE_1"]==anu)&~(data2["NOMBRE_2"]=="IPC General")]
+    com_anu["SERIE"]=com_anu["NOMBRE_2"]
+    comp_2=com_anu[~com_anu["SERIE"].isin(["IPC sin volátiles","IPC volátil"])]
+    comp_2.loc[comp_2['NOMBRE_2'] == "IPC Servicios sin volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] == "IPC Servicios sin volátiles", 'VALOR']*0.384
+    comp_2.loc[comp_2['NOMBRE_2'] == "IPC Bienes sin volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] == "IPC Bienes sin volátiles", 'VALOR']*0.267
+    comp_2.loc[comp_2['NOMBRE_2'] == "IPC Alimentos volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] =="IPC Alimentos volátiles" , 'VALOR']*0.101
+    comp_2.loc[comp_2['NOMBRE_2'] == "IPC Energía volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] =="IPC Energía volátiles", 'VALOR']*0.075
+    comp_2.loc[comp_2['NOMBRE_2'] == "IPC Resto de volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] == "IPC Resto de volátiles", 'VALOR']*0.172
+
+    comp_2=gen_bar(comp_2,appointment_1,"Componentes secundarias IPC YoY")
+    inf_anu_=inf_anu1[(inf_anu1["PERIODO"] >= appointment_1[0])&(inf_anu1["PERIODO"]<=appointment_1[1])]
+    comp_2.add_trace(px.line(inf_anu_, x='PERIODO', y='VALOR', color="SERIE").data[0])
+    comp_2=fechas_2(comp_2)
+    comp_2=eje_porcentaje(comp_2)
+
     
-  
-data2=data[data["CATEGORIA"]=="INFLACION"]
-data2["VALOR"]=data2["VALOR"]/100
-anu="IPC, IPC sin volátiles e IPC volátiles, variación anual, información empalmada"
-inf_anu=data2[(data2["NOMBRE_1"]==anu)&(data2["NOMBRE_2"]=="IPC General")]
-inf_anu["SERIE"]=inf_anu["NOMBRE_2"]
+    #SLIDE 3 
 
-com_anu=data2[(data2["NOMBRE_1"]==anu)&~(data2["NOMBRE_2"]=="IPC General")]
-com_anu["SERIE"]=com_anu["NOMBRE_2"]
+    data3=data[data["CATEGORIA"]=="MERCADO LABORAL"]
+    emp_tasas_nac=data3[(data3["CATEGORIA2"]=="EMPLEO - TASAS")&(data3["CATEGORIA3"]=="Nacional")]
 
+    oc=emp_tasas_nac[emp_tasas_nac["NOMBRE_1"]=="Tasa de desocupación Nacional"]
+    oc["SERIE"]=oc["NOMBRE_2"]
+    oc["VALOR"]=oc["VALOR"]/100  
+    oc=gen(oc,appointment_1,"Tasa de desocupación")
+    oc=fechas_2(oc)
+    oc=eje_porcentaje(oc)
+
+    oc2=emp_tasas_nac[emp_tasas_nac["NOMBRE_1"].isin(["Tasa de desocupación H","Tasa de desocupación M"])]
+    oc2["SERIE"]=oc2["NOMBRE_2"]
+    oc2["VALOR"]=oc2oc["VALOR"]/100
+    oc2=gen(oc2,appointment_1,"Tasas de desocupación")
+    oc2=fechas_2(oc2)
+    oc2=eje_porcentaje(oc2)
+
+    informalidad=data3[(data3["CATEGORIA2"]=="INFORMALIDAD")&(data3["NOMBRE_1"]=="Tasa de informalidad (AS)")]
+    informalidad["SERIE"]=informalidad["NOMBRE_2"]
+    informalidad["VALOR"]=informalidad["VALOR"]/100
+    informalidad=informalidad.sort_values(by="PERIODO")
+    informalidad=gen(informalidad,appointment_3,"Tasa de Informalidad")
+    informalidad=fechas_2(informalidad)
+    informalidad=eje_porcentaje(informalidad)
+
+    informalidad2=data3[(data3["CATEGORIA2"]=="INFORMALIDAD")&~(data3["NOMBRE_1"]=="Tasa de informalidad (AS)")]
+    informalidad2["SERIE"]=informalidad2["NOMBRE_2"]
+    informalidad2["VALOR"]=informalidad2["VALOR"]/100
+    informalidad2=informalidad2.sort_values(by="PERIODO")
+    informalidad2=gen(informalidad2,appointment_3,"Tasas de Informalidad")
+    informalidad2=fechas_2(informalidad2)
+    informalidad2=eje_porcentaje(informalidad2)
+
+    
+    ind_rem_men_r=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="REAL")]
+    ind_rem_men_n=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="NOMINAL")]
+    ind_rem_men_r["SERIE"]="Variación real Y/Y"     
+    ind_rem_men_n["SERIE"]="Variación nominal Y/Y"    
+    ind_rem_men_r["VALOR"]=ind_rem_men_r["VALOR"]/ind_rem_men_r["VALOR"].shift(12)-1
+    ind_rem_men_r=ind_rem_men_r.dropna()
+    ind_rem_men_n["VALOR"]=ind_rem_men_n["VALOR"]/ind_rem_men_n["VALOR"].shift(12)-1
+    ind_rem_men_n=ind_rem_men_n.dropna()
+    ind_rem_men_r=ind_rem_men_r.sort_values(by="PERIODO")
+    ind_rem_men_n=ind_rem_men_n.sort_values(by="PERIODO")
+    
+    ind_rem_men_r=gen(ind_rem_men_r,appointment_44,"Variación Índice de remuneraciones [real] Y/Y ")
+    ind_rem_men_r=fechas_2(ind_rem_men_r)
+    ind_rem_men_r=eje_porcentaje(ind_rem_men_r)
+            
+    ind_rem_men_n=gen(ind_rem_men_n,appointment_44,"Variación Índice de remuneraciones [nom] Y/Y ")
+    ind_rem_men_n=fechas_2(ind_rem_men_n)
+    ind_rem_men_n=eje_porcentaje(ind_rem_men_n)
+    
     
     
  
