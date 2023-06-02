@@ -226,6 +226,28 @@ if sub1:
         grafico.layout.yaxis.tickformat = ',.1%'
         return grafico    
 
+    def gen_bar(imacec_des,rango,titulo):
+    imacec_des=imacec_des[(imacec_des["PERIODO"] >=rango[0])&(imacec_des["PERIODO"] <= rango[1])]    
+    imacec_des = px.bar(imacec_des, x="PERIODO", y="VALOR", color="SERIE", title='Mi gráfico de línea', 
+              labels={'x': 'Eje X', 'y': 'Eje Y'}, 
+              template='plotly_white', 
+              width=700, height=600)
+              # color_discrete_map=rename_dict)
+    
+    imacec_des.update_layout(title={
+        'text': titulo,
+        'x':0.5,
+         'xanchor': 'center',
+         'yanchor': 'top' 
+          },legend=dict(
+            orientation="h",
+            yanchor="top",
+            y=-0.2,
+            xanchor="left",
+            x=0.01
+        ))
+    return imacec_des
+
 #SLIDE 1 ACTIVIAD ECONOMICA
     data11=data1[data1["CATEGORIA2"]=="IMACEC"]    
     imacec_or="Imacec empalmado, serie original (índice 2018=100)"
