@@ -401,70 +401,75 @@ if sub1:
             leftd = Inches(0.5)
             lefti = Inches(7)
             top= Inches(1.8)
+            try:
+                #SLIDE 1 ACTIVIAD ECONOMICA
+                imacec_or_1.write_image("imacec.png")
+                im1="imacec.png"
+                add_image(prs.slides[2], image=im1, left=leftd, width=width, top=top)
+                os.remove("imacec.png")
 
-            #SLIDE 1 ACTIVIAD ECONOMICA
-            imacec_or_1.write_image("imacec.png")
-            im1="imacec.png"
-            add_image(prs.slides[2], image=im1, left=leftd, width=width, top=top)
-            os.remove("imacec.png")
-            
-            nom.write_image("nom.png")
-            im2="nom.png"
-            add_image(prs.slides[2], image=im2, left=lefti, width=width, top=top)
-            os.remove("nom.png")
+                nom.write_image("nom.png")
+                im2="nom.png"
+                add_image(prs.slides[2], image=im2, left=lefti, width=width, top=top)
+                os.remove("nom.png")
 
-            #SLIDE 2 COMPONENTES
-            prod_bienes.write_image("prod.png")
-            im3="prod.png"
-            add_image(prs.slides[3], image=im3, left=leftd, width=width, top=top)
-            os.remove("prod.png")
-            
-            componentes.write_image("comp.png")
-            im4="comp.png"
-            add_image(prs.slides[3], image=im4, left=lefti, width=width, top=top)
-            os.remove("comp.png")
+                #SLIDE 2 COMPONENTES
+                prod_bienes.write_image("prod.png")
+                im3="prod.png"
+                add_image(prs.slides[3], image=im3, left=leftd, width=width, top=top)
+                os.remove("prod.png")
 
-            #SLIDE 3 
-            inf_anu.write_image("inf_a.png")
-            im5="inf_a.png"
-            add_image(prs.slides[5], image=im5, left=leftd, width=width, top=top)
-            os.remove("inf_a.png")
-            comp_2.write_image("comp_2.png")
-            im6="comp_2.png"
-            add_image(prs.slides[5], image=im6, left=lefti, width=width, top=top)
-            os.remove("comp_2.png")
+                componentes.write_image("comp.png")
+                im4="comp.png"
+                add_image(prs.slides[3], image=im4, left=lefti, width=width, top=top)
+                os.remove("comp.png")
+            except:
+                pass
+            try:
+                #SLIDE 3 
+                inf_anu.write_image("inf_a.png")
+                im5="inf_a.png"
+                add_image(prs.slides[5], image=im5, left=leftd, width=width, top=top)
+                os.remove("inf_a.png")
+                comp_2.write_image("comp_2.png")
+                im6="comp_2.png"
+                add_image(prs.slides[5], image=im6, left=lefti, width=width, top=top)
+                os.remove("comp_2.png")
+            except:
+                pass
+            try:
+                #SLIDE 4
+                oc.write_image("desocup.png")
+                im7="desocup.png"
+                add_image(prs.slides[7], image=im7, left=leftd, width=width, top=top)
+                os.remove("desocup.png")
 
-            #SLIDE 4
-            oc.write_image("desocup.png")
-            im7="desocup.png"
-            add_image(prs.slides[7], image=im7, left=leftd, width=width, top=top)
-            os.remove("desocup.png")
-            
-            oc2.write_image("desoc2.png")
-            im8="desoc2.png"
-            add_image(prs.slides[7], image=im8, left=lefti, width=width, top=top)
-            os.remove("desoc2.png")
+                oc2.write_image("desoc2.png")
+                im8="desoc2.png"
+                add_image(prs.slides[7], image=im8, left=lefti, width=width, top=top)
+                os.remove("desoc2.png")
 
-            informalidad.write_image("infor.png")
-            im9="infor.png"
-            add_image(prs.slides[8], image=im9, left=leftd, width=width, top=top)
-            os.remove("infor.png")
-            informalidad2.write_image("infor2.png")
-            im10="infor2.png"
-            add_image(prs.slides[8], image=im10, left=lefti, width=width, top=top)
-            os.remove("infor2.png")
+                informalidad.write_image("infor.png")
+                im9="infor.png"
+                add_image(prs.slides[8], image=im9, left=leftd, width=width, top=top)
+                os.remove("infor.png")
+                informalidad2.write_image("infor2.png")
+                im10="infor2.png"
+                add_image(prs.slides[8], image=im10, left=lefti, width=width, top=top)
+                os.remove("infor2.png")
 
-            #SLIDE 5
-            ind_rem_men_r.write_image("real.png")
-            im11="real.png"
-            add_image(prs.slides[9], image=im11, left=leftd, width=width, top=top)
-            os.remove("real.png")
-            
-            ind_rem_men_n.write_image("nominal.png")
-            im12="nominal.png"
-            add_image(prs.slides[9], image=im12, left=lefti, width=width, top=top)
-            os.remove("nominal.png")
-   
+                #SLIDE 5
+                ind_rem_men_r.write_image("real.png")
+                im11="real.png"
+                add_image(prs.slides[9], image=im11, left=leftd, width=width, top=top)
+                os.remove("real.png")
+
+                ind_rem_men_n.write_image("nominal.png")
+                im12="nominal.png"
+                add_image(prs.slides[9], image=im12, left=lefti, width=width, top=top)
+                os.remove("nominal.png")
+            except:
+                pass
 
 
 
