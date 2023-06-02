@@ -311,7 +311,7 @@ if sub1:
 
     oc=eje_porcentaje(oc)
     
-    emp_tasas_nac2=data3[(data3["CATEGORIA2"]=="EMPLEO - TASAS")&(data3["CATEGORIA3"]=="Nacional")]
+    emp_tasas_nac2=data3[(data3["CATEGORIA2"]=="EMPLEO - TASAS")&~(data3["CATEGORIA3"]=="Nacional")]
     oc2=emp_tasas_nac2[emp_tasas_nac2["NOMBRE_1"].isin(["Tasa de desocupación H","Tasa de desocupación M"])]
     oc2["SERIE"]=oc2["NOMBRE_2"]
     oc2["VALOR"]=oc2["VALOR"]/100
