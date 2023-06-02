@@ -279,6 +279,7 @@ if sub1:
     anu="IPC, IPC sin volátiles e IPC volátiles, variación anual, información empalmada"
     inf_anu=data2[(data2["NOMBRE_1"]==anu)&(data2["NOMBRE_2"]=="IPC General")]
     inf_anu["SERIE"]=inf_anu["NOMBRE_2"]
+    inf_anu1=inf_anu.copy(deep=True)
     inf_anu=gen(inf_anu,appointment_2,"Variación porcentual IPC YoY")
 
     inf_anu=eje_porcentaje(inf_anu)
