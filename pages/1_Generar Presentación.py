@@ -285,31 +285,35 @@ if sub1:
     nom=eje_porcentaje(nom)
     
 #SLIDE 2 COMPONENTES
+    data12=data1[data1["CATEGORIA2"]=="IMACEC - COMPONENTES"]
+    data12["VALOR"]=data12["VALOR"]/100
+    est="Indicador mensual de actividad económica, Imacec, contribución porcentual respecto de igual periodo del año anterior, referencia 2018"
+    est=data12[data12["NOMBRE_1"]==est]
+    est["SERIE"]=est["NOMBRE_2"]
+    prod_bienes=est[est["NOMBRE_2"].isin(["Minería","Industria","Resto de bienes"])]
+    prod_bienes=gen_bar(prod_bienes,appointment,"Componentes producción de bienes")
+    prod_bienes.add_trace(px.line(prod_bienes_2, x='PERIODO', y='VALOR', color="SERIE").data[0])
+    prod_bienes=fechas_2(prod_bienes)
+    prod_bienes=eje_porcentaje(prod_bienes)
+
+    componentes=est[est["NOMBRE_2"].isin(["Producción de bienes","Comercio","Servicios"])]
+    componentes=gen_bar(componentes,appointment,"Componentes principales IMACEC")
+    componentes=fechas_2(componentes)
+    componentes=eje_porcentaje(componentes)
+ 
+#SLIDE 3 
     
+  
+data2=data[data["CATEGORIA"]=="INFLACION"]
+data2["VALOR"]=data2["VALOR"]/100
+anu="IPC, IPC sin volátiles e IPC volátiles, variación anual, información empalmada"
+inf_anu=data2[(data2["NOMBRE_1"]==anu)&(data2["NOMBRE_2"]=="IPC General")]
+inf_anu["SERIE"]=inf_anu["NOMBRE_2"]
+
+com_anu=data2[(data2["NOMBRE_1"]==anu)&~(data2["NOMBRE_2"]=="IPC General")]
+com_anu["SERIE"]=com_anu["NOMBRE_2"]
+
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    imacec = px.line(data1[data1["SERIE"]=="1.Imacec"], x="PERIODO", y="VALOR", color="SERIE", template='simple_white')
-    componentes_imacec=px.line(data1[data1["CATEGORIA2"]=="IMACEC"], x="PERIODO", y="VALOR", color="SERIE", template='simple_white') 
-    pib_anual= px.line(data1[data1["SERIE"]=="PIB ANUAL"], x="PERIODO", y="VALOR", color="SERIE", template='simple_white')
-    pib_TRIMESTRAL= px.line(data1[data1["SERIE"].isin(["YoY","Desestacionalizado (Variación Trimestral)"])], x="PERIODO", y="VALOR", color="SERIE", template='simple_white')
-   
-    
-    #INFLACIÓN
-    
-    ipcs=["Variación Mensual", "YoY"]
-    ipc_a= px.line(data2[data2["SERIE"]==ipcs[1]], x="PERIODO", y="VALOR", color="SERIE", template='simple_white')
-    ipc_m= px.line(data2[data2["SERIE"]==ipcs[0]], x="PERIODO", y="VALOR", color="SERIE", template='simple_white')
     
  
     #MERCADO LABORAL
