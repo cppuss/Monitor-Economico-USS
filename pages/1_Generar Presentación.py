@@ -86,7 +86,7 @@ options = [ "ACTIVIDAD ECONÓMICA","INFLACIÓN","MERCADO LABORAL"]
 user_input = st.multiselect(label='Selecciones la serie a utilizar', options=options)
 
 dic_options={"ACTIVIDAD ECONÓMICA":["ACTIVIDAD","COMPONENTES"],
-             "INFLACIÓN":["ANUAL","COMPONENTES SECUNDARIAS"],
+             "INFLACIÓN":["ANUAL"],
              "MERCADO LABORAL":["DESOCUPACIÓN","INFORMALIDAD","REMUNERACIONES"]
              }
 
