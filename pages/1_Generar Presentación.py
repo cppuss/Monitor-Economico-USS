@@ -93,7 +93,7 @@ data4=data[data["CATEGORIA"]=="CUENTAS CORRIENTES"]
 extremos_1=[data1["PERIODO"].iloc[0].to_pydatetime(),datetime.datetime.now()]
 extremos_2=[data2["PERIODO"].iloc[0].to_pydatetime(),datetime.datetime.now()]
 extremos_3=[data3["PERIODO"].iloc[0].to_pydatetime(),datetime.datetime.now()]
-extremos_4=[data4["PERIODO"].iloc[0].to_pydatetime(),datetime.datetime.now()]
+#extremos_4=[data4["PERIODO"].iloc[0].to_pydatetime(),datetime.datetime.now()]
 
 
 options = [ "ACTIVIDAD ECONÓMICA","INFLACIÓN","MERCADO LABORAL"]
@@ -106,7 +106,7 @@ dic_options={"ACTIVIDAD ECONÓMICA":["ACTIVIDAD","COMPONENTES"],
 
 submit=st.checkbox(label='Seleccionar todas las categorías')
 if submit:
-    user_input=["ACTIVIDAD ECONÓMICA","INFLACIÓN","MERCADO LABORAL","CUENTAS CORRIENTES"]
+    user_input=["ACTIVIDAD ECONÓMICA","INFLACIÓN","MERCADO LABORAL"]
     
 
 
@@ -118,42 +118,6 @@ if options[0] in user_input:
         "Seleccione el rango de fechas para la serie " + serie,
         value=(extremos_1[0],extremos_1[1]),
         format="YYYY/MM")
-   # try:
-   #     if appointment_1 and user_input_1[0]=="IMACEC":
-   #         dataimacec=data1[(data1["PERIODO"]> appointment_1[0])&(data1["PERIODO"]< appointment_1[1])]
-   # except:
-   #     pass
-   # try:        
-   #     if appointment_1 and user_input_1[1]=="IMACEC":
-   #         dataimacec=data1[(data1["PERIODO"]> appointment_1[0])&(data1["PERIODO"]< appointment_1[1])]
-   # except:
-   #     pass
-    
-  #  col1, col2 = st.columns(2)
-  #  with col1:
-  #      try: 
-  #          if appointment_1 :
-  #             imacec = px.line(dataimacec[dataimacec["SERIE"]=="1.Imacec"], x="PERIODO", y="VALOR", color="SERIE", template='simple_white')            
-  #             imacec.write_image("imacec.png")
-  #             im="imacec.png"
-  #             st.image("imacec.png")
-  #             os.remove("imacec.png")
-  #      except:
-  #          pass
-            
-  #  with col2:
-  #      try: 
-  #          if appointment_1:
-  #  
-  #              componentes_imacec=px.line(dataimacec[dataimacec["CATEGORIA2"]=="IMACEC"], x="PERIODO", y="VALOR", color="SERIE", template='simple_white')
-  #              componentes_imacec.write_image("imacec_des.png")
-  #              im="imacec_des.png"
-  #              st.image("imacec_des.png")
-  #              os.remove("imacec_des.png")
-  #      except:
-  #          pass
- 
-        
     
 if options[1] in user_input:
     serie=options[1]
@@ -162,7 +126,7 @@ if options[1] in user_input:
     appointment_2 = st.slider(
         "Seleccione el rango de fechas para la serie " + serie,
         value=(extremos_2[0],extremos_2[1]),
-        format="YYYY/MM/DD")
+        format="YYYY/MM")
 
       
     
@@ -173,7 +137,7 @@ if options[2]in user_input:
     appointment_3 = st.slider(
         "Seleccione el rango de fechas para la serie " + serie,
         value=(extremos_3[0],extremos_3[1]),
-        format="YYYY/MM/DD")
+        format="YYYY/MM")
 
 
 #if options[3] in user_input:
@@ -195,7 +159,6 @@ if sub1:
     genre = st.radio(
         "Seleccionar un formato",
         ('Formato claro', 'Formato oscuro'))
-
     
     col1, col2 = st.columns(2)
     with col1:
