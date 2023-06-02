@@ -509,16 +509,16 @@ if sub1:
 
             try:
                 if "DESOCUPACIÓN" not in user_input_3.values:
-                    sacar.append(9)
-                if "INFORMALIDAD" not in user_input_3.values:
                     sacar.append(10)
-                if "REMUNERACIONES" not in user_input_3.values:
+                if "INFORMALIDAD" not in user_input_3.values:
                     sacar.append(11)
+                if "REMUNERACIONES" not in user_input_3.values:
+                    sacar.append(12)
             except:
-                sacar.append(8)
                 sacar.append(9)           
                 sacar.append(10)     
                 sacar.append(11)     
+                sacar.append(12)     
 
 
 
