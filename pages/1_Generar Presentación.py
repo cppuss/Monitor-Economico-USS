@@ -86,7 +86,7 @@ options = [ "ACTIVIDAD ECONÓMICA","INFLACIÓN","MERCADO LABORAL"]
 user_input = st.multiselect(label='Selecciones la serie a utilizar', options=options)
 
 dic_options={"ACTIVIDAD ECONÓMICA":["ACTIVIDAD","COMPONENTES"],
-             "INFLACIÓN":["ANUAL","COMPONENTES"],
+             "INFLACIÓN":["ANUAL","COMPONENTES SECUNDARIAS"],
              "MERCADO LABORAL":["DESOCUPACIÓN","INFORMALIDAD","REMUNERACIONES"]
              }
 
@@ -499,7 +499,7 @@ if sub1:
             try:
                 if "ANUAL" not in user_input_2.values:
                     sacar.append(6)
-                if "COMPONENTES" not in user_input_2.values:
+                if "COMPONENTES SECUNDARIAS" not in user_input_2.values:
                     sacar.append(7)           
             except:
                 sacar.append(5) 
@@ -515,7 +515,6 @@ if sub1:
                 if "REMUNERACIONES" not in user_input_3.values:
                     sacar.append(11)
             except:
-
                 sacar.append(8)
                 sacar.append(9)           
                 sacar.append(10)     
