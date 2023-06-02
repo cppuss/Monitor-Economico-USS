@@ -26,21 +26,7 @@ st.sidebar.image("ESCUDOUSS_vertical_color.png", use_column_width=True)
 def add_image(slide, image, left, top, width):
     slide.shapes.add_picture(image, left=left, top=top, width=width)
 
-def fechas_2(grafico):
-    grafico.update_xaxes(
-        rangeselector=dict(
-            buttons=list([
-                dict(count=3, label="3A", step="year", stepmode="backward"),
-                dict(count=5, label="5A", step="year", stepmode="backward"),
-                dict(count=10, label="10A", step="year", stepmode="backward"),
-                dict(step="all")
-            ])
-        )
-    )
-    grafico.update_yaxes(rangemode="tozero")
 
-
-    return grafico
 
 def eje_porcentaje(grafico):
     grafico.layout.yaxis.tickformat = ',.1%'
@@ -256,7 +242,7 @@ if sub1:
     imacec_or=imacec_or.dropna()
     imacec_or["SERIE"]="Imacec (variación anual)"
     imacec_or_1=gen(imacec_or,appointment_1,"Variación anual del IMACEC")
-    imacec_or_1=fechas_2(imacec_or_1)
+
     imacec_or_1=eje_porcentaje(imacec_or_1)
 
     data13=data1[data1["CATEGORIA2"]=="PIB"]
@@ -266,7 +252,7 @@ if sub1:
     nom=nom.dropna()
     nom["SERIE"]="PIB Trimestral (variación YoY)"
     nom=gen(nom,appointment_1,"Variación Trimestral PIB YoY")
-    nom=fechas_2(nom)
+
     nom=eje_porcentaje(nom)
 
 #SLIDE 2 COMPONENTES
@@ -278,12 +264,12 @@ if sub1:
     prod_bienes=est[est["NOMBRE_2"].isin(["Minería","Industria","Resto de bienes"])]
     prod_bienes=gen_bar(prod_bienes,appointment,"Componentes producción de bienes")
     prod_bienes.add_trace(px.line(prod_bienes_2, x='PERIODO', y='VALOR', color="SERIE").data[0])
-    prod_bienes=fechas_2(prod_bienes)
+
     prod_bienes=eje_porcentaje(prod_bienes)
 
     componentes=est[est["NOMBRE_2"].isin(["Producción de bienes","Comercio","Servicios"])]
     componentes=gen_bar(componentes,appointment,"Componentes principales IMACEC")
-    componentes=fechas_2(componentes)
+
     componentes=eje_porcentaje(componentes)
 
 #SLIDE 3 
@@ -294,7 +280,7 @@ if sub1:
     inf_anu=data2[(data2["NOMBRE_1"]==anu)&(data2["NOMBRE_2"]=="IPC General")]
     inf_anu["SERIE"]=inf_anu["NOMBRE_2"]
     inf_anu=gen(inf_anu,appointment_1,"Variación porcentual IPC YoY")
-    inf_anu=fechas_2(inf_anu)
+
     inf_anu=eje_porcentaje(inf_anu)
 
     com_anu=data2[(data2["NOMBRE_1"]==anu)&~(data2["NOMBRE_2"]=="IPC General")]
@@ -309,7 +295,7 @@ if sub1:
     comp_2=gen_bar(comp_2,appointment_1,"Componentes secundarias IPC YoY")
     inf_anu_=inf_anu1[(inf_anu1["PERIODO"] >= appointment_1[0])&(inf_anu1["PERIODO"]<=appointment_1[1])]
     comp_2.add_trace(px.line(inf_anu_, x='PERIODO', y='VALOR', color="SERIE").data[0])
-    comp_2=fechas_2(comp_2)
+
     comp_2=eje_porcentaje(comp_2)
 
 
@@ -322,14 +308,14 @@ if sub1:
     oc["SERIE"]=oc["NOMBRE_2"]
     oc["VALOR"]=oc["VALOR"]/100  
     oc=gen(oc,appointment_1,"Tasa de desocupación")
-    oc=fechas_2(oc)
+
     oc=eje_porcentaje(oc)
 
     oc2=emp_tasas_nac[emp_tasas_nac["NOMBRE_1"].isin(["Tasa de desocupación H","Tasa de desocupación M"])]
     oc2["SERIE"]=oc2["NOMBRE_2"]
     oc2["VALOR"]=oc2oc["VALOR"]/100
     oc2=gen(oc2,appointment_1,"Tasas de desocupación")
-    oc2=fechas_2(oc2)
+
     oc2=eje_porcentaje(oc2)
 
     informalidad=data3[(data3["CATEGORIA2"]=="INFORMALIDAD")&(data3["NOMBRE_1"]=="Tasa de informalidad (AS)")]
@@ -337,7 +323,7 @@ if sub1:
     informalidad["VALOR"]=informalidad["VALOR"]/100
     informalidad=informalidad.sort_values(by="PERIODO")
     informalidad=gen(informalidad,appointment_3,"Tasa de Informalidad")
-    informalidad=fechas_2(informalidad)
+
     informalidad=eje_porcentaje(informalidad)
 
     informalidad2=data3[(data3["CATEGORIA2"]=="INFORMALIDAD")&~(data3["NOMBRE_1"]=="Tasa de informalidad (AS)")]
@@ -345,7 +331,7 @@ if sub1:
     informalidad2["VALOR"]=informalidad2["VALOR"]/100
     informalidad2=informalidad2.sort_values(by="PERIODO")
     informalidad2=gen(informalidad2,appointment_3,"Tasas de Informalidad")
-    informalidad2=fechas_2(informalidad2)
+
     informalidad2=eje_porcentaje(informalidad2)
 
 #SLIDE 5
@@ -362,11 +348,11 @@ if sub1:
     ind_rem_men_n=ind_rem_men_n.sort_values(by="PERIODO")
 
     ind_rem_men_r=gen(ind_rem_men_r,appointment_44,"Variación Índice de remuneraciones [real] Y/Y ")
-    ind_rem_men_r=fechas_2(ind_rem_men_r)
+
     ind_rem_men_r=eje_porcentaje(ind_rem_men_r)
 
     ind_rem_men_n=gen(ind_rem_men_n,appointment_44,"Variación Índice de remuneraciones [nom] Y/Y ")
-    ind_rem_men_n=fechas_2(ind_rem_men_n)
+
     ind_rem_men_n=eje_porcentaje(ind_rem_men_n)
 
 
