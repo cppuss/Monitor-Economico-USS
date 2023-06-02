@@ -490,8 +490,11 @@ if sub1:
                     sacar.append(3)
                 if "COMPONENTES" not in user_input_1.values:
                     sacar.append(4)
+                if "ACTIVIDAD" and "COMPONENTES" not in user_input_1.values:
+                    sacar.append(2)
 
             except:
+                sacar.append(2)
                 sacar.append(3)
                 sacar.append(4)      
 
