@@ -494,10 +494,8 @@ if sub1:
                     sacar.append(2)
 
             except:
-                sacar.append(2)
-                sacar.append(3)
-                sacar.append(4)      
-
+                a=sacar[]   
+            
             try:
                 if "ANUAL" not in user_input_2.values:
                     sacar.append(5)
