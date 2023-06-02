@@ -314,7 +314,7 @@ if sub1:
 
     oc2=emp_tasas_nac[emp_tasas_nac["NOMBRE_1"].isin(["Tasa de desocupación H","Tasa de desocupación M"])]
     oc2["SERIE"]=oc2["NOMBRE_2"]
-    oc2["VALOR"]=oc2oc["VALOR"]/100
+    oc2["VALOR"]=oc2["VALOR"]/100
     oc2=gen(oc2,appointment_3,"Tasas de desocupación")
 
     oc2=eje_porcentaje(oc2)
