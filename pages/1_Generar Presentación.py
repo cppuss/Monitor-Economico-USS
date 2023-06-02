@@ -518,7 +518,7 @@ if sub1:
 
 
 
-            x=1
+            x=0
             for i in sacar:
                 xml_slides = prs.slides._sldIdLst  
                 slides = list(xml_slides)
