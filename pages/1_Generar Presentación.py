@@ -459,7 +459,7 @@ if sub1:
             im12="nominal.png"
             add_image(prs.slides[8], image=im12, left=lefti, width=width, top=top)
             os.remove("nominal.png")
-            ##
+   
 
 
 
@@ -498,28 +498,24 @@ if sub1:
 
             try:
                 if "ANUAL" not in user_input_2.values:
+                    sacar.append(5)
                     sacar.append(6)
-                if "COMPONENTES SECUNDARIAS" not in user_input_2.values:
-                    sacar.append(7)           
             except:
                 sacar.append(5) 
-                sacar.append(6)           
-                sacar.append(7)           
+                sacar.append(6) 
 
 
             try:
                 if "DESOCUPACIÓN" not in user_input_3.values:
-                    sacar.append(10)
+                    sacar.append(8)
                 if "INFORMALIDAD" not in user_input_3.values:
-                    sacar.append(11)
+                    sacar.append(9)
                 if "REMUNERACIONES" not in user_input_3.values:
-                    sacar.append(12)
+                    sacar.append(10)
             except:
-                sacar.append(9)           
-                sacar.append(10)     
-                sacar.append(11)     
-                sacar.append(12)     
-
+                sacar.append(8)           
+                sacar.append(9)     
+                sacar.append(10)          
 
 
             x=1
