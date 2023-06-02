@@ -263,7 +263,7 @@ if sub1:
     est["SERIE"]=est["NOMBRE_2"]
     prod_bienes=est[est["NOMBRE_2"].isin(["Minería","Industria","Resto de bienes"])]
     prod_bienes=gen_bar(prod_bienes,appointment_1,"Componentes producción de bienes")
-    prod_bienes.add_trace(px.line(prod_bienes_2, x='PERIODO', y='VALOR', color="SERIE").data[0])
+#    prod_bienes.add_trace(px.line(prod_bienes_2, x='PERIODO', y='VALOR', color="SERIE").data[0])
 
     prod_bienes=eje_porcentaje(prod_bienes)
 
