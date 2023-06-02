@@ -392,10 +392,10 @@ if sub1:
 
 
             #AGREGAR GRAFICOS
-            width = Inches(4)
+            width = Inches(5)
             leftd = Inches(-3)
             lefti = Inches(5)
-            top= Inches(-1)
+            top= Inches(0)
 
             #SLIDE 1 ACTIVIAD ECONOMICA
             imacec_or_1.write_image("imacec.png")
