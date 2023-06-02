@@ -500,19 +500,18 @@ if sub1:
                     sacar.append(3)
                 if "COMPONENTES" not in user_input_1.values:
                     sacar.append(4)
-                if "ACTIVIDAD" and "COMPONENTES" not in user_input_1.values:
-                    sacar.append(2)
-
-            except:
-                pass
+            except: 
+                sacar.append(2)
+                sacar.append(3)
+                sacar.append(4)
             
             try:
                 if "ANUAL" not in user_input_2.values:
                     sacar.append(5)
-                if "ANUAL" not in user_input_2.values:    
-                    sacar.append(6)
             except:
-                pass
+                sacar.append(5)
+                sacar.append(6)
+  
 
 
             try:
@@ -522,12 +521,12 @@ if sub1:
                     sacar.append(9)
                 if "REMUNERACIONES" not in user_input_3.values:
                     sacar.append(10)
-                if "DESOCUPACIÓN" and "INFORMALIDAD" and "REMUNERACIONES" not in user_input_3.values:
-                    sacar.append(7)
+
             except:
-                pass           
-
-
+                sacar.append(7)
+                sacar.append(8)
+                sacar.append(9) 
+                sacar.append(10) 
 
             x=1
             for i in sacar:
