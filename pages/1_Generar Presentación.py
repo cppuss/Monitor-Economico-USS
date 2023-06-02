@@ -492,7 +492,6 @@ if sub1:
                     sacar.append(4)
 
             except:
-                sacar.append(2)
                 sacar.append(3)
                 sacar.append(4)      
 
