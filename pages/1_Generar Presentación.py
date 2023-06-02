@@ -393,8 +393,8 @@ if sub1:
 
             #AGREGAR GRAFICOS
             width = Inches(5)
-            leftd = Inches(-3)
-            lefti = Inches(5)
+            leftd = Inches(0.35)
+            lefti = Inches(0.65)
             top= Inches(0)
 
             #SLIDE 1 ACTIVIAD ECONOMICA
