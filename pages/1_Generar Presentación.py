@@ -432,32 +432,32 @@ if sub1:
             #SLIDE 4
             oc.write_image("desocup.png")
             im7="desocup.png"
-            add_image(prs.slides[6], image=im7, left=leftd, width=width, top=top)
+            add_image(prs.slides[7], image=im7, left=leftd, width=width, top=top)
             os.remove("desocup.png")
             
             oc2.write_image("desoc2.png")
             im8="desoc2.png"
-            add_image(prs.slides[6], image=im8, left=lefti, width=width, top=top)
+            add_image(prs.slides[7], image=im8, left=lefti, width=width, top=top)
             os.remove("desoc2.png")
 
             informalidad.write_image("infor.png")
             im9="infor.png"
-            add_image(prs.slides[7], image=im9, left=leftd, width=width, top=top)
+            add_image(prs.slides[8], image=im9, left=leftd, width=width, top=top)
             os.remove("infor.png")
             informalidad2.write_image("infor2.png")
             im10="infor2.png"
-            add_image(prs.slides[7], image=im10, left=lefti, width=width, top=top)
+            add_image(prs.slides[8], image=im10, left=lefti, width=width, top=top)
             os.remove("infor2.png")
 
             #SLIDE 5
             ind_rem_men_r.write_image("real.png")
             im11="real.png"
-            add_image(prs.slides[8], image=im11, left=leftd, width=width, top=top)
+            add_image(prs.slides[9], image=im11, left=leftd, width=width, top=top)
             os.remove("real.png")
             
             ind_rem_men_n.write_image("nominal.png")
             im12="nominal.png"
-            add_image(prs.slides[8], image=im12, left=lefti, width=width, top=top)
+            add_image(prs.slides[9], image=im12, left=lefti, width=width, top=top)
             os.remove("nominal.png")
    
 
