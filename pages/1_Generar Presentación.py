@@ -242,7 +242,6 @@ if sub1:
     imacec_or=imacec_or.dropna()
     imacec_or["SERIE"]="Imacec (variación anual)"
     imacec_or_1=gen(imacec_or,appointment_1,"Variación anual del IMACEC")
-
     imacec_or_1=eje_porcentaje(imacec_or_1)
 
     data13=data1[data1["CATEGORIA2"]=="PIB"]
@@ -394,7 +393,7 @@ if sub1:
 
             #AGREGAR GRAFICOS
             width = Inches(8)
-            leftd = Inches(-5)
+            leftd = Inches(5)
             lefti = Inches(5)
             top= Inches(0)
 
