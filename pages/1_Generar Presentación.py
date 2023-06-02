@@ -395,7 +395,7 @@ if sub1:
             width = Inches(5)
             leftd = Inches(0.35)
             lefti = Inches(0.65)
-            top= Inches(0)
+            top= Inches(1)
 
             #SLIDE 1 ACTIVIAD ECONOMICA
             imacec_or_1.write_image("imacec.png")
