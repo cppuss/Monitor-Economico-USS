@@ -317,8 +317,8 @@ com_anu["SERIE"]=com_anu["NOMBRE_2"]
     
  
     #MERCADO LABORAL
-    desocupados=px.line(data3[data3["SERIE"]=="Tasa de desocupación"], x="PERIODO", y="VALOR", color="SERIE", template='simple_white')
-    oc_part=px.line(data3[data3["SERIE"].isin(["Tasa de ocupación","Tasa de participación"])], x="PERIODO", y="VALOR", color="SERIE", template='simple_white')
+    #desocupados=px.line(data3[data3["SERIE"]=="Tasa de desocupación"], x="PERIODO", y="VALOR", color="SERIE", template='simple_white')
+    #oc_part=px.line(data3[data3["SERIE"].isin(["Tasa de ocupación","Tasa de participación"])], x="PERIODO", y="VALOR", color="SERIE", template='simple_white')
  
 
         
