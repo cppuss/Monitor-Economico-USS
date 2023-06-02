@@ -310,12 +310,12 @@ if sub1:
     oc=gen(oc,appointment_3,"Tasa de desocupación")
 
     oc=eje_porcentaje(oc)
-
-    oc2=emp_tasas_nac[emp_tasas_nac["NOMBRE_1"].isin(["Tasa de desocupación H","Tasa de desocupación M"])]
+    
+    emp_tasas_nac2=data3[(data3["CATEGORIA2"]=="EMPLEO - TASAS")&(data3["CATEGORIA3"]=="Nacional")]
+    oc2=emp_tasas_nac2[emp_tasas_nac2["NOMBRE_1"].isin(["Tasa de desocupación H","Tasa de desocupación M"])]
     oc2["SERIE"]=oc2["NOMBRE_2"]
     oc2["VALOR"]=oc2["VALOR"]/100
     oc2=gen(oc2,appointment_3,"Tasas de desocupación")
-
     oc2=eje_porcentaje(oc2)
 
     informalidad=data3[(data3["CATEGORIA2"]=="INFORMALIDAD")&(data3["NOMBRE_1"]=="Tasa de informalidad (AS)")]
