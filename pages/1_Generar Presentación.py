@@ -393,7 +393,7 @@ if sub1:
 
             #AGREGAR GRAFICOS
             width = Inches(8)
-            leftd = Inches(5)
+            leftd = Inches(-5)
             lefti = Inches(5)
             top= Inches(0)
 
@@ -404,7 +404,7 @@ if sub1:
             os.remove("imacec.png")
             
             nom.write_image("nom.png")
-            im2="bom.png"
+            im2="nom.png"
             add_image(prs.slides[2], image=im2, left=lefti, width=width, top=top)
             os.remove("nom.png")
 
