@@ -262,13 +262,13 @@ if sub1:
     est=data12[data12["NOMBRE_1"]==est]
     est["SERIE"]=est["NOMBRE_2"]
     prod_bienes=est[est["NOMBRE_2"].isin(["Minería","Industria","Resto de bienes"])]
-    prod_bienes=gen_bar(prod_bienes,appointment,"Componentes producción de bienes")
+    prod_bienes=gen_bar(prod_bienes,appointment_1,"Componentes producción de bienes")
     prod_bienes.add_trace(px.line(prod_bienes_2, x='PERIODO', y='VALOR', color="SERIE").data[0])
 
     prod_bienes=eje_porcentaje(prod_bienes)
 
     componentes=est[est["NOMBRE_2"].isin(["Producción de bienes","Comercio","Servicios"])]
-    componentes=gen_bar(componentes,appointment,"Componentes principales IMACEC")
+    componentes=gen_bar(componentes,appointment_1,"Componentes principales IMACEC")
 
     componentes=eje_porcentaje(componentes)
 
@@ -279,7 +279,7 @@ if sub1:
     anu="IPC, IPC sin volátiles e IPC volátiles, variación anual, información empalmada"
     inf_anu=data2[(data2["NOMBRE_1"]==anu)&(data2["NOMBRE_2"]=="IPC General")]
     inf_anu["SERIE"]=inf_anu["NOMBRE_2"]
-    inf_anu=gen(inf_anu,appointment_1,"Variación porcentual IPC YoY")
+    inf_anu=gen(inf_anu,appointment_2,"Variación porcentual IPC YoY")
 
     inf_anu=eje_porcentaje(inf_anu)
 
@@ -292,8 +292,8 @@ if sub1:
     comp_2.loc[comp_2['NOMBRE_2'] == "IPC Energía volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] =="IPC Energía volátiles", 'VALOR']*0.075
     comp_2.loc[comp_2['NOMBRE_2'] == "IPC Resto de volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] == "IPC Resto de volátiles", 'VALOR']*0.172
 
-    comp_2=gen_bar(comp_2,appointment_1,"Componentes secundarias IPC YoY")
-    inf_anu_=inf_anu1[(inf_anu1["PERIODO"] >= appointment_1[0])&(inf_anu1["PERIODO"]<=appointment_1[1])]
+    comp_2=gen_bar(comp_2,appointment_2,"Componentes secundarias IPC YoY")
+    inf_anu_=inf_anu1[(inf_anu1["PERIODO"] >= appointment_2[0])&(inf_anu1["PERIODO"]<=appointment_2[1])]
     comp_2.add_trace(px.line(inf_anu_, x='PERIODO', y='VALOR', color="SERIE").data[0])
 
     comp_2=eje_porcentaje(comp_2)
@@ -307,14 +307,14 @@ if sub1:
     oc=emp_tasas_nac[emp_tasas_nac["NOMBRE_1"]=="Tasa de desocupación Nacional"]
     oc["SERIE"]=oc["NOMBRE_2"]
     oc["VALOR"]=oc["VALOR"]/100  
-    oc=gen(oc,appointment_1,"Tasa de desocupación")
+    oc=gen(oc,appointment_3,"Tasa de desocupación")
 
     oc=eje_porcentaje(oc)
 
     oc2=emp_tasas_nac[emp_tasas_nac["NOMBRE_1"].isin(["Tasa de desocupación H","Tasa de desocupación M"])]
     oc2["SERIE"]=oc2["NOMBRE_2"]
     oc2["VALOR"]=oc2oc["VALOR"]/100
-    oc2=gen(oc2,appointment_1,"Tasas de desocupación")
+    oc2=gen(oc2,appointment_3,"Tasas de desocupación")
 
     oc2=eje_porcentaje(oc2)
 
@@ -347,11 +347,11 @@ if sub1:
     ind_rem_men_r=ind_rem_men_r.sort_values(by="PERIODO")
     ind_rem_men_n=ind_rem_men_n.sort_values(by="PERIODO")
 
-    ind_rem_men_r=gen(ind_rem_men_r,appointment_44,"Variación Índice de remuneraciones [real] Y/Y ")
+    ind_rem_men_r=gen(ind_rem_men_r,appointment_3,"Variación Índice de remuneraciones [real] Y/Y ")
 
     ind_rem_men_r=eje_porcentaje(ind_rem_men_r)
 
-    ind_rem_men_n=gen(ind_rem_men_n,appointment_44,"Variación Índice de remuneraciones [nom] Y/Y ")
+    ind_rem_men_n=gen(ind_rem_men_n,appointment_3,"Variación Índice de remuneraciones [nom] Y/Y ")
 
     ind_rem_men_n=eje_porcentaje(ind_rem_men_n)
 
