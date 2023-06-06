@@ -105,7 +105,7 @@ if options[0] in user_input:
                         "Seleccione el rango de fechas para la series. " + serie,
                         value=(extremos_1[0],extremos_1[1]),
                         format="YYYY/MM")
-
+"""
 if options[1] in user_input:
     serie=options[1]
     st.subheader(serie)
@@ -117,7 +117,7 @@ if options[1] in user_input:
                             format="YYYY/MM")
 
       
-    """
+  
 if options[2] in user_input:
     serie=options[2]
     st.subheader(serie)
