@@ -117,7 +117,7 @@ if options[1] in user_input:
                             format="YYYY/MM")
 
       
-    
+    """
 if options[2] in user_input:
     serie=options[2]
     st.subheader(serie)
@@ -545,6 +545,6 @@ else:
     pass
 
 
-
+    """
 
 
