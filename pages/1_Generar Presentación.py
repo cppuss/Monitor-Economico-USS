@@ -100,7 +100,7 @@ if options[0] in user_input:
     serie=options[0]
     st.subheader(serie)
     user_input_1 = st.multiselect(label='Selecciones la serie a utilizar', options=dic_options[serie])
-  
+if user_input_1:  
     appointment_1 = st.slider(
                         "Seleccione el rango de fechas para la series. " + serie,
                         value=(extremos_1[0],extremos_1[1]),
