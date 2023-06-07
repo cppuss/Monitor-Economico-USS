@@ -510,7 +510,7 @@ if sub1:
 
             try:
                 slide2 = prs.slides[7]
-                texto = "Desocupación laboral rondó un :" + "mujeres y hombres "+ +" respectivamente" 
+                texto = "Desocupación laboral rondó un :" + "mujeres y hombres "+ " respectivamente" 
                 title_2 = slide2.shapes.title.text_frame.paragraphs[0]
                 title_2.text = texto
                 title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
