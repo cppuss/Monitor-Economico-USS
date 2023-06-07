@@ -285,9 +285,9 @@ if sub1:
               
                 prod_bienes=est[est["NOMBRE_2"].isin(["Minería","Industria","Resto de bienes"])]
                 
-                uv_mineria=est[est["NOMBRE_2"]=="Minería"]]["VALOR"].iloc[-1]
-                uv_indsutria=est[est["NOMBRE_2"]=="Industria"]]["VALOR"].iloc[-1]
-                uv_sericios=est[est["NOMBRE_2"]=="Resto de bienes"]]["VALOR"].iloc[-1]
+                uv_mineria=est[est["NOMBRE_2"]=="Minería"]["VALOR"].iloc[-1]
+                uv_indsutria=est[est["NOMBRE_2"]=="Industria"]["VALOR"].iloc[-1]
+                uv_sericios=est[est["NOMBRE_2"]=="Resto de bienes"]["VALOR"].iloc[-1]
                    
                 prod_bienes=gen_bar(prod_bienes,appointment_1,"Componentes producción de bienes")
                 prod_bienes=eje_porcentaje(prod_bienes)
