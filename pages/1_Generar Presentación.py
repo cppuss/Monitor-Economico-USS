@@ -6,19 +6,19 @@ Created on Mon Apr 24 09:08:02 2023
 @author: matias.otthgmail.com
 """
 
-
 import streamlit as st
 import pandas as pd
-import plotly.express as px
+#iport plotly.express as px
 import numpy as np
 from datetime import time
-from pptx import Presentation
+#from pptx import Presentation
 from io import BytesIO
 from datetime import date
-from pptx.dml.color import RGBColor
-from pptx.util import Inches
-import os
-import datetime 
+#from pptx.dml.color import RGBColor
+#from pptx.util import Inches
+#import os
+#import datetime 
+
 
 st.set_page_config(layout="wide")
 st.sidebar.image("ESCUDOUSS_vertical_color.png", use_column_width=True)
