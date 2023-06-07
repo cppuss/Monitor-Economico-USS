@@ -11,12 +11,12 @@ import pandas as pd
 import plotly.express as px
 import numpy as np
 from datetime import time
-#from pptx import Presentation
+from pptx import Presentation
 from io import BytesIO
 from datetime import date
-#from pptx.dml.color import RGBColor
-#from pptx.util import Inches
-#import os
+from pptx.dml.color import RGBColor
+from pptx.util import Inches
+import os
 from datetime import datetime
 
 
