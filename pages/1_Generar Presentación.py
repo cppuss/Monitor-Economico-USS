@@ -91,7 +91,7 @@ dic_options={"ACTIVIDAD ECONÓMICA":["ACTIVIDAD","COMPONENTES"],
              }
 
 
-appointment_1 = st.slider("Seleccione el rango de fechas para la series. " + serie,
+appointment_1 = st.slider("Seleccione el rango de fechas para la series.,
                     value=(extremos_1[0],extremos_1[1]),
                     format="YYYY/MM")
 
