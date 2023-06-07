@@ -28,11 +28,11 @@ data=pd.read_parquet("datos_monitor.parquet")
 
 data1=data[data["CATEGORIA"]=="ACTIVIDAD ECONOMICA"]
 
-extremos_1=[data1["PERIODO"].iloc[0].to_pydatetime(),datetime.now()]
+extremos_1=[data1["PERIODO"].iloc[0].to_pydatetime()]
 
 
 
 appointment = st.slider(
                 "Seleccione el rango de fechas",
-                value=(extremos_1[0],extremos_1[1]),
+                value=(extremos_1[0],datetime.now()),
                 format="YYYY/MM")
