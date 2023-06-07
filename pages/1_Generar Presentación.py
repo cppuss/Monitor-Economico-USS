@@ -79,7 +79,7 @@ data4=data[data["CATEGORIA"]=="CUENTAS CORRIENTES"]
 extremos_1=[data1["PERIODO"].iloc[0].to_pydatetime(),data2["PERIODO"].iloc[-1].to_pydatetime()]
 extremos_2=[data2["PERIODO"].iloc[0].to_pydatetime(),data2["PERIODO"].iloc[-1].to_pydatetime()]
 extremos_3=[data3["PERIODO"].iloc[0].to_pydatetime(),data3["PERIODO"].iloc[-1].to_pydatetime()]
-#extremos_4=[data4["PERIODO"].iloc[0].to_pydatetime(),datetime.datetime.now()]
+
 
 
 options = [ "ACTIVIDAD ECONÓMICA","INFLACIÓN","MERCADO LABORAL"]
