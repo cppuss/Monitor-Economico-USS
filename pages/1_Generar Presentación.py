@@ -517,21 +517,21 @@ if sub1:
                 title_2.font.name = "Calibri" 
                 title_2.font.size = Pt(18)
    
-                slide2 = prs.slides[8]
-                texto = "Informalidad rondó un :" + " puntos por sobre la media histórica" 
-                title_2 = slide2.shapes.title.text_frame.paragraphs[0]
-                title_2.text = texto
-                title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
-                title_2.font.name = "Calibri" 
-                title_2.font.size = Pt(18)
+                slide3 = prs.slides[8]
+                texto2 = "Informalidad rondó un :" + " puntos por sobre la media histórica" 
+                title_3 = slide3.shapes.title.text_frame.paragraphs[0]
+                title_3.text = texto2
+                title_3.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
+                title_3.font.name = "Calibri" 
+                title_3.font.size = Pt(18)
                 
-                slide2 = prs.slides[9]
-                texto = "Los salarios reales anotaron una variación anual del " 
-                title_2 = slide2.shapes.title.text_frame.paragraphs[0]
-                title_2.text = texto
-                title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
-                title_2.font.name = "Calibri" 
-                title_2.font.size = Pt(18)
+                slide4 = prs.slides[9]
+                texto3 = "Los salarios reales anotaron una variación anual del " 
+                title_4 = slide4.shapes.title.text_frame.paragraphs[0]
+                title_4.text = texto3
+                title_4.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
+                title_4.font.name = "Calibri" 
+                title_4.font.size = Pt(18)
             except:
                 pass
 
