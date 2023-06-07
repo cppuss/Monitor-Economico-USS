@@ -255,7 +255,7 @@ if sub1:
                 imacec_or="Imacec empalmado, serie original (índice 2018=100)"
                 imacec_or=data11[data11["NOMBRE_2"]==imacec_or]
                 imacec_or["VALOR"]=imacec_or["VALOR"]/imacec_or["VALOR"].shift(12)-1
-                #ultimo_valor=imacec_or["VALOR"][-1]
+                ultimo_valor=imacec_or["VALOR"].iloc[-1]
                 imacec_or=imacec_or.dropna()
                 imacec_or["SERIE"]="Imacec (variación anual)"
                 imacec_or_1=gen(imacec_or,appointment_1,"Variación anual del IMACEC")
@@ -427,11 +427,12 @@ if sub1:
                 im4="comp.png"
                 add_image(prs.slides[3], image=im4, left=lefti, width=width, top=top)
                 os.remove("comp.png")
+                
             except:
                 pass
             try:
                 slide2 = prs.slides[2]
-                texto = "IMACEC anotó un valor de :" 
+                texto = "IMACEC anotó un valor de :"  +str(ultimo_valor)
                 title_2 = slide2.shapes.title.text_frame.paragraphs[0]
                 title_2.text = texto
                 title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
