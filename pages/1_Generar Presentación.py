@@ -148,16 +148,16 @@ sub1 = st.checkbox(label='Exportar como presentación')
 if sub1:
     genre = st.radio(
         "Seleccionar un formato",
-        ('Formato claro', 'Formato oscuro'))
+        ('Formato CPP', 'Formato Facultad'))
 
     col1, col2 = st.columns(2)
     with col1:
-       st.subheader("Formato claro")
-       st.image("OPCION1.png")
+       st.subheader("Plantilla Centro Políticas Públicas")
+       st.image("cpp.png")
 
     with col2:
-       st.subheader("Formato oscuro")
-       st.image("OPCION2.png")
+       st.subheader("Plantilla Facultad Economía y Gobierno")
+       st.image("facultad.png")
 
     title_1 = st.text_input('Título de la presentación', 'Informe de Actividad Económica')
     submit = st.button(label='GENERAR PRESENTACIÓN')
