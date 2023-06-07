@@ -440,15 +440,18 @@ if sub1:
                 os.remove("comp.png")
             except:
                 pass
-       #     try:
-       #         slide2 = prs.slides[2]
-       #         texto = "IMACEC anotó un valor de :" 
-       #         title_2 = slide2.shapes.title.text_frame.paragraphs[0]
-       #         title_2.text = texto
-       #         title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
-       #         title_2.font.bold = False  # Sin negrita
-       #     except:
-       #         pass
+            try:
+                slide2 = prs.slides[2]
+                texto = "IMACEC anotó un valor de :" 
+                title_2 = slide2.shapes.title.text_frame.paragraphs[0]
+                title_2.text = texto
+                title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
+                title_2.font.bold = False  # Sin negrita
+                title_2.font.name = "Calibri" 
+                title_2.font.size = Pt(20)
+                
+            except:
+                pass
             
             try:
                 #SLIDE 3 
