@@ -368,11 +368,9 @@ if sub1:
                 ind_rem_men_n=ind_rem_men_n.sort_values(by="PERIODO")
 
                 ind_rem_men_r=gen(ind_rem_men_r,appointment_3,"Variación Índice de remuneraciones [real] Y/Y ")
-
                 ind_rem_men_r=eje_porcentaje(ind_rem_men_r)
 
                 ind_rem_men_n=gen(ind_rem_men_n,appointment_3,"Variación Índice de remuneraciones [nom] Y/Y ")
-
                 ind_rem_men_n=eje_porcentaje(ind_rem_men_n)
             except:
                 pass
@@ -398,7 +396,7 @@ if sub1:
             width = Inches(5.75)
             leftd = Inches(0.5)
             lefti = Inches(7)
-            top= Inches(1.8)
+            top= Inches(1.3)
                  
                 #SLIDE 1 ACTIVIAD ECONOMICA
                 
@@ -446,10 +444,16 @@ if sub1:
                 title_2 = slide2.shapes.title.text_frame.paragraphs[0]
                 title_2.text = texto
                 title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
-                title_2.font.bold = False  # Sin negrita
                 title_2.font.name = "Calibri" 
-                title_2.font.size = Pt(20)
-                
+                title_2.font.size = Pt(18)
+   
+                slide2 = prs.slides[3]
+                texto = "La componente de Minería, Industria y servicios alcanzó un :" 
+                title_2 = slide2.shapes.title.text_frame.paragraphs[0]
+                title_2.text = texto
+                title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
+                title_2.font.name = "Calibri" 
+                title_2.font.size = Pt(18)
             except:
                 pass
             
@@ -465,6 +469,20 @@ if sub1:
                 os.remove("comp_2.png")
             except:
                 pass
+            
+            try:
+                slide2 = prs.slides[5]
+                texto = "La inflación anual alcanzó un :" + " donde la mayor componente resultó ser " 
+                title_2 = slide2.shapes.title.text_frame.paragraphs[0]
+                title_2.text = texto
+                title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
+                title_2.font.name = "Calibri" 
+                title_2.font.size = Pt(18)
+   
+ 
+            except:
+                pass        
+            
             try:
                 #SLIDE 4
                 oc.write_image("desocup.png")
@@ -499,7 +517,32 @@ if sub1:
             except:
                 pass
 
-
+            try:
+                slide2 = prs.slides[7]
+                texto = "Desocupación laboral rondó un :" + "mujeres y hombres "+ +" respectivamente" 
+                title_2 = slide2.shapes.title.text_frame.paragraphs[0]
+                title_2.text = texto
+                title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
+                title_2.font.name = "Calibri" 
+                title_2.font.size = Pt(18)
+   
+                slide2 = prs.slides[8]
+                texto = "Informalidad rondó un :" + " puntos por sobre la media histórica" 
+                title_2 = slide2.shapes.title.text_frame.paragraphs[0]
+                title_2.text = texto
+                title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
+                title_2.font.name = "Calibri" 
+                title_2.font.size = Pt(18)
+                
+                slide2 = prs.slides[9]
+                texto = "Los salarios reales anotaron una variación anual del " 
+                title_2 = slide2.shapes.title.text_frame.paragraphs[0]
+                title_2.text = texto
+                title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
+                title_2.font.name = "Calibri" 
+                title_2.font.size = Pt(18)
+            except:
+                pass
 
             
             try:       
