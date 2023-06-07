@@ -418,13 +418,13 @@ if sub1:
                 
                 imacec_or_1.write_image("imacec.png")
                 im1="imacec.png"
-                add_image(prs.slides[2], image=im1, left=leftd, width=width, top=top)
+                add_image(prs.slides[5], image=im1, left=leftd, width=width, top=top)
                 os.remove("imacec.png")
       
              
                 nom.write_image("nom.png")
                 im2="nom.png"
-                add_image(prs.slides[2], image=im2, left=lefti, width=width, top=top)
+                add_image(prs.slides[5], image=im2, left=lefti, width=width, top=top)
                 os.remove("nom.png")
 
                 
@@ -433,12 +433,12 @@ if sub1:
                 #SLIDE 2 COMPONENTES
                 prod_bienes.write_image("prod.png")
                 im3="prod.png"
-                add_image(prs.slides[3], image=im3, left=leftd, width=width, top=top)
+                add_image(prs.slides[4], image=im3, left=leftd, width=width, top=top)
                 os.remove("prod.png")
 
                 componentes.write_image("comp.png")
                 im4="comp.png"
-                add_image(prs.slides[3], image=im4, left=lefti, width=width, top=top)
+                add_image(prs.slides[4], image=im4, left=lefti, width=width, top=top)
                 os.remove("comp.png")
             except:
                 pass
