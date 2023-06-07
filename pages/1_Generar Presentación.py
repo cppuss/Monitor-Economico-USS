@@ -91,9 +91,9 @@ dic_options={"ACTIVIDAD ECONÓMICA":["ACTIVIDAD","COMPONENTES"],
              }
 
 
-appointment_1 = st.slider("Seleccione el rango de fechas para la series",
-                    value=(extremos_1[0],extremos_1[1]),
-                    format="YYYY/MM")
+appointment_1 = st.slider("Seleccione el rango de fechas para la serie",
+                          value=(extremos_1[0], extremos_1[1]),
+                          format="YYYY/MM")
 
 submit=st.checkbox(label='Seleccionar todas las categorías')
 if submit:
