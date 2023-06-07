@@ -268,7 +268,6 @@ if sub1:
                 nom=nom.dropna()
                 nom["SERIE"]="PIB Trimestral (variación YoY)"
                 nom=gen(nom,appointment_1,"Variación Trimestral PIB YoY")
-
                 nom=eje_porcentaje(nom)
 
             #SLIDE 2 COMPONENTES
@@ -404,10 +403,7 @@ if sub1:
             lefti = Inches(7)
             top= Inches(2)
                  
-                #SLIDE 1 ACTIVIAD ECONOMICA
-                
-
-                
+                #SLIDE 1 ACTIVIAD ECONOMICA        
             try:
                 #SLIDE 1 ACTIVIAD ECONOMICA
                 imacec_or_1.write_image("imacec.png")
@@ -438,7 +434,7 @@ if sub1:
                 pass
             try:
                 slide2 = prs.slides[2]
-                texto = "IMACEC anotó un valor de :"  +str(ultimo_valor)
+                texto = "IMACEC anotó un valor de: "  +str(np.round(ultimo_valor*100,2))+"%"
                 title_2 = slide2.shapes.title.text_frame.paragraphs[0]
                 title_2.text = texto
                 title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
