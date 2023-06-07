@@ -422,7 +422,8 @@ if sub1:
                 add_image(prs.slides[3], image=im4, left=lefti, width=width, top=top)
                 os.remove("comp.png")
             except:
-                pass
+                st.subheader("FALLO AGREEGAR GRAFICOS")
+     
             try:
                 #SLIDE 3 
                 inf_anu.write_image("inf_a.png")
