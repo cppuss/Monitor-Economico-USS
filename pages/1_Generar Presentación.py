@@ -18,7 +18,7 @@ from pptx.dml.color import RGBColor
 from pptx.util import Inches
 import os
 from datetime import datetime
-
+from pptx.util import Pt
 
 st.set_page_config(layout="wide")
 st.sidebar.image("ESCUDOUSS_vertical_color.png", use_column_width=True)
