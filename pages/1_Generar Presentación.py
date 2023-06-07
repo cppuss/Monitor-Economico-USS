@@ -410,7 +410,10 @@ if sub1:
                 im2="nom.png"
                 add_image(prs.slides[2], image=im2, left=lefti, width=width, top=top)
                 os.remove("nom.png")    
-                
+            except:
+                pass 
+            
+            try:
                 #SLIDE 2 COMPONENTES
                 prod_bienes.write_image("prod.png")
                 im3="prod.png"
@@ -423,15 +426,15 @@ if sub1:
                 os.remove("comp.png")
             except:
                 pass
-         #   try:
-         #       slide2 = prs.slides[2]
-         #       texto = "IMACEC anotó un valor de :" +str(ultimo_valor) 
-         #       title_2 = slide2.shapes.title.text_frame.paragraphs[0]
-         #       title_2.text = texto
-         #       title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
-         #       title_2.font.bold = False  # Sin negrita
-         #   except:
-         #       pass
+            try:
+                slide2 = prs.slides[2]
+                texto = "IMACEC anotó un valor de :" +str(ultimo_valor) 
+                title_2 = slide2.shapes.title.text_frame.paragraphs[0]
+                title_2.text = texto
+                title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
+                title_2.font.bold = False  # Sin negrita
+            except:
+                pass
             
             try:
                 #SLIDE 3 
