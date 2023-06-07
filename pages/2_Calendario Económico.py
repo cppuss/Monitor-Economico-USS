@@ -21,3 +21,8 @@ st.write(' ')
 
 st.sidebar.image("ESCUDOUSS_vertical_color.png", use_column_width=True)
 #st.image("calendario.png")
+
+appointment = st.slider(
+        "Seleccione el rango de fechas",
+        value=(2020,2022),
+        format="YYYY/MM")
