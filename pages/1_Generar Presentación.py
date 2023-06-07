@@ -409,10 +409,10 @@ if sub1:
               #  cuña.font.bold = True  # Negrita
                 
                 
-                cuña =  slide.shapes.heading.text_frame.paragraphs[0]
-                cuña.text = "El último dato de IMACEC corresponde a: "+ultimo_valor
-                cuña.font.color.rgb = RGBColor(255, 255, 255)  # Color blanco
-                cuña.font.bold = True  # Negrita           
+              #  cuña =  slide.shapes.heading.text_frame.paragraphs[0]
+              #  cuña.text = "El último dato de IMACEC corresponde a: "+ultimo_valor
+              #  cuña.font.color.rgb = RGBColor(255, 255, 255)  # Color blanco
+              #  cuña.font.bold = True  # Negrita           
                 
                 
                 
