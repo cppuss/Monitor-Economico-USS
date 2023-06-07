@@ -375,14 +375,16 @@ if sub1:
             except:
                 pass
             
-            prs=Presentation("BASE PRESENTACION USS_STGO-BES.pptx")
-            xml_slides = prs.slides._sldIdLst  
-            slides = list(xml_slides)
+            
 
             if genre=="Formato claro" :           
-                xml_slides.remove(slides[1]) 
+                prs=Presentation("plantilla-cpp.pptx")
+                xml_slides = prs.slides._sldIdLst  
+                slides = list(xml_slides)
             else: 
-                xml_slides.remove(slides[0]) 
+                prs=Presentation("plantilla-facultad.pptx")
+                xml_slides = prs.slides._sldIdLst  
+                slides = list(xml_slides)
 
             #GENERAR PRESENTACIÓN
             slide = prs.slides[0]
