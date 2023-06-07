@@ -401,21 +401,27 @@ if sub1:
             top= Inches(1.8)
             try:
                 #SLIDE 1 ACTIVIAD ECONOMICA
+                
+                
+              #  cuña =  slide.shapes.header.text_frame.paragraphs[0]
+              #  cuña.text = "El último dato de IMACEC corresponde a: "+ultimo_valor
+              #  cuña.font.color.rgb = RGBColor(255, 255, 255)  # Color blanco
+              #  cuña.font.bold = True  # Negrita
+                
+                
+                cuña =  slide.shapes.heading.text_frame.paragraphs[0]
+                cuña.text = "El último dato de IMACEC corresponde a: "+ultimo_valor
+                cuña.font.color.rgb = RGBColor(255, 255, 255)  # Color blanco
+                cuña.font.bold = True  # Negrita           
+                
+                
+                
                 imacec_or_1.write_image("imacec.png")
                 im1="imacec.png"
                 add_image(prs.slides[2], image=im1, left=leftd, width=width, top=top)
                 os.remove("imacec.png")
-                
-               # cuña =  slide.shapes.heading.text_frame.paragraphs[0]
-               # cuña.text = "El último dato de IMACEC corresponde a: "+ultimo_valor
-               # cuña.font.color.rgb = RGBColor(255, 255, 255)  # Color blanco
-               # cuña.font.bold = True  # Negrita
-                
-                cuña =  slide.shapes.header.text_frame.paragraphs[0]
-                cuña.text = "El último dato de IMACEC corresponde a: "+ultimo_valor
-                cuña.font.color.rgb = RGBColor(255, 255, 255)  # Color blanco
-                cuña.font.bold = True  # Negrita
-
+      
+             
                 nom.write_image("nom.png")
                 im2="nom.png"
                 add_image(prs.slides[2], image=im2, left=lefti, width=width, top=top)
