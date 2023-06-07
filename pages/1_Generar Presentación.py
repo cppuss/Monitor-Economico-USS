@@ -396,20 +396,11 @@ if sub1:
             width = Inches(5.75)
             leftd = Inches(0.5)
             lefti = Inches(7)
-            top= Inches(1.3)
+            top= Inches(2)
                  
                 #SLIDE 1 ACTIVIAD ECONOMICA
                 
-            imacec_or_1.write_image("imacec.png")
-            im1="imacec.png"
-            add_image(prs.slides[2], image=im1, left=leftd, width=width, top=top)
-            os.remove("imacec.png")
 
-            nom.write_image("nom.png")
-            im2="nom.png"
-            add_image(prs.slides[2], image=im2, left=lefti, width=width, top=top)
-            os.remove("nom.png") 
-                
                 
             try:
                 #SLIDE 1 ACTIVIAD ECONOMICA
