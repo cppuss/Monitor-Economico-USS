@@ -377,7 +377,7 @@ if sub1:
             
             
 
-            if genre=="Formato claro" :           
+            if genre=="Formato CPP" :           
                 prs=Presentation("plantilla-cpp.pptx")
                 xml_slides = prs.slides._sldIdLst  
                 slides = list(xml_slides)
