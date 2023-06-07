@@ -377,7 +377,7 @@ if sub1:
             except:
                 pass
             
-            prs=Presentation("BASE PRESENTACION USS_STGO-BES 2.pptx")
+            prs=Presentation("BASE PRESENTACION USS_STGO-BES.pptx")
             xml_slides = prs.slides._sldIdLst  
             slides = list(xml_slides)
 
