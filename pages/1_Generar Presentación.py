@@ -8,7 +8,7 @@ Created on Mon Apr 24 09:08:02 2023
 
 import streamlit as st
 import pandas as pd
-#iport plotly.express as px
+import plotly.express as px
 import numpy as np
 from datetime import time
 #from pptx import Presentation
