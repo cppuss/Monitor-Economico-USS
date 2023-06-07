@@ -425,7 +425,8 @@ if sub1:
                 pass
             try:
                 slide = prs.slides[2]
-                title =  slide.shapes.title.("XD"+str(ultimo_valor))
+                texto="XD"+str(ultimo_valor)
+                title =  slide.shapes.title.texto
                 title.text = title_1
                 title.font.color.rgb = RGBColor(255, 255, 255)  # Color blanco
                 title.font.bold = False  # Negrita
