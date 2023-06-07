@@ -406,10 +406,10 @@ if sub1:
                 add_image(prs.slides[2], image=im1, left=leftd, width=width, top=top)
                 os.remove("imacec.png")
                 
-                cuña =  slide.shapes.heading.text_frame.paragraphs[0]
-                cuña.text = "El último dato de IMACEC corresponde a: "+ultimo_valor
-                cuña.font.color.rgb = RGBColor(255, 255, 255)  # Color blanco
-                cuña.font.bold = True  # Negrita
+               # cuña =  slide.shapes.heading.text_frame.paragraphs[0]
+               # cuña.text = "El último dato de IMACEC corresponde a: "+ultimo_valor
+               # cuña.font.color.rgb = RGBColor(255, 255, 255)  # Color blanco
+               # cuña.font.bold = True  # Negrita
                 
                 cuña =  slide.shapes.header.text_frame.paragraphs[0]
                 cuña.text = "El último dato de IMACEC corresponde a: "+ultimo_valor
