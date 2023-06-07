@@ -17,7 +17,7 @@ from datetime import date
 #from pptx.dml.color import RGBColor
 #from pptx.util import Inches
 #import os
-#import datetime 
+from datetime import datetime
 
 
 st.set_page_config(layout="wide")
@@ -76,9 +76,9 @@ data4=data[data["CATEGORIA"]=="CUENTAS CORRIENTES"]
 
 
 
-extremos_1=[data1["PERIODO"].iloc[0].to_pydatetime(),datetime.datetime.now()]
-extremos_2=[data2["PERIODO"].iloc[0].to_pydatetime(),datetime.datetime.now()]
-extremos_3=[data3["PERIODO"].iloc[0].to_pydatetime(),datetime.datetime.now()]
+extremos_1=[data1["PERIODO"].iloc[0].to_pydatetime(),datetime.now()]
+extremos_2=[data2["PERIODO"].iloc[0].to_pydatetime(),datetime.now()]
+extremos_3=[data3["PERIODO"].iloc[0].to_pydatetime(),datetime.now()]
 #extremos_4=[data4["PERIODO"].iloc[0].to_pydatetime(),datetime.datetime.now()]
 
 
