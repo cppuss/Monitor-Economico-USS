@@ -154,7 +154,7 @@ data11=data1[data1["CATEGORIA2"]=="IMACEC"]
 
 imacec_des="Imacec empalmado, desestacionalizado (índice 2018=100)"
 imacec_des=data11[data11["NOMBRE_2"]==imacec_des]
-imacec_des["VALOR"]=imacec_des["VALOR"]/imacec_des["VALOR"].shift(1)-1
+imacec_des["VALOR"]=imacec_des["VALOR"]/imacec_des["VALOR"].shift(12)-1
 imacec_des=imacec_des.dropna()
 imacec_des["SERIE"]="Imacec desestacionalizado"
 data_imacec_des=imacec_des.copy(deep=True)
