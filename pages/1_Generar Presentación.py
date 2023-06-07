@@ -394,7 +394,7 @@ if sub1:
 
 
             #AGREGAR GRAFICOS
-            width = Inches(5.5)
+            width = Inches(5.75)
             leftd = Inches(0.5)
             lefti = Inches(7)
             top= Inches(1.8)
