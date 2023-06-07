@@ -390,7 +390,11 @@ if sub1:
             slide = prs.slides[0]
             title =  slide.shapes.title.text_frame.paragraphs[0]
             title.text = title_1
-            title.font.color.rgb = RGBColor(255, 255, 255)  # Color blanco
+            if genre=="Formato CPP" :          
+                title.font.color.rgb = RGBColor(0,0,0)  # Color 
+            else:
+                title.font.color.rgb = RGBColor(255, 255, 255)  # Color blanco
+            
             title.font.bold = True  # Negrita
 
 
