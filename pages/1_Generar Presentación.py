@@ -76,9 +76,9 @@ data4=data[data["CATEGORIA"]=="CUENTAS CORRIENTES"]
 
 
 
-extremos_1=[data1["PERIODO"].iloc[0].to_pydatetime(),datetime.now()]
-extremos_2=[data2["PERIODO"].iloc[0].to_pydatetime(),datetime.now()]
-extremos_3=[data3["PERIODO"].iloc[0].to_pydatetime(),datetime.now()]
+extremos_1=[data1["PERIODO"].iloc[0].to_pydatetime(),data1["PERIODO"].iloc[-1].to_pydatetime()]
+extremos_2=[data2["PERIODO"].iloc[0].to_pydatetime(),data2["PERIODO"].iloc[-1].to_pydatetime()]
+extremos_3=[data3["PERIODO"].iloc[0].to_pydatetime(),data3["PERIODO"].iloc[-1].to_pydatetime()]
 #extremos_4=[data4["PERIODO"].iloc[0].to_pydatetime(),datetime.datetime.now()]
 
 
@@ -91,26 +91,21 @@ dic_options={"ACTIVIDAD ECONÓMICA":["ACTIVIDAD","COMPONENTES"],
              }
 
 
-
-appointment = st.slider(
-        "Seleccione el rango de fechas",
-        value=(extremos_1[0],extremos_1[1]),
-        format="YYYY/MM")
 submit=st.checkbox(label='Seleccionar todas las categorías')
 if submit:
     user_input=["ACTIVIDAD ECONÓMICA","INFLACIÓN","MERCADO LABORAL"]
     
 
 
-#if options[0] in user_input:
-#    serie=options[0]
-#    st.subheader(serie)
-#    user_input_1 = st.multiselect(label='Selecciones la serie a utilizar', options=dic_options[serie])
-#    appointment_1 = st.slider("Seleccione el rango de fechas para la series. " + serie,
-#                    value=(extremos_1[0],extremos_1[1]),
-#                    format="YYYY/MM")
+if options[0] in user_input:
+    serie=options[0]
+    st.subheader(serie)
+    user_input_1 = st.multiselect(label='Selecciones la serie a utilizar', options=dic_options[serie])
+    appointment_1 = st.slider("Seleccione el rango de fechas para la series. " + serie,
+                   value=(extremos_1[0],extremos_1[1]),
+                   format="YYYY/MM")
 
-    """    
+     
 
 if options[1] in user_input:
     serie=options[1]
@@ -549,7 +544,5 @@ if sub1:
                                file_name=filename)
 else:
     pass
-
-    """
 
 
