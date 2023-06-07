@@ -33,6 +33,8 @@ def eje_porcentaje(grafico):
     
     return grafico
 
+def porcentaje(dato):
+    return str(np.round(dato*100,2))+"%"
 
 def gen(imacec_des,rango,titulo):
     imacec_des=imacec_des[(imacec_des["PERIODO"]> rango[0])&(imacec_des["PERIODO"]< rango[1])]
@@ -255,7 +257,7 @@ if sub1:
                 imacec_or="Imacec empalmado, serie original (índice 2018=100)"
                 imacec_or=data11[data11["NOMBRE_2"]==imacec_or]
                 imacec_or["VALOR"]=imacec_or["VALOR"]/imacec_or["VALOR"].shift(12)-1
-                ultimo_valor=imacec_or["VALOR"].iloc[-1]
+                uv_imacec_or=imacec_or["VALOR"].iloc[-1]
                 imacec_or=imacec_or.dropna()
                 imacec_or["SERIE"]="Imacec (variación anual)"
                 imacec_or_1=gen(imacec_or,appointment_1,"Variación anual del IMACEC")
@@ -265,6 +267,7 @@ if sub1:
                 nom="PIB, volumen a precios del año anterior encadenado, referencia 2018 (miles de millones de pesos encadenados)"
                 nom=data13[data13["NOMBRE_2"]==nom]
                 nom["VALOR"]=nom["VALOR"]/nom["VALOR"].shift(4)-1
+                uv_nom=nom["VALOR"].iloc[-1]
                 nom=nom.dropna()
                 nom["SERIE"]="PIB Trimestral (variación YoY)"
                 nom=gen(nom,appointment_1,"Variación Trimestral PIB YoY")
@@ -277,16 +280,26 @@ if sub1:
                 est="Indicador mensual de actividad económica, Imacec, contribución porcentual respecto de igual periodo del año anterior, referencia 2018"
                 est=data12[data12["NOMBRE_1"]==est]
                 est["SERIE"]=est["NOMBRE_2"]
+                
+                
+              
                 prod_bienes=est[est["NOMBRE_2"].isin(["Minería","Industria","Resto de bienes"])]
+                
+                uv_mineria=est[est["NOMBRE_2"]=="Minería"]]["VALOR"].iloc[-1]
+                uv_indsutria=est[est["NOMBRE_2"]=="Industria"]]["VALOR"].iloc[-1]
+                uv_sericios=est[est["NOMBRE_2"]=="Resto de bienes"]]["VALOR"].iloc[-1]
+                   
                 prod_bienes=gen_bar(prod_bienes,appointment_1,"Componentes producción de bienes")
-            #    prod_bienes.add_trace(px.line(prod_bienes_2, x='PERIODO', y='VALOR', color="SERIE").data[0])
-
                 prod_bienes=eje_porcentaje(prod_bienes)
 
+
+                
+                
+                
                 componentes=est[est["NOMBRE_2"].isin(["Producción de bienes","Comercio","Servicios"])]
                 componentes=gen_bar(componentes,appointment_1,"Componentes principales IMACEC")
-
                 componentes=eje_porcentaje(componentes)
+                
             except:
                 pass
             #SLIDE 3 
@@ -434,15 +447,16 @@ if sub1:
                 pass
             try:
                 slide2 = prs.slides[2]
-                texto = "IMACEC anotó un valor de: "  +str(np.round(ultimo_valor*100,2))+"%"
+                texto = "El índice de actividad económica mensual anotó una variación anual de: "  +porcentaje(uv_imacec_or)+" de la mano con la el PIB trimestral "+porcentaje(uv_nom)
                 title_2 = slide2.shapes.title.text_frame.paragraphs[0]
                 title_2.text = texto
                 title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
                 title_2.font.name = "Calibri" 
                 title_2.font.size = Pt(18)
-   
+  
+
                 slide2 = prs.slides[3]
-                texto = "La componente de Minería, Industria y servicios alcanzó un :" 
+                texto = "La componente de Minería, Industria y servicios alcanzó un :" porcentaje(uv_mineria) +" " + porcentaje(uv_indsutria)+" " +porcentaje(uv_sericios)+ " respectivamente"
                 title_2 = slide2.shapes.title.text_frame.paragraphs[0]
                 title_2.text = texto
                 title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
