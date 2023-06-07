@@ -255,7 +255,7 @@ if sub1:
                 imacec_or="Imacec empalmado, serie original (índice 2018=100)"
                 imacec_or=data11[data11["NOMBRE_2"]==imacec_or]
                 imacec_or["VALOR"]=imacec_or["VALOR"]/imacec_or["VALOR"].shift(12)-1
-                ultimo_valor=imacec_or["VALOR"][-1]
+                #ultimo_valor=imacec_or["VALOR"][-1]
                 imacec_or=imacec_or.dropna()
                 imacec_or["SERIE"]="Imacec (variación anual)"
                 imacec_or_1=gen(imacec_or,appointment_1,"Variación anual del IMACEC")
@@ -401,6 +401,7 @@ if sub1:
             top= Inches(1.8)
                  
                 #SLIDE 1 ACTIVIAD ECONOMICA
+                
             imacec_or_1.write_image("imacec.png")
             im1="imacec.png"
             add_image(prs.slides[2], image=im1, left=leftd, width=width, top=top)
