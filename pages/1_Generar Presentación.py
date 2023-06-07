@@ -456,7 +456,7 @@ if sub1:
   
 
                 slide2 = prs.slides[3]
-                texto = "La componente de Minería, Industria y servicios alcanzó un :" porcentaje(uv_mineria) +" " + porcentaje(uv_indsutria)+" " +porcentaje(uv_sericios)+ " respectivamente"
+                texto = "La componente de Minería, Industria y servicios alcanzó un :" +porcentaje(uv_mineria) +" " + porcentaje(uv_indsutria)+" " +porcentaje(uv_sericios)+ " respectivamente"
                 title_2 = slide2.shapes.title.text_frame.paragraphs[0]
                 title_2.text = texto
                 title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
