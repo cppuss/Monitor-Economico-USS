@@ -425,10 +425,10 @@ if sub1:
                 pass
             try:
                 slide2 = prs.slides[2]
-                texto = "XD" 
+                texto = "IMACEC anotó un valor de :" +str(ultimo_valor) 
                 title_2 = slide2.shapes.title.text_frame.paragraphs[0]
                 title_2.text = texto
-                title_2.font.color.rgb = RGBColor(255, 255, 255)  # Color blanco
+                title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
                 title_2.font.bold = False  # Sin negrita
             except:
                 pass
