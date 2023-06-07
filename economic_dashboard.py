@@ -297,7 +297,7 @@ with tab1:
         with col2:
             if appointment:
           
-              imacec_des=gen(imacec_des,appointment,"Variación mensual del IMACEC desestacionalizado")
+              imacec_des=gen(imacec_des,appointment,"Variación anual del IMACEC desestacionalizado")
               imacec_des=fechas_2(imacec_des)
               imacec_des=eje_porcentaje(imacec_des)
               st.plotly_chart(imacec_des, theme="streamlit", use_container_width=True)
