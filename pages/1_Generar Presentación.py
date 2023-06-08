@@ -470,8 +470,9 @@ if sub1:
                 os.remove("comp_2.png")
             except:
                 pass
-                
-                mayor = np.max(np.fabs([uv_servicios, uv_bienes, uv_alimentos, uv_energia, uv_volatiles]))
+
+                mayor = np.abs([uv_servicios, uv_bienes, uv_alimentos, uv_energia, uv_volatiles])) 
+           #     mayor = np.max(np.abs([uv_servicios, uv_bienes, uv_alimentos, uv_energia, uv_volatiles]))
            #     etiqueta = np.argmax(np.fabs([uv_servicios, uv_bienes, uv_alimentos, uv_energia, uv_volatiles]))
            #     etiquetas={0:"Servicios no volátiles",
            #         1:"Bienes no volátiles",
