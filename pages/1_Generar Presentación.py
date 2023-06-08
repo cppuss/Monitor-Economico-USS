@@ -27,7 +27,7 @@ def add_image(slide, image, left, top, width):
 
 
 def eje_porcentaje(grafico):
-    grafico.layout.yaxis.tickformat = ',.1%'
+    grafico.layout.yaxis.tickformat = ',.0%'
     
     return grafico
 
@@ -323,33 +323,43 @@ if sub1:
                 #SLIDE 4
             try:
                 data3=data[data["CATEGORIA"]=="MERCADO LABORAL"]
+                data3["VALOR"]=ocdata3["VALOR"]/100  
                 emp_tasas_nac=data3[(data3["CATEGORIA2"]=="EMPLEO - TASAS")&(data3["CATEGORIA3"]=="Nacional")]
-
                 oc=emp_tasas_nac[emp_tasas_nac["NOMBRE_1"]=="Tasa de desocupación Nacional"]
+                
+                ult_oc=oc["VALOR"].iloc[-1]
+       
                 oc["SERIE"]=oc["NOMBRE_2"]
-                oc["VALOR"]=oc["VALOR"]/100  
+        
                 oc=gen(oc,appointment_3,"Tasa de desocupación")
-
                 oc=eje_porcentaje(oc)
 
                 emp_tasas_nac2=data3[(data3["CATEGORIA2"]=="EMPLEO - TASAS")&~(data3["CATEGORIA3"]=="Nacional")]
                 oc2=emp_tasas_nac2[emp_tasas_nac2["NOMBRE_1"].isin(["Tasa de desocupación H","Tasa de desocupación M"])]
+                
+                ult_oc_h=oc2[oc2["NOMBRE_1"=="Tasa de desocupación H"]]["VALOR"].iloc[-1]
+                ult_oc_m=oc2[oc2["NOMBRE_1"=="Tasa de desocupación M"]]["VALOR"].iloc[-1]
+   
                 oc2["SERIE"]=oc2["NOMBRE_2"]
-                oc2["VALOR"]=oc2["VALOR"]/100
                 oc2=gen(oc2,appointment_3,"Tasas de desocupación")
                 oc2=eje_porcentaje(oc2)
 
                 informalidad=data3[(data3["CATEGORIA2"]=="INFORMALIDAD")&(data3["NOMBRE_1"]=="Tasa de informalidad (AS)")]
+
+                
+                ult_informalidad=informalidad["VALOR"].iloc[-1]
                 informalidad["SERIE"]=informalidad["NOMBRE_2"]
-                informalidad["VALOR"]=informalidad["VALOR"]/100
+
                 informalidad=informalidad.sort_values(by="PERIODO")
                 informalidad=gen(informalidad,appointment_3,"Tasa de Informalidad")
-
                 informalidad=eje_porcentaje(informalidad)
-
+                
                 informalidad2=data3[(data3["CATEGORIA2"]=="INFORMALIDAD")&~(data3["NOMBRE_1"]=="Tasa de informalidad (AS)")]
+                
+                ult_informalidad_h=informalidad2[informalidad2["NOMBRE_1"=="Tasa de informalidad (H)"]]["VALOR"].iloc[-1]    
+                ult_informalidad_m=informalidad2[informalidad2["NOMBRE_1"=="Tasa de informalidad (M)"]]["VALOR"].iloc[-1]    
+                
                 informalidad2["SERIE"]=informalidad2["NOMBRE_2"]
-                informalidad2["VALOR"]=informalidad2["VALOR"]/100
                 informalidad2=informalidad2.sort_values(by="PERIODO")
                 informalidad2=gen(informalidad2,appointment_3,"Tasas de Informalidad")
 
@@ -367,6 +377,7 @@ if sub1:
                 ind_rem_men_n=ind_rem_men_n.dropna()
                 ind_rem_men_r=ind_rem_men_r.sort_values(by="PERIODO")
                 ind_rem_men_n=ind_rem_men_n.sort_values(by="PERIODO")
+                ult_remuneraciones=ind_rem_men_n["VALOR"].iloc[-1]
 
                 ind_rem_men_r=gen(ind_rem_men_r,appointment_3,"Variación Índice de remuneraciones [real] Y/Y ")
                 ind_rem_men_r=eje_porcentaje(ind_rem_men_r)
@@ -478,7 +489,7 @@ if sub1:
                 
             try:  
                 slide2 = prs.slides[5]
-                texto = "La inflación anual alcanzó un :"+ porcentaje(uv_inf)+" donde la mayor componente resultó ser " +etiquetas[etiqueta] + " con un" + porcentaje(mayor)
+                texto = "La inflación anual alcanzó un :"+ porcentaje(uv_inf)+" donde la mayor componente resultó ser la componente " +etiquetas[etiqueta] + " con un " + porcentaje(mayor)
                 title_2 = slide2.shapes.title.text_frame.paragraphs[0]
                 title_2.text = texto
                 title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
@@ -524,15 +535,18 @@ if sub1:
 
             try:
                 slide2 = prs.slides[7]
-                texto = "Desocupación laboral rondó un :" + "mujeres y hombres "+ " respectivamente" 
+                texto = "Desocupación laboral rondó un :"+ porcentaje(ult_oc) + "mujeres y hombres "+ porcentaje(ult_oc_h) + " y "+ porcentaje(ult_oc_m)+" respectivamente" 
                 title_2 = slide2.shapes.title.text_frame.paragraphs[0]
                 title_2.text = texto
                 title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
                 title_2.font.name = "Calibri" 
                 title_2.font.size = Pt(18)
-   
+
+
+
+
                 slide3 = prs.slides[8]
-                texto2 = "Informalidad rondó un :" + " puntos por sobre la media histórica" 
+                texto2 = "Informalidad rondó un :" + porcentaje(ult_informalidad) +  "mujeres y hombres "+ porcentaje(ult_informalidad_h) + " y "+ porcentaje(ult_informalidad_m)+" respectivamente" 
                 title_3 = slide3.shapes.title.text_frame.paragraphs[0]
                 title_3.text = texto2
                 title_3.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
@@ -540,7 +554,7 @@ if sub1:
                 title_3.font.size = Pt(18)
                 
                 slide4 = prs.slides[9]
-                texto3 = "Los salarios reales anotaron una variación anual del " 
+                texto3 = "Los salarios reales anotaron una variación anual del "+ porcentaje(ult_remuneraciones)
                 title_4 = slide4.shapes.title.text_frame.paragraphs[0]
                 title_4.text = texto3
                 title_4.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
