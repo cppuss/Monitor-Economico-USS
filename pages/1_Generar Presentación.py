@@ -303,9 +303,9 @@ if sub1:
                 
                 uv_servicios=comp_2.loc[comp_2['NOMBRE_2'] == "IPC Servicios sin volátiles", 'VALOR'].loc[-1]
                 uv_bienes=comp_2.loc[comp_2['NOMBRE_2'] == "IPC Bienes sin volátiles", 'VALOR'].loc[-1]
-                uv_alimentos=comp_2.loc[comp_2['NOMBRE_2'] == "IPC Alimentos volátiles", 'VALOR'] .loc[-1]
+                uv_alimentos=comp_2.loc[comp_2['NOMBRE_2'] == "IPC Alimentos volátiles", 'VALOR'].loc[-1]
                 uv_energia=comp_2.loc[comp_2['NOMBRE_2'] == "IPC Energía volátiles", 'VALOR'].loc[-1]
-                uv_volatiles=comp_2.loc[comp_2['NOMBRE_2'] == "IPC Resto de volátiles", 'VALOR'] .loc[-1]
+                uv_volatiles=comp_2.loc[comp_2['NOMBRE_2'] == "IPC Resto de volátiles", 'VALOR'].loc[-1]
                   
   
                 comp_2.loc[comp_2['NOMBRE_2'] == "IPC Servicios sin volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] == "IPC Servicios sin volátiles", 'VALOR']*0.384
@@ -473,12 +473,11 @@ if sub1:
                 
                 mayor=max(abs(uv_servicios),abs(uv_bienes),abs(uv_alimentos),abs(uv_energia),abs(uv_volatiles))
                 etiqueta=np.argmax([abs(uv_servicios),abs(uv_bienes),abs(uv_alimentos),abs(uv_energia),abs(uv_volatiles)])
-                etiquetas={
-                0:"Servicios no volátiles",
-                1:"Bienes no volátiles",
-                2:"Alimentos",
-                3:"Energía",
-                4:"Resto de volátiles"}
+                etiquetas={0:"Servicios no volátiles",
+                    1:"Bienes no volátiles",
+                    2:"Alimentos",
+                    3:"Energía",
+                    4:"Resto de volátiles"}
                     
             try:
                 slide2 = prs.slides[5]
