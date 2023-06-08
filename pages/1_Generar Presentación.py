@@ -289,8 +289,9 @@ if sub1:
                 data2["VALOR"]=data2["VALOR"]/100
                 anu="IPC, IPC sin volátiles e IPC volátiles, variación anual, información empalmada"
                 inf_anu=data2[(data2["NOMBRE_1"]==anu)&(data2["NOMBRE_2"]=="IPC General")]
-                inf_anu["SERIE"]=inf_anu["NOMBRE_2"]
                 uv_inf=inf_anu["VALOR"].loc[-1]
+                inf_anu["SERIE"]=inf_anu["NOMBRE_2"]
+
                 
               
                 inf_anu=gen(inf_anu,appointment_2,"Variación porcentual IPC YoY")
