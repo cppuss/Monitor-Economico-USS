@@ -337,8 +337,8 @@ if sub1:
                 emp_tasas_nac2=data3[(data3["CATEGORIA2"]=="EMPLEO - TASAS")&~(data3["CATEGORIA3"]=="Nacional")]
                 oc2=emp_tasas_nac2[emp_tasas_nac2["NOMBRE_1"].isin(["Tasa de desocupación H","Tasa de desocupación M"])]
                 
-                ult_oc_h=oc2[oc2["NOMBRE_1"=="Tasa de desocupación H"]]["VALOR"].iloc[-1]
-                ult_oc_m=oc2[oc2["NOMBRE_1"=="Tasa de desocupación M"]]["VALOR"].iloc[-1]
+                ult_oc_h=emp_tasas_nac2[emp_tasas_nac2["NOMBRE_1"]=="Tasa de desocupación H"]["VALOR"].iloc[-1]
+                ult_oc_m=emp_tasas_nac2[emp_tasas_nac2["NOMBRE_1"]=="Tasa de desocupación M"]["VALOR"].iloc[-1]
    
                 oc2["SERIE"]=oc2["NOMBRE_2"]
                 oc2=gen(oc2,appointment_3,"Tasas de desocupación")
@@ -356,8 +356,8 @@ if sub1:
                 
                 informalidad2=data3[(data3["CATEGORIA2"]=="INFORMALIDAD")&~(data3["NOMBRE_1"]=="Tasa de informalidad (AS)")]
                 
-                ult_informalidad_h=informalidad2[informalidad2["NOMBRE_1"=="Tasa de informalidad (H)"]]["VALOR"].iloc[-1]    
-                ult_informalidad_m=informalidad2[informalidad2["NOMBRE_1"=="Tasa de informalidad (M)"]]["VALOR"].iloc[-1]    
+                ult_informalidad_h=informalidad2[informalidad2["NOMBRE_1"]=="Tasa de informalidad (H)"]["VALOR"].iloc[-1]    
+                ult_informalidad_m=informalidad2[informalidad2["NOMBRE_1"]=="Tasa de informalidad (M)"]["VALOR"].iloc[-1]    
                 
                 informalidad2["SERIE"]=informalidad2["NOMBRE_2"]
                 informalidad2=informalidad2.sort_values(by="PERIODO")
