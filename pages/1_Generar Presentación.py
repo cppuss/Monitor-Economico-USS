@@ -327,7 +327,7 @@ if sub1:
                 emp_tasas_nac=data3[(data3["CATEGORIA2"]=="EMPLEO - TASAS")&(data3["CATEGORIA3"]=="Nacional")]
                 oc=emp_tasas_nac[emp_tasas_nac["NOMBRE_1"]=="Tasa de desocupación Nacional"]
                 
-                ult_oc=oc["VALOR"].iloc[-1]
+       #         ult_oc=oc["VALOR"].iloc[-1]
        
                 oc["SERIE"]=oc["NOMBRE_2"]
         
@@ -337,8 +337,8 @@ if sub1:
                 emp_tasas_nac2=data3[(data3["CATEGORIA2"]=="EMPLEO - TASAS")&~(data3["CATEGORIA3"]=="Nacional")]
                 oc2=emp_tasas_nac2[emp_tasas_nac2["NOMBRE_1"].isin(["Tasa de desocupación H","Tasa de desocupación M"])]
                 
-                ult_oc_h=oc2[oc2["NOMBRE_1"=="Tasa de desocupación H"]]["VALOR"].iloc[-1]
-                ult_oc_m=oc2[oc2["NOMBRE_1"=="Tasa de desocupación M"]]["VALOR"].iloc[-1]
+        #        ult_oc_h=oc2[oc2["NOMBRE_1"=="Tasa de desocupación H"]]["VALOR"].iloc[-1]
+        #        ult_oc_m=oc2[oc2["NOMBRE_1"=="Tasa de desocupación M"]]["VALOR"].iloc[-1]
    
                 oc2["SERIE"]=oc2["NOMBRE_2"]
                 oc2=gen(oc2,appointment_3,"Tasas de desocupación")
@@ -347,7 +347,7 @@ if sub1:
                 informalidad=data3[(data3["CATEGORIA2"]=="INFORMALIDAD")&(data3["NOMBRE_1"]=="Tasa de informalidad (AS)")]
 
                 
-                ult_informalidad=informalidad["VALOR"].iloc[-1]
+      #          ult_informalidad=informalidad["VALOR"].iloc[-1]
                 informalidad["SERIE"]=informalidad["NOMBRE_2"]
 
                 informalidad=informalidad.sort_values(by="PERIODO")
@@ -356,8 +356,8 @@ if sub1:
                 
                 informalidad2=data3[(data3["CATEGORIA2"]=="INFORMALIDAD")&~(data3["NOMBRE_1"]=="Tasa de informalidad (AS)")]
                 
-                ult_informalidad_h=informalidad2[informalidad2["NOMBRE_1"=="Tasa de informalidad (H)"]]["VALOR"].iloc[-1]    
-                ult_informalidad_m=informalidad2[informalidad2["NOMBRE_1"=="Tasa de informalidad (M)"]]["VALOR"].iloc[-1]    
+     #           ult_informalidad_h=informalidad2[informalidad2["NOMBRE_1"=="Tasa de informalidad (H)"]]["VALOR"].iloc[-1]    
+      #          ult_informalidad_m=informalidad2[informalidad2["NOMBRE_1"=="Tasa de informalidad (M)"]]["VALOR"].iloc[-1]    
                 
                 informalidad2["SERIE"]=informalidad2["NOMBRE_2"]
                 informalidad2=informalidad2.sort_values(by="PERIODO")
@@ -377,7 +377,7 @@ if sub1:
                 ind_rem_men_n=ind_rem_men_n.dropna()
                 ind_rem_men_r=ind_rem_men_r.sort_values(by="PERIODO")
                 ind_rem_men_n=ind_rem_men_n.sort_values(by="PERIODO")
-                ult_remuneraciones=ind_rem_men_n["VALOR"].iloc[-1]
+             #   ult_remuneraciones=ind_rem_men_r["VALOR"].iloc[-1]
 
                 ind_rem_men_r=gen(ind_rem_men_r,appointment_3,"Variación Índice de remuneraciones [real] Y/Y ")
                 ind_rem_men_r=eje_porcentaje(ind_rem_men_r)
@@ -489,7 +489,7 @@ if sub1:
                 
             try:  
                 slide2 = prs.slides[5]
-                texto = "La inflación anual alcanzó un :"+ porcentaje(uv_inf)+" donde la mayor componente resultó ser la componente " +etiquetas[etiqueta] + " con un " + porcentaje(mayor)
+                texto = "La inflación anual alcanzó un: "+ porcentaje(uv_inf)+" donde la mayor componente resultó ser la componente " +etiquetas[etiqueta] + " con un " + porcentaje(mayor)
                 title_2 = slide2.shapes.title.text_frame.paragraphs[0]
                 title_2.text = texto
                 title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
