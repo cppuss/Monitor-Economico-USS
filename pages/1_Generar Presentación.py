@@ -467,7 +467,7 @@ if sub1:
             except:
                 pass
 
-            mayor = np.fabs([uv_servicios, uv_bienes, uv_alimentos, uv_energia, uv_volatiles])
+           # mayor = np.fabs([uv_servicios, uv_bienes, uv_alimentos, uv_energia, uv_volatiles])
             mayor = np.max(np.abs([uv_servicios, uv_bienes, uv_alimentos, uv_energia, uv_volatiles]))
             etiqueta = np.argmax(np.fabs([uv_servicios, uv_bienes, uv_alimentos, uv_energia, uv_volatiles]))
             etiquetas={0:"Servicios no volátiles",
@@ -478,7 +478,7 @@ if sub1:
                 
             try:  
                 slide2 = prs.slides[5]
-                texto = "La inflación anual alcanzó un :"#+ porcentaje(mayor)+" donde la mayor componente resultó ser " +etiquetas(etiqueta)
+                texto = "La inflación anual alcanzó un :"+ porcentaje(mayor)+" donde la mayor componente resultó ser " +etiquetas(etiqueta) + " con un" + porcentaje(mayor)
                 title_2 = slide2.shapes.title.text_frame.paragraphs[0]
                 title_2.text = texto
                 title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
