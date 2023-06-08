@@ -323,7 +323,7 @@ if sub1:
                 #SLIDE 4
             try:
                 data3=data[data["CATEGORIA"]=="MERCADO LABORAL"]
-                data3["VALOR"]=ocdata3["VALOR"]/100  
+                data3["VALOR"]=data3["VALOR"]/100  
                 emp_tasas_nac=data3[(data3["CATEGORIA2"]=="EMPLEO - TASAS")&(data3["CATEGORIA3"]=="Nacional")]
                 oc=emp_tasas_nac[emp_tasas_nac["NOMBRE_1"]=="Tasa de desocupación Nacional"]
                 
@@ -477,17 +477,16 @@ if sub1:
                 os.remove("comp_2.png")
             except:
                 pass
-
-           # mayor = np.fabs([uv_servicios, uv_bienes, uv_alimentos, uv_energia, uv_volatiles])
-            mayor = np.max(np.abs([uv_servicios, uv_bienes, uv_alimentos, uv_energia, uv_volatiles]))
-            etiqueta = np.argmax(np.abs([uv_servicios, uv_bienes, uv_alimentos, uv_energia, uv_volatiles]))
-            etiquetas={0:"Servicios no volátiles",
-                    1:"Bienes no volátiles",
-                    2:"Alimentos",
-                    3:"Energía",
-                    4:"Resto de volátiles"}
+            
+            try:
+                mayor = np.max(np.abs([uv_servicios, uv_bienes, uv_alimentos, uv_energia, uv_volatiles]))
+                etiqueta = np.argmax(np.abs([uv_servicios, uv_bienes, uv_alimentos, uv_energia, uv_volatiles]))
+                etiquetas={0:"Servicios no volátiles",
+                        1:"Bienes no volátiles",
+                        2:"Alimentos",
+                        3:"Energía",
+                        4:"Resto de volátiles"}
                 
-            try:  
                 slide2 = prs.slides[5]
                 texto = "La inflación anual alcanzó un: "+ porcentaje(uv_inf)+" donde la mayor componente resultó ser la componente " +etiquetas[etiqueta] + " con un " + porcentaje(mayor)
                 title_2 = slide2.shapes.title.text_frame.paragraphs[0]
@@ -541,9 +540,6 @@ if sub1:
                 title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
                 title_2.font.name = "Calibri" 
                 title_2.font.size = Pt(18)
-
-
-
 
                 slide3 = prs.slides[8]
                 texto2 = "Informalidad rondó un :" + porcentaje(ult_informalidad) +  "mujeres y hombres "+ porcentaje(ult_informalidad_h) + " y "+ porcentaje(ult_informalidad_m)+" respectivamente" 
