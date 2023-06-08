@@ -290,7 +290,7 @@ if sub1:
                 anu="IPC, IPC sin volátiles e IPC volátiles, variación anual, información empalmada"
                 inf_anu=data2[(data2["NOMBRE_1"]==anu)&(data2["NOMBRE_2"]=="IPC General")]
                 inf_anu["SERIE"]=inf_anu["NOMBRE_2"]
-                uv_inf=inf_anu["VALOR"].loc[-1]
+                #uv_inf=inf_anu["VALOR"].loc[-1]
                 
               
                 inf_anu=gen(inf_anu,appointment_2,"Variación porcentual IPC YoY")
@@ -300,11 +300,11 @@ if sub1:
                 com_anu["SERIE"]=com_anu["NOMBRE_2"]
                 comp_2=com_anu[~com_anu["SERIE"].isin(["IPC sin volátiles","IPC volátil"])]
                
-                uv_servicios=com_anu[com_anu['NOMBRE_2'] == "IPC Servicios sin volátiles"]['VALOR'].loc[-1]
-                uv_bienes=com_anu[com_anu['NOMBRE_2'] == "IPC Bienes sin volátiles"]['VALOR'].loc[-1]
-                uv_alimentos=com_anu[com_anu['NOMBRE_2'] == "IPC Alimentos volátiles"]['VALOR'].loc[-1]
-                uv_energia=com_anu[com_anu['NOMBRE_2'] == "IPC Energía volátiles"]['VALOR'].loc[-1]
-                uv_volatiles=com_anu[com_anu['NOMBRE_2'] == "IPC Resto de volátiles"]['VALOR'].loc[-1]
+             #   uv_servicios=com_anu[com_anu['NOMBRE_2'] == "IPC Servicios sin volátiles"]['VALOR'].loc[-1]
+             #   uv_bienes=com_anu[com_anu['NOMBRE_2'] == "IPC Bienes sin volátiles"]['VALOR'].loc[-1]
+             #   uv_alimentos=com_anu[com_anu['NOMBRE_2'] == "IPC Alimentos volátiles"]['VALOR'].loc[-1]
+             #   uv_energia=com_anu[com_anu['NOMBRE_2'] == "IPC Energía volátiles"]['VALOR'].loc[-1]
+             #   uv_volatiles=com_anu[com_anu['NOMBRE_2'] == "IPC Resto de volátiles"]['VALOR'].loc[-1]
                   
                 comp_2.loc[comp_2['NOMBRE_2'] == "IPC Servicios sin volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] == "IPC Servicios sin volátiles", 'VALOR']*0.384
                 comp_2.loc[comp_2['NOMBRE_2'] == "IPC Bienes sin volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] == "IPC Bienes sin volátiles", 'VALOR']*0.267
