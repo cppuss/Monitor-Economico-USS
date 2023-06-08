@@ -478,7 +478,7 @@ if sub1:
                 
             try:  
                 slide2 = prs.slides[5]
-                texto = "La inflación anual alcanzó un :"+ porcentaje(uv_inf)+" donde la mayor componente resultó ser " +etiquetas(etiqueta) #+ " con un" + porcentaje(mayor)
+                texto = "La inflación anual alcanzó un :"+ porcentaje(uv_inf)+" donde la mayor componente resultó ser " #+etiquetas(etiqueta) + " con un" + porcentaje(mayor)
                 title_2 = slide2.shapes.title.text_frame.paragraphs[0]
                 title_2.text = texto
                 title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
