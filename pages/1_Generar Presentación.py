@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on Mon Apr 24 09:08:02 2023
-
 @author: matias.otthgmail.com
 """
 
@@ -278,9 +276,6 @@ if sub1:
                 prod_bienes=gen_bar(prod_bienes,appointment_1,"Componentes producción de bienes")
                 prod_bienes=eje_porcentaje(prod_bienes)
 
-
-                
-                
                 
                 componentes=est[est["NOMBRE_2"].isin(["Producción de bienes","Comercio","Servicios"])]
                 componentes=gen_bar(componentes,appointment_1,"Componentes principales IMACEC")
@@ -295,20 +290,32 @@ if sub1:
                 anu="IPC, IPC sin volátiles e IPC volátiles, variación anual, información empalmada"
                 inf_anu=data2[(data2["NOMBRE_1"]==anu)&(data2["NOMBRE_2"]=="IPC General")]
                 inf_anu["SERIE"]=inf_anu["NOMBRE_2"]
+                uv_inf=inf_anu["SERIE"].loc[-1]
+                
                 inf_anu1=inf_anu.copy(deep=True)
                 inf_anu=gen(inf_anu,appointment_2,"Variación porcentual IPC YoY")
-
                 inf_anu=eje_porcentaje(inf_anu)
 
                 com_anu=data2[(data2["NOMBRE_1"]==anu)&~(data2["NOMBRE_2"]=="IPC General")]
                 com_anu["SERIE"]=com_anu["NOMBRE_2"]
                 comp_2=com_anu[~com_anu["SERIE"].isin(["IPC sin volátiles","IPC volátil"])]
+                
+                
+                uv_servicios=comp_2.loc[comp_2['NOMBRE_2'] == "IPC Servicios sin volátiles", 'VALOR'].loc[-1]
+                uv_bienes=comp_2.loc[comp_2['NOMBRE_2'] == "IPC Bienes sin volátiles", 'VALOR'].loc[-1]
+                uv_alimentos=comp_2.loc[comp_2['NOMBRE_2'] == "IPC Alimentos volátiles", 'VALOR'] .loc[-1]
+                uv_energia=comp_2.loc[comp_2['NOMBRE_2'] == "IPC Energía volátiles", 'VALOR'].loc[-1]
+                uv_volatiles=comp_2.loc[comp_2['NOMBRE_2'] == "IPC Resto de volátiles", 'VALOR'] .loc[-1]
+                  
+  
                 comp_2.loc[comp_2['NOMBRE_2'] == "IPC Servicios sin volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] == "IPC Servicios sin volátiles", 'VALOR']*0.384
                 comp_2.loc[comp_2['NOMBRE_2'] == "IPC Bienes sin volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] == "IPC Bienes sin volátiles", 'VALOR']*0.267
                 comp_2.loc[comp_2['NOMBRE_2'] == "IPC Alimentos volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] =="IPC Alimentos volátiles" , 'VALOR']*0.101
                 comp_2.loc[comp_2['NOMBRE_2'] == "IPC Energía volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] =="IPC Energía volátiles", 'VALOR']*0.075
                 comp_2.loc[comp_2['NOMBRE_2'] == "IPC Resto de volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] == "IPC Resto de volátiles", 'VALOR']*0.172
-
+                
+                
+                
                 comp_2=gen_bar(comp_2,appointment_2,"Componentes secundarias IPC YoY")
                 inf_anu_=inf_anu1[(inf_anu1["PERIODO"] >= appointment_2[0])&(inf_anu1["PERIODO"]<=appointment_2[1])]
                 comp_2.add_trace(px.line(inf_anu_, x='PERIODO', y='VALOR', color="SERIE").data[0])
@@ -463,10 +470,19 @@ if sub1:
                 os.remove("comp_2.png")
             except:
                 pass
-            
+                
+                mayor=max(abs(uv_servicios),abs(uv_bienes),abs(uv_alimentos),abs(uv_energia),abs(uv_volatiles))
+                etiqueta=np.argmax([abs(uv_servicios),abs(uv_bienes),abs(uv_alimentos),abs(uv_energia),abs(uv_volatiles)])
+                etiquetas={
+                0:"Servicios no volátiles",
+                1:"Bienes no volátiles",
+                2:"Alimentos",
+                3:"Energía",
+                4:"Resto de volátiles"}
+                    
             try:
                 slide2 = prs.slides[5]
-                texto = "La inflación anual alcanzó un :" + " donde la mayor componente resultó ser " 
+                texto = "La inflación anual alcanzó un :"+ porcentaje(mayor)+" donde la mayor componente resultó ser " +etiquetas(etiqueta)
                 title_2 = slide2.shapes.title.text_frame.paragraphs[0]
                 title_2.text = texto
                 title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
