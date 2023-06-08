@@ -471,7 +471,7 @@ if sub1:
             except:
                 pass
 
-            mayor = np.abs([uv_servicios, uv_bienes, uv_alimentos, uv_energia, uv_volatiles])
+            mayor = np.fabs([uv_servicios, uv_bienes, uv_alimentos, uv_energia, uv_volatiles])
            # mayor = np.max(np.abs([uv_servicios, uv_bienes, uv_alimentos, uv_energia, uv_volatiles]))
            # etiqueta = np.argmax(np.fabs([uv_servicios, uv_bienes, uv_alimentos, uv_energia, uv_volatiles]))
            # etiquetas={0:"Servicios no volátiles",
