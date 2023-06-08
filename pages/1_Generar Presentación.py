@@ -321,6 +321,7 @@ if sub1:
                 comp_2.add_trace(px.line(inf_anu_, x='PERIODO', y='VALOR', color="SERIE").data[0])
 
                 comp_2=eje_porcentaje(comp_2)
+                
             except:
                 pass
 
@@ -485,7 +486,7 @@ if sub1:
             try:
    
                 slide2 = prs.slides[5]
-                texto = "La inflación anual alcanzó un :"+ porcentaje(mayor)+" donde la mayor componente resultó ser " +etiquetas(etiqueta)
+                texto = "La inflación anual alcanzó un :"#+ porcentaje(mayor)+" donde la mayor componente resultó ser " +etiquetas(etiqueta)
                 title_2 = slide2.shapes.title.text_frame.paragraphs[0]
                 title_2.text = texto
                 title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
