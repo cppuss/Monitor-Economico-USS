@@ -550,7 +550,7 @@ if sub1:
                 title_3.font.size = Pt(18)
                 
                 slide4 = prs.slides[9]
-                texto3 = "Los salarios reales anotaron una variación anual del "+ porcentaje(ult_remuneraciones,1).
+                texto3 = "Los salarios reales anotaron una variación anual del "+ porcentaje(ult_remuneraciones,1) +"."
                 title_4 = slide4.shapes.title.text_frame.paragraphs[0]
                 title_4.text = texto3
                 title_4.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
