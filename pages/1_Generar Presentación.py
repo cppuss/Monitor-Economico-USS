@@ -535,7 +535,7 @@ if sub1:
 
             try:
                 slide2 = prs.slides[7]
-                texto = "Desocupación laboral en +"FECHA_INE+" anotó "+ porcentaje(ult_oc,1) + " compuesto por mujeres y hombres "+ porcentaje(ult_oc_h,1) + " y "+ porcentaje(ult_oc_m,1)+"."
+                texto = "Desocupación laboral en "+FECHA_INE+" anotó "+ porcentaje(ult_oc,1) + " compuesto por mujeres y hombres "+ porcentaje(ult_oc_h,1) + " y "+ porcentaje(ult_oc_m,1)+"."
                 title_2 = slide2.shapes.title.text_frame.paragraphs[0]
                 title_2.text = texto
                 title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
@@ -543,7 +543,7 @@ if sub1:
                 title_2.font.size = Pt(18)
 
                 slide3 = prs.slides[8]
-                texto2 = "Informalidad en +"FECHA_INE+" alcanzó la cirfa del " + porcentaje(ult_informalidad,1) +" compuesto por mujeres y hombres "+ porcentaje(ult_informalidad_h,1) + " y "+ porcentaje(ult_informalidad_m,1)+"."
+                texto2 = "Informalidad en "+FECHA_INE+" alcanzó la cirfa del " + porcentaje(ult_informalidad,1) +" compuesto por mujeres y hombres "+ porcentaje(ult_informalidad_h,1) + " y "+ porcentaje(ult_informalidad_m,1)+"."
                 title_3 = slide3.shapes.title.text_frame.paragraphs[0]
                 title_3.text = texto2
                 title_3.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
@@ -551,7 +551,7 @@ if sub1:
                 title_3.font.size = Pt(18)
                 
                 slide4 = prs.slides[9]
-                texto3 = "Los salarios reales en +"FECHA_INE+" anotaron una variación anual del "+ porcentaje(ult_remuneraciones,1) +"."
+                texto3 = "Los salarios reales en "+FECHA_INE+" anotaron una variación anual del "+ porcentaje(ult_remuneraciones,1) +"."
                 title_4 = slide4.shapes.title.text_frame.paragraphs[0]
                 title_4.text = texto3
                 title_4.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
