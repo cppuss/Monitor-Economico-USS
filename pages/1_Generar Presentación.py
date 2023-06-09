@@ -30,7 +30,7 @@ nombre_mes_espanol = [
     "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
 ]
 
-nombre_mes = nombre_mes_espanol[mes - 1]
+
 
 def porcentaje(dato,decimas):
     return str(np.round(dato*100,decimas))+"%"
