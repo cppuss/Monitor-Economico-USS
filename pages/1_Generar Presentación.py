@@ -439,7 +439,7 @@ if sub1:
                 pass
             try:
                 slide2 = prs.slides[2]
-                texto = "El IMACEC anotó una variación anual del "  +porcentaje(uv_imacec_or,2)+". De la mano, el PIB trimestral anotó una variación anual del "+porcentaje(uv_nom,1)+"."
+                texto = "El IMACEC anotó una variación anual del "  +porcentaje(uv_imacec_or,2)+". Por su parte el PIB trimestral anotó una variación anual del "+porcentaje(uv_nom,1)+"."
                 title_2 = slide2.shapes.title.text_frame.paragraphs[0]
                 title_2.text = texto
                 title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
@@ -480,7 +480,7 @@ if sub1:
                         4:"Resto de volátiles"}
                 
                 slide2 = prs.slides[5]
-                texto = "La variación anual del IPC alcanzó un: "+ porcentaje(uv_inf,1)+". \n La mayor componente resultó ser " +etiquetas[etiqueta] + " con un " + porcentaje(mayor,1)+"."
+                texto = "La variación anual del IPC alcanzó un "+ porcentaje(uv_inf,1)+". Donde la mayor componente resultó ser " +etiquetas[etiqueta] + " con un " + porcentaje(mayor,1)+"."
                 title_2 = slide2.shapes.title.text_frame.paragraphs[0]
                 title_2.text = texto
                 title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
