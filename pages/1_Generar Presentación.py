@@ -17,6 +17,7 @@ from pptx.util import Inches
 import os
 from datetime import datetime
 from pptx.util import Pt
+import calendar
 
 st.set_page_config(layout="wide")
 st.sidebar.image("ESCUDOUSS_vertical_color.png", use_column_width=True)
@@ -237,6 +238,8 @@ if sub1:
                 imacec_or=data11[data11["NOMBRE_2"]==imacec_or]
                 imacec_or["VALOR"]=imacec_or["VALOR"]/imacec_or["VALOR"].shift(12)-1
                 uv_imacec_or=imacec_or["VALOR"].iloc[-1]
+                FECHA_IMACEC = calendar.month_name[imacec_or["PERIODO"].iloc[-1].month]
+                
                 imacec_or=imacec_or.dropna()
                 imacec_or["SERIE"]="Imacec (variación anual)"
                 imacec_or_1=gen(imacec_or,appointment_1,"Variación anual del IMACEC")
@@ -247,6 +250,8 @@ if sub1:
                 nom=data13[data13["NOMBRE_2"]==nom]
                 nom["VALOR"]=nom["VALOR"]/nom["VALOR"].shift(4)-1
                 uv_nom=nom["VALOR"].iloc[-1]
+                FECHA_PIB= calendar.month_name[nom["PERIODO"].iloc[-1].month]
+                
                 nom=nom.dropna()
                 nom["SERIE"]="PIB Trimestral (variación YoY)"
                 nom=gen(nom,appointment_1,"Variación Trimestral PIB")
@@ -264,14 +269,16 @@ if sub1:
               
                 prod_bienes=est[est["NOMBRE_2"].isin(["Minería","Industria","Resto de bienes"])]
                 
-                uv_mineria=est[est["NOMBRE_2"]=="Minería"]["VALOR"].iloc[-1]
+                uv_mineria=est[est["NOMBRE_2"]=="Minería"]["VALOR"].iloc[-1]              
+
                 uv_indsutria=est[est["NOMBRE_2"]=="Industria"]["VALOR"].iloc[-1]
                 uv_sericios=est[est["NOMBRE_2"]=="Resto de bienes"]["VALOR"].iloc[-1]
                    
                 prod_bienes=gen_bar(prod_bienes,appointment_1,"Componentes producción de bienes")
                 prod_bienes=eje_porcentaje(prod_bienes)
 
-                
+
+             
                 componentes=est[est["NOMBRE_2"].isin(["Producción de bienes","Comercio","Servicios"])]
                 componentes=gen_bar(componentes,appointment_1,"Componentes principales IMACEC")
                 componentes=eje_porcentaje(componentes)
@@ -285,6 +292,7 @@ if sub1:
                 anu="IPC, IPC sin volátiles e IPC volátiles, variación anual, información empalmada"
                 inf_anu=data2[(data2["NOMBRE_1"]==anu)&(data2["NOMBRE_2"]=="IPC General")]
                 uv_inf=inf_anu["VALOR"].iloc[-1]
+                FECHA_IPC = calendar.month_name[inf_anu["PERIODO"].iloc[-1].month]          
                 inf_anu["SERIE"]=inf_anu["NOMBRE_2"]
 
                 inf_anu=gen(inf_anu,appointment_2,"Variación anual porcentual IPC")
@@ -323,6 +331,7 @@ if sub1:
                 oc=emp_tasas_nac[emp_tasas_nac["NOMBRE_1"]=="Tasa de desocupación Nacional"]
                 
                 ult_oc=oc["VALOR"].iloc[-1]
+                FECHA_INE = calendar.month_name[oc["PERIODO"].iloc[-1].month]  
        
                 oc["SERIE"]=oc["NOMBRE_2"]
         
