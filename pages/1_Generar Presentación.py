@@ -26,11 +26,6 @@ def add_image(slide, image, left, top, width):
 
 
 
-def eje_porcentaje(grafico):
-    grafico.layout.yaxis.tickformat = ',.0%'
-    
-    return grafico
-
 def porcentaje(dato,decimas):
     return str(np.round(dato*100,decimas))+"%"
 
@@ -206,11 +201,10 @@ if sub1:
                         ])
                     )
                 )
-                grafico.update_yaxes(rangemode="tozero")
                 return grafico
 
             def eje_porcentaje(grafico):
-                grafico.layout.yaxis.tickformat = ',.1%'
+                grafico.layout.yaxis.tickformat = ',.0%'
                 return grafico    
 
             def gen_bar(imacec_des,rango,titulo):
@@ -220,7 +214,7 @@ if sub1:
                           template='plotly_white', 
                           width=700, height=600)
                           # color_discrete_map=rename_dict)
-
+                imacec_des.update_yaxes(rangemode="tozero")
                 imacec_des.update_layout(title={
                     'text': titulo,
                     'x':0.5,
@@ -312,10 +306,10 @@ if sub1:
                 comp_2.loc[comp_2['NOMBRE_2'] == "IPC Resto de volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] == "IPC Resto de volátiles", 'VALOR']*0.172
                 
                 comp_2=gen_bar(comp_2,appointment_2,"Componentes secundarias IPC YoY")
+                comp_2=eje_porcentaje(comp_2)  
                 inf_anu_=inf_anu1[(inf_anu1["PERIODO"] >= appointment_2[0])&(inf_anu1["PERIODO"]<=appointment_2[1])]
                 comp_2.add_trace(px.line(inf_anu_, x='PERIODO', y='VALOR', color="SERIE").data[0])
 
-                comp_2=eje_porcentaje(comp_2)
                 
             except:
                 pass
@@ -402,10 +396,7 @@ if sub1:
             slide = prs.slides[0]
             title =  slide.shapes.title.text_frame.paragraphs[0]
             title.text = title_1
-            if genre=="Formato CPP" :          
-                title.font.color.rgb = RGBColor(0,0,0)  # Color 
-            else:
-                title.font.color.rgb = RGBColor(255, 255, 255)  # Color blanco
+            title.font.color.rgb = RGBColor(255, 255, 255)  # Color blanco
             
             title.font.bold = True  # Negrita
 
@@ -447,7 +438,7 @@ if sub1:
                 pass
             try:
                 slide2 = prs.slides[2]
-                texto = "El IMACEC anotó una variación anual del "  +porcentaje(uv_imacec_or,2)+". \n El PIB trimestral anotó una variación anual del "+porcentaje(uv_nom,1)+"."
+                texto = "El IMACEC anotó una variación anual del "  +porcentaje(uv_imacec_or,2)+". De la mano, el PIB trimestral anotó una variación anual del "+porcentaje(uv_nom,1)+"."
                 title_2 = slide2.shapes.title.text_frame.paragraphs[0]
                 title_2.text = texto
                 title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
