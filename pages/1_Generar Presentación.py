@@ -177,6 +177,7 @@ if sub1:
                           labels={'x': 'Eje X', 'y': 'Eje Y'}, 
                           template='plotly_white', 
                           width=700, height=600)
+                imacec_des.update_yaxes(rangemode="tozero")
                 imacec_des.update_layout(title={
                     'text': titulo,
                     'x':0.5,
