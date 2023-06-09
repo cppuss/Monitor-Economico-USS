@@ -32,8 +32,9 @@ nombre_mes_espanol = [
 
 
 
-def porcentaje(dato,decimas):
-    return str(np.round(dato*100,decimas))+"%"
+def porcentaje(dato, decimas):
+    porcentaje_str = str(np.round(dato * 100, decimas)).replace(".", ",") + "%"
+    return porcentaje_str
 
 def gen(imacec_des,rango,titulo):
     imacec_des=imacec_des[(imacec_des["PERIODO"]> rango[0])&(imacec_des["PERIODO"]< rango[1])]
@@ -275,7 +276,6 @@ if sub1:
                 prod_bienes=est[est["NOMBRE_2"].isin(["Minería","Industria","Resto de bienes"])]
                 
                 uv_mineria=est[est["NOMBRE_2"]=="Minería"]["VALOR"].iloc[-1]              
-
                 uv_indsutria=est[est["NOMBRE_2"]=="Industria"]["VALOR"].iloc[-1]
                 uv_sericios=est[est["NOMBRE_2"]=="Resto de bienes"]["VALOR"].iloc[-1]
                    
@@ -350,7 +350,7 @@ if sub1:
                 ult_oc_m=emp_tasas_nac2[emp_tasas_nac2["NOMBRE_1"]=="Tasa de desocupación M"]["VALOR"].iloc[-1]
    
                 oc2["SERIE"]=oc2["NOMBRE_2"]
-                oc2=gen(oc2,appointment_3,"Tasas de desocupación")
+                oc2=gen(oc2,appointment_3,"Tasas de desocupación por género")
                 oc2=eje_porcentaje(oc2)
 
                 informalidad=data3[(data3["CATEGORIA2"]=="INFORMALIDAD")&(data3["NOMBRE_1"]=="Tasa de informalidad (AS)")]
@@ -370,7 +370,7 @@ if sub1:
                 
                 informalidad2["SERIE"]=informalidad2["NOMBRE_2"]
                 informalidad2=informalidad2.sort_values(by="PERIODO")
-                informalidad2=gen(informalidad2,appointment_3,"Tasas de Informalidad")
+                informalidad2=gen(informalidad2,appointment_3,"Tasas de Informalidad por género")
 
                 informalidad2=eje_porcentaje(informalidad2)
 
