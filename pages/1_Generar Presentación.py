@@ -25,7 +25,12 @@ st.sidebar.image("ESCUDOUSS_vertical_color.png", use_column_width=True)
 def add_image(slide, image, left, top, width):
     slide.shapes.add_picture(image, left=left, top=top, width=width)
 
+nombre_mes_espanol = [
+    "enero", "febrero", "marzo", "abril", "mayo", "junio",
+    "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
+]
 
+nombre_mes = nombre_mes_espanol[mes - 1]
 
 def porcentaje(dato,decimas):
     return str(np.round(dato*100,decimas))+"%"
@@ -238,8 +243,8 @@ if sub1:
                 imacec_or=data11[data11["NOMBRE_2"]==imacec_or]
                 imacec_or["VALOR"]=imacec_or["VALOR"]/imacec_or["VALOR"].shift(12)-1
                 uv_imacec_or=imacec_or["VALOR"].iloc[-1]
-                FECHA_IMACEC = calendar.month_name[imacec_or["PERIODO"].iloc[-1].month]
-                
+                FECHA_IMACEC = nombre_mes_espanol[imacec_or["PERIODO"].iloc[-1].month-1]
+    
                 imacec_or=imacec_or.dropna()
                 imacec_or["SERIE"]="Imacec (variación anual)"
                 imacec_or_1=gen(imacec_or,appointment_1,"Variación anual del IMACEC")
@@ -250,7 +255,7 @@ if sub1:
                 nom=data13[data13["NOMBRE_2"]==nom]
                 nom["VALOR"]=nom["VALOR"]/nom["VALOR"].shift(4)-1
                 uv_nom=nom["VALOR"].iloc[-1]
-                FECHA_PIB= calendar.month_name[nom["PERIODO"].iloc[-1].month]
+                FECHA_PIB= nombre_mes_espanol[nom["PERIODO"].iloc[-1].month-1]
                 
                 nom=nom.dropna()
                 nom["SERIE"]="PIB Trimestral (variación YoY)"
@@ -292,7 +297,7 @@ if sub1:
                 anu="IPC, IPC sin volátiles e IPC volátiles, variación anual, información empalmada"
                 inf_anu=data2[(data2["NOMBRE_1"]==anu)&(data2["NOMBRE_2"]=="IPC General")]
                 uv_inf=inf_anu["VALOR"].iloc[-1]
-                FECHA_IPC = calendar.month_name[inf_anu["PERIODO"].iloc[-1].month]          
+                FECHA_IPC = nombre_mes_espanol[inf_anu["PERIODO"].iloc[-1].month-1]          
                 inf_anu["SERIE"]=inf_anu["NOMBRE_2"]
 
                 inf_anu=gen(inf_anu,appointment_2,"Variación anual porcentual IPC")
@@ -331,7 +336,7 @@ if sub1:
                 oc=emp_tasas_nac[emp_tasas_nac["NOMBRE_1"]=="Tasa de desocupación Nacional"]
                 
                 ult_oc=oc["VALOR"].iloc[-1]
-                FECHA_INE = calendar.month_name[oc["PERIODO"].iloc[-1].month]  
+                FECHA_INE = nombre_mes_espanol[oc["PERIODO"].iloc[-1].month-1]  
        
                 oc["SERIE"]=oc["NOMBRE_2"]
         
