@@ -319,7 +319,7 @@ if sub1:
                 comp_2.loc[comp_2['NOMBRE_2'] == "IPC Energía volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] =="IPC Energía volátiles", 'VALOR']*0.075
                 comp_2.loc[comp_2['NOMBRE_2'] == "IPC Resto de volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] == "IPC Resto de volátiles", 'VALOR']*0.172
                 
-                comp_2=gen_bar(comp_2,appointment_2,"Componentes secundarias IPC YoY")
+                comp_2=gen_bar(comp_2,appointment_2,"Componentes secundarias IPC")
                 comp_2=eje_porcentaje(comp_2)  
                 inf_anu_=inf_anu1[(inf_anu1["PERIODO"] >= appointment_2[0])&(inf_anu1["PERIODO"]<=appointment_2[1])]
                 comp_2.add_trace(px.line(inf_anu_, x='PERIODO', y='VALOR', color="SERIE").data[0])
@@ -388,10 +388,10 @@ if sub1:
                 ind_rem_men_n=ind_rem_men_n.sort_values(by="PERIODO")
                 ult_remuneraciones=ind_rem_men_r["VALOR"].iloc[-1]
 
-                ind_rem_men_r=gen(ind_rem_men_r,appointment_3,"Variación Índice de remuneraciones [real] Y/Y ")
+                ind_rem_men_r=gen(ind_rem_men_r,appointment_3,"Variación anual Índice de remuneraciones [real]")
                 ind_rem_men_r=eje_porcentaje(ind_rem_men_r)
 
-                ind_rem_men_n=gen(ind_rem_men_n,appointment_3,"Variación Índice de remuneraciones [nom] Y/Y ")
+                ind_rem_men_n=gen(ind_rem_men_n,appointment_3,"Variación anual Índice de remuneraciones [nom]")
                 ind_rem_men_n=eje_porcentaje(ind_rem_men_n)
             except:
                 pass
@@ -453,7 +453,7 @@ if sub1:
                 pass
             try:
                 slide2 = prs.slides[2]
-                texto = "El IMACEC de "+FECHA_IMACEC+" anotó una variación anual del "  +porcentaje(uv_imacec_or,2)+". Por su parte el PIB trimestral de "+FECHA_PIB+" anotó una variación anual del "+porcentaje(uv_nom,1)+"."
+                texto = "El IMACEC de "+FECHA_IMACEC+" anotó una variación anual del "  +porcentaje(uv_imacec_or,2)+", el PIB trimestral de "+FECHA_PIB+" anotó una variación anual del "+porcentaje(uv_nom,1)+"."
                 title_2 = slide2.shapes.title.text_frame.paragraphs[0]
                 title_2.text = texto
                 title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
@@ -462,7 +462,7 @@ if sub1:
   
 
                 slide2 = prs.slides[3]
-                texto = "La componentes de Minería, Industria y servicios en"+FECHA_IMACEC+" alcanzaron una variación anual del " +porcentaje(uv_mineria,1) +", " + porcentaje(uv_indsutria,1)+", " +porcentaje(uv_sericios,1)+ "."
+                texto = "La componentes de Minería, Industria y servicios en "+FECHA_IMACEC+" obtuvieron una variación anual del " +porcentaje(uv_mineria,1) +", " + porcentaje(uv_indsutria,1)+", " +porcentaje(uv_sericios,1)+ "."
                 title_2 = slide2.shapes.title.text_frame.paragraphs[0]
                 title_2.text = texto
                 title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
@@ -494,7 +494,7 @@ if sub1:
                         4:"Resto de volátiles"}
                 
                 slide2 = prs.slides[5]
-                texto = "La variación anual del IPC en "+FECHA_IPC+" alcanzó un "+ porcentaje(uv_inf,1)+". Donde la mayor componente resultó ser " +etiquetas[etiqueta] + " con un " + porcentaje(mayor,1)+"."
+                texto = "La variación anual del IPC en "+FECHA_IPC+" alcanzó un "+ porcentaje(uv_inf,1)+". La mayor componente fue " +etiquetas[etiqueta] + " con un " + porcentaje(mayor,1)+"."
                 title_2 = slide2.shapes.title.text_frame.paragraphs[0]
                 title_2.text = texto
                 title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
@@ -540,7 +540,7 @@ if sub1:
 
             try:
                 slide2 = prs.slides[7]
-                texto = "Desocupación laboral en "+FECHA_INE+" anotó "+ porcentaje(ult_oc,1) + " compuesto por mujeres y hombres "+ porcentaje(ult_oc_h,1) + " y "+ porcentaje(ult_oc_m,1)+"."
+                texto = "La desocupación laboral en "+FECHA_INE+" alcanzó el "+ porcentaje(ult_oc,1) + ",mujeres se encuentran en el "+ porcentaje(ult_oc_m,1) +" y hombres en"+ porcentaje(ult_oc_h,1)+"."
                 title_2 = slide2.shapes.title.text_frame.paragraphs[0]
                 title_2.text = texto
                 title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
@@ -548,7 +548,8 @@ if sub1:
                 title_2.font.size = Pt(18)
 
                 slide3 = prs.slides[8]
-                texto2 = "Informalidad en "+FECHA_INE+" alcanzó la cirfa del " + porcentaje(ult_informalidad,1) +" compuesto por mujeres y hombres "+ porcentaje(ult_informalidad_h,1) + " y "+ porcentaje(ult_informalidad_m,1)+"."
+                texto2 = "La Informalidad laboral en "+FECHA_INE+" alcanzó el "+ porcentaje(ult_informalidad,1) + ",mujeres se encuentran en el "+ porcentaje(ult_informalidad_m,1) +" y hombres en"+ porcentaje(ult_informalidad_h,1)+"."
+           
                 title_3 = slide3.shapes.title.text_frame.paragraphs[0]
                 title_3.text = texto2
                 title_3.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
