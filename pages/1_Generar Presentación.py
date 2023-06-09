@@ -448,7 +448,7 @@ if sub1:
                 pass
             try:
                 slide2 = prs.slides[2]
-                texto = "El IMACEC anotó una variación anual del "  +porcentaje(uv_imacec_or,2)+". Por su parte el PIB trimestral anotó una variación anual del "+porcentaje(uv_nom,1)+"."
+                texto = "El IMACEC de "+FECHA_IMACEC+" anotó una variación anual del "  +porcentaje(uv_imacec_or,2)+". Por su parte el PIB trimestral de "+FECHA_PIB+" anotó una variación anual del "+porcentaje(uv_nom,1)+"."
                 title_2 = slide2.shapes.title.text_frame.paragraphs[0]
                 title_2.text = texto
                 title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
@@ -457,7 +457,7 @@ if sub1:
   
 
                 slide2 = prs.slides[3]
-                texto = "La componentes de Minería, Industria y servicios alcanzaron una variación anual del " +porcentaje(uv_mineria,1) +", " + porcentaje(uv_indsutria,1)+", " +porcentaje(uv_sericios,1)+ "."
+                texto = "La componentes de Minería, Industria y servicios en"+FECHA_IMACEC+" alcanzaron una variación anual del " +porcentaje(uv_mineria,1) +", " + porcentaje(uv_indsutria,1)+", " +porcentaje(uv_sericios,1)+ "."
                 title_2 = slide2.shapes.title.text_frame.paragraphs[0]
                 title_2.text = texto
                 title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
@@ -489,7 +489,7 @@ if sub1:
                         4:"Resto de volátiles"}
                 
                 slide2 = prs.slides[5]
-                texto = "La variación anual del IPC alcanzó un "+ porcentaje(uv_inf,1)+". Donde la mayor componente resultó ser " +etiquetas[etiqueta] + " con un " + porcentaje(mayor,1)+"."
+                texto = "La variación anual del IPC en "+FECHA_IPC+" alcanzó un "+ porcentaje(uv_inf,1)+". Donde la mayor componente resultó ser " +etiquetas[etiqueta] + " con un " + porcentaje(mayor,1)+"."
                 title_2 = slide2.shapes.title.text_frame.paragraphs[0]
                 title_2.text = texto
                 title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
@@ -535,7 +535,7 @@ if sub1:
 
             try:
                 slide2 = prs.slides[7]
-                texto = "Desocupación laboral anotó "+ porcentaje(ult_oc,1) + " compuesto por mujeres y hombres "+ porcentaje(ult_oc_h,1) + " y "+ porcentaje(ult_oc_m,1)+"."
+                texto = "Desocupación laboral en +"FECHA_INE+" anotó "+ porcentaje(ult_oc,1) + " compuesto por mujeres y hombres "+ porcentaje(ult_oc_h,1) + " y "+ porcentaje(ult_oc_m,1)+"."
                 title_2 = slide2.shapes.title.text_frame.paragraphs[0]
                 title_2.text = texto
                 title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
@@ -543,7 +543,7 @@ if sub1:
                 title_2.font.size = Pt(18)
 
                 slide3 = prs.slides[8]
-                texto2 = "Informalidad alcanzó la cirfa del " + porcentaje(ult_informalidad,1) +" compuesto por mujeres y hombres "+ porcentaje(ult_informalidad_h,1) + " y "+ porcentaje(ult_informalidad_m,1)+"."
+                texto2 = "Informalidad en +"FECHA_INE+" alcanzó la cirfa del " + porcentaje(ult_informalidad,1) +" compuesto por mujeres y hombres "+ porcentaje(ult_informalidad_h,1) + " y "+ porcentaje(ult_informalidad_m,1)+"."
                 title_3 = slide3.shapes.title.text_frame.paragraphs[0]
                 title_3.text = texto2
                 title_3.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
@@ -551,7 +551,7 @@ if sub1:
                 title_3.font.size = Pt(18)
                 
                 slide4 = prs.slides[9]
-                texto3 = "Los salarios reales anotaron una variación anual del "+ porcentaje(ult_remuneraciones,1) +"."
+                texto3 = "Los salarios reales en +"FECHA_INE+" anotaron una variación anual del "+ porcentaje(ult_remuneraciones,1) +"."
                 title_4 = slide4.shapes.title.text_frame.paragraphs[0]
                 title_4.text = texto3
                 title_4.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
