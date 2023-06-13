@@ -13,9 +13,19 @@ import numpy as np
 from io import BytesIO
 from datetime import datetime
 
-import locale
+import pytz
 
-locale.setlocale(locale.LC_ALL, 'es_ES') 
+from datetime import datetime
+# Establecer la zona horaria en Chile
+timezone = pytz.timezone('America/Santiago')
+
+# Obtener la fecha y hora actual en la zona horaria especificada
+now = datetime.now(timezone)
+
+# Formatear la fecha y hora en un formato específico con el mes en español
+formatted_datetime = now.strftime('%d de %B de %Y, %H:%M:%S')
+
+
 
 
 st.set_page_config(layout="wide")
