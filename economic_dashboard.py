@@ -27,8 +27,6 @@ st.markdown("<h1 style='text-align: center; color: black;'>MONITOR ECONÓMICO CP
 st.markdown("<h2 style='text-align: center; color: grey;'>Visualización de series económicas </h2>", unsafe_allow_html=True)
 
 
-st.write(formatted_date)
-
 
 col1, col2 = st.columns(2)
 with col1:
