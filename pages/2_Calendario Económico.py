@@ -26,3 +26,18 @@ st.sidebar.image("ESCUDOUSS_vertical_color.png", use_column_width=True)
 data=pd.read_parquet("datos_monitor.parquet")
 
 
+x = [1, 2, 3, 4, 5]
+y = [10, 20, 30, 40, 50]
+
+# Crear la figura de Plotly con el idioma español para los ejes
+fig = go.Figure()
+fig.add_trace(go.Scatter(x=x, y=y, mode='lines'))
+fig.update_layout(
+    xaxis_title='Eje X',
+    yaxis_title='Eje Y',
+    xaxis=dict(tickfont=dict(size=14)),
+    yaxis=dict(tickfont=dict(size=14)),
+)
+
+# Usar Streamlit para visualizar el gráfico
+st.plotly_chart(fig, use_container_width=True)
