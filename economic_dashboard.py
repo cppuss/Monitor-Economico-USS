@@ -638,8 +638,8 @@ with tab2:
                 
 
              
-         with st.expander("Detalle"):
-                 st.write("""
+        with st.expander("Detalle"):
+            st.write("""
                     Fuente: Banco Central.
                  """)
 
