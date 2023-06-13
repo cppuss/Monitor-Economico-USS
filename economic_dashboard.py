@@ -13,6 +13,11 @@ import numpy as np
 from io import BytesIO
 from datetime import datetime
 
+import locale
+
+locale.setlocale(locale.LC_TIME, 'es_ES') 
+
+
 st.set_page_config(layout="wide")
 path=""
 
