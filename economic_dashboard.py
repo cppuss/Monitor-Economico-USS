@@ -88,14 +88,14 @@ def extremos(data):
 def gen(imacec_des,rango,titulo):
     imacec_des=imacec_des[(imacec_des["PERIODO"]>= rango[0])&(imacec_des["PERIODO"]<= rango[1])]
    
-    imacec_des['MES'] = imacec_des['PERIODO'].dt.month.map(diccionario_meses)
+  #  imacec_des['MES'] = imacec_des['PERIODO'].dt.month.map(diccionario_meses)
 
     imacec_des = px.line(imacec_des, x="PERIODO", y="VALOR", color="SERIE" ,title='Mi gráfico de línea', 
               labels={'x': 'Eje X', 'y': 'Eje Y'}, 
               template='plotly_white', 
               width=700, height=600)
     
-    imacec_des.update_xaxes(ticktext=imacec_des['MES'], tickvals=imacec_des['PERIODO'])
+  # imacec_des.update_xaxes(ticktext=imacec_des['MES'], tickvals=imacec_des['PERIODO'])
 
     imacec_des.update_layout(title={
         'text': titulo,
