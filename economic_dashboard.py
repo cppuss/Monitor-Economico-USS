@@ -23,7 +23,7 @@ path=""
 
 
 # Establecer la zona horaria en Chile
-timezone = pytz.timezone('America/Santiago')
+timezone = pytz.timezone('EST')
 
 # Obtener la fecha y hora actual en la zona horaria especificada
 now = datetime.now(timezone)
