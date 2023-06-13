@@ -15,7 +15,7 @@ from datetime import datetime
 
 import locale
 
-locale.setlocale(locale.LC_TIME, 'es_ES') 
+locale.setlocale(locale.LC_ALL, 'es_ES') 
 
 
 st.set_page_config(layout="wide")
