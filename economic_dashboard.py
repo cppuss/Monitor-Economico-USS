@@ -25,11 +25,11 @@ path=""
 # Establecer la zona horaria en Chile
 timezone = pytz.timezone('EST')
 
-# Obtener la fecha y hora actual en la zona horaria especificada
 now = datetime.now(timezone)
 
-# Formatear la fecha y hora en un formato específico con el mes en español
-formatted_datetime = now.strftime('%d de %B de %Y, %H:%M:%S')
+# Formatear la fecha y hora en el formato deseado
+formatted_date = now.strftime("%B, %d de %Y, %H:%M:%S")
+
 
 
 st.sidebar.image(path+"ESCUDOUSS_vertical_color.png", use_column_width=True)
