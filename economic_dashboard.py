@@ -86,10 +86,16 @@ def extremos(data):
 
 def gen(imacec_des,rango,titulo):
     imacec_des=imacec_des[(imacec_des["PERIODO"]>= rango[0])&(imacec_des["PERIODO"]<= rango[1])]
+   
+    imacec_des['MES'] = imacec_des['PERIODO'].dt.month.map(diccionario_meses)
+
     imacec_des = px.line(imacec_des, x="PERIODO", y="VALOR", color="SERIE" ,title='Mi gráfico de línea', 
               labels={'x': 'Eje X', 'y': 'Eje Y'}, 
               template='plotly_white', 
               width=700, height=600)
+    
+    fig.update_xaxes(ticktext=imacec_des['MES'], tickvals=imacec_des['PERIODO'])
+
     imacec_des.update_layout(title={
         'text': titulo,
         'x':0.5,
@@ -102,6 +108,7 @@ def gen(imacec_des,rango,titulo):
             xanchor="left",
             x=0.01
         ))
+    
     return imacec_des
 
 
@@ -138,6 +145,20 @@ def to_excel(df):
     processed_data = output.getvalue()
     return processed_data
 
+diccionario_meses = {
+    1: 'enero',
+    2: 'febrero',
+    3: 'marzo',
+    4: 'abril',
+    5: 'mayo',
+    6: 'junio',
+    7: 'julio',
+    8: 'agosto',
+    9: 'septiembre',
+    10: 'octubre',
+    11: 'noviembre',
+    12: 'diciembre'
+}
 
 data=pd.read_parquet(path+"datos_monitor.parquet")
 
