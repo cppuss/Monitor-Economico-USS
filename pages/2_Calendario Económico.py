@@ -24,7 +24,7 @@ st.sidebar.image("ESCUDOUSS_vertical_color.png", use_column_width=True)
 
 
 data=pd.read_parquet("datos_monitor.parquet")
-
+import plotly.graph_objects as go
 
 x = [1, 2, 3, 4, 5]
 y = [10, 20, 30, 40, 50]
