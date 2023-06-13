@@ -347,10 +347,6 @@ with tab1:
                 
                st.plotly_chart(componentes, theme="streamlit", use_container_width=True)
 
-               with st.expander("Detalle"):
-                 st.write("""
-                    Fuente: Banco Central.
-                 """)    
  
             
      
@@ -587,15 +583,14 @@ with tab2:
         with col2:
            
            if appointment_1:
-     
-               
+       
                comp_2.loc[comp_2['NOMBRE_2'] == "IPC Servicios sin volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] == "IPC Servicios sin volátiles", 'VALOR']*0.384
                comp_2.loc[comp_2['NOMBRE_2'] == "IPC Bienes sin volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] == "IPC Bienes sin volátiles", 'VALOR']*0.267
                comp_2.loc[comp_2['NOMBRE_2'] == "IPC Alimentos volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] =="IPC Alimentos volátiles" , 'VALOR']*0.101
                comp_2.loc[comp_2['NOMBRE_2'] == "IPC Energía volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] =="IPC Energía volátiles", 'VALOR']*0.075
                comp_2.loc[comp_2['NOMBRE_2'] == "IPC Resto de volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] == "IPC Resto de volátiles", 'VALOR']*0.172
 
-               comp_2=gen_bar(comp_2,appointment_1,"Componentes secundarias IPC YoY")
+               comp_2=gen_bar(comp_2,appointment_1,"Variación anual de componentes secundarias IPC")
               
                inf_anu_=inf_anu1[(inf_anu1["PERIODO"] >= appointment_1[0])&(inf_anu1["PERIODO"]<=appointment_1[1])]
                comp_2.add_trace(px.line(inf_anu_, x='PERIODO', y='VALOR', color="SERIE").data[0])
@@ -607,7 +602,10 @@ with tab2:
                st.plotly_chart(comp_2, theme="streamlit", use_container_width=True)
     
                
-               
+           with st.expander("Detalle"):
+                 st.write("""
+                    Fuente: Banco Central.
+                 """)
                
                
 
@@ -640,10 +638,10 @@ with tab2:
                 
 
              
-    with st.expander("Detalle"):
-        st.write("""
-            IPC: Corresponde a los datos XXX...
-            """)
+         with st.expander("Detalle"):
+                 st.write("""
+                    Fuente: Banco Central.
+                 """)
 
 
 data3=data[data["CATEGORIA"]=="MERCADO LABORAL"]
@@ -932,24 +930,10 @@ with tab3:
                      "Seleccione el rango de fechas      ",
                      value=(ext_cate_sex[0],ext_cate_sex[1]),
                      format="YYYY/MM")
-       
-        
-        
-        options = [
-
-"Independientes",
-"Dependientes",
-"Asalariados",
-"Sector privado",
-"Sector público",
-"Trabajo Doméstico"
-         ]
+      
+        options = ["Independientes","Dependientes","Asalariados","Sector privado","Sector público","Trabajo Doméstico" ]
   
-
         user_input = st.multiselect(label='Serie a comparar por género', options=options)
-        
-        
-        
         
         if appointment_6 or user_input:
             if len(user_input)==1:
@@ -962,9 +946,7 @@ with tab3:
          
                 st.plotly_chart(cate_sex, theme="streamlit", use_container_width=True)
                 
-
-                
-                
+           
             if len(user_input)==2:
                 cate_sex=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&~(data3["CATEGORIA3"]=="(AS)")]
                 cate_sex["SERIE"]=cate_sex["NOMBRE_1"]
