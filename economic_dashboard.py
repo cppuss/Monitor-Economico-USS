@@ -75,12 +75,10 @@ def eje_porcentaje_2(grafico):
 
 def eje_porcentaje_0(grafico):
     grafico.layout.yaxis.tickformat = ',.0%'
-    
     return grafico
 
 def eje_porcentaje(grafico):
     grafico.layout.yaxis.tickformat = ',.1%'
-    
     return grafico
 
 def extremos(data):
@@ -114,7 +112,6 @@ def gen_bar(imacec_des,rango,titulo):
               template='plotly_white', 
               width=700, height=600)
               # color_discrete_map=rename_dict)
-    
     imacec_des.update_layout(title={
         'text': titulo,
         'x':0.5,
@@ -151,7 +148,6 @@ tab1, tab2,tab3,tab4 = st.tabs(["ACTIVIDAD ECONÓMICA","INFLACIÓN","MERCADO LAB
 data1=data[data["CATEGORIA"]=="ACTIVIDAD ECONOMICA"]
 data11=data1[data1["CATEGORIA2"]=="IMACEC"]
 
-
 imacec_des="Imacec empalmado, desestacionalizado (índice 2018=100)"
 imacec_des=data11[data11["NOMBRE_2"]==imacec_des]
 imacec_des["VALOR"]=imacec_des["VALOR"]/imacec_des["VALOR"].shift(12)-1
@@ -159,8 +155,6 @@ imacec_des=imacec_des.dropna()
 imacec_des["SERIE"]="Imacec desestacionalizado"
 data_imacec_des=imacec_des.copy(deep=True)
 data_imacec_des=data_imacec_des[["PERIODO","VALOR","SERIE"]]
-
-
 
 imacec_or="Imacec empalmado, serie original (índice 2018=100)"
 imacec_or=data11[data11["NOMBRE_2"]==imacec_or]
@@ -186,13 +180,9 @@ prod_bienes_2=est[est["NOMBRE_2"]=="Producción de bienes"]
 componentes=est[est["NOMBRE_2"].isin(["Producción de bienes","Comercio","Servicios"])]
 no_minero=est[est["NOMBRE_2"]=="Imacec no minero"]
 
-
-
 data_est=est.copy(deep=True)
 data_est=data_est[["PERIODO","VALOR","SERIE"]]
 ext_est=extremos(est)
-
-
 
 des="Indicador mensual de actividad económica, Imacec, contribución porcentual respecto al periodo anterior, desestacionalizado, referencia 2018"
 des=data12[data12["NOMBRE_1"]==des]
@@ -208,9 +198,6 @@ data_des=data_des[["PERIODO","VALOR","SERIE"]]
 ext_des=extremos(des)
 
 
-
-
-
 data13=data1[data1["CATEGORIA2"]=="PIB"]
 per="PIB  per  cápita, referencia 2018  (USD)"
 per=data13[data13["NOMBRE_2"]==per]
@@ -218,9 +205,6 @@ per["SERIE"]=per["NOMBRE_2"]
 ext_per=extremos(per)
 data_per=per.copy(deep=True)
 data_per=data_per[["PERIODO","VALOR","SERIE"]]
-
-
-
 
 nom="PIB, volumen a precios del año anterior encadenado, referencia 2018 (miles de millones de pesos encadenados)"
 nom=data13[data13["NOMBRE_2"]==nom]
@@ -230,7 +214,6 @@ nom["SERIE"]="PIB Trimestral (variación YoY)"
 ext_nom=extremos(nom)
 data_nom=nom.copy(deep=True)
 data_nom=data_nom[["PERIODO","VALOR","SERIE"]]
-
 
 nom_2="PIB (millones USD, últimos 12 meses)"
 nom_2=data13[data13["NOMBRE_2"]==nom_2]
@@ -287,7 +270,7 @@ with tab1:
            if appointment:
                imacec_or_1=gen(imacec_or,appointment,"Variación anual del IMACEC")
                imacec_or_1=fechas_2(imacec_or_1)
-               imacec_or_1=eje_porcentaje_0(imacec_or_1)
+               imacec_or_1=eje_porcentaje(imacec_or_1)
              
                 
                st.plotly_chart(imacec_or_1, theme="streamlit", use_container_width=True)
@@ -328,6 +311,7 @@ with tab1:
                st.markdown("<h5 style=' color: black;'>Series estacionales. </h5>", unsafe_allow_html=True)
 
                prod_bienes=gen_bar(prod_bienes,appointment,"Componentes producción de bienes")
+               prod_bienes_2=prod_bienes_2[(prod_bienes_2["PERIODO"]>= appointment[0])&(prod_bienes_2["PERIODO"]<= appointment[1])]
                prod_bienes.add_trace(px.line(prod_bienes_2, x='PERIODO', y='VALOR', color="SERIE").data[0])
                prod_bienes=fechas_2(prod_bienes)
                prod_bienes=eje_porcentaje(prod_bienes)
