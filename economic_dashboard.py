@@ -90,14 +90,14 @@ def gen(imacec_des,rango,titulo):
    
     imacec_des['MES'] = imacec_des['PERIODO'].dt.month.map(diccionario_meses)
 
-    imacec_des = px.line(imacec_des, x="PERIODO", y="VALOR", color="SERIE" ,title='Mi gráfico de línea', 
+    imacec_des_1 = px.line(imacec_des, x="PERIODO", y="VALOR", color="SERIE" ,title='Mi gráfico de línea', 
               labels={'x': 'Eje X', 'y': 'Eje Y'}, 
               template='plotly_white', 
               width=700, height=600)
     
-    fig.update_xaxes(ticktext=imacec_des['MES'], tickvals=imacec_des['PERIODO'])
+    imacec_des_1.update_xaxes(ticktext=imacec_des['MES'], tickvals=imacec_des['PERIODO'])
 
-    imacec_des.update_layout(title={
+    imacec_des_1.update_layout(title={
         'text': titulo,
         'x':0.5,
          'xanchor': 'center',
@@ -110,7 +110,7 @@ def gen(imacec_des,rango,titulo):
             x=0.01
         ))
     
-    return imacec_des
+    return imacec_des_1
 
 
 def gen_bar(imacec_des,rango,titulo):
