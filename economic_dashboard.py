@@ -265,7 +265,7 @@ principales["SERIE"]=principales["NOMBRE_2"]
 with tab1:
     st.write('En esta sección se encuentras las variables de actividad económica y crecimiento.')
     
-    tab11,tab12,tab13,tab14,tab15=st.tabs(["IMACEC","COMPONENTES IMACEC","PRODUCTO INTERNO BRUTO","FORMACIÓN DE CAPITAL","COMPONENTES PIB"])
+    tab11,tab12,tab13,tab14,tab15,tab16=st.tabs(["IMACEC","COMPONENTES IMACEC","PRODUCTO INTERNO BRUTO","FORMACIÓN DE CAPITAL","COMPONENTES PIB","INVERSIÓN EXTRANGERA"])
     
     with tab11:
         st.write('Índice Mensual de Actividad Económica :tractor: ')
@@ -468,8 +468,21 @@ with tab1:
                  st.write("""
                     Fuente: Banco Central.
                  """)
+    with tab16:   
+         st.write('Inversión extrangera')
+         appointment = st.slider(
+            "Seleccione el rango de fechas ",
+            value=(ext_dataprincipales[0],ext_dataprincipales[1]),
+            format="YYYY/MM")
+ 
+         if appointment:
+            des_prod_bienes=gen_bar(des_prod_bienes,appointment,"Componentes producción de bienes")
+            des_prod_bienes_2_=des_prod_bienes_2[(des_prod_bienes_2["PERIODO"]>= appointment[0])&(des_prod_bienes_2["PERIODO"]<= appointment[1])]
+            des_prod_bienes.add_trace(px.line(des_prod_bienes_2_, x='PERIODO', y='VALOR', color="SERIE").data[0])
+            des_prod_bienes=fechas_2(des_prod_bienes)
+            des_prod_bienes=eje_porcentaje(des_prod_bienes)
 
-
+            st.plotly_chart(des_prod_bienes, theme="streamlit", use_container_width=True)  
 #INFLACIÓN
 
 data2=data[data["CATEGORIA"]=="INFLACION"]
