@@ -484,12 +484,12 @@ with tab1:
             format="YYYY/MM")
  
          if appointment:
-            inv_directa=gen(inv_directa,appointment,"Inversión directa mensual en dólares")
+            inv_directa=gen_bar(inv_directa,appointment,"Inversión directa mensual en dólares")
             inv_directa=fechas_2(inv_directa)
  
             st.plotly_chart(inv_directa, theme="streamlit", use_container_width=True)
             
-            añocontraaño=gen(añocontraaño,appointment,"Variación anual inversion extrangera en dólares")
+            añocontraaño=gen_bar(añocontraaño,appointment,"Variación anual inversion extrangera en dólares")
             añocontraaño=fechas_2(añocontraaño)
             añocontraaño=eje_porcentaje(añocontraaño)
             st.plotly_chart(añocontraaño, theme="streamlit", use_container_width=True)
