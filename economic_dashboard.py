@@ -512,7 +512,7 @@ with tab1:
             trimestral=fechas_2(trimestral)
             st.plotly_chart(trimestral, theme="streamlit", use_container_width=True)
             
-            AÑO=gen_bar(AÑO,appointment,"Flujo inversión directa trimestral en dólares")
+            AÑO=gen_bar(AÑO,appointment,"Flujo de inversión directa anual en dólares")
             AÑO=fechas_2(AÑO)
             st.plotly_chart(AÑO, theme="streamlit", use_container_width=True)
         
