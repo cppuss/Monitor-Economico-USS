@@ -477,14 +477,24 @@ with tab1:
          añocontraaño["VALOR"]=añocontraaño["VALOR"]/añocontraaño["VALOR"].shift(12)-1
          añocontraaño=añocontraaño.dropna()
          añocontraaño["SERIE"]="Variación inversion extrangera"
+        
+         trimestral=inv_directa.copy(deep=True)
+         trimestral["VALOR"]=trimestral["VALOR"].cumsum(3)
+         trimestral=trimestral.dropna()
+         trimestral["SERIE"]="Inversión trimestral"
          
+         AÑO=AÑO.copy(deep=True)
+         AÑO["VALOR"] = AÑO.groupby(AÑO["AÑO"].dt.year)["VALOR"].transform("sum")
+         AÑO=AÑO.dropna()
+         AÑO["SERIE"]="Valor Anual"
+          
          appointment = st.slider(
             "Seleccione el rango de fechas ",
             value=(ext_inv_directa[0],ext_inv_directa[1]),
             format="YYYY/MM")
  
          if appointment:
-            inv_directa=gen_bar(inv_directa,appointment,"Inversión directa mensual en dólares")
+            inv_directa=gen_bar(inv_directa,appointment,"Flujo inversión directa mensual en dólares")
             inv_directa=fechas_2(inv_directa)
  
             st.plotly_chart(inv_directa, theme="streamlit", use_container_width=True)
@@ -493,6 +503,19 @@ with tab1:
             añocontraaño=fechas_2(añocontraaño)
             añocontraaño=eje_porcentaje(añocontraaño)
             st.plotly_chart(añocontraaño, theme="streamlit", use_container_width=True)
+  
+            trimestral=gen_bar(trimestral,appointment,"Flujo inversión directa trimestral en dólares")
+            trimestral=fechas_2(trimestral)
+            st.plotly_chart(trimestral, theme="streamlit", use_container_width=True)
+            
+            AÑO=gen_bar(AÑO,appointment,"Flujo inversión directa trimestral en dólares")
+            AÑO=fechas_2(AÑO)
+            st.plotly_chart(AÑO, theme="streamlit", use_container_width=True)
+        
+      
+            
+            
+            
             
                
 #INFLACIÓN
