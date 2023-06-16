@@ -709,7 +709,7 @@ data3=data[data["CATEGORIA"]=="MERCADO LABORAL"]
 with tab3:
     st.write('En esta sección se encuentra información del mercado laboral')
         
-    tab31,tab32,tab33,tab34,tab35=st.tabs(["EMPLEO NACIONAL","EMPLEO POR GENERO","CATEGORÍAS","SERIES ADMINISTRATIVAS","ÍNDICES DE REMUNERACIONES"])
+    tab31,tab32,tab33,tab34,tab35,tab36=st.tabs(["EMPLEO NACIONAL","EMPLEO POR GENERO","INFORMALIDAD","CATEGORÍAS","SERIES ADMINISTRATIVAS","ÍNDICES DE REMUNERACIONES"])
     
     
     with tab31:
@@ -789,21 +789,7 @@ with tab3:
         
         
     
-        appointment_3 = st.slider(
-                    "Seleccione el rango de fechas  ",
-                    value=(ext_infor[0],ext_infor[1]),
-                    format="YYYY/MM")
-        
-        
-        if appointment_3:
-             informalidad=gen(informalidad,appointment_3,"Tasa de Informalidad")
-             informalidad=fechas_2(informalidad)
-             informalidad=eje_porcentaje(informalidad)
-             
-             st.plotly_chart(informalidad, theme="streamlit", use_container_width=True)
-             
-
-         
+               
     
     with tab32:
        emp_tasas_nac=data3[(data3["CATEGORIA2"]=="EMPLEO - TASAS")&~(data3["CATEGORIA3"]=="Nacional")]
@@ -938,12 +924,35 @@ with tab3:
             st.plotly_chart(informalidad, theme="streamlit", use_container_width=True)
             
 
-
-  
-    
-  
-    
     with tab33:
+        
+        INF=data3[(data3["CATEGORIA2"]=="INFORMALIDAD - N")&(data3["NOMBRE_1"]=="Tasa de informalidad (AS)")]
+        INF["SERIE"]=INF["NOMBRE_2"]
+        INF["VALOR"]=INF["VALOR"]/100
+        INF=INF.sort_values(by="PERIODO")
+        ext_INF=extremos(INF) 
+        
+        INF_SEX=data3[(data3["CATEGORIA2"]=="INFORMALIDAD - N")&~(data3["NOMBRE_1"]=="Tasa de informalidad (AS)")]
+        INF_SEX["SERIE"]=INF_SEX["NOMBRE_2"]
+        INF_SEX["VALOR"]=INF_SEX["VALOR"]/100
+        INF_SEX=INF_SEX.sort_values(by="PERIODO")
+        
+        appointment_inf = st.slider(
+                    "Seleccione el rango de fechas   ",
+                    value=(ext_INF[0],ext_INF[1]),
+                    format="YYYY/MM")
+
+        
+        if appointment_inf:
+              INF_SEX=gen_bar(INF_SEX,appointment,"Informalidad")
+              INF=INF[(INF["PERIODO"] >= appointment_inf[0])&(INF["PERIODO"]<=appointment_inf[1])]
+              INF_SEX.add_trace(px.line(INF, x='PERIODO', y='VALOR', color="SERIE").data[0])
+              INF_SEX=fechas_2(INF_SEX)
+              INF_SEX=eje_porcentaje(INF_SEX)
+
+              st.plotly_chart(INF_SEX, theme="streamlit", use_container_width=True)
+    
+    with tab34:
             
         cate_nac=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&(data3["CATEGORIA3"]=="(AS)")]
         cate_nac["SERIE"]=cate_nac["NOMBRE_2"]
@@ -1026,7 +1035,7 @@ with tab3:
                  
              
         
-        with tab34:
+        with tab35:
             series_adm=data3[(data3["CATEGORIA2"]=="SERIES ADMINISTRATIVAS")&(data3["CATEGORIA3"]=="COTIZANTES")]
             series_adm["SERIE"]=series_adm["NOMBRE_1"]
             where=series_adm["NOMBRE_1"].isin(["Cotizantes-INE","Cotizantes-SP"])
@@ -1091,7 +1100,7 @@ with tab3:
 
 
 
-        with tab35:
+        with tab36:
     
             ind_rem_men_r=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="REAL")]
             ind_rem_men_n=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="NOMINAL")]
