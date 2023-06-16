@@ -467,7 +467,7 @@ with tab1:
          
          data16=data[data["CATEGORIA3"]=="COMPONENTES PRINCIPALES"]
         
-         inv_directa=data16[data16["NOMBRE_1"]=="Inversión directa pasivos "]
+         inv_directa=data16[data16["NOMBRE_1"]=="Cuenta financiera de la balanza de pagos, pasivos flujos (millones de dólares) "]
          inv_directa["SERIE"]=inv_directa["NOMBRE_2"]
          inv_directa=inv_directa.sort_values("PERIODO")
          ext_inv_directa=extremos(data16)
