@@ -491,7 +491,7 @@ with tab1:
             
             añocontraaño=gen(añocontraaño,appointment,"Variación anual inversion extrangera en dólares")
             añocontraaño=fechas_2(añocontraaño)
- 
+            añocontraaño=eje_porcentaje(añocontraaño)
             st.plotly_chart(añocontraaño, theme="streamlit", use_container_width=True)
             
                
