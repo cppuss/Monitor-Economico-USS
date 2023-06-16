@@ -485,7 +485,8 @@ with tab1:
          
          AÑO=inv_directa.copy(deep=True)
          AÑO["VALOR"] = AÑO.groupby(AÑO["PERIODO"].dt.year)["VALOR"].transform("sum")
-         AÑO=AÑO[AÑO["VALOR"].isin(AÑO["VALOR"].drop_duplicates())]
+         where=(AÑO["PERIODO"].dt.month==12)|(AÑO["PERIODO"]==AÑO["PERIODO"].iloc[-1])
+         AÑO=AÑO[where]
          AÑO=AÑO.dropna()
          AÑO["SERIE"]="Valor Anual"
           
