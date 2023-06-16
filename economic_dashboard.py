@@ -496,9 +496,9 @@ with tab1:
             "Seleccione el rango de fechas ",
             value=(ext_inv_directa[0],ext_inv_directa[1]),
             format="YYYY/MM")
-        col1, col2 = st.columns(2)
-        with col1:
-            if appointment:
+         col1, col2 = st.columns(2)
+         with col1:
+             if appointment:
                 inv_directa=gen_bar(inv_directa,appointment,"Flujo inversión directa mensual en dólares")
                 inv_directa=fechas_2(inv_directa)
 
@@ -509,8 +509,8 @@ with tab1:
                 añocontraaño=eje_porcentaje(añocontraaño)
                 st.plotly_chart(añocontraaño, theme="streamlit", use_container_width=True)
             
-        with col2:
-            if appointment:
+         with col2:
+             if appointment:
                 trimestral=gen_bar(trimestral,appointment,"Flujo inversión directa trimestral en dólares")
                 trimestral=fechas_2(trimestral)
                 st.plotly_chart(trimestral, theme="streamlit", use_container_width=True)
