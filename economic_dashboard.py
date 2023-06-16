@@ -483,7 +483,7 @@ with tab1:
          trimestral=trimestral.dropna()
          trimestral["SERIE"]="Inversión trimestral"
          
-         AÑO=AÑO.copy(deep=True)
+         AÑO=inv_directa.copy(deep=True)
          AÑO["VALOR"] = AÑO.groupby(AÑO["AÑO"].dt.year)["VALOR"].transform("sum")
          AÑO=AÑO.dropna()
          AÑO["SERIE"]="Valor Anual"
