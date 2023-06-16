@@ -941,7 +941,7 @@ with tab3:
               INF=INF[(INF["PERIODO"] >= appointment_inf[0])&(INF["PERIODO"]<=appointment_inf[1])]
               INF_SEX.add_trace(px.line(INF, x='PERIODO', y='VALOR', color="SERIE").data[0])
               INF_SEX=fechas_2(INF_SEX)
-              INF_SEX=eje_porcentaje(INF_SEX)
+
 
               st.plotly_chart(INF_SEX, theme="streamlit", use_container_width=True)
     
