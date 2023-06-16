@@ -487,6 +487,8 @@ with tab1:
          AÑO["VALOR"] = AÑO.groupby(AÑO["PERIODO"].dt.year)["VALOR"].transform("sum")
          where=(AÑO["PERIODO"].dt.month==12)|(AÑO["PERIODO"]==AÑO["PERIODO"].iloc[-1])
          AÑO=AÑO[where]
+         AÑO.loc[(AÑO["PERIODO"].dt.month==12),"PERIODO"]=AÑO.loc[(AÑO["PERIODO"].dt.month==12),"PERIODO"].apply(lambda x: x.replace(year=x.year-1))
+
          AÑO=AÑO.dropna()
          AÑO["SERIE"]="Valor Anual"
           
