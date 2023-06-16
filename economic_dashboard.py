@@ -490,10 +490,10 @@ with tab1:
             st.plotly_chart(inv_directa, theme="streamlit", use_container_width=True)
             
           if appointment:
-            añocontraaño=gen(añocontraaño,appointment,"Variación anual inversion extrangera en dólares")
-            añocontraaño=fechas_2(añocontraaño)
+             añocontraaño=gen(añocontraaño,appointment,"Variación anual inversion extrangera en dólares")
+             añocontraaño=fechas_2(añocontraaño)
  
-            st.plotly_chart(añocontraaño, theme="streamlit", use_container_width=True)
+             st.plotly_chart(añocontraaño, theme="streamlit", use_container_width=True)
             
                
 #INFLACIÓN
