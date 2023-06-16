@@ -496,26 +496,29 @@ with tab1:
             "Seleccione el rango de fechas ",
             value=(ext_inv_directa[0],ext_inv_directa[1]),
             format="YYYY/MM")
- 
-         if appointment:
-            inv_directa=gen_bar(inv_directa,appointment,"Flujo inversión directa mensual en dólares")
-            inv_directa=fechas_2(inv_directa)
- 
-            st.plotly_chart(inv_directa, theme="streamlit", use_container_width=True)
+        col1, col2 = st.columns(2)
+        with col1:
+            if appointment:
+                inv_directa=gen_bar(inv_directa,appointment,"Flujo inversión directa mensual en dólares")
+                inv_directa=fechas_2(inv_directa)
+
+                st.plotly_chart(inv_directa, theme="streamlit", use_container_width=True)
+
+                añocontraaño=gen_bar(añocontraaño,appointment,"Variación anual inversion extrangera en dólares")
+                añocontraaño=fechas_2(añocontraaño)
+                añocontraaño=eje_porcentaje(añocontraaño)
+                st.plotly_chart(añocontraaño, theme="streamlit", use_container_width=True)
             
-            añocontraaño=gen_bar(añocontraaño,appointment,"Variación anual inversion extrangera en dólares")
-            añocontraaño=fechas_2(añocontraaño)
-            añocontraaño=eje_porcentaje(añocontraaño)
-            st.plotly_chart(añocontraaño, theme="streamlit", use_container_width=True)
-  
-            trimestral=gen_bar(trimestral,appointment,"Flujo inversión directa trimestral en dólares")
-            trimestral=fechas_2(trimestral)
-            st.plotly_chart(trimestral, theme="streamlit", use_container_width=True)
-            
-            AÑO=gen_bar(AÑO,appointment,"Flujo de inversión directa anual en dólares")
-            AÑO=fechas_2(AÑO)
-            st.plotly_chart(AÑO, theme="streamlit", use_container_width=True)
-        
+        with col2:
+            if appointment:
+                trimestral=gen_bar(trimestral,appointment,"Flujo inversión directa trimestral en dólares")
+                trimestral=fechas_2(trimestral)
+                st.plotly_chart(trimestral, theme="streamlit", use_container_width=True)
+
+                AÑO=gen_bar(AÑO,appointment,"Flujo de inversión directa anual en dólares")
+                AÑO=fechas_2(AÑO)
+                st.plotly_chart(AÑO, theme="streamlit", use_container_width=True)
+
       
             
             
