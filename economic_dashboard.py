@@ -848,14 +848,7 @@ with tab3:
 
 
        
-       options = [
-"Población en edad de trabajar",
-"Fuerza de Trabajo",
-"Ocupados",
-"Desocupados",
-"Cesantes",
-"Buscando Trabajo (1 vez)"
-    ]
+       options = ["Población en edad de trabajar","Fuerza de Trabajo","Ocupados","Desocupados","Cesantes","Buscando Trabajo (1 vez)"    ]
     
        user_input = st.multiselect(label='Serie a comparar por género', options=options)
        if user_input:
@@ -938,7 +931,7 @@ with tab3:
         INF_SEX=INF_SEX.sort_values(by="PERIODO")
         
         appointment_inf = st.slider(
-                    "Seleccione el rango de fechas   ",
+                    "Seleccione el rango de fechas       ",
                     value=(ext_INF[0],ext_INF[1]),
                     format="YYYY/MM")
 
