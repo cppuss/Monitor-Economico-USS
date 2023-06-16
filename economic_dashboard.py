@@ -520,7 +520,10 @@ with tab1:
                 st.plotly_chart(AÑO, theme="streamlit", use_container_width=True)
 
       
-            
+         with st.expander("Detalle"):
+                st.write("""
+                        Fuente: Banco Central.
+                         """)
             
             
             
@@ -603,7 +606,10 @@ with tab2:
                 
                 st.plotly_chart(com_anu, theme="streamlit", use_container_width=True)
                 
-    
+        with st.expander("Detalle"):
+                 st.write("""
+                    Fuente: Banco Central.
+                 """)
         col1, col2 = st.columns(2)
     
         with col1:
@@ -1298,9 +1304,6 @@ with tab4:
         
         
     with st.expander("Detalle"):
-        st.write("""
-            CUENTAS CORREINTES - NATURALES Corresponde a los datos XXX...
-            CUENTAS CORREINTES - JURIDICAS Corresponde a los datos XXX...
-            
-            """)
-                        
+                 st.write("""
+                    Fuente: Comisión del Meracdo Financiero.
+                 """)
