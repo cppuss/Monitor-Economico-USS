@@ -479,7 +479,7 @@ with tab1:
          añocontraaño["SERIE"]="Variación inversion extrangera"
         
          trimestral=inv_directa.copy(deep=True)
-         trimestral["VALOR"]=trimestral["VALOR"].cumsum(3)
+         trimestral["VALOR"]=trimestral["VALOR"].rolling(window=3).sum()
          trimestral=trimestral.dropna()
          trimestral["SERIE"]="Inversión trimestral"
          
