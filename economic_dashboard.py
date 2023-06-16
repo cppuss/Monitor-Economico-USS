@@ -469,22 +469,33 @@ with tab1:
         
          inv_directa=data16[data16["NOMBRE_1"]=="Cuenta financiera de la balanza de pagos, pasivos flujos (millones de dólares) "]
          inv_directa["SERIE"]=inv_directa["NOMBRE_2"]
+         inv_directa["VALOR"]=inv_directa["VALOR"]*1000
          inv_directa=inv_directa.sort_values("PERIODO")
          ext_inv_directa=extremos(data16)
 
-        
+         añocontraaño=inv_directa.copy(deep=True)
+         añocontraaño["VALOR"]=añocontraaño["VALOR"]/añocontraaño["VALOR"].shift(4)-1
+         añocontraaño=añocontraaño.dropna()
+         añocontraaño["SERIE"]="Variación inversion extrangera"
+         
          appointment = st.slider(
             "Seleccione el rango de fechas ",
             value=(ext_inv_directa[0],ext_inv_directa[1]),
             format="YYYY/MM")
  
          if appointment:
-            inv_directa=gen(inv_directa,appointment,"Inversión Directa Mensual")
+            inv_directa=gen(inv_directa,appointment,"Inversión directa mensual en dólares")
             inv_directa=fechas_2(inv_directa)
  
             st.plotly_chart(inv_directa, theme="streamlit", use_container_width=True)
             
+          if appointment:
+            añocontraaño=gen(añocontraaño,appointment,"Variación anual inversion extrangera en dólares")
+            añocontraaño=fechas_2(añocontraaño)
+ 
+            st.plotly_chart(añocontraaño, theme="streamlit", use_container_width=True)
             
+               
 #INFLACIÓN
 
 data2=data[data["CATEGORIA"]=="INFLACION"]
