@@ -478,7 +478,7 @@ with tab1:
             format="YYYY/MM")
  
          if appointment:
-            inv_directa=(inv_directa,appointment,"Inversión Directa Mensual")
+            inv_directa=gen(inv_directa,appointment,"Inversión Directa Mensual")
             inv_directa=fechas_2(inv_directa)
 
             st.plotly_chart(inv_directa, theme="streamlit", use_container_width=True)
