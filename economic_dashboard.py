@@ -425,7 +425,7 @@ with tab1:
 
 
     with tab14:    
-         st.write('Formación brutade capital')
+         st.write('Formación bruta de capital')
          appointment = st.slider(
             "Seleccione el rango de fechas ",
             value=(ext_data14[0],ext_data14[1]),
@@ -474,7 +474,7 @@ with tab1:
          ext_inv_directa=extremos(data16)
 
          añocontraaño=inv_directa.copy(deep=True)
-         añocontraaño["VALOR"]=añocontraaño["VALOR"]/añocontraaño["VALOR"].shift(4)-1
+         añocontraaño["VALOR"]=añocontraaño["VALOR"]/añocontraaño["VALOR"].shift(12)-1
          añocontraaño=añocontraaño.dropna()
          añocontraaño["SERIE"]="Variación inversion extrangera"
          
