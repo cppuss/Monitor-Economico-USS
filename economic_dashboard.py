@@ -469,7 +469,7 @@ with tab1:
         
          inv_directa=data16[data16["NOMBRE_1"]=="Inversión directa pasivos "]
          inv_directa["SERIE"]=inv_directa["NOMBRE_2"]
-         ext_inv_directa=extremos(inv_directa)
+         ext_inv_directa=extremos(data16)
 
         
          appointment = st.slider(
