@@ -449,19 +449,13 @@ with tab1:
     with tab15:    
          st.write('Componentes PIB ')
          appointment = st.slider(
-            "Seleccione el rango de fechas ",
-            value=(ext_dataprincipales[0],ext_dataprincipales[1]),
-            format="YYYY/MM")
+                "Seleccione el rango de fechas ",
+                value=(ext_dataprincipales[0],ext_dataprincipales[1]),
+                format="YYYY/MM")
   
          if appointment:
            principales=gen_bar(principales,appointment,"Componentes del PIB")
-           # des_prod_bienes_2_=des_prod_bienes_2[(des_prod_bienes_2["PERIODO"]>= appointment[0])&(des_prod_bienes_2["PERIODO"]<= appointment[1])]
-           # fbcf_=fbcf[(fbcf["PERIODO"] >= appointment[0])&(fbcf["PERIODO"]<=appointment[1])]
-         
-           # componentes15.add_trace(px.line(fbcf_, x='PERIODO', y='VALOR', color="SERIE").data[0])
-           # componentes15=fechas_2(componentes15)
            principales=eje_porcentaje(principales)
-           
            st.plotly_chart(principales, theme="streamlit", use_container_width=True)
           
            with st.expander("Detalle"):
@@ -470,19 +464,26 @@ with tab1:
                  """)
     with tab16:   
          st.write('Inversión extrangera')
+         
+         data16=data[data["CATEGORIA3"]=="COMPONENTES PRINCIPALES"]
+        
+         inv_directa=data16[data16["NOMBRE_1"]=="Inversión directa pasivos "]
+         inv_directa["SERIE"]=inv_directa["NOMBRE_2"]
+         ext_inv_directa=extremos(inv_directa)
+
+        
          appointment = st.slider(
             "Seleccione el rango de fechas ",
-            value=(ext_dataprincipales[0],ext_dataprincipales[1]),
+            value=(ext_inv_directa[0],ext_inv_directa[1]),
             format="YYYY/MM")
  
          if appointment:
-            des_prod_bienes=gen_bar(des_prod_bienes,appointment,"Componentes producción de bienes")
-            des_prod_bienes_2_=des_prod_bienes_2[(des_prod_bienes_2["PERIODO"]>= appointment[0])&(des_prod_bienes_2["PERIODO"]<= appointment[1])]
-            des_prod_bienes.add_trace(px.line(des_prod_bienes_2_, x='PERIODO', y='VALOR', color="SERIE").data[0])
-            des_prod_bienes=fechas_2(des_prod_bienes)
-            des_prod_bienes=eje_porcentaje(des_prod_bienes)
+            inv_directa=(inv_directa,appointment,"Inversión Directa Mensual")
+            inv_directa=fechas_2(inv_directa)
 
-            st.plotly_chart(des_prod_bienes, theme="streamlit", use_container_width=True)  
+            st.plotly_chart(inv_directa, theme="streamlit", use_container_width=True)
+            
+            
 #INFLACIÓN
 
 data2=data[data["CATEGORIA"]=="INFLACION"]
