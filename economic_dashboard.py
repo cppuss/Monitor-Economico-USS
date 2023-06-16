@@ -948,6 +948,8 @@ with tab3:
     with tab34:
             
         cate_nac=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&(data3["CATEGORIA3"]=="(AS)")]
+        
+        cate_nac["VALOR"]=        cate_nac["VALOR"]*1000        
         cate_nac["SERIE"]=cate_nac["NOMBRE_2"]
         cate_nac=cate_nac.sort_values(by="PERIODO")
         ext_cate_nac=extremos(cate_nac)
@@ -969,7 +971,7 @@ with tab3:
 
         
         
-        
+        cate_sex["VALOR"]=        cate_sex["VALOR"]*1000
         
         cate_sex=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&~(data3["CATEGORIA3"]=="(AS)")]
         cate_sex["SERIE"]=cate_sex["NOMBRE_1"]
