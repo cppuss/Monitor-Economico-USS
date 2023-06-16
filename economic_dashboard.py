@@ -469,6 +469,7 @@ with tab1:
         
          inv_directa=data16[data16["NOMBRE_1"]=="Inversión directa pasivos "]
          inv_directa["SERIE"]=inv_directa["NOMBRE_2"]
+         inv_directa=inv_directa.sort_values("PERIODO")
          ext_inv_directa=extremos(data16)
 
         
@@ -480,7 +481,7 @@ with tab1:
          if appointment:
             inv_directa=gen(inv_directa,appointment,"Inversión Directa Mensual")
             inv_directa=fechas_2(inv_directa)
-
+ 
             st.plotly_chart(inv_directa, theme="streamlit", use_container_width=True)
             
             
