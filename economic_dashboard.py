@@ -265,7 +265,7 @@ principales["SERIE"]=principales["NOMBRE_2"]
 with tab1:
     st.write('En esta sección se encuentras las variables de actividad económica y crecimiento.')
     
-    tab11,tab12,tab13,tab14,tab15,tab16=st.tabs(["IMACEC","COMPONENTES IMACEC","PRODUCTO INTERNO BRUTO","FORMACIÓN DE CAPITAL","COMPONENTES PIB","INVERSIÓN EXTRANGERA"])
+    tab11,tab12,tab13,tab14,tab15,tab16=st.tabs(["IMACEC","COMPONENTES IMACEC","PRODUCTO INTERNO BRUTO","FORMACIÓN DE CAPITAL","COMPONENTES PIB","INVERSIÓN EXTRANJERA"])
     
     with tab11:
         st.write('Índice Mensual de Actividad Económica :tractor: ')
@@ -463,7 +463,7 @@ with tab1:
                     Fuente: Banco Central.
                  """)
     with tab16:   
-         st.write('Inversión extrangera')
+         st.write('Inversión extranjera')
          
          data16=data[data["CATEGORIA3"]=="COMPONENTES PRINCIPALES"]
         
@@ -476,7 +476,7 @@ with tab1:
          añocontraaño=inv_directa.copy(deep=True)
          añocontraaño["VALOR"]=añocontraaño["VALOR"]/añocontraaño["VALOR"].shift(12)-1
          añocontraaño=añocontraaño.dropna()
-         añocontraaño["SERIE"]="Variación inversion extrangera"
+         añocontraaño["SERIE"]="Variación inversion extranjera"
         
          trimestral=inv_directa.copy(deep=True)
          trimestral["VALOR"]=trimestral["VALOR"].rolling(window=3).sum()
@@ -504,7 +504,7 @@ with tab1:
 
                 st.plotly_chart(inv_directa, theme="streamlit", use_container_width=True)
 
-                añocontraaño=gen_bar(añocontraaño,appointment,"Variación anual inversion extrangera en dólares")
+                añocontraaño=gen_bar(añocontraaño,appointment,"Variación anual inversion extranjera en dólares")
                 añocontraaño=fechas_2(añocontraaño)
                 añocontraaño=eje_porcentaje(añocontraaño)
                 st.plotly_chart(añocontraaño, theme="streamlit", use_container_width=True)
