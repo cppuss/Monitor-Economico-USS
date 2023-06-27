@@ -595,7 +595,7 @@ with tab2:
         with col2:
             
             if appointment_1:
-                com_anu=gen(com_anu,appointment_1,"Principales componentes de la variacón anual IPC")
+                com_anu=gen(com_anu,appointment_1,"Principales componentes de la variación anual IPC")
                 com_anu=fechas_2(com_anu)
                 com_anu=eje_porcentaje(com_anu)
                 
