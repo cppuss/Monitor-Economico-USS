@@ -52,8 +52,6 @@ def fechas_1(grafico):
         )
     )
     grafico.update_yaxes(rangemode="tozero")
-
-
     return grafico
 
 def fechas_2(grafico):
@@ -68,8 +66,6 @@ def fechas_2(grafico):
         )
     )
     grafico.update_yaxes(rangemode="tozero")
-
-
     return grafico
 
 def eje_porcentaje_2(grafico):
@@ -265,7 +261,7 @@ principales["SERIE"]=principales["NOMBRE_2"]
 with tab1:
     st.write('En esta sección se encuentras las variables de actividad económica y crecimiento.')
     
-    tab11,tab12,tab13,tab14,tab15,tab16=st.tabs(["IMACEC","COMPONENTES IMACEC","PRODUCTO INTERNO BRUTO","FORMACIÓN DE CAPITAL","COMPONENTES PIB","INVERSIÓN EXTRANJERA"])
+    tab11,tab12,tab13,tab14,tab15,tab16=st.tabs(["IMACEC","COMPONENTES IMACEC","PRODUCTO INTERNO BRUTO","COMPONENTES PIB","FORMACIÓN DE CAPITAL","INVERSIÓN EXTRANJERA"])
     
     with tab11:
         st.write('Índice Mensual de Actividad Económica :tractor: ')
@@ -307,7 +303,7 @@ with tab1:
           
                  
     with tab12:
-        st.write('Índice Mensual de Actividad Económica :tractor: ')
+        st.write('Componentes de la variación anual del Índice Mensual de Actividad Económica')
     
         
         appointment = st.slider(
@@ -320,7 +316,7 @@ with tab1:
            if appointment:
                st.markdown("<h5 style=' color: black;'>Series estacionales. </h5>", unsafe_allow_html=True)
 
-               prod_bienes=gen_bar(prod_bienes,appointment,"Componentes producción de bienes")
+               prod_bienes=gen_bar(prod_bienes,appointment,"Componentes de la variación anual: Producción de bienes")
                prod_bienes_2=prod_bienes_2[(prod_bienes_2["PERIODO"]>= appointment[0])&(prod_bienes_2["PERIODO"]<= appointment[1])]
                prod_bienes.add_trace(px.line(prod_bienes_2, x='PERIODO', y='VALOR', color="SERIE").data[0])
                prod_bienes=fechas_2(prod_bienes)
@@ -329,7 +325,7 @@ with tab1:
                st.plotly_chart(prod_bienes, theme="streamlit", use_container_width=True)
               
            
-               componentes=gen_bar(componentes,appointment,"Componentes principales IMACEC")
+               componentes=gen_bar(componentes,appointment,"Componentes principales de la variación anual del IMACEC")
                componentes=fechas_2(componentes)
                componentes=eje_porcentaje(componentes)
                 
@@ -342,7 +338,7 @@ with tab1:
             if appointment:
                 st.markdown("<h5 style=' color: black;'>Series desestacionalizadas. </h5>", unsafe_allow_html=True)
 
-                des_prod_bienes=gen_bar(des_prod_bienes,appointment,"Componentes producción de bienes")
+                des_prod_bienes=gen_bar(des_prod_bienes,appointment,"Componentes de la variación anual: Producción de bienes")
                 des_prod_bienes_2_=des_prod_bienes_2[(des_prod_bienes_2["PERIODO"]>= appointment[0])&(des_prod_bienes_2["PERIODO"]<= appointment[1])]
                 des_prod_bienes.add_trace(px.line(des_prod_bienes_2_, x='PERIODO', y='VALOR', color="SERIE").data[0])
                 des_prod_bienes=fechas_2(des_prod_bienes)
@@ -351,7 +347,7 @@ with tab1:
                 st.plotly_chart(des_prod_bienes, theme="streamlit", use_container_width=True)
                
             
-                des_componentes=gen_bar(des_componentes,appointment,"Componentes principales IMACEC")
+                des_componentes=gen_bar(des_componentes,appointment,"Componentes principales de la variación anual del IMACEC")
                 des_componentes=fechas_2(des_componentes)
                 des_componentes=eje_porcentaje(des_componentes)
                  
@@ -360,7 +356,7 @@ with tab1:
                 
 
 
-        no_minero=gen(no_minero,appointment,"IMACEC e IMACEC No minero")
+        no_minero=gen(no_minero,appointment,"Variación anual: IMACEC e IMACEC No minero")
         no_minero=fechas_2(no_minero)
         no_minero=eje_porcentaje(no_minero)
         no_minero.add_trace(px.line(imacec_or, x='PERIODO', y='VALOR', color="SERIE",color_discrete_sequence=["red"]).data[0])
@@ -388,7 +384,7 @@ with tab1:
                     format="YYYY/MM")
             
             if appointment_1:
-                nom=gen(nom,appointment_1,"Variación Trimestral PIB YoY")
+                nom=gen(nom,appointment_1,"Variación anual del PIB Trimestral")
                 nom=fechas_2(nom)
                 nom=eje_porcentaje(nom)
 
@@ -411,7 +407,7 @@ with tab1:
                  "Seleccione el rango de fechas (3)",
                  value=(ext_nom_2[0],ext_nom_2[1]),
                  format="YYYY/MM")
-        nom_2=gen(nom_2,appointment_3,"PIB Anual [USD]")
+        nom_2=gen(nom_2,appointment_3,"PIB Anual volúmen a precios del año anterior [USD]")
         nom_2=fechas_2(nom_2)
         
         st.plotly_chart(nom_2, theme="streamlit", use_container_width=True)
@@ -421,10 +417,24 @@ with tab1:
              st.write("""
                 Fuente: Banco Central.
              """)   
-    
-
-
     with tab14:    
+         st.write('Componentes PIB ')
+         appointment = st.slider(
+                "Seleccione el rango de fechas ",
+                value=(ext_dataprincipales[0],ext_dataprincipales[1]),
+                format="YYYY/MM")
+  
+         if appointment:
+           principales=gen_bar(principales,appointment,"Componentes del PIB")
+           principales=eje_porcentaje(principales)
+           st.plotly_chart(principales, theme="streamlit", use_container_width=True)
+          
+           with st.expander("Detalle"):
+                 st.write("""
+                    Fuente: Banco Central.
+                 """)
+
+    with tab15:    
          st.write('Formación bruta de capital')
          appointment = st.slider(
             "Seleccione el rango de fechas ",
@@ -446,22 +456,7 @@ with tab1:
              """)   
   
    
-    with tab15:    
-         st.write('Componentes PIB ')
-         appointment = st.slider(
-                "Seleccione el rango de fechas ",
-                value=(ext_dataprincipales[0],ext_dataprincipales[1]),
-                format="YYYY/MM")
-  
-         if appointment:
-           principales=gen_bar(principales,appointment,"Componentes del PIB")
-           principales=eje_porcentaje(principales)
-           st.plotly_chart(principales, theme="streamlit", use_container_width=True)
-          
-           with st.expander("Detalle"):
-                 st.write("""
-                    Fuente: Banco Central.
-                 """)
+    
     with tab16:   
          st.write('Inversión extranjera')
          
