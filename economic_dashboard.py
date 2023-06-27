@@ -600,12 +600,7 @@ with tab2:
                 com_anu=eje_porcentaje(com_anu)
                 
                 st.plotly_chart(com_anu, theme="streamlit", use_container_width=True)
-                
-        with st.expander("Detalle"):
-                 st.write("""
-                    Fuente: Banco Central.
-                 """)
-        col1, col2 = st.columns(2)
+            
     
         with col1:
            
