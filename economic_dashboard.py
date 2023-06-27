@@ -585,7 +585,7 @@ with tab2:
         with col1:
             
             if appointment_1:
-                inf_anu=gen(inf_anu,appointment_1,"Variación porcentual IPC YoY")
+                inf_anu=gen(inf_anu,appointment_1,"Variación anual del IPC")
                 inf_anu=fechas_2(inf_anu)
                 inf_anu=eje_porcentaje(inf_anu)
 
@@ -595,7 +595,7 @@ with tab2:
         with col2:
             
             if appointment_1:
-                com_anu=gen(com_anu,appointment_1,"Principales componentes IPC YoY")
+                com_anu=gen(com_anu,appointment_1,"Principales componentes de la variacón anual IPC")
                 com_anu=fechas_2(com_anu)
                 com_anu=eje_porcentaje(com_anu)
                 
@@ -612,7 +612,7 @@ with tab2:
            if appointment_1:
                comp_1.loc[comp_1['NOMBRE_2'] == "IPC sin volátiles", 'VALOR'] = comp_1.loc[comp_1['NOMBRE_2'] == "IPC sin volátiles", 'VALOR']*0.651
                comp_1.loc[comp_1['NOMBRE_2'] == "IPC volátil", 'VALOR'] = comp_1.loc[comp_1['NOMBRE_2'] == "IPC volátil", 'VALOR']*0.349
-               comp_1=gen_bar(comp_1,appointment_1,"Variación porcentual IPC YoY")
+               comp_1=gen_bar(comp_1,appointment_1,"Variación anual IPC: volátiles y sin volátiles")
               
                inf_anu_=inf_anu1[(inf_anu1["PERIODO"] >= appointment_1[0])&(inf_anu1["PERIODO"]<=appointment_1[1])]
                comp_1.add_trace(px.line(inf_anu_, x='PERIODO', y='VALOR', color="SERIE").data[0])
@@ -646,7 +646,7 @@ with tab2:
                st.plotly_chart(comp_2, theme="streamlit", use_container_width=True)
     
                
-           with st.expander("Detalle"):
+    with st.expander("Detalle"):
                  st.write("""
                     Fuente: Banco Central.
                  """)
