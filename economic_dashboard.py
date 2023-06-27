@@ -379,7 +379,7 @@ with tab1:
         col1, col2 = st.columns(2)
         with col1:
             appointment_1 = st.slider(
-                    "Seleccione el rango de fechas (1)",
+                    "Seleccione el rango de fechas",
                     value=(ext_nom[0],ext_nom[1]),
                     format="YYYY/MM")
             
@@ -393,7 +393,7 @@ with tab1:
                 
         with col2:
             appointment_2 = st.slider(
-                     "Seleccione el rango de fechas (2)",
+                     "Seleccione el rango de fechas ",
                      value=(ext_per[0],ext_per[1]),
                      format="YYYY")
             
@@ -404,7 +404,7 @@ with tab1:
                 st.plotly_chart(per, theme="streamlit", use_container_width=True)
           
         appointment_3 = st.slider(
-                 "Seleccione el rango de fechas (3)",
+                 "Seleccione el rango de fechas  ",
                  value=(ext_nom_2[0],ext_nom_2[1]),
                  format="YYYY/MM")
         nom_2=gen(nom_2,appointment_3,"PIB Anual volúmen a precios del año anterior [USD]")
