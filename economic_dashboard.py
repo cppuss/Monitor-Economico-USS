@@ -914,13 +914,13 @@ with tab3:
         
         INF=data3[(data3["CATEGORIA2"]=="INFORMALIDAD - N")&(data3["NOMBRE_1"]=="Informalidad (AS)")]
         INF["SERIE"]=INF["NOMBRE_2"]
-        INF["VALOR"]=INF["VALOR"]/100
+        INF["VALOR"]=INF["VALOR"]*1000
         INF=INF.sort_values(by="PERIODO")
         ext_INF=extremos(INF) 
         
         INF_SEX=data3[(data3["CATEGORIA2"]=="INFORMALIDAD - N")&~(data3["NOMBRE_1"]=="Informalidad (AS)")]
         INF_SEX["SERIE"]=INF_SEX["NOMBRE_2"]
-        INF_SEX["VALOR"]=INF_SEX["VALOR"]/100
+        INF_SEX["VALOR"]=INF_SEX["VALOR"]*1000
         INF_SEX=INF_SEX.sort_values(by="PERIODO")
         
         appointment_inf = st.slider(
