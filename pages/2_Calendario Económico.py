@@ -22,11 +22,9 @@ st.write(' ')
 st.sidebar.image("ESCUDOUSS_vertical_color.png", use_column_width=True)
 #st.image("calendario.png")
 
-
-data=pd.read_parquet("datos_monitor.parquet")
-
 import plotly.graph_objects as go
 from datetime import datetime
+import streamlit as st
 
 # Crear los datos de muestra para el gráfico
 x = [
@@ -59,6 +57,21 @@ fig.update_layout(
     xaxis=dict(tickmode='array', tickvals=x, ticktext=x_labels),
     yaxis=dict(tickfont=dict(size=14)),
 )
+
+# Agregar anotaciones personalizadas
+annotations = [
+    dict(
+        x=x[i],
+        y=y[i],
+        text=f'Fecha: {x_labels[i]}<br>Valor: {y[i]}',
+        showarrow=True,
+        arrowhead=1,
+        ax=0,
+        ay=-40
+    )
+    for i in range(len(x))
+]
+fig.update_layout(annotations=annotations)
 
 # Usar Streamlit para visualizar el gráfico
 st.plotly_chart(fig, use_container_width=True)
