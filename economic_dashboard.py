@@ -1256,20 +1256,22 @@ with tab3:
                 df_filtro=df_filtro.groupby(filtro_ministerio).sum()
                 df_filtro=df_filtro.stack()
                 df_filtro=df_filtro.reset_index()
+
+
+                st.dataframe(df_filtro.head(5))
+
                 
                 
+                """
                 trimestres = {'T1': '03-31', 'T2': '06-30', 'T3': '09-30', 'T4': '12-31'}
                 
                 # Función para convertir el valor de trimestre a fecha
                 def convertir_a_fecha(trimestre):
-                    fecha = pd.to_datetime('1900-01-01', format='%Y-%m-%d')  # Valor predeterminado
-                    
-                    if trimestre is not None and ' ' in trimestre:
-                        trimestre, año = trimestre.split(' ')
-                        fecha = trimestres[trimestre] + '-' + año
-                
+                    trimestre, año = trimestre.split(' ')
+                    fecha = trimestres[trimestre] + '-' + año
                     return pd.to_datetime(fecha, format='%m-%d-%Y')
-                    
+
+        
                 df_filtro[df_filtro.columns[-2]] = df_filtro[df_filtro.columns[-2]].astype(str)  
 
                 df_filtro[df_filtro.columns[-2]] = df_filtro[df_filtro.columns[-2]].apply(convertir_a_fecha)
@@ -1291,7 +1293,7 @@ with tab3:
 
 
 
-
+                """    
 
     
 #CUENTAS CORRIENTES
