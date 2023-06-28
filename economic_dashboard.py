@@ -1212,6 +1212,11 @@ with tab3:
             del df_dipres["Periodo"]
             df_dipres["Ministerio"] = df_dipres["Ministerio"].str[3:]
 
+            st.dataframe(df_dipres.head(5))
+
+            
+            
+            """
             appointment_44 = st.slider(
                         "Seleccione el rango de fechas        ",
                         value=(ext_ind_rem_men_n[0],ext_ind_rem_men_n[1]),
@@ -1258,11 +1263,6 @@ with tab3:
                 df_filtro=df_filtro.reset_index()
 
 
-                st.dataframe(df_filtro.head(5))
-
-                
-                
-                """
                 trimestres = {'T1': '03-31', 'T2': '06-30', 'T3': '09-30', 'T4': '12-31'}
                 
                 # Función para convertir el valor de trimestre a fecha
@@ -1377,11 +1377,8 @@ with tab4:
         desagregadas=fechas_2(desagregadas)
     
         st.plotly_chart(desagregadas, theme="streamlit", use_container_width=True)
-        
-  
-            
-        
-        
+    
+    
         desagregadas_2=gen(desagregadas_2,appointment_33,"Número de cuentas corrientes - Empresas - Componentes")
         desagregadas_2=fechas_2(desagregadas_2)
     
