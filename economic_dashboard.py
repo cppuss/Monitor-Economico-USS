@@ -1261,13 +1261,14 @@ with tab3:
                 trimestres = {'T1': '03-31', 'T2': '06-30', 'T3': '09-30', 'T4': '12-31'}
                 
                 # Función para convertir el valor de trimestre a fecha
-                def convertir_a_fecha(trimestre):
+               def convertir_a_fecha(trimestre):
+                    fecha = pd.to_datetime('1900-01-01', format='%Y-%m-%d')  # Valor predeterminado
+                    
                     if trimestre is not None and ' ' in trimestre:
                         trimestre, año = trimestre.split(' ')
                         fecha = trimestres[trimestre] + '-' + año
-                    else:
-                        pass            
-                    return pd.to_datetime(fecha, format='%m-%d-%Y')    
+                
+                    return pd.to_datetime(fecha, format='%m-%d-%Y')
                     
                 df_filtro[df_filtro.columns[-2]] = df_filtro[df_filtro.columns[-2]].astype(str)  
 
