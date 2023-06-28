@@ -1212,11 +1212,7 @@ with tab3:
             del df_dipres["Periodo"]
             df_dipres["Ministerio"] = df_dipres["Ministerio"].str[3:]
 
-            st.dataframe(df_dipres.head(5))
-
             
-            
-            """
             appointment_44 = st.slider(
                         "Seleccione el rango de fechas        ",
                         value=(ext_ind_rem_men_n[0],ext_ind_rem_men_n[1]),
@@ -1225,7 +1221,8 @@ with tab3:
             filtro_ministerio = st.multiselect('Filtrar por características', df_dipres.columns[1:7])
             if filtro_ministerio:
                 df_filtro=df_dipres.copy(deep=True)
-                
+                    
+               
                 agrupador={
                 'Ministerio':'Calidad Jurídica',    
                 'Calidad Jurídica': 'Estamento', 
@@ -1259,6 +1256,11 @@ with tab3:
                 
                 
                 df_filtro=df_filtro.groupby(filtro_ministerio).sum()
+                st.dataframe(df_filtro.head(5))
+    
+                
+                
+                """
                 df_filtro=df_filtro.stack()
                 df_filtro=df_filtro.reset_index()
 
