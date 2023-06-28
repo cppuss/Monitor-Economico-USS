@@ -108,19 +108,6 @@ def gen(imacec_des,rango,titulo):
             x=0.01
         ))
 
-
-       """     
-    # Definir función para formatear las anotaciones
-    def format_annotation(x, y):
-        return f'Fecha: {x}<br>Valor: {y}'
-    
-    # Agregar interactividad con anotaciones personalizadas
-    imacec_des.update_traces(
-        hovertemplate="%{text}<extra></extra>",
-        text=[format_annotation(x_val, y_val) for x_val, y_val in zip(x_labels, y)],
-        hoverinfo='text'
-    )
-    """
     def format_annotation(serie, periodo, valor):
         return f'SERIE="{serie}"<br>PERIODO="{periodo}"<br>VALOR={valor}'
     
