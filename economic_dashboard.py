@@ -148,7 +148,7 @@ def to_excel(df):
 
 
 
-data=pd.read_parquet(path+"datos_monitor.parquet")
+data=pd.read_parquet(path+"datos_monitor_1.parquet")
 
 
 tab1, tab2,tab3,tab4 = st.tabs(["ACTIVIDAD ECONÓMICA","INFLACIÓN","MERCADO LABORAL","CUENTAS CORRIENTES"])
@@ -707,7 +707,7 @@ with tab3:
     
     with tab31:
         emp_tasas_nac=data3[(data3["CATEGORIA2"]=="EMPLEO - TASAS")&(data3["CATEGORIA3"]=="Nacional")]
-        emp_bruto=data3[(data3["CATEGORIA2"]=="EMPLEO - BRUTOS")&(data3["CATEGORIA3"]=="N")]
+        emp_bruto=data3[(data3["CATEGORIA2"]=="EMPLEO - BRUTOS")&(data3["CATEGORIA3"]=="Nacional")]
         emp_bruto["SERIE"]=emp_bruto["NOMBRE_2"]
         emp_bruto["VALOR"]=emp_bruto["VALOR"]*1000
         
@@ -774,7 +774,7 @@ with tab3:
       
         
         
-        informalidad=data3[(data3["CATEGORIA2"]=="INFORMALIDAD")&(data3["NOMBRE_1"]=="Tasa de informalidad (AS)")]
+        informalidad=data3[(data3["CATEGORIA2"]=="INFORMALIDAD")&(data3["NOMBRE_1"]=="Tasa de informalidad Nacional")]
         informalidad["SERIE"]=informalidad["NOMBRE_2"]
         informalidad["VALOR"]=informalidad["VALOR"]/100
         informalidad=informalidad.sort_values(by="PERIODO")
@@ -788,7 +788,7 @@ with tab3:
     
     with tab32:
        emp_tasas_nac=data3[(data3["CATEGORIA2"]=="EMPLEO - TASAS")&~(data3["CATEGORIA3"]=="Nacional")]
-       emp_bruto=data3[(data3["CATEGORIA2"]=="EMPLEO - BRUTOS")&~(data3["CATEGORIA3"]=="N")]
+       emp_bruto=data3[(data3["CATEGORIA2"]=="EMPLEO - BRUTOS")&~(data3["CATEGORIA3"]=="Nacional")]
        emp_bruto["SERIE"]=emp_bruto["NOMBRE_2"]
        emp_bruto["VALOR"]=emp_bruto["VALOR"]*1000
        
@@ -797,10 +797,10 @@ with tab3:
        data_emp_bruto=emp_bruto.copy(deep=True)
        data_emp_bruto=data_emp_bruto[["PERIODO","VALOR","SERIE"]]
       
-       oc=emp_tasas_nac[emp_tasas_nac["NOMBRE_1"].isin(["Tasa de desocupación H","Tasa de desocupación M"])]
+       oc=emp_tasas_nac[emp_tasas_nac["NOMBRE_1"].isin(["Tasa de desocupación Hombres","Tasa de desocupación Mujeres"])]
        oc["SERIE"]=oc["NOMBRE_2"]
        oc["VALOR"]=oc["VALOR"]/100
-       des=emp_tasas_nac[~emp_tasas_nac["NOMBRE_1"].isin(["Tasa de desocupación H","Tasa de desocupación M"])]
+       des=emp_tasas_nac[~emp_tasas_nac["NOMBRE_1"].isin(["Tasa de desocupación Hombres","Tasa de desocupación Mujeres"])]
        des["SERIE"]=des["NOMBRE_2"]
        des["VALOR"]=des["VALOR"]/100
        
@@ -848,9 +848,9 @@ with tab3:
        user_input = st.multiselect(label='Serie a comparar por género', options=options)
        if user_input:
            if len(user_input)==1:
-               emp_bruto=data3[(data3["CATEGORIA2"]=="EMPLEO - BRUTOS")&~(data3["CATEGORIA3"]=="N")]
+               emp_bruto=data3[(data3["CATEGORIA2"]=="EMPLEO - BRUTOS")&~(data3["CATEGORIA3"]=="Nacional")]
                emp_bruto["SERIE"]=emp_bruto["NOMBRE_2"]
-               emp_bruto=emp_bruto[(emp_bruto["NOMBRE_1"].isin([user_input[0]+" H",user_input[0]+" M"]))]
+               emp_bruto=emp_bruto[(emp_bruto["NOMBRE_1"].isin([user_input[0]+" Hombres",user_input[0]+" Mujeres"]))]
                emp_bruto=gen(emp_bruto,appointment_1,"Comparación por sexo: "+user_input[0])
                emp_bruto=fechas_2(emp_bruto)
         
@@ -859,9 +859,9 @@ with tab3:
 
     
            if len(user_input)==2:
-               emp_bruto=data3[(data3["CATEGORIA2"]=="EMPLEO - BRUTOS")&~(data3["CATEGORIA3"]=="N")]
+               emp_bruto=data3[(data3["CATEGORIA2"]=="EMPLEO - BRUTOS")&~(data3["CATEGORIA3"]=="Nacional")]
                emp_bruto["SERIE"]=emp_bruto["NOMBRE_2"]
-               emp_bruto=emp_bruto[(emp_bruto["NOMBRE_1"].isin([user_input[0]+" H",user_input[0]+" M",user_input[1]+" H",user_input[1]+" M"]))]
+               emp_bruto=emp_bruto[(emp_bruto["NOMBRE_1"].isin([user_input[0]+" Hombres",user_input[0]+" Mujeres",user_input[1]+" Hombres",user_input[1]+" Mujeres"]))]
                emp_bruto=gen(emp_bruto,appointment_1,"Comparación por sexo: "+user_input[0] +" y "+user_input[1])
                emp_bruto=fechas_2(emp_bruto)
          
@@ -870,14 +870,14 @@ with tab3:
 
 
            if len(user_input)>2:
-               emp_bruto=data3[(data3["CATEGORIA2"]=="EMPLEO - BRUTOS")&~(data3["CATEGORIA3"]=="N")]
+               emp_bruto=data3[(data3["CATEGORIA2"]=="EMPLEO - BRUTOS")&~(data3["CATEGORIA3"]=="Nacional")]
                emp_bruto["SERIE"]=emp_bruto["NOMBRE_2"]
                series=[]
                for i in np.linspace(0,len(user_input)-1,len(user_input)):
                    i=int(i)
-                   hom=user_input[i]+" H"
+                   hom=user_input[i]+" Hombres"
                    series.append(hom)
-                   muj=user_input[i]+" M"
+                   muj=user_input[i]+" Mujeres"
                    series.append(muj)
                        
                emp_bruto=emp_bruto[(emp_bruto["NOMBRE_1"].isin(series))]
@@ -888,7 +888,7 @@ with tab3:
                 
 
              
-       informalidad=data3[(data3["CATEGORIA2"]=="INFORMALIDAD")&~(data3["NOMBRE_1"]=="Tasa de informalidad (AS)")]
+       informalidad=data3[(data3["CATEGORIA2"]=="INFORMALIDAD")&~(data3["NOMBRE_1"]=="Tasa de informalidad Nacional")]
        informalidad["SERIE"]=informalidad["NOMBRE_2"]
        informalidad["VALOR"]=informalidad["VALOR"]/100
        informalidad=informalidad.sort_values(by="PERIODO")
@@ -914,13 +914,13 @@ with tab3:
 
     with tab33:
         
-        INF=data3[(data3["CATEGORIA2"]=="INFORMALIDAD - N")&(data3["NOMBRE_1"]=="Informalidad (AS)")]
+        INF=data3[(data3["CATEGORIA2"]=="INFORMALIDAD - N")&(data3["NOMBRE_1"]=="Informalidad Nacional")]
         INF["SERIE"]=INF["NOMBRE_2"]
         INF["VALOR"]=INF["VALOR"]*1000
         INF=INF.sort_values(by="PERIODO")
         ext_INF=extremos(INF) 
         
-        INF_SEX=data3[(data3["CATEGORIA2"]=="INFORMALIDAD - N")&~(data3["NOMBRE_1"]=="Informalidad (AS)")]
+        INF_SEX=data3[(data3["CATEGORIA2"]=="INFORMALIDAD - N")&~(data3["NOMBRE_1"]=="Informalidad Nacional")]
         INF_SEX["SERIE"]=INF_SEX["NOMBRE_2"]
         INF_SEX["VALOR"]=INF_SEX["VALOR"]*1000
         INF_SEX=INF_SEX.sort_values(by="PERIODO")
@@ -942,7 +942,7 @@ with tab3:
     
     with tab34:
             
-        cate_nac=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&(data3["CATEGORIA3"]=="(AS)")]
+        cate_nac=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&(data3["CATEGORIA3"]=="Nacional")]
         
         cate_nac["VALOR"]=cate_nac["VALOR"]*1000        
         cate_nac["SERIE"]=cate_nac["NOMBRE_2"]
@@ -968,7 +968,7 @@ with tab3:
         
 
         
-        cate_sex=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&~(data3["CATEGORIA3"]=="(AS)")]    
+        cate_sex=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&~(data3["CATEGORIA3"]=="Nacional")]    
         cate_sex["VALOR"]=cate_sex["VALOR"]*1000
   
         cate_sex["SERIE"]=cate_sex["NOMBRE_1"]
@@ -987,10 +987,10 @@ with tab3:
         
         if appointment_6 or user_input:
             if len(user_input)==1:
-                cate_sex=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&~(data3["CATEGORIA3"]=="(AS)")]
+                cate_sex=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&~(data3["CATEGORIA3"]=="Nacional")]
                 cate_sex["SERIE"]=cate_sex["NOMBRE_1"]
               
-                cate_sex=cate_sex[(cate_sex["NOMBRE_1"].isin([user_input[0]+" (H)",user_input[0]+" (M)"]))]
+                cate_sex=cate_sex[(cate_sex["NOMBRE_1"].isin([user_input[0]+" Hombres",user_input[0]+" Mujeres"]))]
                 cate_sex=gen(cate_sex,appointment_6,"Comparación ocupados por sexo: "+user_input[0])
                 cate_sex=fechas_2(cate_sex)
          
@@ -1000,7 +1000,7 @@ with tab3:
             if len(user_input)==2:
                 cate_sex=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&~(data3["CATEGORIA3"]=="(AS)")]
                 cate_sex["SERIE"]=cate_sex["NOMBRE_1"]
-                cate_sex=cate_sex[(cate_sex["NOMBRE_1"].isin([user_input[0]+" (H)",user_input[0]+" (M)",user_input[1]+" (H)",user_input[1]+" (M)"]))]
+                cate_sex=cate_sex[(cate_sex["NOMBRE_1"].isin([user_input[0]+" Hombres",user_input[0]+" Mujeres",user_input[1]+" Hombres",user_input[1]+" Mujeres"]))]
                 cate_sex=gen(cate_sex,appointment_6,"Comparación ocupados por sexo: "+user_input[0] +" y "+user_input[1])
                 cate_sex=fechas_2(cate_sex)
           
@@ -1009,14 +1009,14 @@ with tab3:
 
  
             if len(user_input)>2:
-                cate_sex=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&~(data3["CATEGORIA3"]=="(AS)")]
+                cate_sex=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&~(data3["CATEGORIA3"]=="Nacional")]
                 cate_sex["SERIE"]=cate_sex["NOMBRE_1"]
                 series=[]
                 for i in np.linspace(0,len(user_input)-1,len(user_input)):
                     i=int(i)
-                    hom=user_input[i]+" (H)"
+                    hom=user_input[i]+" Hombres"
                     series.append(hom)
-                    muj=user_input[i]+" (M)"
+                    muj=user_input[i]+" Mujeres"
                     series.append(muj)
                         
                 cate_sex=cate_sex[(cate_sex["NOMBRE_1"].isin(series))]
@@ -1096,8 +1096,8 @@ with tab3:
     
             ind_rem_men_r=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="REAL")]
             ind_rem_men_n=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="NOMINAL")]
-            ind_rem_men_r["SERIE"]="Variación real M/M"     
-            ind_rem_men_n["SERIE"]="Variación nominal M/M"    
+            ind_rem_men_r["SERIE"]="Variación mensual real"     
+            ind_rem_men_n["SERIE"]="Variación mensual nominal"    
         
             ind_rem_men_r["VALOR"]=ind_rem_men_r["VALOR"]/ind_rem_men_r["VALOR"].shift(1)-1
             ind_rem_men_r=ind_rem_men_r.dropna()
@@ -1152,8 +1152,8 @@ with tab3:
           
             ind_rem_men_r=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="REAL")]
             ind_rem_men_n=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="NOMINAL")]
-            ind_rem_men_r["SERIE"]="Variación real Y/Y"     
-            ind_rem_men_n["SERIE"]="Variación nominal Y/Y"    
+            ind_rem_men_r["SERIE"]="Variación anual real"     
+            ind_rem_men_n["SERIE"]="Variación anual nominal"    
         
             ind_rem_men_r["VALOR"]=ind_rem_men_r["VALOR"]/ind_rem_men_r["VALOR"].shift(12)-1
             ind_rem_men_r=ind_rem_men_r.dropna()
