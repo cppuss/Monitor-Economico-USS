@@ -1265,7 +1265,7 @@ with tab3:
                     columnas_numericas = df_filtro.select_dtypes(include=[float, int]).columns
                     
                     # Aplicar el groupby y la suma solo a las columnas numéricas
-                    df_filtro = df_filtro.groupby(filtro_características)[columnas_numericas].sum()
+                    df_filtro = df_filtro.groupby((filtro_ministerio+filtro_características))[columnas_numericas].sum()
                     
                     df_filtro=df_filtro.stack()
                     df_filtro=df_filtro.reset_index()
@@ -1290,16 +1290,12 @@ with tab3:
                     
                     # Aplicar la función a cada fila del DataFrame
                     df_filtro['SERIE'] = df_filtro.apply(concatenar_filas, axis=1)
-                    
-        
-                    
             
                     df_filtro=gen(df_filtro,appointment_44,"Datos administrativos DIPRES")
                     df_filtro=fechas_2(df_filtro)
                     
                     
                     st.plotly_chart(df_filtro, theme="streamlit", use_container_width=True)
-    
             except:
                 pass
 
