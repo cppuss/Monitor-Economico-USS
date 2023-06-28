@@ -59,8 +59,9 @@ def format_annotation(x, y):
 
 # Agregar interactividad con anotaciones personalizadas
 fig.update_traces(
-    hovertemplate="%{x}<br>%{y}<extra>%{text}</extra>",
-    text=[format_annotation(x_val, y_val) for x_val, y_val in zip(x_labels, y)]
+    hovertemplate="%{text}<extra></extra>",
+    text=[format_annotation(x_val, y_val) for x_val, y_val in zip(x_labels, y)],
+    hoverinfo='text'
 )
 
 # Usar Streamlit para visualizar el gráfico
