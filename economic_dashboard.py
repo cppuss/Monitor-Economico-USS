@@ -110,7 +110,7 @@ def gen(imacec_des,rango,titulo):
         ))
 
     def format_annotation(serie, periodo, valor):
-        return f'SERIE="{serie}"<br>PERIODO="{periodo}"<br>VALOR={valor}'
+        return f'-"{serie}"<br>"{periodo}"<br>{valor}'
     
     # Agregar interactividad con anotaciones personalizadas y desactivar anotaciones predeterminadas
     imacec_des.update_traces(
