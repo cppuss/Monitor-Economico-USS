@@ -1129,7 +1129,7 @@ with tab3:
             with col1:
                 
                 if appointment_44:
-                    ind_rem_men_r=gen(ind_rem_men_r,appointment_44,"Variación Índice de remuneraciones [real] M/M ")
+                    ind_rem_men_r=gen(ind_rem_men_r,appointment_44,"Variación real mensual Índice de remuneraciones")
                     ind_rem_men_r=fechas_2(ind_rem_men_r)
                     ind_rem_men_r=eje_porcentaje(ind_rem_men_r)
             
@@ -1140,7 +1140,7 @@ with tab3:
             with col2:
                 
                 if appointment_44:
-                    ind_rem_men_n=gen(ind_rem_men_n,appointment_44,"Variación Índice de remuneraciones [nom] M/M ")
+                    ind_rem_men_n=gen(ind_rem_men_n,appointment_44,"Variación nominal mensual Índice de remuneraciones")
                     ind_rem_men_n=fechas_2(ind_rem_men_n)
                     ind_rem_men_n=eje_porcentaje(ind_rem_men_n)
                     
@@ -1185,7 +1185,7 @@ with tab3:
             with col1:
                 
                 if appointment_44:
-                    ind_rem_men_r=gen(ind_rem_men_r,appointment_44,"Variación Índice de remuneraciones [real] Y/Y ")
+                    ind_rem_men_r=gen(ind_rem_men_r,appointment_44,"Variación real anual Índice de remuneraciones")
                     ind_rem_men_r=fechas_2(ind_rem_men_r)
                     ind_rem_men_r=eje_porcentaje(ind_rem_men_r)
             
@@ -1195,7 +1195,7 @@ with tab3:
             with col2:
                 
                 if appointment_44:
-                    ind_rem_men_n=gen(ind_rem_men_n,appointment_44,"Variación Índice de remuneraciones [nom] Y/Y ")
+                    ind_rem_men_n=gen(ind_rem_men_n,appointment_44,"Variación nomianl anual Índice de remuneraciones")
                     ind_rem_men_n=fechas_2(ind_rem_men_n)
                     ind_rem_men_n=eje_porcentaje(ind_rem_men_n)
                     
@@ -1265,7 +1265,7 @@ with tab3:
                     columnas_numericas = df_filtro.select_dtypes(include=[float, int]).columns
                     
                     # Aplicar el groupby y la suma solo a las columnas numéricas
-                    df_filtro = df_filtro.groupby((filtro_ministerio+filtro_características))[columnas_numericas].sum()
+                    df_filtro = df_filtro.groupby((["Ministerio"]+filtro_características))[columnas_numericas].sum()
                     
                     df_filtro=df_filtro.stack()
                     df_filtro=df_filtro.reset_index()
