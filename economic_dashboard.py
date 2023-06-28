@@ -1200,7 +1200,78 @@ with tab3:
 
           
         
-        
+        with tab37:        
+            # Cargar el dataframe
+            df = pd.read_excel(path+'Dipres.xlsx')  # Reemplaza 'tu_archivo.csv' con la ruta y nombre de tu archivo
+            df=df.replace("nan",np.nan)
+            df=df.replace("-",np.nan)
+            del df["Periodo"]
+            df["Ministerio"] = df["Ministerio"].str[3:]
+            
+            
+            filtro_ministerio = st.multiselect('Filtrar por características', df.columns[1:7])
+            if filtro_ministerio:
+                df_filtro=df
+                
+                agrupador={
+                'Ministerio':'Calidad Jurídica',    
+                'Calidad Jurídica': 'Estamento', 
+                 'Estamento':  'Tipo', 
+                 'Tipo':  'Rango edad', 
+                 'Rango edad':  'Sexo',
+                 'Sexo':'Grupo de Interés' 
+                 }
+                
+                ordenador={
+                'Ministerio':0,
+                'Calidad Jurídica': 1, 
+                 'Estamento':  2, 
+                 'Tipo':  3, 
+                 'Rango edad':  4,
+                 'Sexo':5 
+                 }
+                
+                def orden_personalizado(valor):
+                    return ordenador.get(valor, float('inf'))
+                
+                valor_maximo = max(filtro_ministerio, key=orden_personalizado)
+                
+                
+                if 'Grupo de Interés' not in filtro_ministerio:
+                    valor_maximo = max(filtro_ministerio, key=orden_personalizado)
+                    df_filtro=df_filtro.loc[df_filtro[agrupador[valor_maximo]]=="Totales"]
+                else:
+                    pass
+                
+                
+                
+                df_filtro=df_filtro.groupby(filtro_ministerio).sum()
+                df_filtro=df_filtro.stack()
+                df_filtro=df_filtro.reset_index()
+                
+                
+                trimestres = {'T1': '03-31', 'T2': '06-30', 'T3': '09-30', 'T4': '12-31'}
+                
+                # Función para convertir el valor de trimestre a fecha
+                def convertir_a_fecha(trimestre):
+                    trimestre, año = trimestre.split(' ')
+                    fecha = trimestres[trimestre] + '-' + año
+                    return pd.to_datetime(fecha, format='%m-%d-%Y')
+                
+                # Aplicar la conversión a la columna 'level_3'
+                df_filtro[df_filtro.columns[-2]] = df_filtro[df_filtro.columns[-2]].apply(convertir_a_fecha)
+                
+                df_filtro=df_filtro.rename(columns={df_filtro.columns[-2]:"PERIODO",0:"VALOR"})
+                
+                def concatenar_filas(row):
+                    columnas_concatenadas = ' - '.join([str(value) for value in row[:-2]])
+                    return columnas_concatenadas
+                
+                # Aplicar la función a cada fila del DataFrame
+                df_filtro['SERIE'] = df_filtro.apply(concatenar_filas, axis=1)
+                
+                    
+
 
 
 
