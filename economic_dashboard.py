@@ -146,12 +146,6 @@ def to_excel(df):
 
 
 
-df_dipres = pd.read_excel(path+'Dipres.xlsx')  # Reemplaza 'tu_archivo.csv' con la ruta y nombre de tu archivo
-df_dipres=df_dipres.replace("nan",np.nan)
-df_dipres=df_dipres.replace("-",np.nan)
-del df_dipres["Periodo"]
-df_dipres["Ministerio"] = df_dipres["Ministerio"].str[3:]
-
 
 
 data=pd.read_parquet(path+"datos_monitor.parquet")
@@ -1212,12 +1206,18 @@ with tab3:
         with tab37:        
             # Cargar el dataframe
 
+            df_dipres = pd.read_excel(path+'Dipres.xlsx')  # Reemplaza 'tu_archivo.csv' con la ruta y nombre de tu archivo
+            df_dipres=df_dipres.replace("nan",np.nan)
+            df_dipres=df_dipres.replace("-",np.nan)
+            del df_dipres["Periodo"]
+            df_dipres["Ministerio"] = df_dipres["Ministerio"].str[3:]
+
             appointment_44 = st.slider(
                         "Seleccione el rango de fechas        ",
                         value=(ext_ind_rem_men_n[0],ext_ind_rem_men_n[1]),
                         format="YYYY/MM")
             
-            filtro_ministerio = st.multiselect('Filtrar por características', df.columns[1:7])
+            filtro_ministerio = st.multiselect('Filtrar por características', df_dipres.columns[1:7])
             if filtro_ministerio:
                 df_filtro=df_dipres.copy(deep=True)
                 
