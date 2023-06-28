@@ -1227,7 +1227,7 @@ with tab3:
 
             try: 
                 if filtro_características:
-                    df_filtro=df_dipres.copy(deep=True)
+                    df_filtro=df_filtro.copy(deep=True)
                         
                      
                     
