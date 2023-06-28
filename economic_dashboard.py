@@ -148,7 +148,7 @@ def to_excel(df):
 
 
 
-data=pd.read_parquet(path+"datos_monitor_2.parquet")
+data=pd.read_parquet(path+"datos_monitor.parquet")
 
 
 tab1, tab2,tab3,tab4 = st.tabs(["ACTIVIDAD ECONÓMICA","INFLACIÓN","MERCADO LABORAL","CUENTAS CORRIENTES"])
