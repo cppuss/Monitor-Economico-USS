@@ -110,7 +110,7 @@ def gen(imacec_des,rango,titulo):
         ))
 
     
-    def format_annotation(serie, periodo, valor):
+     def format_annotation(serie, periodo, valor):
         # Obtener el año y el mes de la fecha
        # fecha = datetime.strptime(periodo, "%Y-%m")
        # periodo_formateado = fecha.strftime("%Y-%m")  # Cambiar el formato según tus necesidades
