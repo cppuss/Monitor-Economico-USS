@@ -699,7 +699,7 @@ data3=data[data["CATEGORIA"]=="MERCADO LABORAL"]
 with tab3:
     st.write('En esta sección se encuentra información del mercado laboral')
         
-    tab31,tab32,tab33,tab34,tab35,tab36=st.tabs(["EMPLEO NACIONAL","EMPLEO POR GENERO","INFORMALIDAD","CATEGORÍAS","SERIES ADMINISTRATIVAS","ÍNDICES DE REMUNERACIONES"])
+    tab31,tab32,tab33,tab34,tab35,tab36,tab37=st.tabs(["EMPLEO NACIONAL","EMPLEO POR GENERO","INFORMALIDAD","CATEGORÍAS","SERIES ADMINISTRATIVAS: INE & SP","ÍNDICES DE REMUNERACIONES","SERIES ADMINISTRATIVAS: DIPRES"])
     
     
     with tab31:
