@@ -710,7 +710,7 @@ with tab3:
         emp_bruto=data3[(data3["CATEGORIA2"]=="EMPLEO - BRUTOS")&(data3["CATEGORIA3"]=="N")]
         emp_bruto["SERIE"]=emp_bruto["NOMBRE_2"]
         emp_bruto["VALOR"]=emp_bruto["VALOR"]*1000
-        ext_emp_bruto=extremos(emp_bruto)
+        #ext_emp_bruto=extremos(emp_bruto)
         data_emp_bruto=emp_bruto.copy(deep=True)
         data_emp_bruto=data_emp_bruto[["PERIODO","VALOR","SERIE"]]
         
