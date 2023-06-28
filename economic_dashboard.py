@@ -1207,7 +1207,11 @@ with tab3:
             df=df.replace("-",np.nan)
             del df["Periodo"]
             df["Ministerio"] = df["Ministerio"].str[3:]
-            
+
+            appointment_44 = st.slider(
+                        "Seleccione el rango de fechas     ",
+                        value=(ext_ind_rem_men_n[0],ext_ind_rem_men_n[1]),
+                        format="YYYY/MM")
             
             filtro_ministerio = st.multiselect('Filtrar por características', df.columns[1:7])
             if filtro_ministerio:
@@ -1254,11 +1258,12 @@ with tab3:
                 
                 # Función para convertir el valor de trimestre a fecha
                 def convertir_a_fecha(trimestre):
-                    trimestre, año = trimestre.split(' ')
-                    fecha = trimestres[trimestre] + '-' + año
-                    return pd.to_datetime(fecha, format='%m-%d-%Y')
-                
-                # Aplicar la conversión a la columna 'level_3'
+                    if trimestre is not None and ' ' in trimestre:
+                        trimestre, año = trimestre.split(' ')
+                        # Resto del código de la función
+                    else:
+                        pass            
+                    
                 df_filtro[df_filtro.columns[-2]] = df_filtro[df_filtro.columns[-2]].apply(convertir_a_fecha)
                 
                 df_filtro=df_filtro.rename(columns={df_filtro.columns[-2]:"PERIODO",0:"VALOR"})
@@ -1270,7 +1275,12 @@ with tab3:
                 # Aplicar la función a cada fila del DataFrame
                 df_filtro['SERIE'] = df_filtro.apply(concatenar_filas, axis=1)
                 
-                    
+                df_filtro=gen(df_filtro,appointment_44,"Datos administrativos DIPRES")
+                df_filtro=fechas_2(df_filtro)
+                df_filtro=eje_porcentaje(df_filtro)
+                
+                st.plotly_chart(df_filtro, theme="streamlit", use_container_width=True)
+
 
 
 
