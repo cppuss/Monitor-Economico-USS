@@ -1264,10 +1264,13 @@ with tab3:
                 def convertir_a_fecha(trimestre):
                     if trimestre is not None and ' ' in trimestre:
                         trimestre, año = trimestre.split(' ')
-                        # Resto del código de la función
+                        fecha = trimestres[trimestre] + '-' + año
                     else:
                         pass            
+                    return pd.to_datetime(fecha, format='%m-%d-%Y')    
                     
+                df_filtro[df_filtro.columns[-2]] = df_filtro[df_filtro.columns[-2]].astype(str)  
+
                 df_filtro[df_filtro.columns[-2]] = df_filtro[df_filtro.columns[-2]].apply(convertir_a_fecha)
                 
                 df_filtro=df_filtro.rename(columns={df_filtro.columns[-2]:"PERIODO",0:"VALOR"})
