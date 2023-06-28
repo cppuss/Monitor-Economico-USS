@@ -84,6 +84,7 @@ def extremos(data):
     return [data["PERIODO"].iloc[0].to_pydatetime(),data["PERIODO"].iloc[-1].to_pydatetime()]
 
 def gen(imacec_des,rango,titulo):
+    df=imacec_des.copy(deep=True)
     imacec_des=imacec_des[(imacec_des["PERIODO"]>= rango[0])&(imacec_des["PERIODO"]<= rango[1])]
    
   #  imacec_des['MES'] = imacec_des['PERIODO'].dt.month.map(diccionario_meses)
@@ -114,7 +115,7 @@ def gen(imacec_des,rango,titulo):
     # Agregar interactividad con anotaciones personalizadas y desactivar anotaciones predeterminadas
     imacec_des.update_traces(
         hovertemplate="%{text}<extra></extra>",
-        text=[format_annotation(serie, periodo, valor) for serie, periodo, valor in zip(imacec_des['SERIE'], imacec_des['PERIODO'], imacec_des['VALOR'])],
+        text=[format_annotation(serie, periodo, valor) for serie, periodo, valor in zip(df['SERIE'], df['PERIODO'], df['VALOR'])],
         hoverinfo='text'
     )
         
