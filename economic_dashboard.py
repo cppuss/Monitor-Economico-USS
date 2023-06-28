@@ -1218,7 +1218,7 @@ with tab3:
                         value=(ext_ind_rem_men_n[0],ext_ind_rem_men_n[1]),
                         format="YYYY/MM")
 
-            filtro_ministerio = st.multiselect('Filtrar por Ministerio', df["Ministerio"].drop_duplicates())
+            filtro_ministerio = st.multiselect('Filtrar por Ministerio', df_dipres["Ministerio"].drop_duplicates())
     
             if filtro_ministerio:
                 df_filtro=df_dipres.copy(deep=True)
