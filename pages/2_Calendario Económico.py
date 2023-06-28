@@ -58,20 +58,15 @@ fig.update_layout(
     yaxis=dict(tickfont=dict(size=14)),
 )
 
-# Agregar anotaciones personalizadas
-annotations = [
-    dict(
-        x=x[i],
-        y=y[i],
-        text=f'Fecha: {x_labels[i]}<br>Valor: {y[i]}',
-        showarrow=True,
-        arrowhead=1,
-        ax=0,
-        ay=-40
-    )
-    for i in range(len(x))
-]
-fig.update_layout(annotations=annotations)
+# Definir función para formatear las anotaciones
+def format_annotation(x, y):
+    return f'Fecha: {x}<br>Valor: {y}'
+
+# Agregar interactividad con anotaciones personalizadas
+fig.update_traces(
+    hovertemplate="%{x}<br>%{y}<extra>%{text}</extra>",
+    text=[format_annotation(x_val, y_val) for x_val, y_val in zip(x_labels, y)]
+)
 
 # Usar Streamlit para visualizar el gráfico
 st.plotly_chart(fig, use_container_width=True)
