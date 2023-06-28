@@ -1258,11 +1258,7 @@ with tab3:
                 
                 # Aplicar el groupby y la suma solo a las columnas numéricas
                 df_filtro = df_filtro.groupby(filtro_ministerio)[columnas_numericas].sum()
-                st.dataframe(df_filtro.head(5))
-    
                 
-                
-                """
                 df_filtro=df_filtro.stack()
                 df_filtro=df_filtro.reset_index()
 
@@ -1288,6 +1284,9 @@ with tab3:
                 
                 # Aplicar la función a cada fila del DataFrame
                 df_filtro['SERIE'] = df_filtro.apply(concatenar_filas, axis=1)
+                st.dataframe(df_filtro.head(5))
+    
+                
                 
                 df_filtro=gen(df_filtro,appointment_44,"Datos administrativos DIPRES")
                 df_filtro=fechas_2(df_filtro)
@@ -1297,7 +1296,6 @@ with tab3:
 
 
 
-                """    
 
     
 #CUENTAS CORRIENTES
