@@ -118,7 +118,7 @@ def gen(imacec_des,rango,titulo):
         # Redondear el valor a dos decimales
         valor_formateado = round(valor, 2)
         
-        return f'"{serie}"<br>"{periodo_formateado}"<br>{valor_formateado}'
+        return f'"{serie}"<br>"{periodo}"<br>{valor_formateado}'
     
     # Agregar interactividad con anotaciones personalizadas y desactivar anotaciones predeterminadas
     imacec_des.update_traces(
