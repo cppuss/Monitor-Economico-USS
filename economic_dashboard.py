@@ -1253,9 +1253,11 @@ with tab3:
                 else:
                     pass
                 
+                                # Seleccionar solo las columnas numéricas
+                columnas_numericas = df_filtro.select_dtypes(include=[float, int]).columns
                 
-                
-                df_filtro=df_filtro.groupby(filtro_ministerio).sum()
+                # Aplicar el groupby y la suma solo a las columnas numéricas
+                df_filtro = df_filtro.groupby(filtro_ministerio)[columnas_numericas].sum()
                 st.dataframe(df_filtro.head(5))
     
                 
