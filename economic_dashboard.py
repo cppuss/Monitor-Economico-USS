@@ -1220,15 +1220,13 @@ with tab3:
 
             filtro_ministerio = st.multiselect('Filtrar por Ministerio', df["Ministerio"].drop_duplicates())
     
-            
-            
-            
             if filtro_ministerio:
                 df_filtro=df_dipres.copy(deep=True)
                 df_filtro=df_filtro[df_filtro["Ministerio"].isin(filtro_ministerio)]
                 filtro_características = st.multiselect('Filtrar por características', df_dipres.columns[0:7])
+
             
-            if filtro_características 
+            if filtro_características:
                 df_filtro=df_dipres.copy(deep=True)
                     
                  
