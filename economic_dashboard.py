@@ -1217,12 +1217,22 @@ with tab3:
                         "Seleccione el rango de fechas        ",
                         value=(ext_ind_rem_men_n[0],ext_ind_rem_men_n[1]),
                         format="YYYY/MM")
+
+            filtro_ministerio = st.multiselect('Filtrar por Ministerio', df["Ministerio"].drop_duplicates())
+    
             
-            filtro_ministerio = st.multiselect('Filtrar por características', df_dipres.columns[0:7])
+            
+            
             if filtro_ministerio:
                 df_filtro=df_dipres.copy(deep=True)
+                df_filtro=df_filtro[df_filtro["Ministerio"].isin(filtro_ministerio)]
+                filtro_características = st.multiselect('Filtrar por características', df_dipres.columns[0:7])
+            
+            if filtro_características 
+                df_filtro=df_dipres.copy(deep=True)
                     
-               
+                 
+                
                 agrupador={
                 'Ministerio':'Calidad Jurídica',    
                 'Calidad Jurídica': 'Estamento', 
@@ -1244,11 +1254,11 @@ with tab3:
                 def orden_personalizado(valor):
                     return ordenador.get(valor, float('inf'))
                 
-                valor_maximo = max(filtro_ministerio, key=orden_personalizado)
+                valor_maximo = max(filtro_características, key=orden_personalizado)
                 
                 
-                if 'Grupo de Interés' not in filtro_ministerio:
-                    valor_maximo = max(filtro_ministerio, key=orden_personalizado)
+                if 'Grupo de Interés' not in filtro_características:
+                    valor_maximo = max(filtro_características, key=orden_personalizado)
                     df_filtro=df_filtro.loc[df_filtro[agrupador[valor_maximo]]=="Totales"]
                 else:
                     pass
@@ -1257,7 +1267,7 @@ with tab3:
                 columnas_numericas = df_filtro.select_dtypes(include=[float, int]).columns
                 
                 # Aplicar el groupby y la suma solo a las columnas numéricas
-                df_filtro = df_filtro.groupby(filtro_ministerio)[columnas_numericas].sum()
+                df_filtro = df_filtro.groupby(filtro_características)[columnas_numericas].sum()
                 
                 df_filtro=df_filtro.stack()
                 df_filtro=df_filtro.reset_index()
@@ -1273,9 +1283,7 @@ with tab3:
 
         
                 df_filtro[df_filtro.columns[-2]] = df_filtro[df_filtro.columns[-2]].astype(str)  
-
                 df_filtro[df_filtro.columns[-2]] = df_filtro[df_filtro.columns[-2]].apply(convertir_a_fecha)
-                
                 df_filtro=df_filtro.rename(columns={df_filtro.columns[-2]:"PERIODO",0:"VALOR"})
                 
                 def concatenar_filas(row):
