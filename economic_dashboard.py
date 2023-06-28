@@ -1225,82 +1225,83 @@ with tab3:
                 df_filtro=df_filtro[df_filtro["Ministerio"].isin(filtro_ministerio)]
                 filtro_características = st.multiselect('Filtrar por características', df_dipres.columns[1:7])
 
-            
-            if filtro_características:
-                df_filtro=df_dipres.copy(deep=True)
+            try: 
+                if filtro_características:
+                    df_filtro=df_dipres.copy(deep=True)
+                        
+                     
                     
-                 
-                
-                agrupador={
-                'Ministerio':'Calidad Jurídica',    
-                'Calidad Jurídica': 'Estamento', 
-                 'Estamento':  'Tipo', 
-                 'Tipo':  'Rango edad', 
-                 'Rango edad':  'Sexo',
-                 'Sexo':'Grupo de Interés' 
-                 }
-                
-                ordenador={
-                'Ministerio':0,
-                'Calidad Jurídica': 1, 
-                 'Estamento':  2, 
-                 'Tipo':  3, 
-                 'Rango edad':  4,
-                 'Sexo':5 
-                 }
-                
-                def orden_personalizado(valor):
-                    return ordenador.get(valor, float('inf'))
-                
-                valor_maximo = max(filtro_características, key=orden_personalizado)
-                
-                
-                if 'Grupo de Interés' not in filtro_características:
+                    agrupador={
+                    'Ministerio':'Calidad Jurídica',    
+                    'Calidad Jurídica': 'Estamento', 
+                     'Estamento':  'Tipo', 
+                     'Tipo':  'Rango edad', 
+                     'Rango edad':  'Sexo',
+                     'Sexo':'Grupo de Interés' 
+                     }
+                    
+                    ordenador={
+                    'Ministerio':0,
+                    'Calidad Jurídica': 1, 
+                     'Estamento':  2, 
+                     'Tipo':  3, 
+                     'Rango edad':  4,
+                     'Sexo':5 
+                     }
+                    
+                    def orden_personalizado(valor):
+                        return ordenador.get(valor, float('inf'))
+                    
                     valor_maximo = max(filtro_características, key=orden_personalizado)
-                    df_filtro=df_filtro.loc[df_filtro[agrupador[valor_maximo]]=="Totales"]
-                else:
-                    pass
-                
-                                # Seleccionar solo las columnas numéricas
-                columnas_numericas = df_filtro.select_dtypes(include=[float, int]).columns
-                
-                # Aplicar el groupby y la suma solo a las columnas numéricas
-                df_filtro = df_filtro.groupby(filtro_características)[columnas_numericas].sum()
-                
-                df_filtro=df_filtro.stack()
-                df_filtro=df_filtro.reset_index()
-
-
-                trimestres = {'T1': '03-31', 'T2': '06-30', 'T3': '09-30', 'T4': '12-31'}
-                
-                # Función para convertir el valor de trimestre a fecha
-                def convertir_a_fecha(trimestre):
-                    trimestre, año = trimestre.split(' ')
-                    fecha = trimestres[trimestre] + '-' + año
-                    return pd.to_datetime(fecha, format='%m-%d-%Y')
-
-        
-                df_filtro[df_filtro.columns[-2]] = df_filtro[df_filtro.columns[-2]].astype(str)  
-                df_filtro[df_filtro.columns[-2]] = df_filtro[df_filtro.columns[-2]].apply(convertir_a_fecha)
-                df_filtro=df_filtro.rename(columns={df_filtro.columns[-2]:"PERIODO",0:"VALOR"})
-                
-                def concatenar_filas(row):
-                    columnas_concatenadas = ' - '.join([str(value) for value in row[:-2]])
-                    return columnas_concatenadas
-                
-                # Aplicar la función a cada fila del DataFrame
-                df_filtro['SERIE'] = df_filtro.apply(concatenar_filas, axis=1)
-                
+                    
+                    
+                    if 'Grupo de Interés' not in filtro_características:
+                        valor_maximo = max(filtro_características, key=orden_personalizado)
+                        df_filtro=df_filtro.loc[df_filtro[agrupador[valor_maximo]]=="Totales"]
+                    else:
+                        pass
+                    
+                                    # Seleccionar solo las columnas numéricas
+                    columnas_numericas = df_filtro.select_dtypes(include=[float, int]).columns
+                    
+                    # Aplicar el groupby y la suma solo a las columnas numéricas
+                    df_filtro = df_filtro.groupby(filtro_características)[columnas_numericas].sum()
+                    
+                    df_filtro=df_filtro.stack()
+                    df_filtro=df_filtro.reset_index()
     
-                
+    
+                    trimestres = {'T1': '03-31', 'T2': '06-30', 'T3': '09-30', 'T4': '12-31'}
+                    
+                    # Función para convertir el valor de trimestre a fecha
+                    def convertir_a_fecha(trimestre):
+                        trimestre, año = trimestre.split(' ')
+                        fecha = trimestres[trimestre] + '-' + año
+                        return pd.to_datetime(fecha, format='%m-%d-%Y')
+    
+            
+                    df_filtro[df_filtro.columns[-2]] = df_filtro[df_filtro.columns[-2]].astype(str)  
+                    df_filtro[df_filtro.columns[-2]] = df_filtro[df_filtro.columns[-2]].apply(convertir_a_fecha)
+                    df_filtro=df_filtro.rename(columns={df_filtro.columns[-2]:"PERIODO",0:"VALOR"})
+                    
+                    def concatenar_filas(row):
+                        columnas_concatenadas = ' - '.join([str(value) for value in row[:-2]])
+                        return columnas_concatenadas
+                    
+                    # Aplicar la función a cada fila del DataFrame
+                    df_filtro['SERIE'] = df_filtro.apply(concatenar_filas, axis=1)
+                    
         
-                df_filtro=gen(df_filtro,appointment_44,"Datos administrativos DIPRES")
-                df_filtro=fechas_2(df_filtro)
-                
-                
-                st.plotly_chart(df_filtro, theme="streamlit", use_container_width=True)
-
-
+                    
+            
+                    df_filtro=gen(df_filtro,appointment_44,"Datos administrativos DIPRES")
+                    df_filtro=fechas_2(df_filtro)
+                    
+                    
+                    st.plotly_chart(df_filtro, theme="streamlit", use_container_width=True)
+    
+            except:
+                pass
 
 
     
