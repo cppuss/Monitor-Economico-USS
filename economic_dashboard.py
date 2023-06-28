@@ -1223,7 +1223,7 @@ with tab3:
             if filtro_ministerio:
                 df_filtro=df_dipres.copy(deep=True)
                 df_filtro=df_filtro[df_filtro["Ministerio"].isin(filtro_ministerio)]
-                filtro_características = st.multiselect('Filtrar por características', df_dipres.columns[0:7])
+                filtro_características = st.multiselect('Filtrar por características', df_dipres.columns[1:7])
 
             
             if filtro_características:
