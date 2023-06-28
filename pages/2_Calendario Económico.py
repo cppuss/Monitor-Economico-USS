@@ -51,12 +51,7 @@ x_labels = [f"{diccionario_meses[date.month]} {date.year}" for date in x]
 # Crear la figura de Plotly con los ejes en español
 fig = go.Figure()
 fig.add_trace(go.Scatter(x=x, y=y, mode='lines'))
-fig.update_layout(
-    xaxis_title='Fecha',
-    yaxis_title='Eje Y',
-    xaxis=dict(tickmode='array', tickvals=x, ticktext=x_labels),
-    yaxis=dict(tickfont=dict(size=14)),
-)
+
 
 # Definir función para formatear las anotaciones
 def format_annotation(x, y):
