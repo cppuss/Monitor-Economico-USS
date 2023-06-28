@@ -888,28 +888,10 @@ with tab3:
                 
 
              
-       informalidad=data3[(data3["CATEGORIA2"]=="INFORMALIDAD")&~(data3["NOMBRE_1"]=="Tasa de informalidad Nacional")]
-       informalidad["SERIE"]=informalidad["NOMBRE_2"]
-       informalidad["VALOR"]=informalidad["VALOR"]/100
-       informalidad=informalidad.sort_values(by="PERIODO")
-       ext_infor=extremos(informalidad)
-       data_infor=informalidad.copy(deep=True)
-       data_infor=data_infor[["PERIODO","VALOR","SERIE"]]
+       
         
         
     
-       appointment_3 = st.slider(
-                    "Seleccione el rango de fechas   ",
-                    value=(ext_infor[0],ext_infor[1]),
-                    format="YYYY/MM")
-        
-        
-       if appointment_3:
-            informalidad=gen(informalidad,appointment_3,"Tasas de Informalidad")
-            informalidad=fechas_2(informalidad)
-            informalidad=eje_porcentaje(informalidad)
-            
-            st.plotly_chart(informalidad, theme="streamlit", use_container_width=True)
             
 
     with tab33:
@@ -925,6 +907,14 @@ with tab3:
         INF_SEX["VALOR"]=INF_SEX["VALOR"]*1000
         INF_SEX=INF_SEX.sort_values(by="PERIODO")
         
+        informalidad=data3[(data3["CATEGORIA2"]=="INFORMALIDAD")]
+        informalidad["SERIE"]=informalidad["NOMBRE_2"]
+        informalidad["VALOR"]=informalidad["VALOR"]/100
+        informalidad=informalidad.sort_values(by="PERIODO")
+        ext_infor=extremos(informalidad)
+        data_infor=informalidad.copy(deep=True)
+        data_infor=data_infor[["PERIODO","VALOR","SERIE"]]
+       
         appointment_inf = st.slider(
                     "Seleccione el rango de fechas       ",
                     value=(ext_INF[0],ext_INF[1]),
@@ -936,9 +926,19 @@ with tab3:
               INF=INF[(INF["PERIODO"] >= appointment_inf[0])&(INF["PERIODO"]<=appointment_inf[1])]
               INF_SEX.add_trace(px.line(INF, x='PERIODO', y='VALOR', color="SERIE").data[0])
               INF_SEX=fechas_2(INF_SEX)
-
+            
+        appointment_3 = st.slider(
+                    "Seleccione el rango de fechas   ",
+                    value=(ext_infor[0],ext_infor[1]),
+                    format="YYYY/MM")
 
               st.plotly_chart(INF_SEX, theme="streamlit", use_container_width=True)
+        if appointment_3:
+            informalidad=gen(informalidad,appointment_3,"Tasas de Informalidad")
+            informalidad=fechas_2(informalidad)
+            informalidad=eje_porcentaje(informalidad)
+            
+            st.plotly_chart(informalidad, theme="streamlit", use_container_width=True)
     
     with tab34:
             
