@@ -926,13 +926,15 @@ with tab3:
               INF=INF[(INF["PERIODO"] >= appointment_inf[0])&(INF["PERIODO"]<=appointment_inf[1])]
               INF_SEX.add_trace(px.line(INF, x='PERIODO', y='VALOR', color="SERIE").data[0])
               INF_SEX=fechas_2(INF_SEX)
+              st.plotly_chart(INF_SEX, theme="streamlit", use_container_width=True)
             
         appointment_3 = st.slider(
                     "Seleccione el rango de fechas   ",
                     value=(ext_infor[0],ext_infor[1]),
                     format="YYYY/MM")
 
-              st.plotly_chart(INF_SEX, theme="streamlit", use_container_width=True)
+              
+        
         if appointment_3:
             informalidad=gen(informalidad,appointment_3,"Tasas de Informalidad")
             informalidad=fechas_2(informalidad)
