@@ -1161,7 +1161,7 @@ with tab3:
 
       
         with tab36:
-            st.markdown("<h5 style=' color: black;'>Comparación de los resultados de la Encuesta Nacional de Empleo (INE) con las series administrativas de la Superintendencia de Pensiones  </h5>", unsafe_allow_html=True)
+            st.markdown("<h5 style=' color: black;'>Comparación de los resultados de la Encuesta Nacional de Empleo (INE) con las series administrativas de la Superintendencia de Pensiones (SP). </h5>", unsafe_allow_html=True)
             
             series_adm=data3[(data3["CATEGORIA2"]=="SERIES ADMINISTRATIVAS")&(data3["CATEGORIA3"]=="COTIZANTES")]
             series_adm["SERIE"]=series_adm["NOMBRE_1"]
