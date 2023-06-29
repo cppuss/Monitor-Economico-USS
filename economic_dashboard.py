@@ -720,7 +720,7 @@ data3=data[data["CATEGORIA"]=="MERCADO LABORAL"]
 with tab3:
     st.write('En esta sección se encuentra información del mercado laboral')
         
-    tab31,tab32,tab33,tab34,tab35,tab36,tab37=st.tabs(["EMPLEO NACIONAL","EMPLEO POR GENERO","INFORMALIDAD","CATEGORÍAS","SERIES ADMINISTRATIVAS: INE & SP","ÍNDICES DE REMUNERACIONES","SERIES ADMINISTRATIVAS: DIPRES"])
+    tab31,tab32,tab33,tab34,tab35,tab36,tab37=st.tabs(["EMPLEO NACIONAL","EMPLEO POR GENERO","INFORMALIDAD","CATEGORÍAS","ÍNDICES DE REMUNERACIONES","SERIES ADMINISTRATIVAS: SP","SERIES ADMINISTRATIVAS: DIPRES"])
     
     
     with tab31:
@@ -1047,72 +1047,8 @@ with tab3:
                  
              
         
+
         with tab35:
-            series_adm=data3[(data3["CATEGORIA2"]=="SERIES ADMINISTRATIVAS")&(data3["CATEGORIA3"]=="COTIZANTES")]
-            series_adm["SERIE"]=series_adm["NOMBRE_1"]
-            where=series_adm["NOMBRE_1"].isin(["Cotizantes-INE","Cotizantes-SP"])
-            series_adm=series_adm[where]
-            series_adm=series_adm.sort_values(by="PERIODO")
-    
-            ext_series_adm=extremos(series_adm)
-            data_series_adm=series_adm.copy(deep=True)
-            data_series_adm=data_series_adm[["PERIODO","VALOR","SERIE"]]
-        
-            appointment_1 = st.slider(
-                          "Seleccione el rango de fechas       ",
-                          value=(ext_series_adm[0],ext_series_adm[1]),
-                          format="YYYY/MM")
-            
-            sub11 = st.checkbox(label='Incluir límite inferior y superior')
-    
-            if appointment_1 and not sub11:
-                  series_adm=gen(series_adm,appointment_1,"Comparación ENE y SP")
-                  series_adm=fechas_2(series_adm)
-    
-                 
-                  st.plotly_chart(series_adm, theme="streamlit", use_container_width=True)
-                 
-
-
-
-        
-            if appointment_1 and sub11:
-                series_adm=data3[(data3["CATEGORIA2"]=="SERIES ADMINISTRATIVAS")&(data3["CATEGORIA3"]=="COTIZANTES")]
-                series_adm["SERIE"]=series_adm["NOMBRE_1"]
-                series_adm=series_adm.sort_values(by="PERIODO")
-                series_adm=gen(series_adm,appointment_1,"Comparación ENE y SP")
-                series_adm=fechas_2(series_adm)
-       
-                
-                st.plotly_chart(series_adm, theme="streamlit", use_container_width=True)
-            
-
-
-      
-            
-            series_adm_2=data3[(data3["CATEGORIA2"]=="SERIES ADMINISTRATIVAS")&(data3["CATEGORIA3"]=="VARIACIONES ANUALES")]
-            series_adm_2["SERIE"]=series_adm_2["NOMBRE_1"]
-            series_adm_2["VALOR"]=series_adm_2["VALOR"]/100
-            series_adm_2=series_adm_2.sort_values(by="PERIODO")
-     
-            ext_series_adm_2=extremos(series_adm_2)
-            data_series_adm_2=series_adm_2.copy(deep=True)
-            data_series_adm_2=data_series_adm_2[["PERIODO","VALOR","SERIE"]]
-            
-            
-            series_adm_2=gen(series_adm_2,appointment_1,"Variación Anual ENE y SP")
-            series_adm_2=fechas_2(series_adm_2)
-            series_adm_2=eje_porcentaje(series_adm_2)
-           
-            st.plotly_chart(series_adm_2, theme="streamlit", use_container_width=True)
-           
-            df_xlsx9 = to_excel(data_series_adm_2)
-
-      
-
-
-
-        with tab36:
     
             ind_rem_men_r=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="REAL")]
             ind_rem_men_n=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="NOMINAL")]
@@ -1223,7 +1159,69 @@ with tab3:
                     
                     st.plotly_chart(ind_rem_men_n, theme="streamlit", use_container_width=True)
 
-          
+      
+        with tab36:
+            st.markdown("<h5 style=' color: black;'>Comparación de los resultados de la Encuesta Nacional de Empleo (INE) con las series administrativas de la Superintendencia de Pensiones  </h5>", unsafe_allow_html=True)
+            
+            series_adm=data3[(data3["CATEGORIA2"]=="SERIES ADMINISTRATIVAS")&(data3["CATEGORIA3"]=="COTIZANTES")]
+            series_adm["SERIE"]=series_adm["NOMBRE_1"]
+            where=series_adm["NOMBRE_1"].isin(["Cotizantes-INE","Cotizantes-SP"])
+            series_adm=series_adm[where]
+            series_adm=series_adm.sort_values(by="PERIODO")
+    
+            ext_series_adm=extremos(series_adm)
+            data_series_adm=series_adm.copy(deep=True)
+            data_series_adm=data_series_adm[["PERIODO","VALOR","SERIE"]]
+        
+            appointment_1 = st.slider(
+                          "Seleccione el rango de fechas       ",
+                          value=(ext_series_adm[0],ext_series_adm[1]),
+                          format="YYYY/MM")
+            
+            sub11 = st.checkbox(label='Incluir límite inferior y superior')
+    
+            if appointment_1 and not sub11:
+                  series_adm=gen(series_adm,appointment_1,"Número de cotizantes")
+                  series_adm=fechas_2(series_adm)
+    
+                 
+                  st.plotly_chart(series_adm, theme="streamlit", use_container_width=True)
+                 
+
+
+
+        
+            if appointment_1 and sub11:
+                series_adm=data3[(data3["CATEGORIA2"]=="SERIES ADMINISTRATIVAS")&(data3["CATEGORIA3"]=="COTIZANTES")]
+                series_adm["SERIE"]=series_adm["NOMBRE_1"]
+                series_adm=series_adm.sort_values(by="PERIODO")
+                series_adm=gen(series_adm,appointment_1,"Comparación: ENE y SP")
+                series_adm=fechas_2(series_adm)
+       
+                
+                st.plotly_chart(series_adm, theme="streamlit", use_container_width=True)
+            
+
+
+      
+            
+            series_adm_2=data3[(data3["CATEGORIA2"]=="SERIES ADMINISTRATIVAS")&(data3["CATEGORIA3"]=="VARIACIONES ANUALES")]
+            series_adm_2["SERIE"]=series_adm_2["NOMBRE_1"]
+            series_adm_2["VALOR"]=series_adm_2["VALOR"]/100
+            series_adm_2=series_adm_2.sort_values(by="PERIODO")
+     
+            ext_series_adm_2=extremos(series_adm_2)
+            data_series_adm_2=series_adm_2.copy(deep=True)
+            data_series_adm_2=data_series_adm_2[["PERIODO","VALOR","SERIE"]]
+            
+            
+            series_adm_2=gen(series_adm_2,appointment_1,"Variación anual del número de cotizantes: ENE y SP")
+            series_adm_2=fechas_2(series_adm_2)
+            series_adm_2=eje_porcentaje(series_adm_2)
+           
+            st.plotly_chart(series_adm_2, theme="streamlit", use_container_width=True)
+           
+            df_xlsx9 = to_excel(data_series_adm_2)    
         
         with tab37:        
             # Cargar el dataframe
