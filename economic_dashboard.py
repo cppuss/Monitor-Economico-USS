@@ -940,7 +940,7 @@ with tab3:
 
         
         if appointment_inf:
-              INF_SEX=gen_bar(INF_SEX,appointment,"Informalidad")
+              INF_SEX=gen_bar(INF_SEX,appointment,"Número de informales")
               INF=INF[(INF["PERIODO"] >= appointment_inf[0])&(INF["PERIODO"]<=appointment_inf[1])]
               INF_SEX.add_trace(px.line(INF, x='PERIODO', y='VALOR', color="SERIE").data[0])
               INF_SEX=fechas_2(INF_SEX)
