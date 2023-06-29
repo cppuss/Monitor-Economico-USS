@@ -110,21 +110,7 @@ def gen(imacec_des,rango,titulo):
         ))
 
     
-    def format_annotation(serie, periodo, valor):
-          # Obtener el año y el mes de la fecha
-        periodo_formateado = periodo.strftime("%Y-%m")  # Cambiar el formato según tus necesidades
-        
-        # Redondear el valor a dos decimales
-        valor_formateado = round(valor, 4)
-        
-        return f'"{serie}"<br>"{periodo_formateado}"<br>{valor_formateado}'
     
-    # Agregar interactividad con anotaciones personalizadas y desactivar anotaciones predeterminadas
-    imacec_des.update_traces(
-        hovertemplate="%{text}<extra></extra>",
-        text=[format_annotation(serie, periodo, valor) for serie, periodo, valor in zip(df['SERIE'], df['PERIODO'].drop_duplicates(), df['VALOR'])],
-        hoverinfo='text'
-    )
         
     return imacec_des
 
