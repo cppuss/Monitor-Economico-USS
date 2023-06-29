@@ -115,7 +115,7 @@ def gen(imacec_des,rango,titulo):
         periodo_formateado = periodo.strftime("%Y-%m")  # Cambiar el formato según tus necesidades
         
         # Redondear el valor a dos decimales
-        valor_formateado = round(valor, 2)
+        valor_formateado = round(valor, 4)
         
         return f'"{serie}"<br>"{periodo_formateado}"<br>{valor_formateado}'
     
