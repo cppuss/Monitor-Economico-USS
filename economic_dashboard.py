@@ -1188,14 +1188,13 @@ with tab3:
                   st.plotly_chart(series_adm, theme="streamlit", use_container_width=True)
                  
 
-
-
+      
         
             if appointment_1 and sub11:
                 series_adm=data3[(data3["CATEGORIA2"]=="SERIES ADMINISTRATIVAS")&(data3["CATEGORIA3"]=="COTIZANTES")]
                 series_adm["SERIE"]=series_adm["NOMBRE_1"]
                 series_adm=series_adm.sort_values(by="PERIODO")
-                series_adm=gen(series_adm,appointment_1,"Comparación: ENE y SP")
+                series_adm=gen(series_adm,appointment_1,"Número de cotizantes")
                 series_adm=fechas_2(series_adm)
        
                 
@@ -1225,8 +1224,10 @@ with tab3:
         
         with tab37:        
             # Cargar el dataframe
+            st.markdown("<h5 style=' color: black;'> Análisis por Ministerio </h5>", unsafe_allow_html=True)
+   
 
-            df_dipres = pd.read_excel(path+'Dipres.xlsx')  # Reemplaza 'tu_archivo.csv' con la ruta y nombre de tu archivo
+            df_dipres = pd.read_excel(path+'Dipres.xlsx')  
             df_dipres=df_dipres.replace("nan",np.nan)
             df_dipres=df_dipres.replace("-",np.nan)
             del df_dipres["Periodo"]
