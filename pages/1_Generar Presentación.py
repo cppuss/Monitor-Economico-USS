@@ -20,7 +20,9 @@ from pptx.util import Pt
 import calendar
 
 st.set_page_config(layout="wide")
-st.sidebar.image("ESCUDOUSS_vertical_color.png", use_column_width=True)
+st.image("facultad.png")
+
+#st.sidebar.image("ESCUDOUSS_vertical_color.png", use_column_width=True)
 
 def add_image(slide, image, left, top, width):
     slide.shapes.add_picture(image, left=left, top=top, width=width)
