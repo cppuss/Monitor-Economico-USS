@@ -1247,8 +1247,15 @@ with tab3:
             
             
             total["PERIODO"]=total["PERIODO"].apply(convertir_a_fecha)
-            nacional=cate_nac[cate_nac["SERIE"]=="Sector privado Nacional"]
+            
 
+            
+            
+            cate_nac=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&(data3["CATEGORIA3"]=="Nacional")]
+            cate_nac["VALOR"]=cate_nac["VALOR"]*1000        
+            cate_nac["SERIE"]=cate_nac["NOMBRE_2"]
+            cate_nac=cate_nac.sort_values(by="PERIODO")
+            nacional=cate_nac[cate_nac["SERIE"]=="Sector privado Nacional"]
             st.dataframe(nacional.head(5))
             
             #total=total.append(nacional)
