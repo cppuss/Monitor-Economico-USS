@@ -28,7 +28,7 @@ st.image("logo.png")
 
 
 st.markdown("<h1 style='text-align: center; color: black;'>MONITOR ECONÓMICO USS</h1>", unsafe_allow_html=True)
-st.markdown("<h2 style='text-align: center; color: grey;'>Visualización de series económicas </h2>", unsafe_allow_html=True)
+st.markdown("<h2 style='text-align: center; color: grey;'>Visualización de información económica y coyuntural </h2>", unsafe_allow_html=True)
 
 
 
