@@ -1234,7 +1234,7 @@ with tab3:
                         format="YYYY/MM")
 
             
-            total=df.copy(deep=True)
+            total=df_dipres.copy(deep=True)
             total=total.groupby("Grupo de Interés").sum()
             total=total.stack()
             total=total.reset_index()
