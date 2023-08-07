@@ -1236,9 +1236,9 @@ with tab3:
             
             total=df_dipres.copy(deep=True)
             total=total.groupby("Grupo de Interés").sum()
-            del total['Calidad Jurídica'], total['Estamento'], total['Tipo'], total['Rango edad'],total['Sexo']
+            del total["Ministerio"],total['Calidad Jurídica'], total['Estamento'], total['Tipo'], total['Rango edad'],total['Sexo']
             
-            st.dataframe(total.head(5))
+            
            
             total=total.stack()
             total=total.reset_index()
