@@ -1270,7 +1270,7 @@ with tab3:
             for column in total.columns:
                 total.loc[first_date, column] = 1
             total=total.stack()
-
+            total=total.reset_index()
             total=gen(total,appointment_44_1,"Datos administrativos DIPRES e INE")
             total=fechas_2(total)
             st.plotly_chart(total, theme="streamlit", use_container_width=True)    
