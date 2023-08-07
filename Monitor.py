@@ -1251,7 +1251,7 @@ with tab3:
             
             
             cate_nac=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&(data3["CATEGORIA3"]=="Nacional")]
-            cate_nac["VALOR"]=cate_nac["VALOR"]*1000        
+            cate_nac["VALOR"]=cate_nac["VALOR"]  
             cate_nac["SERIE"]=cate_nac["NOMBRE_2"]
             cate_nac=cate_nac.sort_values(by="PERIODO")
             nacional=cate_nac[cate_nac["SERIE"]=="Sector privado Nacional"]
@@ -1260,18 +1260,22 @@ with tab3:
             nacional=nacional.pivot(index="PERIODO",values="VALOR",columns="SERIE")
             total=total.pivot(index="PERIODO",values="VALOR",columns="SERIE")
 
+            st.dataframe(total.head(5))   
             total=total.merge(nacional,how="left",left_index=True,right_index=True)
-
+            st.dataframe(total.head(5))
             total=total/total.shift(1)-1
             total=total.dropna()
             total=(total+1).cumprod()*100
-            
+            st.dataframe(total.head(5))
             first_date = total.index.min() - pd.DateOffset(months=3)
             for column in total.columns:
-                total.loc[first_date, column] = 1
+                total.loc[first_date, column] = 100
+            
             total=total.stack()
+            
             total=total.reset_index()
-
+            
+            total["SERIE"]=total[0]
             st.dataframe(total)
             
            # total=gen(total,appointment_44_1,"Datos administrativos DIPRES e INE")
