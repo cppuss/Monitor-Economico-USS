@@ -1243,7 +1243,7 @@ with tab3:
             total["PERIODO"]=total["PERIODO"].apply(convertir_a_fecha)
             
             
-            nacional=cate_nac["SERIE"]=="Sector privado Nacional"]
+            nacional=cate_nac[cate_nac["SERIE"]=="Sector privado Nacional"]
 
 
             total=total.append(nacional)
