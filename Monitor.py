@@ -1236,12 +1236,14 @@ with tab3:
             
             total=df_dipres.copy(deep=True)
             total=total.groupby("Grupo de Interés").sum()
-            total=total.stack()
-            total=total.reset_index()
-            
-            total=total.rename(columns={"Grupo de Interés":"SERIE","level_1":"PERIODO",0:"VALOR"})
-            
             st.dataframe(total.head(5))
+            
+            #total=total.stack()
+            #total=total.reset_index()
+            
+            #total=total.rename(columns={"Grupo de Interés":"SERIE","level_1":"PERIODO",0:"VALOR"})
+            
+            #st.dataframe(total.head(5))
             
             #total["PERIODO"]=total["PERIODO"].apply(convertir_a_fecha)
             
