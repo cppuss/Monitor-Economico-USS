@@ -1238,20 +1238,21 @@ with tab3:
             total=total.groupby("Grupo de Interés").sum()
             del total['Calidad Jurídica'], total['Estamento'], total['Tipo'], total['Rango edad'],total['Sexo']
             
+            st.dataframe(total.head(5))
+           
             total=total.stack()
             total=total.reset_index()
-            
             total=total.rename(columns={"Grupo de Interés":"SERIE","level_1":"PERIODO",0:"VALOR"})
-            
-            st.dataframe(total.head(5))
-            
-            total["PERIODO"]=total["PERIODO"].apply(convertir_a_fecha)
+        
             
             
-            nacional=cate_nac[cate_nac["SERIE"]=="Sector privado Nacional"]
+            #total["PERIODO"]=total["PERIODO"].apply(convertir_a_fecha)
+            
+            
+            #nacional=cate_nac[cate_nac["SERIE"]=="Sector privado Nacional"]
 
 
-            total=total.append(nacional)
+            #total=total.append(nacional)
 
 
 
