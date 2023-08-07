@@ -1245,7 +1245,7 @@ with tab3:
             total=total.reset_index()
             total=total.rename(columns={"Grupo de Interés":"SERIE","level_1":"PERIODO",0:"VALOR"})
             
-            
+            total=total[total["SERIE"].isin(['Totales','Resto del Gobierno Central'])]
             total["PERIODO"]=total["PERIODO"].apply(convertir_a_fecha)
             
             
