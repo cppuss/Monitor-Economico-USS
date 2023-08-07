@@ -1213,8 +1213,11 @@ with tab3:
         
         with tab37:        
             # Cargar el dataframe
-            st.markdown("<h5 style=' color: black;'> Análisis por Ministerio </h5>", unsafe_allow_html=True)
-   
+            def convertir_a_fecha(trimestre):
+                trimestre, año = trimestre.split(' ')
+                fecha = trimestres[trimestre] + '-' + año
+                return pd.to_datetime(fecha, format='%m-%d-%Y')
+    
 
             df_dipres = pd.read_excel(path+'Dipres.xlsx')  
             df_dipres=df_dipres.replace("nan",np.nan)
@@ -1223,13 +1226,46 @@ with tab3:
             df_dipres["Ministerio"] = df_dipres["Ministerio"].str[3:]
 
             
+            st.markdown("<h5 style=' color: black;'> Cifras administrativas y encuesta INE. </h5>", unsafe_allow_html=True)
+   
+            appointment_44_1 = st.slider(
+                        "Seleccione el rango de fechas        ",
+                        value=(ext_ind_rem_men_n[0],ext_ind_rem_men_n[1]),
+                        format="YYYY/MM")
+
+            
+            total=df.copy(deep=True)
+            total=total.groupby("Grupo de Interés").sum()
+            total=total.stack()
+            total=total.reset_index()
+            
+            total=total.rename(columns={"Grupo de Interés":"SERIE","level_1":"PERIODO",0:"VALOR"})
+            total["PERIODO"]=total["PERIODO"].apply(convertir_a_fecha)
+            
+            
+            nacional=cate_nac["SERIE"]=="Sector privado Nacional"]
+
+
+            total=total.append(nacional)
+
+
+
+
+            
+            
             appointment_44 = st.slider(
                         "Seleccione el rango de fechas        ",
                         value=(ext_ind_rem_men_n[0],ext_ind_rem_men_n[1]),
                         format="YYYY/MM")
 
+
+            st.markdown("<h5 style=' color: black;'> Análisis por Ministerio </h5>", unsafe_allow_html=True)
+   
+
+            
             filtro_ministerio = st.multiselect('Filtrar por Ministerio', df_dipres["Ministerio"].drop_duplicates())
-    
+
+            
             if filtro_ministerio:
                 df_filtro=df_dipres.copy(deep=True)
                 df_filtro=df_filtro[df_filtro["Ministerio"].isin(filtro_ministerio)]
@@ -1284,11 +1320,7 @@ with tab3:
                     trimestres = {'T1': '03-31', 'T2': '06-30', 'T3': '09-30', 'T4': '12-31'}
                     
                     # Función para convertir el valor de trimestre a fecha
-                    def convertir_a_fecha(trimestre):
-                        trimestre, año = trimestre.split(' ')
-                        fecha = trimestres[trimestre] + '-' + año
-                        return pd.to_datetime(fecha, format='%m-%d-%Y')
-    
+                  
             
                     df_filtro[df_filtro.columns[-2]] = df_filtro[df_filtro.columns[-2]].astype(str)  
                     df_filtro[df_filtro.columns[-2]] = df_filtro[df_filtro.columns[-2]].apply(convertir_a_fecha)
