@@ -23,7 +23,7 @@ path=""
 
 st.sidebar.image(path+"ESCUDOUSS_vertical_color.png", use_column_width=True)
 
-st.markdown("<h1 style='text-align: center; color: black;'>MONITOR ECONÓMICO CPP USS</h1>", unsafe_allow_html=True)
+st.markdown("<h1 style='text-align: center; color: black;'>MONITOR ECONÓMICO USS</h1>", unsafe_allow_html=True)
 st.markdown("<h2 style='text-align: center; color: grey;'>Visualización de series económicas </h2>", unsafe_allow_html=True)
 
 
