@@ -1229,7 +1229,7 @@ with tab3:
             st.markdown("<h5 style=' color: black;'> Cifras administrativas y encuesta INE. </h5>", unsafe_allow_html=True)
    
             appointment_44_1 = st.slider(
-                        "Seleccione el rango de fechas        ",
+                        "Seleccione el rango de fechas          ",
                         value=(ext_ind_rem_men_n[0],ext_ind_rem_men_n[1]),
                         format="YYYY/MM")
 
@@ -1237,22 +1237,15 @@ with tab3:
             total=df_dipres.copy(deep=True)
             total=total.groupby("Grupo de Interés").sum()
             del total["Ministerio"],total['Calidad Jurídica'], total['Estamento'], total['Tipo'], total['Rango edad'],total['Sexo']
-            
-            
-           
+               
             total=total.stack()
             total=total.reset_index()
             total=total.rename(columns={"Grupo de Interés":"SERIE","level_1":"PERIODO",0:"VALOR"})
-        
             
-            
-            #total["PERIODO"]=total["PERIODO"].apply(convertir_a_fecha)
-            
-            
-            #nacional=cate_nac[cate_nac["SERIE"]=="Sector privado Nacional"]
+            total["PERIODO"]=total["PERIODO"].apply(convertir_a_fecha)
+            nacional=cate_nac[cate_nac["SERIE"]=="Sector privado Nacional"]
 
-
-            #total=total.append(nacional)
+            total=total.append(nacional)
 
 
 
