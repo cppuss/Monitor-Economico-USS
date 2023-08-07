@@ -1213,6 +1213,9 @@ with tab3:
         
         with tab37:        
             # Cargar el dataframe
+            
+            trimestres = {'T1': '03-31', 'T2': '06-30', 'T3': '09-30', 'T4': '12-31'}
+                   
             def convertir_a_fecha(trimestre):
                 trimestre, año = trimestre.split(' ')
                 fecha = trimestres[trimestre] + '-' + año
@@ -1242,11 +1245,12 @@ with tab3:
             total=total.reset_index()
             total=total.rename(columns={"Grupo de Interés":"SERIE","level_1":"PERIODO",0:"VALOR"})
             
-            st.dataframe(total.head(5))
             
-            #total["PERIODO"]=total["PERIODO"].apply(convertir_a_fecha)
-            #nacional=cate_nac[cate_nac["SERIE"]=="Sector privado Nacional"]
+            total["PERIODO"]=total["PERIODO"].apply(convertir_a_fecha)
+            nacional=cate_nac[cate_nac["SERIE"]=="Sector privado Nacional"]
 
+            st.dataframe(nacional.head(5))
+            
             #total=total.append(nacional)
 
 
