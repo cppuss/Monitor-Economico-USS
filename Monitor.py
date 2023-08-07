@@ -32,11 +32,11 @@ st.markdown("<h2 style='text-align: center; color: grey;'>Visualización de seri
 
 
 
-col1, col2 = st.columns(2)
-with col1:
-    st.markdown("<h5 style='text-align: center; color: black;'>Esta sección está destinada a generar vistas gráficas de forma automatizada para la visualización y construcción de documentos. </h5>", unsafe_allow_html=True)
-with col2:
-    st.markdown("<h5 style='text-align: center; color: black;'>En la parte superior derecha de los graficos existen múltiples opciones, al inferior existe más información.. </h5>", unsafe_allow_html=True)
+#col1, col2 = st.columns(2)
+#with col1:
+#    st.markdown("<h5 style='text-align: center; color: black;'>Esta sección está destinada a generar vistas gráficas de forma automatizada para la visualización y construcción de documentos. </h5>", unsafe_allow_html=True)
+#with col2:
+#    st.markdown("<h5 style='text-align: center; color: black;'>En la parte superior derecha de los graficos existen múltiples opciones, al inferior existe más información.. </h5>", unsafe_allow_html=True)
 
 
 st.write(' ')
