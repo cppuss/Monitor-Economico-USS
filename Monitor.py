@@ -28,7 +28,7 @@ st.image("logo.png")
 
 
 st.markdown("<h1 style='text-align: center; color: black;'>MONITOR ECONÓMICO USS</h1>", unsafe_allow_html=True)
-st.markdown("<h2 style='text-align: center; color: grey;'>Visualización de información económica y coyuntural </h2>", unsafe_allow_html=True)
+st.markdown("<h2 style='text-align: center; color: grey;'>Visualización de información y series economicas. </h2>", unsafe_allow_html=True)
 
 
 
@@ -39,7 +39,6 @@ st.markdown("<h2 style='text-align: center; color: grey;'>Visualización de info
 #    st.markdown("<h5 style='text-align: center; color: black;'>En la parte superior derecha de los graficos existen múltiples opciones, al inferior existe más información.. </h5>", unsafe_allow_html=True)
 
 
-st.write(' ')
 st.write(' ')
 
 
