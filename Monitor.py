@@ -138,7 +138,7 @@ def descargar_datos(data):
     
     # Crear un botón de descarga para el archivo Excel
     st.download_button(
-        label="Descargar data",
+        label="Descargar serie(es)",
         data=output.getvalue(),
         file_name="datos.xlsx",
         mime="application/vnd.ms-excel"
@@ -219,6 +219,7 @@ nom["VALOR"]=nom["VALOR"]/nom["VALOR"].shift(4)-1
 nom=nom.dropna()
 nom["SERIE"]="PIB Trimestral (variación YoY)"
 ext_nom=extremos(nom)
+
 data_nom=nom.copy(deep=True)
 data_nom=data_nom[["PERIODO","VALOR","SERIE"]]
 
@@ -330,8 +331,8 @@ with tab1:
                componentes=eje_porcentaje(componentes)
                 
                st.plotly_chart(componentes, theme="streamlit", use_container_width=True)
+               a3=descargar_datos(data_des)
 
- 
             
      
         with col2:
@@ -352,7 +353,7 @@ with tab1:
                 des_componentes=eje_porcentaje(des_componentes)
                  
                 st.plotly_chart(des_componentes, theme="streamlit", use_container_width=True)
-
+                a4=descargar_datos(data_est)
                 
 
 
@@ -367,15 +368,11 @@ with tab1:
              st.write("""
                 Fuente: Banco Central.
              """)  
-      
-       
-                
+        
                 
     with tab13:    
         st.write('Producto Interno Bruto')
-      
         
-    
         col1, col2 = st.columns(2)
         with col1:
             appointment_1 = st.slider(
@@ -389,7 +386,7 @@ with tab1:
                 nom=eje_porcentaje(nom)
 
                 st.plotly_chart(nom, theme="streamlit", use_container_width=True)
-           
+                a4=descargar_datos(data_per)          
                 
         with col2:
             appointment_2 = st.slider(
@@ -402,7 +399,9 @@ with tab1:
                 per=fechas_2(per)
                 
                 st.plotly_chart(per, theme="streamlit", use_container_width=True)
-          
+                a5=descargar_datos(data_nom)         
+
+        
         appointment_3 = st.slider(
                  "Seleccione el rango de fechas  ",
                  value=(ext_nom_2[0],ext_nom_2[1]),
@@ -411,12 +410,15 @@ with tab1:
         nom_2=fechas_2(nom_2)
         
         st.plotly_chart(nom_2, theme="streamlit", use_container_width=True)
-   
+        a6=descargar_datos(data_nom_2)     
 
+        
         with st.expander("Detalle"):
              st.write("""
                 Fuente: Banco Central.
              """)   
+
+    
     with tab14:    
          st.write('Componentes PIB ')
          appointment = st.slider(
@@ -428,7 +430,7 @@ with tab1:
            principales=gen_bar(principales,appointment,"Componentes del PIB")
            principales=eje_porcentaje(principales)
            st.plotly_chart(principales, theme="streamlit", use_container_width=True)
-          
+           a7=descargar_datos(ext_dataprincipales)    
            with st.expander("Detalle"):
                  st.write("""
                     Fuente: Banco Central.
@@ -450,6 +452,8 @@ with tab1:
            prod_bienes=eje_porcentaje(componentes14)
            
            st.plotly_chart(componentes14, theme="streamlit", use_container_width=True)
+           a7=descargar_datos(data_data14)  
+             
            with st.expander("Detalle"):
              st.write("""
                 Fuente: Banco Central.
@@ -483,7 +487,6 @@ with tab1:
          where=(AÑO["PERIODO"].dt.month==12)|(AÑO["PERIODO"]==AÑO["PERIODO"].iloc[-1])
          AÑO=AÑO[where]
 
-
          AÑO=AÑO.dropna()
          AÑO["SERIE"]="Valor Anual"
           
@@ -503,6 +506,8 @@ with tab1:
                 añocontraaño=fechas_2(añocontraaño)
                 añocontraaño=eje_porcentaje(añocontraaño)
                 st.plotly_chart(añocontraaño, theme="streamlit", use_container_width=True)
+                
+                 
             
          with col2:
              if appointment:
@@ -513,7 +518,7 @@ with tab1:
                 AÑO=gen_bar(AÑO,appointment,"Flujo de inversión directa anual en dólares")
                 AÑO=fechas_2(AÑO)
                 st.plotly_chart(AÑO, theme="streamlit", use_container_width=True)
-
+                
       
          with st.expander("Detalle"):
                 st.write("""
