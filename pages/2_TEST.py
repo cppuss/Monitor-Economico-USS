@@ -17,7 +17,7 @@ st.markdown("<h1 style='text-align: center; color: black;'>Pruebas</h1>", unsafe
 
 st.write(' ')
 
+data=pd.read_parquet(datos_monitor_1.parquet)
+data=data[data["SERIE"]==""]
 
-
-
-st.download_button(label, data, file_name=None,
+st.download_button("descargar", data, file_name=None)
