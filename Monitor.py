@@ -279,9 +279,8 @@ with tab1:
                imacec_or_1=fechas_2(imacec_or_1)
                imacec_or_1=eje_porcentaje(imacec_or_1)
              
-                
                st.plotly_chart(imacec_or_1, theme="streamlit", use_container_width=True)
-               descargar_datos(data_imacec_or)
+               a=descargar_datos(data_imacec_or)
 
                 
         with col2:
@@ -291,7 +290,7 @@ with tab1:
               imacec_des=fechas_2(imacec_des)
               imacec_des=eje_porcentaje(imacec_des)
               st.plotly_chart(imacec_des, theme="streamlit", use_container_width=True)
-              descargar_datos(data_imacec_des)
+              a2=descargar_datos(data_imacec_des)
          
         
         
