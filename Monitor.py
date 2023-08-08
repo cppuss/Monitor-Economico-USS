@@ -253,7 +253,6 @@ prin=["Agropecuario-silvícola ","Pesca","Minería","Industria Manufacturera","E
 "Servicios de vivienda e inmobiliarios","Servicios personales","Administración pública","Impuestos sobre los productos"]
 
 principales=data15[data15["NOMBRE_2"].isin(prin)]
-data_data15=principales.copy(deep=True)
 ext_dataprincipales=extremos(principales)
 principales["SERIE"]=principales["NOMBRE_2"]
 
@@ -431,7 +430,7 @@ with tab1:
            principales=gen_bar(principales,appointment,"Componentes del PIB")
            principales=eje_porcentaje(principales)
            st.plotly_chart(principales, theme="streamlit", use_container_width=True)
-           a7=descargar_datos(data_data15)    
+               
            with st.expander("Detalle"):
                  st.write("""
                     Fuente: Banco Central.
