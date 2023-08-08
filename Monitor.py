@@ -1260,13 +1260,13 @@ with tab3:
             nacional=nacional.pivot(index="PERIODO",values="VALOR",columns="SERIE")
             total=total.pivot(index="PERIODO",values="VALOR",columns="SERIE")
 
-            st.dataframe(total.head(5))   
+            
             total=total.merge(nacional,how="left",left_index=True,right_index=True)
-            st.dataframe(total.head(5))
+            
             total=total/total.shift(1)-1
             total=total.dropna()
             total=(total+1).cumprod()*100
-            st.dataframe(total.head(5))
+            
             first_date = total.index.min() - pd.DateOffset(months=3)
             for column in total.columns:
                 total.loc[first_date, column] = 100
@@ -1275,12 +1275,12 @@ with tab3:
             
             total=total.reset_index()
             
-            #total["SERIE"]=total[0]
+            total["VALOR"]=total[0]
             st.dataframe(total)
             
-           # total=gen(total,appointment_44_1,"Datos administrativos DIPRES e INE")
-           # total=fechas_2(total)
-           # st.plotly_chart(total, theme="streamlit", use_container_width=True)    
+            total=gen(total,appointment_44_1,"Datos administrativos DIPRES e INE")
+            total=fechas_2(total)
+            st.plotly_chart(total, theme="streamlit", use_container_width=True)    
            
             
 
