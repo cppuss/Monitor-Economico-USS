@@ -658,22 +658,24 @@ with tab2:
         with col1:
             
             if appointment_1:
+                datainf_men=inf_men.copy(deep=True)
                 inf_men=gen(inf_men,appointment_1,"Variación porcentual IPC mensual")
                 inf_men=fechas_2(inf_men)
                 inf_men=eje_porcentaje(inf_men)
 
                 st.plotly_chart(inf_men, theme="streamlit", use_container_width=True)
-
+                a8=descargar_datos(datainf_men)  
                       
         with col2:
             
             if appointment_1:
+                datacomp_men=comp_men.copy(deep=True)
                 comp_men=gen(comp_men,appointment_1,"Variación porcentual componentes IPC mensual")
                 comp_men=fechas_2(comp_men)
                 comp_men=eje_porcentaje(comp_men)
                 
                 st.plotly_chart(comp_men, theme="streamlit", use_container_width=True)
-                
+                a8=descargar_datos(datacomp_men) 
 
              
         with st.expander("Detalle"):
@@ -742,30 +744,32 @@ with tab3:
         with col1:
             
             if appointment_1:
+                dataoc=oc.copy(deep=True)
                 oc=gen(oc,appointment_1,"Tasa de desocupación")
                 oc=fechas_2(oc)
                 oc=eje_porcentaje(oc)
         
                 st.plotly_chart(oc, theme="streamlit", use_container_width=True)
-
+                a=descargar_datos(dataoc) 
                       
         with col2:
             
             if appointment_1:
+                datades=des.copy(deep=True)
                 des=gen(des,appointment_1,"Tasas de ocupación y participación")
                 des=fechas_2(des)
                 des=eje_porcentaje(des)
                 
                 st.plotly_chart(des, theme="streamlit", use_container_width=True)
-                
+                a=descargar_datos(datades)     
 
          
-        
+        dataemp_bruto=emp_bruto.copy(deep=True)
         emp_bruto=gen(emp_bruto,appointment_1,"Desagregación población en Edad de Trabajar")
         emp_bruto=fechas_2(emp_bruto)
-
-        st.plotly_chart(emp_bruto, theme="streamlit", use_container_width=True)
         
+        st.plotly_chart(emp_bruto, theme="streamlit", use_container_width=True)
+        a=descargar_datos(dataemp_bruto)     
   
       
         
@@ -819,23 +823,25 @@ with tab3:
        with col1:
            
            if appointment_1:
+               dataoc=oc.copy(deep=True)
                oc=gen(oc,appointment_1,"Tasas de desocupación")
                oc=fechas_2(oc)
                oc=eje_porcentaje(oc)
        
                st.plotly_chart(oc, theme="streamlit", use_container_width=True)
-
+               a=descargar_datos(dataoc)     
 
                      
        with col2:
            
            if appointment_1:
+               datades=des.copy(deep=True)
                des=gen(des,appointment_1,"Tasas de ocupación y participación")
                des=fechas_2(des)
                des=eje_porcentaje(des)
                
                st.plotly_chart(des, theme="streamlit", use_container_width=True)
-               
+               a=descargar_datos(datades)
 
 
        
@@ -847,22 +853,24 @@ with tab3:
                emp_bruto=data3[(data3["CATEGORIA2"]=="EMPLEO - BRUTOS")&~(data3["CATEGORIA3"]=="Nacional")]
                emp_bruto["SERIE"]=emp_bruto["NOMBRE_2"]
                emp_bruto=emp_bruto[(emp_bruto["NOMBRE_1"].isin([user_input[0]+" Hombres",user_input[0]+" Mujeres"]))]
+               dataemp_bruto=emp_bruto.copy(deep=True)
                emp_bruto=gen(emp_bruto,appointment_1,"Comparación por sexo: "+user_input[0])
                emp_bruto=fechas_2(emp_bruto)
         
                st.plotly_chart(emp_bruto, theme="streamlit", use_container_width=True)
-               
+               a=descargar_datos(dataemp_bruto)
 
     
            if len(user_input)==2:
                emp_bruto=data3[(data3["CATEGORIA2"]=="EMPLEO - BRUTOS")&~(data3["CATEGORIA3"]=="Nacional")]
                emp_bruto["SERIE"]=emp_bruto["NOMBRE_2"]
                emp_bruto=emp_bruto[(emp_bruto["NOMBRE_1"].isin([user_input[0]+" Hombres",user_input[0]+" Mujeres",user_input[1]+" Hombres",user_input[1]+" Mujeres"]))]
+               dataemp_bruto=emp_bruto.copy(deep=True)
                emp_bruto=gen(emp_bruto,appointment_1,"Comparación por sexo: "+user_input[0] +" y "+user_input[1])
                emp_bruto=fechas_2(emp_bruto)
          
                st.plotly_chart(emp_bruto, theme="streamlit", use_container_width=True)
-                
+               a=descargar_datos(dataemp_bruto) 
 
 
            if len(user_input)>2:
@@ -877,11 +885,12 @@ with tab3:
                    series.append(muj)
                        
                emp_bruto=emp_bruto[(emp_bruto["NOMBRE_1"].isin(series))]
+               dataemp_bruto=emp_bruto.copy(deep=True)
                emp_bruto=gen(emp_bruto,appointment_1,"Comparación métricas por sexo")
                emp_bruto=fechas_2(emp_bruto)
          
                st.plotly_chart(emp_bruto, theme="streamlit", use_container_width=True)
-                
+               a=descargar_datos(dataemp_bruto) 
 
              
        
@@ -932,12 +941,14 @@ with tab3:
               
         
         if appointment_3:
+            datainformalidad=informalidad.copy(deep=True)
             informalidad=gen(informalidad,appointment_3,"Tasas de Informalidad")
             informalidad=fechas_2(informalidad)
             informalidad=eje_porcentaje(informalidad)
             
             st.plotly_chart(informalidad, theme="streamlit", use_container_width=True)
-    
+            a=descargar_datos(datainformalidad) 
+
     with tab34:
             
         cate_nac=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&(data3["CATEGORIA3"]=="Nacional")]
@@ -955,13 +966,13 @@ with tab3:
                      format="YYYY/MM")
         
         if appointment_5:
+             datacate_nac=cate_nac.copy(deep=True)
              cate_nac=gen(cate_nac,appointment_5,"Categorías de ocupados")
              cate_nac=fechas_2(cate_nac)
 
              
              st.plotly_chart(cate_nac, theme="streamlit", use_container_width=True)
-             
-
+             a=descargar_datos(datacate_nac)
         
         
 
@@ -989,21 +1000,23 @@ with tab3:
                 cate_sex["SERIE"]=cate_sex["NOMBRE_1"]
               
                 cate_sex=cate_sex[(cate_sex["NOMBRE_1"].isin([user_input[0]+" Hombres",user_input[0]+" Mujeres"]))]
+                datacate_sex=cate_sex.copy(deep=True)
                 cate_sex=gen(cate_sex,appointment_6,"Comparación ocupados por sexo: "+user_input[0])
                 cate_sex=fechas_2(cate_sex)
          
                 st.plotly_chart(cate_sex, theme="streamlit", use_container_width=True)
-                
+                a=descargar_datos(datacate_sex)
            
             if len(user_input)==2:
                 cate_sex=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&~(data3["CATEGORIA3"]=="(AS)")]
                 cate_sex["SERIE"]=cate_sex["NOMBRE_1"]
                 cate_sex=cate_sex[(cate_sex["NOMBRE_1"].isin([user_input[0]+" Hombres",user_input[0]+" Mujeres",user_input[1]+" Hombres",user_input[1]+" Mujeres"]))]
+                datacate_sex=cate_sex.copy(deep=True)
                 cate_sex=gen(cate_sex,appointment_6,"Comparación ocupados por sexo: "+user_input[0] +" y "+user_input[1])
                 cate_sex=fechas_2(cate_sex)
           
                 st.plotly_chart(cate_sex, theme="streamlit", use_container_width=True)
-                 
+                a=descargar_datos(datacate_sex)
 
  
             if len(user_input)>2:
@@ -1018,11 +1031,12 @@ with tab3:
                     series.append(muj)
                         
                 cate_sex=cate_sex[(cate_sex["NOMBRE_1"].isin(series))]
+                datacate_sex=cate_sex.copy(deep=True)
                 cate_sex=gen(cate_sex,appointment_6,"Comparación ocupados por sexo")
                 cate_sex=fechas_2(cate_sex)
           
                 st.plotly_chart(cate_sex, theme="streamlit", use_container_width=True)
-                 
+                a=descargar_datos(datacate_sex) 
              
         
 
@@ -1065,23 +1079,25 @@ with tab3:
             with col1:
                 
                 if appointment_44:
+                    dataind_rem_men_r=ind_rem_men_r.copy(deep=True)
                     ind_rem_men_r=gen(ind_rem_men_r,appointment_44,"Variación real mensual Índice de remuneraciones")
                     ind_rem_men_r=fechas_2(ind_rem_men_r)
                     ind_rem_men_r=eje_porcentaje(ind_rem_men_r)
             
                     st.plotly_chart(ind_rem_men_r, theme="streamlit", use_container_width=True)
-
+                    a=descargar_datos(dataind_rem_men_r)
 
                           
             with col2:
                 
                 if appointment_44:
+                    dataind_rem_men_n=ind_rem_men_n.copy(deep=True)
                     ind_rem_men_n=gen(ind_rem_men_n,appointment_44,"Variación nominal mensual Índice de remuneraciones")
                     ind_rem_men_n=fechas_2(ind_rem_men_n)
                     ind_rem_men_n=eje_porcentaje(ind_rem_men_n)
                     
                     st.plotly_chart(ind_rem_men_n, theme="streamlit", use_container_width=True)
-
+                    a=descargar_datos(dataind_rem_men_n)
 
           
             ind_rem_men_r=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="REAL")]
@@ -1121,22 +1137,24 @@ with tab3:
             with col1:
                 
                 if appointment_44:
+                    dataind_rem_men_r=ind_rem_men_r.copy(deep=True)
                     ind_rem_men_r=gen(ind_rem_men_r,appointment_44,"Variación real anual Índice de remuneraciones")
                     ind_rem_men_r=fechas_2(ind_rem_men_r)
                     ind_rem_men_r=eje_porcentaje(ind_rem_men_r)
             
                     st.plotly_chart(ind_rem_men_r, theme="streamlit", use_container_width=True)
-                  
-                          
+                    a=descargar_datos(dataind_rem_men_r)
+                              
             with col2:
                 
                 if appointment_44:
+                    dataind_rem_men_n=ind_rem_men_n.copy(deep=True)
                     ind_rem_men_n=gen(ind_rem_men_n,appointment_44,"Variación nomianl anual Índice de remuneraciones")
                     ind_rem_men_n=fechas_2(ind_rem_men_n)
                     ind_rem_men_n=eje_porcentaje(ind_rem_men_n)
                     
                     st.plotly_chart(ind_rem_men_n, theme="streamlit", use_container_width=True)
-
+                    a=descargar_datos(dataind_rem_men_n)
       
         with tab36:
             st.markdown("<h5 style=' color: black;'>Comparación de los resultados de la Encuesta Nacional de Empleo (INE) con las series administrativas de la Superintendencia de Pensiones (SP). </h5>", unsafe_allow_html=True)
@@ -1159,12 +1177,13 @@ with tab3:
             sub11 = st.checkbox(label='Incluir límite inferior y superior')
     
             if appointment_1 and not sub11:
+                  
                   series_adm=gen(series_adm,appointment_1,"Número de cotizantes")
                   series_adm=fechas_2(series_adm)
     
                  
                   st.plotly_chart(series_adm, theme="streamlit", use_container_width=True)
-                 
+                  
 
       
         
@@ -1177,7 +1196,7 @@ with tab3:
        
                 
                 st.plotly_chart(series_adm, theme="streamlit", use_container_width=True)
-            
+                
 
 
       
@@ -1197,8 +1216,8 @@ with tab3:
             series_adm_2=eje_porcentaje(series_adm_2)
            
             st.plotly_chart(series_adm_2, theme="streamlit", use_container_width=True)
-           
-            #df_xlsx9 = to_excel(data_series_adm_2)    
+            
+            
         
         with tab37:        
             # Cargar el dataframe
