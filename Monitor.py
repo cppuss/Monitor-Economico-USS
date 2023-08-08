@@ -1247,8 +1247,8 @@ with tab3:
             
             total=total[total["SERIE"].isin(['Totales','Resto del Gobierno Central'])]
             
-            total.loc[total["SERIE"]=='Totales',"SERIE]="Total Gobierno Central"
-            total.loc[total["SERIE"]=='Resto del Gobierno Central',"SERIE]="Gobierno Central (excluye servicios de educación y salud)"
+            total.loc[total["SERIE"]=='Totales',"SERIE"]="Total Gobierno Central"
+            total.loc[total["SERIE"]=='Resto del Gobierno Central',"SERIE"]="Gobierno Central (excluye servicios de educación y salud)"
 
 
             
