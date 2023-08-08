@@ -1222,7 +1222,7 @@ with tab3:
 
             if appointment_44_1:
                 
-                df_dipres = pd.read_excel(path+'Dipres.xlsx')  
+                df_dipres = pd.read_excel('Dipres.xlsx')  
                 df_dipres=df_dipres.replace("nan",np.nan)
                 df_dipres=df_dipres.replace("-",np.nan)
                 del df_dipres["Periodo"]
