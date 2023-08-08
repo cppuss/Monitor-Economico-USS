@@ -125,9 +125,9 @@ def descargar_datos(data):
 
     
     # Escribir el DataFrame en el archivo Excel
-    for i, col in enumerate(df.columns):
+    for i, col in enumerate(data.columns):
         worksheet.write(0, i, col)  # Escribir encabezados
-        for j, value in enumerate(df[col]):
+        for j, value in enumerate(data[col]):
             if col == 'PERIODO':
                 worksheet.write_datetime(j + 1, i, value, date_format)
             else:
