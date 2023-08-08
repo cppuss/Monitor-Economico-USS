@@ -70,7 +70,7 @@ today = date.today()
 
 
 
-data=pd.read_parquet("datos_monitor.parquet")
+data=pd.read_parquet("datos_monitor_1.parquet")
 
 
 data1=data[data["CATEGORIA"]=="ACTIVIDAD ECONOMICA"]
