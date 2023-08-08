@@ -142,6 +142,12 @@ def gen_bar(imacec_des,rango,titulo):
 
 
 def descargar_datos(data):
+    serie_nombre = data['SERIE'].iloc[0]
+    data.rename(columns={'VALOR': serie_nombre}, inplace=True)
+
+    # Eliminar la columna 'SERIE'
+    data.drop(columns=['SERIE'], inplace=True)
+
     output = BytesIO()
     workbook = xlsxwriter.Workbook(output, {'in_memory': True})
     worksheet = workbook.add_worksheet()
