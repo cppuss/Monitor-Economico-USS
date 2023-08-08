@@ -1264,7 +1264,7 @@ with tab3:
                 
                 nacional=nacional.pivot(index="PERIODO",values="VALOR",columns="SERIE")
                 total=total.pivot(index="PERIODO",values="VALOR",columns="SERIE")
-    
+                total=total[total>appointment_44_1[0]]
                 
                 total=total.merge(nacional,how="left",left_index=True,right_index=True)
                 
