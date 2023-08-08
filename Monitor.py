@@ -1224,7 +1224,7 @@ with tab3:
            
             st.plotly_chart(series_adm_2, theme="streamlit", use_container_width=True)
            
-            df_xlsx9 = to_excel(data_series_adm_2)    
+            #df_xlsx9 = to_excel(data_series_adm_2)    
         
         with tab37:        
             # Cargar el dataframe
