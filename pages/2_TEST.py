@@ -42,13 +42,13 @@ def descargar_datos(data):
     
     # Crear un botón de descarga para el archivo Excel
     st.download_button(
-        label="Descargar archivo Excel",
+        label="Descargar data",
         data=output.getvalue(),
         file_name="datos.xlsx",
         mime="application/vnd.ms-excel"
     )
 
-a=descargar_datos(data)
+#a=descargar_datos(data)
 
 
 
