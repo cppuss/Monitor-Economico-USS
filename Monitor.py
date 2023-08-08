@@ -12,7 +12,7 @@ import plotly.express as px
 import numpy as np
 from io import BytesIO
 from datetime import datetime
-
+import xlsxwriter
 
 
 
@@ -139,17 +139,32 @@ def gen_bar(imacec_des,rango,titulo):
         ))
     return imacec_des
 
-def to_excel(df):
+
+
+def descargar_datos(data):
     output = BytesIO()
-    writer = pd.ExcelWriter(output, engine='xlsxwriter')
-    df.to_excel(writer, index=False, sheet_name='Sheet1')
-    workbook = writer.book
-    worksheet = writer.sheets['Sheet1']
-    format1 = workbook.add_format({'num_format': '0.00'}) 
-    worksheet.set_column('A:A', None, format1)  
-    #writer.save()
-    processed_data = output.getvalue()
-    return processed_data
+    workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+    worksheet = workbook.add_worksheet()
+    
+    
+    # Escribir el DataFrame en el archivo Excel
+    for i, col in enumerate(data.columns):
+        worksheet.write(0, i, col)  # Escribir encabezados
+        for j, value in enumerate(data[col]):
+            worksheet.write(j + 1, i, value)  # Escribir valores
+    
+    workbook.close()
+    
+    
+    # Crear un botón de descarga para el archivo Excel
+    st.download_button(
+        label="Descargar data",
+        data=output.getvalue(),
+        file_name="datos.xlsx",
+        mime="application/vnd.ms-excel"
+    )
+
+
 
 
 
@@ -290,7 +305,7 @@ with tab1:
              
                 
                st.plotly_chart(imacec_or_1, theme="streamlit", use_container_width=True)
-
+               descargar_datos(data_imacec_des)
 
                 
         with col2:
