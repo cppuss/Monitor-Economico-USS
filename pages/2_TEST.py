@@ -18,6 +18,6 @@ st.markdown("<h1 style='text-align: center; color: black;'>Pruebas</h1>", unsafe
 st.write(' ')
 
 data=pd.read_parquet("datos_monitor_1.parquet")
-data=data[data["CATEGORIA3"]="NACIONAL"]
+data=data[data["CATEGORIA3"]=="NACIONAL"]
 
 st.download_button("descargar", data, file_name=None)
