@@ -1275,7 +1275,7 @@ with tab3:
             
             total=total.reset_index()
             
-            total["SERIE"]=total[0]
+            #total["SERIE"]=total[0]
             st.dataframe(total)
             
            # total=gen(total,appointment_44_1,"Datos administrativos DIPRES e INE")
