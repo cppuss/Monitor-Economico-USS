@@ -25,28 +25,32 @@ st.dataframe(data)
 
 import xlsxwriter
 
+def descargar_datos(data):
+    output = BytesIO()
+    workbook = xlsxwriter.Workbook(output, {'in_memory': True})
+    worksheet = workbook.add_worksheet()
+    
+    
+    # Escribir el DataFrame en el archivo Excel
+    for i, col in enumerate(data.columns):
+        worksheet.write(0, i, col)  # Escribir encabezados
+        for j, value in enumerate(data[col]):
+            worksheet.write(j + 1, i, value)  # Escribir valores
+    
+    workbook.close()
+    
+    
+    # Crear un botón de descarga para el archivo Excel
+    st.download_button(
+        label="Descargar archivo Excel",
+        data=output.getvalue(),
+        file_name="datos.xlsx",
+        mime="application/vnd.ms-excel"
+    )
 
-output = BytesIO()
-workbook = xlsxwriter.Workbook(output, {'in_memory': True})
-worksheet = workbook.add_worksheet()
+a=descargar_datos(data)
 
 
-# Escribir el DataFrame en el archivo Excel
-for i, col in enumerate(data.columns):
-    worksheet.write(0, i, col)  # Escribir encabezados
-    for j, value in enumerate(data[col]):
-        worksheet.write(j + 1, i, value)  # Escribir valores
-
-workbook.close()
-
-
-# Crear un botón de descarga para el archivo Excel
-st.download_button(
-    label="Descargar archivo Excel",
-    data=output.getvalue(),
-    file_name="datos.xlsx",
-    mime="application/vnd.ms-excel"
-)
 
 
 
