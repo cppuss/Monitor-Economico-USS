@@ -261,8 +261,8 @@ prin=["Agropecuario-silvícola ","Pesca","Minería","Industria Manufacturera","E
 "Servicios de vivienda e inmobiliarios","Servicios personales","Administración pública","Impuestos sobre los productos"]
 
 principales=data15[data15["NOMBRE_2"].isin(prin)]
-ext_dataprincipales=extremos(principales)
-principales["SERIE"]=principales["NOMBRE_2"]
+#ext_dataprincipales=extremos(principales)
+#principales["SERIE"]=principales["NOMBRE_2"]
 
 
 
