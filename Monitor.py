@@ -1246,9 +1246,13 @@ with tab3:
             total=total.rename(columns={"Grupo de Interés":"SERIE","level_1":"PERIODO",0:"VALOR"})
             
             total=total[total["SERIE"].isin(['Totales','Resto del Gobierno Central'])]
+            
+            total.loc[total["SERIE"]=='Totales',"SERIE]="Total Gobierno Central"
+            total.loc[total["SERIE"]=='Resto del Gobierno Central',"SERIE]="Gobierno Central (excluye servicios de educación y salud)"
+
+
+            
             total["PERIODO"]=total["PERIODO"].apply(convertir_a_fecha)
-            
-            
             
             cate_nac=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&(data3["CATEGORIA3"]=="Nacional")]
             cate_nac["VALOR"]=cate_nac["VALOR"]  
@@ -1266,6 +1270,7 @@ with tab3:
             total=total/total.shift(1)-1
             total=total.dropna()
             total=(total+1).cumprod()*100
+
             
             first_date = total.index.min() - pd.DateOffset(months=3)
             for column in total.columns:
@@ -1276,7 +1281,7 @@ with tab3:
             total=total.reset_index()
             
             total["VALOR"]=total[0]
-            st.dataframe(total)
+            total=total.sort_values(by="PERIODO")
             
             total=gen(total,appointment_44_1,"Datos administrativos DIPRES e INE")
             total=fechas_2(total)
