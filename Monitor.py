@@ -122,6 +122,7 @@ def descargar_datos(data):
     # Eliminar la columna 'SERIE'
     #data.drop(columns=['SERIE'], inplace=True)
     data=data.pivot(index="PERIODO",columns="SERIE",values="VALOR")
+    data=data.reset_index()
     output = BytesIO()
     workbook = xlsxwriter.Workbook(output, {'in_memory': True})
     worksheet = workbook.add_worksheet()
@@ -386,7 +387,7 @@ with tab1:
                 nom=eje_porcentaje(nom)
 
                 st.plotly_chart(nom, theme="streamlit", use_container_width=True)
-                a4=descargar_datos(data_per)          
+                a4=descargar_datos(data_nom)          
                 
         with col2:
             appointment_2 = st.slider(
@@ -399,7 +400,7 @@ with tab1:
                 per=fechas_2(per)
                 
                 st.plotly_chart(per, theme="streamlit", use_container_width=True)
-                a5=descargar_datos(data_nom)         
+                a5=descargar_datos(data_per)         
 
         
         appointment_3 = st.slider(
@@ -552,26 +553,15 @@ comp_2=com_anu[~com_anu["SERIE"].isin(["IPC sin volátiles","IPC volátil"])]
 
 ext_inf_men=extremos(inf_men)
 data_inf_men=inf_men.copy(deep=True)
-data_inf_men=data_inf_men[["PERIODO","VALOR","SERIE"]]
-
 
 ext_inf_anu=extremos(inf_anu)
 data_inf_anu=inf_anu.copy(deep=True)
-data_inf_anu=data_inf_anu[["PERIODO","VALOR","SERIE"]]
-
 
 ext_com_inf_men=extremos(comp_men)
 data_comp_men=comp_men.copy(deep=True)
-data_comp_men=data_comp_men[["PERIODO","VALOR","SERIE"]]
-
 
 ext_com_inf_anu=extremos(com_anu)
 data_com_anu=com_anu.copy(deep=True)
-data_com_anu=data_com_anu[["PERIODO","VALOR","SERIE"]]
-
-
-
-
 
 with tab2:
     st.write('En esta sección se encuentras las distitnas componentes de inflación')
@@ -595,7 +585,7 @@ with tab2:
                 inf_anu=eje_porcentaje(inf_anu)
 
                 st.plotly_chart(inf_anu, theme="streamlit", use_container_width=True)
-
+                a7=descargar_datos(data_inf_anu)  
         
         with col2:
             
@@ -605,13 +595,15 @@ with tab2:
                 com_anu=eje_porcentaje(com_anu)
                 
                 st.plotly_chart(com_anu, theme="streamlit", use_container_width=True)
-            
-    
+                a7=descargar_datos(data_com_anu)     
+                
         with col1:
            
            if appointment_1:
                comp_1.loc[comp_1['NOMBRE_2'] == "IPC sin volátiles", 'VALOR'] = comp_1.loc[comp_1['NOMBRE_2'] == "IPC sin volátiles", 'VALOR']*0.651
                comp_1.loc[comp_1['NOMBRE_2'] == "IPC volátil", 'VALOR'] = comp_1.loc[comp_1['NOMBRE_2'] == "IPC volátil", 'VALOR']*0.349
+               
+               datacomp_1=comp_1.copy(deep=True)
                comp_1=gen_bar(comp_1,appointment_1,"Variación anual IPC: volátiles y sin volátiles")
               
                inf_anu_=inf_anu1[(inf_anu1["PERIODO"] >= appointment_1[0])&(inf_anu1["PERIODO"]<=appointment_1[1])]
@@ -622,7 +614,7 @@ with tab2:
                comp_1=eje_porcentaje(comp_1)
     
                st.plotly_chart(comp_1, theme="streamlit", use_container_width=True)
-    
+               a7=descargar_datos(datacomp_1)      
        
         with col2:
            
@@ -633,7 +625,9 @@ with tab2:
                comp_2.loc[comp_2['NOMBRE_2'] == "IPC Alimentos volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] =="IPC Alimentos volátiles" , 'VALOR']*0.101
                comp_2.loc[comp_2['NOMBRE_2'] == "IPC Energía volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] =="IPC Energía volátiles", 'VALOR']*0.075
                comp_2.loc[comp_2['NOMBRE_2'] == "IPC Resto de volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] == "IPC Resto de volátiles", 'VALOR']*0.172
+               datacomp_2=comp_2.copy(deep=True)
 
+               
                comp_2=gen_bar(comp_2,appointment_1,"Variación anual de componentes secundarias IPC")
               
                inf_anu_=inf_anu1[(inf_anu1["PERIODO"] >= appointment_1[0])&(inf_anu1["PERIODO"]<=appointment_1[1])]
@@ -644,7 +638,7 @@ with tab2:
                comp_2=eje_porcentaje(comp_2)
     
                st.plotly_chart(comp_2, theme="streamlit", use_container_width=True)
-    
+               a7=descargar_datos(datacomp_2)     
                
         with st.expander("Detalle"):
                  st.write("""
