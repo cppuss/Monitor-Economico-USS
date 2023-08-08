@@ -927,12 +927,13 @@ with tab3:
 
         
         if appointment_inf:
+              dataINF_SEX=INF_SEX.copy(deep=True)
               INF_SEX=gen_bar(INF_SEX,appointment,"Número de informales")
               INF=INF[(INF["PERIODO"] >= appointment_inf[0])&(INF["PERIODO"]<=appointment_inf[1])]
               INF_SEX.add_trace(px.line(INF, x='PERIODO', y='VALOR', color="SERIE").data[0])
               INF_SEX=fechas_2(INF_SEX)
               st.plotly_chart(INF_SEX, theme="streamlit", use_container_width=True)
-            
+              a=descargar_datos(datainformalidad) 
         appointment_3 = st.slider(
                     "Seleccione el rango de fechas   ",
                     value=(ext_infor[0],ext_infor[1]),
