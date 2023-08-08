@@ -14,33 +14,13 @@ from io import BytesIO
 from datetime import datetime
 import xlsxwriter
 
-
-
 st.set_page_config(layout="wide")
-path=""
 
 st.image("logo.png")
 
-
-# st.sidebar.image(path+"ESCUDOUSS_vertical_color.png", use_column_width=True)
-
-
-
-
 st.markdown("<h1 style='text-align: center; color: black;'>MONITOR ECONÓMICO USS</h1>", unsafe_allow_html=True)
-st.markdown("<h2 style='text-align: center; color: grey;'>Visualización de información y series economicas. </h2>", unsafe_allow_html=True)
-
-
-
-#col1, col2 = st.columns(2)
-#with col1:
-#    st.markdown("<h5 style='text-align: center; color: black;'>Esta sección está destinada a generar vistas gráficas de forma automatizada para la visualización y construcción de documentos. </h5>", unsafe_allow_html=True)
-#with col2:
-#    st.markdown("<h5 style='text-align: center; color: black;'>En la parte superior derecha de los graficos existen múltiples opciones, al inferior existe más información.. </h5>", unsafe_allow_html=True)
-
 
 st.write(' ')
-
 
 def fechas_1(grafico):
     grafico.update_xaxes(
@@ -112,12 +92,8 @@ def gen(imacec_des,rango,titulo):
             x=0.01
         ))
 
-    
-    
-        
     return imacec_des
-
-
+    
 def gen_bar(imacec_des,rango,titulo):
     imacec_des=imacec_des[(imacec_des["PERIODO"] >=rango[0])&(imacec_des["PERIODO"] <= rango[1])]    
     imacec_des = px.bar(imacec_des, x="PERIODO", y="VALOR", color="SERIE", title='Mi gráfico de línea', 
@@ -139,15 +115,13 @@ def gen_bar(imacec_des,rango,titulo):
         ))
     return imacec_des
 
-
-
 def descargar_datos(data):
-    serie_nombre = data['SERIE'].iloc[0]
-    data.rename(columns={'VALOR': serie_nombre}, inplace=True)
+    #serie_nombre = data['SERIE'].iloc[0]
+    #data.rename(columns={'VALOR': serie_nombre}, inplace=True)
 
     # Eliminar la columna 'SERIE'
-    data.drop(columns=['SERIE'], inplace=True)
-
+    #data.drop(columns=['SERIE'], inplace=True)
+    data=data.pivot(index="PERIODO",columns="SERIE",values="VALOR")
     output = BytesIO()
     workbook = xlsxwriter.Workbook(output, {'in_memory': True})
     worksheet = workbook.add_worksheet()
@@ -169,10 +143,6 @@ def descargar_datos(data):
         file_name="datos.xlsx",
         mime="application/vnd.ms-excel"
     )
-
-
-
-
 
 
 
@@ -311,7 +281,7 @@ with tab1:
              
                 
                st.plotly_chart(imacec_or_1, theme="streamlit", use_container_width=True)
-               descargar_datos(data_imacec_des)
+               descargar_datos(data_imacec_or)
 
                 
         with col2:
@@ -321,7 +291,7 @@ with tab1:
               imacec_des=fechas_2(imacec_des)
               imacec_des=eje_porcentaje(imacec_des)
               st.plotly_chart(imacec_des, theme="streamlit", use_container_width=True)
-
+              descargar_datos(data_imacec_des)
          
         
         
