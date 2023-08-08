@@ -1236,58 +1236,59 @@ with tab3:
                         value=(ext_ind_rem_men_n[0],ext_ind_rem_men_n[1]),
                         format="YYYY/MM")
 
-            
-            total=df_dipres.copy(deep=True)
-            total=total.groupby("Grupo de Interés").sum()
-            del total["Ministerio"],total['Calidad Jurídica'], total['Estamento'], total['Tipo'], total['Rango edad'],total['Sexo']
+            if appointment_44_1:
+                total=df_dipres.copy(deep=True)
+                total=total.groupby("Grupo de Interés").sum()
+                del total["Ministerio"],total['Calidad Jurídica'], total['Estamento'], total['Tipo'], total['Rango edad'],total['Sexo']
+                   
+                total=total.stack()
+                total=total.reset_index()
+                total=total.rename(columns={"Grupo de Interés":"SERIE","level_1":"PERIODO",0:"VALOR"})
+                
+                total=total[total["SERIE"].isin(['Totales','Resto del Gobierno Central'])]
+                
+                total.loc[total["SERIE"]=='Totales',"SERIE"]="Total Gobierno Central"
+                total.loc[total["SERIE"]=='Resto del Gobierno Central',"SERIE"]="Gobierno Central (excluye servicios de educación y salud)"
+    
+    
+                
+                total["PERIODO"]=total["PERIODO"].apply(convertir_a_fecha)
+                
+                cate_nac=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&(data3["CATEGORIA3"]=="Nacional")]
+                cate_nac["VALOR"]=cate_nac["VALOR"]  
+                cate_nac["SERIE"]=cate_nac["NOMBRE_2"]
+                cate_nac=cate_nac.sort_values(by="PERIODO")
+                nacional=cate_nac[cate_nac["SERIE"]=="Sector privado Nacional"]
+                nacional=nacional[["SERIE","PERIODO","VALOR"]]
+                
+                nacional=nacional.pivot(index="PERIODO",values="VALOR",columns="SERIE")
+                total=total.pivot(index="PERIODO",values="VALOR",columns="SERIE")
+    
+                
+                total=total.merge(nacional,how="left",left_index=True,right_index=True)
+                
+                total=total/total.shift(1)-1
+                total=total.dropna()
+                total=(total+1).cumprod()*100
+    
+                
+                first_date = total.index.min() - pd.DateOffset(months=3)
+                for column in total.columns:
+                    total.loc[first_date, column] = 100
+                
+                total=total.stack()
+                
+                total=total.reset_index()
+                
+                total["VALOR"]=total[0]
+                total=total.sort_values(by="PERIODO")
+                
+                total=gen(total,appointment_44_1,"Datos administrativos DIPRES e INE")
+                total=fechas_2(total)
+                st.plotly_chart(total, theme="streamlit", use_container_width=True)    
                
-            total=total.stack()
-            total=total.reset_index()
-            total=total.rename(columns={"Grupo de Interés":"SERIE","level_1":"PERIODO",0:"VALOR"})
-            
-            total=total[total["SERIE"].isin(['Totales','Resto del Gobierno Central'])]
-            
-            total.loc[total["SERIE"]=='Totales',"SERIE"]="Total Gobierno Central"
-            total.loc[total["SERIE"]=='Resto del Gobierno Central',"SERIE"]="Gobierno Central (excluye servicios de educación y salud)"
-
-
-            
-            total["PERIODO"]=total["PERIODO"].apply(convertir_a_fecha)
-            
-            cate_nac=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&(data3["CATEGORIA3"]=="Nacional")]
-            cate_nac["VALOR"]=cate_nac["VALOR"]  
-            cate_nac["SERIE"]=cate_nac["NOMBRE_2"]
-            cate_nac=cate_nac.sort_values(by="PERIODO")
-            nacional=cate_nac[cate_nac["SERIE"]=="Sector privado Nacional"]
-            nacional=nacional[["SERIE","PERIODO","VALOR"]]
-            
-            nacional=nacional.pivot(index="PERIODO",values="VALOR",columns="SERIE")
-            total=total.pivot(index="PERIODO",values="VALOR",columns="SERIE")
-
-            
-            total=total.merge(nacional,how="left",left_index=True,right_index=True)
-            
-            total=total/total.shift(1)-1
-            total=total.dropna()
-            total=(total+1).cumprod()*100
-
-            
-            first_date = total.index.min() - pd.DateOffset(months=3)
-            for column in total.columns:
-                total.loc[first_date, column] = 100
-            
-            total=total.stack()
-            
-            total=total.reset_index()
-            
-            total["VALOR"]=total[0]
-            total=total.sort_values(by="PERIODO")
-            
-            total=gen(total,appointment_44_1,"Datos administrativos DIPRES e INE")
-            total=fechas_2(total)
-            st.plotly_chart(total, theme="streamlit", use_container_width=True)    
-           
-            
+            else:
+                pass
 
 
             
