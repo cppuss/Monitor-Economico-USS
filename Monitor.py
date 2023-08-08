@@ -116,23 +116,23 @@ def gen_bar(imacec_des,rango,titulo):
     return imacec_des
 
 def descargar_datos(data):
-    #serie_nombre = data['SERIE'].iloc[0]
-    #data.rename(columns={'VALOR': serie_nombre}, inplace=True)
-
-    # Eliminar la columna 'SERIE'
-    #data.drop(columns=['SERIE'], inplace=True)
     data=data.pivot(index="PERIODO",columns="SERIE",values="VALOR")
     data=data.reset_index()
     output = BytesIO()
     workbook = xlsxwriter.Workbook(output, {'in_memory': True})
     worksheet = workbook.add_worksheet()
-    
+    date_format = workbook.add_format({'num_format': 'dd/mm/yyyy'})
+
     
     # Escribir el DataFrame en el archivo Excel
-    for i, col in enumerate(data.columns):
+    for i, col in enumerate(df.columns):
         worksheet.write(0, i, col)  # Escribir encabezados
-        for j, value in enumerate(data[col]):
-            worksheet.write(j + 1, i, value)  # Escribir valores
+        for j, value in enumerate(df[col]):
+            if col == 'PERIODO':
+                worksheet.write_datetime(j + 1, i, value, date_format)
+            else:
+                worksheet.write(j + 1, i, value)  # Escribir valores
+
     
     workbook.close()
     
