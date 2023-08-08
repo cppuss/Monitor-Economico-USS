@@ -27,21 +27,28 @@ import xlsxwriter
 
 
 output = BytesIO()
-
-# Write files to in-memory strings using BytesIO
-# See: https://xlsxwriter.readthedocs.io/workbook.html?highlight=BytesIO#constructor
 workbook = xlsxwriter.Workbook(output, {'in_memory': True})
 worksheet = workbook.add_worksheet()
 
-worksheet.write('A1', 'Hello')
+
+# Escribir el DataFrame en el archivo Excel
+for i, col in enumerate(data.columns):
+    worksheet.write(0, i, col)  # Escribir encabezados
+    for j, value in enumerate(data[col]):
+        worksheet.write(j + 1, i, value)  # Escribir valores
+
 workbook.close()
 
+
+# Crear un botón de descarga para el archivo Excel
 st.download_button(
-    label="Download Excel workbook",
+    label="Descargar archivo Excel",
     data=output.getvalue(),
-    file_name="workbook.xlsx",
+    file_name="datos.xlsx",
     mime="application/vnd.ms-excel"
 )
+
+
 
 
 
