@@ -1222,12 +1222,6 @@ with tab3:
                 return pd.to_datetime(fecha, format='%m-%d-%Y')
     
 
-            df_dipres = pd.read_excel(path+'Dipres.xlsx')  
-            df_dipres=df_dipres.replace("nan",np.nan)
-            df_dipres=df_dipres.replace("-",np.nan)
-            del df_dipres["Periodo"]
-            df_dipres["Ministerio"] = df_dipres["Ministerio"].str[3:]
-
             
             st.markdown("<h5 style=' color: black;'> Cifras administrativas y encuesta INE. </h5>", unsafe_allow_html=True)
    
@@ -1237,6 +1231,13 @@ with tab3:
                         format="YYYY/MM")
 
             if appointment_44_1:
+                
+                df_dipres = pd.read_excel(path+'Dipres.xlsx')  
+                df_dipres=df_dipres.replace("nan",np.nan)
+                df_dipres=df_dipres.replace("-",np.nan)
+                del df_dipres["Periodo"]
+                df_dipres["Ministerio"] = df_dipres["Ministerio"].str[3:]
+
                 total=df_dipres.copy(deep=True)
                 total=total.groupby("Grupo de Interés").sum()
                 del total["Ministerio"],total['Calidad Jurídica'], total['Estamento'], total['Tipo'], total['Rango edad'],total['Sexo']
