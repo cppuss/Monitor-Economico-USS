@@ -332,16 +332,16 @@ if sub1:
                 oc=eje_porcentaje(oc)
 
                 emp_tasas_nac2=data3[(data3["CATEGORIA2"]=="EMPLEO - TASAS")&~(data3["CATEGORIA3"]=="Nacional")]
-                oc2=emp_tasas_nac2[emp_tasas_nac2["NOMBRE_1"].isin(["Tasa de desocupación H","Tasa de desocupación M"])]
+                oc2=emp_tasas_nac2[emp_tasas_nac2["NOMBRE_1"].isin(["Tasa de desocupación Hombres","Tasa de desocupación Mujeres"])]
                 
-                ult_oc_h=emp_tasas_nac2[emp_tasas_nac2["NOMBRE_1"]=="Tasa de desocupación H"]["VALOR"].iloc[-1]
-                ult_oc_m=emp_tasas_nac2[emp_tasas_nac2["NOMBRE_1"]=="Tasa de desocupación M"]["VALOR"].iloc[-1]
+                ult_oc_h=emp_tasas_nac2[emp_tasas_nac2["NOMBRE_1"]=="Tasa de desocupación Hombres"]["VALOR"].iloc[-1]
+                ult_oc_m=emp_tasas_nac2[emp_tasas_nac2["NOMBRE_1"]=="Tasa de desocupación Mujeres"]["VALOR"].iloc[-1]
    
                 oc2["SERIE"]=oc2["NOMBRE_2"]
                 oc2=gen(oc2,appointment_3,"Tasas de desocupación por género")
                 oc2=eje_porcentaje(oc2)
 
-                informalidad=data3[(data3["CATEGORIA2"]=="INFORMALIDAD")&(data3["NOMBRE_1"]=="Tasa de informalidad (AS)")]
+                informalidad=data3[(data3["CATEGORIA2"]=="INFORMALIDAD")&(data3["NOMBRE_1"]=="Tasa de informalidad Nacional")]
 
                 
                 ult_informalidad=informalidad["VALOR"].iloc[-1]
@@ -351,10 +351,10 @@ if sub1:
                 informalidad=gen(informalidad,appointment_3,"Tasa de Informalidad")
                 informalidad=eje_porcentaje(informalidad)
                 
-                informalidad2=data3[(data3["CATEGORIA2"]=="INFORMALIDAD")&~(data3["NOMBRE_1"]=="Tasa de informalidad (AS)")]
+                informalidad2=data3[(data3["CATEGORIA2"]=="INFORMALIDAD")&~(data3["NOMBRE_1"]=="Tasa de informalidad Nacional")]
                 
-                ult_informalidad_h=informalidad2[informalidad2["NOMBRE_1"]=="Tasa de informalidad (H)"]["VALOR"].iloc[-1]    
-                ult_informalidad_m=informalidad2[informalidad2["NOMBRE_1"]=="Tasa de informalidad (M)"]["VALOR"].iloc[-1]    
+                ult_informalidad_h=informalidad2[informalidad2["NOMBRE_1"]=="Tasa de informalidad Hombres"]["VALOR"].iloc[-1]    
+                ult_informalidad_m=informalidad2[informalidad2["NOMBRE_1"]=="Tasa de informalidad Mujeres"]["VALOR"].iloc[-1]    
                 
                 informalidad2["SERIE"]=informalidad2["NOMBRE_2"]
                 informalidad2=informalidad2.sort_values(by="PERIODO")
@@ -366,8 +366,8 @@ if sub1:
 
                 ind_rem_men_r=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="REAL")]
                 ind_rem_men_n=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="NOMINAL")]
-                ind_rem_men_r["SERIE"]="Variación real Y/Y"     
-                ind_rem_men_n["SERIE"]="Variación nominal Y/Y"    
+                ind_rem_men_r["SERIE"]="Variación anual real "     
+                ind_rem_men_n["SERIE"]="Variación anual nominal "    
                 ind_rem_men_r["VALOR"]=ind_rem_men_r["VALOR"]/ind_rem_men_r["VALOR"].shift(12)-1
                 ind_rem_men_r=ind_rem_men_r.dropna()
                 ind_rem_men_n["VALOR"]=ind_rem_men_n["VALOR"]/ind_rem_men_n["VALOR"].shift(12)-1
@@ -376,10 +376,10 @@ if sub1:
                 ind_rem_men_n=ind_rem_men_n.sort_values(by="PERIODO")
                 ult_remuneraciones=ind_rem_men_r["VALOR"].iloc[-1]
 
-                ind_rem_men_r=gen(ind_rem_men_r,appointment_3,"Variación anual Índice de remuneraciones [real]")
+                ind_rem_men_r=gen(ind_rem_men_r,appointment_3,"Variación anual real Índice de remuneraciones")
                 ind_rem_men_r=eje_porcentaje(ind_rem_men_r)
 
-                ind_rem_men_n=gen(ind_rem_men_n,appointment_3,"Variación anual Índice de remuneraciones [nom]")
+                ind_rem_men_n=gen(ind_rem_men_n,appointment_3,"Variación anual nominal Índice de remuneraciones")
                 ind_rem_men_n=eje_porcentaje(ind_rem_men_n)
             except:
                 pass
