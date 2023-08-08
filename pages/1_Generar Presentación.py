@@ -20,7 +20,7 @@ from pptx.util import Pt
 import calendar
 
 st.set_page_config(layout="wide")
-st.image("facultad.png")
+st.image("logo.png")
 
 #st.sidebar.image("ESCUDOUSS_vertical_color.png", use_column_width=True)
 
