@@ -136,23 +136,9 @@ if options[2] in user_input:
 sub1 = st.checkbox(label='Exportar como presentación')
 
 if sub1:
-    genre = st.radio(
-        "Seleccionar un formato",
-        ('Formato CPP', 'Formato Facultad'))
-
-    col1, col2 = st.columns(2)
-    with col1:
-       st.subheader("Plantilla Centro Políticas Públicas")
-       st.image("cpp.png")
-
-    with col2:
-       st.subheader("Plantilla Facultad Economía y Gobierno")
-       st.image("facultad.png")
-
+    
     title_1 = st.text_input('Título de la presentación', 'Informe de Actividad Económica')
     submit = st.button(label='GENERAR PRESENTACIÓN')
-
-
 
     if submit and user_input == "":
         st.warning("Selecionar una portada")
@@ -400,14 +386,11 @@ if sub1:
             
             
 
-            if genre=="Formato CPP" :           
-                prs=Presentation("plantilla-cpp.pptx")
-                xml_slides = prs.slides._sldIdLst  
-                slides = list(xml_slides)
-            else: 
-                prs=Presentation("plantilla-facultad.pptx")
-                xml_slides = prs.slides._sldIdLst  
-                slides = list(xml_slides)
+        
+            prs=Presentation("plantilla-cpp.pptx")
+            xml_slides = prs.slides._sldIdLst  
+            slides = list(xml_slides)
+
 
             #GENERAR PRESENTACIÓN
             slide = prs.slides[0]
@@ -582,10 +565,6 @@ if sub1:
                 user_input_3=pd.DataFrame(user_input_3)
             except:
                 pass
-       #     try:       
-       #         user_input_4=pd.DataFrame(user_input_4)
-        #    except:
-        #        pass
 
 
             sacar=[]
