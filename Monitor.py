@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+                                         #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 Created on Tue Apr 18 12:09:40 2023
@@ -1202,13 +1202,13 @@ with tab3:
                 series_adm=data3[(data3["CATEGORIA2"]=="SERIES ADMINISTRATIVAS")&(data3["CATEGORIA3"]=="COTIZANTES")]
                 series_adm["SERIE"]=series_adm["NOMBRE_1"]
                 series_adm=series_adm.sort_values(by="PERIODO")
-                dataseries_adm=series_adm.copy(deep=True)
+                dataseries_adm2=series_adm.copy(deep=True)
                 series_adm=gen(series_adm,appointment_1,"Número de cotizantes")
                 series_adm=fechas_2(series_adm)
        
                 
                 st.plotly_chart(series_adm, theme="streamlit", use_container_width=True)
-                a2=descargar_datos(dataseries_adm)
+                a2=descargar_datos(dataseries_adm2)
             
 
 
@@ -1228,7 +1228,7 @@ with tab3:
            
             st.plotly_chart(series_adm_2, theme="streamlit", use_container_width=True)
             
-            a3=descargar_datos(datacuentas)
+            a3=descargar_datos(dataseries_adm_2)
             
         
         with tab37:        
