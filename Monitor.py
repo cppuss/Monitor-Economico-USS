@@ -137,13 +137,17 @@ def descargar_datos(data):
     
     workbook.close()
     
-    today = date.today()
-    
+    # Obtenemos la fecha y hora actual
+    now = datetime.now()
+
+    # Formateamos la fecha y hora en el formato deseado
+    ahora = now.strftime("%m-%d-%H-%M")
+
     # Crear un botón de descarga para el archivo Excel
     st.download_button(
         label="Descargar series",
         data=output.getvalue(),
-        file_name="series_monitor_{}.xlsx".format(today),
+        file_name="series_monitor_{}.xlsx".format(ahora),
         mime="application/vnd.ms-excel"
     )
 
