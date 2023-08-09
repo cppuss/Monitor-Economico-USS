@@ -139,7 +139,7 @@ def descargar_datos(data):
     
     # Crear un botón de descarga para el archivo Excel
     st.download_button(
-        label="Descargar serie(es)",
+        label="Descargar series",
         data=output.getvalue(),
         file_name="datos.xlsx",
         mime="application/vnd.ms-excel"
