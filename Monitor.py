@@ -1202,13 +1202,13 @@ with tab3:
                 series_adm=data3[(data3["CATEGORIA2"]=="SERIES ADMINISTRATIVAS")&(data3["CATEGORIA3"]=="COTIZANTES")]
                 series_adm["SERIE"]=series_adm["NOMBRE_1"]
                 series_adm=series_adm.sort_values(by="PERIODO")
-                #dataseries_adm=series_adm.copy(deep=True)
+                a=descargar_datos(series_adm) 
                 series_adm=gen(series_adm,appointment_1,"Número de cotizantes")
                 series_adm=fechas_2(series_adm)
        
                 
                 st.plotly_chart(series_adm, theme="streamlit", use_container_width=True)
-                #a=descargar_datos(dataseries_adm) 
+               
 
 
       
@@ -1220,13 +1220,13 @@ with tab3:
      
             ext_series_adm_2=extremos(series_adm_2)
             
-            dataseries_adm_2=series_adm_2.copy()
+            a2=descargar_datos(series_adm_2) 
             series_adm_2=gen(series_adm_2,appointment_1,"Variación anual del número de cotizantes: ENE y SP")
             series_adm_2=fechas_2(series_adm_2)
             series_adm_2=eje_porcentaje(series_adm_2)
            
             st.plotly_chart(series_adm_2, theme="streamlit", use_container_width=True)
-            a2=descargar_datos(dataseries_adm_2) 
+            
 
             
         
