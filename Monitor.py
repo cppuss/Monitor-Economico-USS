@@ -933,7 +933,7 @@ with tab3:
               INF_SEX.add_trace(px.line(INF, x='PERIODO', y='VALOR', color="SERIE").data[0])
               INF_SEX=fechas_2(INF_SEX)
               st.plotly_chart(INF_SEX, theme="streamlit", use_container_width=True)
-              a=descargar_datos(datainformalidad) 
+              a=descargar_datos(dataINF_SEX) 
         appointment_3 = st.slider(
                     "Seleccione el rango de fechas   ",
                     value=(ext_infor[0],ext_infor[1]),
