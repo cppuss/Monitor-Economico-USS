@@ -1220,13 +1220,13 @@ with tab3:
      
             ext_series_adm_2=extremos(series_adm_2)
             
-            data_series_adm_2=series_adm_2.copy(deep=True)
+            dataseries_adm_2=series_adm_2
             series_adm_2=gen(series_adm_2,appointment_1,"Variación anual del número de cotizantes: ENE y SP")
             series_adm_2=fechas_2(series_adm_2)
             series_adm_2=eje_porcentaje(series_adm_2)
            
             st.plotly_chart(series_adm_2, theme="streamlit", use_container_width=True)
-            a=descargar_datos(data_series_adm_2) 
+            a2=descargar_datos(dataseries_adm_2) 
 
             
         
