@@ -1219,7 +1219,6 @@ with tab3:
             series_adm_2=series_adm_2.sort_values(by="PERIODO")
      
             ext_series_adm_2=extremos(series_adm_2)
-            data_series_adm_2=data_series_adm_2[["PERIODO","VALOR","SERIE"]]
             
             data_series_adm_2=series_adm_2.copy(deep=true)
             series_adm_2=gen(series_adm_2,appointment_1,"Variación anual del número de cotizantes: ENE y SP")
