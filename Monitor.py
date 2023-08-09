@@ -1188,13 +1188,13 @@ with tab3:
             sub11 = st.checkbox(label='Incluir límite inferior y superior')
     
             if appointment_1 and not sub11:
-                  dataseries_adm=series_adm.copy(deep=True)
+                  #dataseries_adm=series_adm.copy(deep=True)
                   series_adm=gen(series_adm,appointment_1,"Número de cotizantes")
                   series_adm=fechas_2(series_adm)
     
                  
                   st.plotly_chart(series_adm, theme="streamlit", use_container_width=True)
-                  a=descargar_datos(dataseries_adm) 
+                  #a2=descargar_datos(dataseries_adm) 
 
       
         
@@ -1202,13 +1202,13 @@ with tab3:
                 series_adm=data3[(data3["CATEGORIA2"]=="SERIES ADMINISTRATIVAS")&(data3["CATEGORIA3"]=="COTIZANTES")]
                 series_adm["SERIE"]=series_adm["NOMBRE_1"]
                 series_adm=series_adm.sort_values(by="PERIODO")
-                dataseries_adm=series_adm.copy(deep=True)
+                #dataseries_adm=series_adm.copy(deep=True)
                 series_adm=gen(series_adm,appointment_1,"Número de cotizantes")
                 series_adm=fechas_2(series_adm)
        
                 
                 st.plotly_chart(series_adm, theme="streamlit", use_container_width=True)
-                a=descargar_datos(dataseries_adm) 
+                #a=descargar_datos(dataseries_adm) 
 
 
       
