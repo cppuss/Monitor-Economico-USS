@@ -1188,13 +1188,13 @@ with tab3:
             sub11 = st.checkbox(label='Incluir límite inferior y superior')
     
             if appointment_1 and not sub11:
-                  #dataseries_adm=series_adm.copy(deep=True)
+                  dataseries_adm=series_adm.copy(deep=True)
                   series_adm=gen(series_adm,appointment_1,"Número de cotizantes")
                   series_adm=fechas_2(series_adm)
     
                  
                   st.plotly_chart(series_adm, theme="streamlit", use_container_width=True)
-                  #a2=descargar_datos(dataseries_adm) 
+                  a22=descargar_datos(dataseries_adm) 
 
       
         
@@ -1202,13 +1202,14 @@ with tab3:
                 series_adm=data3[(data3["CATEGORIA2"]=="SERIES ADMINISTRATIVAS")&(data3["CATEGORIA3"]=="COTIZANTES")]
                 series_adm["SERIE"]=series_adm["NOMBRE_1"]
                 series_adm=series_adm.sort_values(by="PERIODO")
-                
+                dataseries_adm=series_adm.copy(deep=True)
                 series_adm=gen(series_adm,appointment_1,"Número de cotizantes")
                 series_adm=fechas_2(series_adm)
        
                 
                 st.plotly_chart(series_adm, theme="streamlit", use_container_width=True)
-               
+                a2=descargar_datos(dataseries_adm)
+            
 
 
       
@@ -1220,14 +1221,14 @@ with tab3:
      
             ext_series_adm_2=extremos(series_adm_2)
 
-             
+            dataseries_adm_2=series_adm_2.copy(deep=True)
             series_adm_2=gen(series_adm_2,appointment_1,"Variación anual del número de cotizantes: ENE y SP")
             series_adm_2=fechas_2(series_adm_2)
             series_adm_2=eje_porcentaje(series_adm_2)
            
             st.plotly_chart(series_adm_2, theme="streamlit", use_container_width=True)
             
-
+            a3=descargar_datos(datacuentas)
             
         
         with tab37:        
@@ -1459,9 +1460,9 @@ with tab4:
         datacuentas=cuentas.copy(deep=True)
         cuentas=gen(cuentas,appointment_1,"Número de cuentas corrientes - Personas")
         cuentas=fechas_2(cuentas)
-        a3=descargar_datos(datacuentas)
+        
         st.plotly_chart(cuentas, theme="streamlit", use_container_width=True)
-              
+        a3=descargar_datos(datacuentas)     
             
         
         datacuentas_2=cuentas_2.copy(deep=True)
