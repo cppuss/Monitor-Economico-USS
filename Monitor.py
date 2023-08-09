@@ -1459,7 +1459,7 @@ with tab4:
         datacuentas=cuentas.copy(deep=True)
         cuentas=gen(cuentas,appointment_1,"Número de cuentas corrientes - Personas")
         cuentas=fechas_2(cuentas)
-        a=descargar_datos(datadesagregadas)
+        a=descargar_datos(datacuentas)
         st.plotly_chart(cuentas, theme="streamlit", use_container_width=True)
               
             
@@ -1469,7 +1469,7 @@ with tab4:
         cuentas_2=fechas_2(cuentas_2)
 
         st.plotly_chart(cuentas_2, theme="streamlit", use_container_width=True)
-        a=descargar_datos(datadesagregadas)
+        a=descargar_datos(datacuentas_2)
 
         
     
