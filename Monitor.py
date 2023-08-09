@@ -1219,8 +1219,9 @@ with tab3:
             series_adm_2=series_adm_2.sort_values(by="PERIODO")
      
             ext_series_adm_2=extremos(series_adm_2)
-            
-            a2=descargar_datos(series_adm_2) 
+
+            st.dataframe(series_adm_2)
+            #a2=descargar_datos(series_adm_2) 
             series_adm_2=gen(series_adm_2,appointment_1,"Variación anual del número de cotizantes: ENE y SP")
             series_adm_2=fechas_2(series_adm_2)
             series_adm_2=eje_porcentaje(series_adm_2)
