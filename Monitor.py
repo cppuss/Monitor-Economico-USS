@@ -1399,7 +1399,7 @@ with tab3:
                     
                     
                     st.plotly_chart(df_filtro, theme="streamlit", use_container_width=True)
-                    a=descargar_datos(datatotal) 
+                    a=descargar_datos(datadf_filtro) 
             except:
                 pass
 
