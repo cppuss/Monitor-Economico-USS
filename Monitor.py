@@ -13,6 +13,7 @@ import numpy as np
 from io import BytesIO
 from datetime import datetime
 import xlsxwriter
+from datetime import date
 
 st.set_page_config(layout="wide")
 
@@ -136,12 +137,13 @@ def descargar_datos(data):
     
     workbook.close()
     
+    today = date.today()
     
     # Crear un botón de descarga para el archivo Excel
     st.download_button(
         label="Descargar series",
         data=output.getvalue(),
-        file_name="datos.xlsx",
+        file_name="series_monitor_{}.xlsx".format(today),
         mime="application/vnd.ms-excel"
     )
 
