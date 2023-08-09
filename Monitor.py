@@ -1220,7 +1220,7 @@ with tab3:
      
             ext_series_adm_2=extremos(series_adm_2)
             
-            dataseries_adm_2=series_adm_2
+            dataseries_adm_2=series_adm_2.copy()
             series_adm_2=gen(series_adm_2,appointment_1,"Variación anual del número de cotizantes: ENE y SP")
             series_adm_2=fechas_2(series_adm_2)
             series_adm_2=eje_porcentaje(series_adm_2)
