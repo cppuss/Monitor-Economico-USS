@@ -502,7 +502,7 @@ with tab1:
                 datainv_directa=inv_directa.copy(deep=True)
                 inv_directa=gen_bar(inv_directa,appointment,"Flujo inversión directa mensual en dólares")
                 inv_directa=fechas_2(inv_directa)
-                a7=descargar_datos(data_data14)  
+                a7=descargar_datos(datainv_directa)  
                 st.plotly_chart(inv_directa, theme="streamlit", use_container_width=True)
                 dataañocontraaño=añocontraaño.copy(deep=True)
                 añocontraaño=gen_bar(añocontraaño,appointment,"Variación anual inversion extranjera en dólares")
