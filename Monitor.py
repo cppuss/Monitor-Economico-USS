@@ -141,7 +141,7 @@ def descargar_datos(data):
     now = datetime.now()
 
     # Formateamos la fecha y hora en el formato deseado
-    ahora = now.strftime("%m-%d-%H-%M")
+    ahora = now.strftime("%a-%m-%d")
 
     # Crear un botón de descarga para el archivo Excel
     st.download_button(
@@ -1188,13 +1188,13 @@ with tab3:
             sub11 = st.checkbox(label='Incluir límite inferior y superior')
     
             if appointment_1 and not sub11:
-                  
+                  dataseries_adm=series_adm.copy(deep=True)
                   series_adm=gen(series_adm,appointment_1,"Número de cotizantes")
                   series_adm=fechas_2(series_adm)
     
                  
                   st.plotly_chart(series_adm, theme="streamlit", use_container_width=True)
-                  
+                  a=descargar_datos(dataseries_adm) 
 
       
         
@@ -1202,12 +1202,13 @@ with tab3:
                 series_adm=data3[(data3["CATEGORIA2"]=="SERIES ADMINISTRATIVAS")&(data3["CATEGORIA3"]=="COTIZANTES")]
                 series_adm["SERIE"]=series_adm["NOMBRE_1"]
                 series_adm=series_adm.sort_values(by="PERIODO")
+                dataseries_adm=series_adm.copy(deep=True)
                 series_adm=gen(series_adm,appointment_1,"Número de cotizantes")
                 series_adm=fechas_2(series_adm)
        
                 
                 st.plotly_chart(series_adm, theme="streamlit", use_container_width=True)
-                
+                a=descargar_datos(dataseries_adm) 
 
 
       
@@ -1221,13 +1222,14 @@ with tab3:
             data_series_adm_2=series_adm_2.copy(deep=True)
             data_series_adm_2=data_series_adm_2[["PERIODO","VALOR","SERIE"]]
             
-            
+            datraseries_adm_2=series_adm_2.copy(deep=true)
             series_adm_2=gen(series_adm_2,appointment_1,"Variación anual del número de cotizantes: ENE y SP")
             series_adm_2=fechas_2(series_adm_2)
             series_adm_2=eje_porcentaje(series_adm_2)
            
             st.plotly_chart(series_adm_2, theme="streamlit", use_container_width=True)
-            
+            a=descargar_datos(data_series_adm_2) 
+
             
         
         with tab37:        
@@ -1302,11 +1304,11 @@ with tab3:
                 
                 total["VALOR"]=total[0]
                 total=total.sort_values(by="PERIODO")
-                
+                datatotal=total.copy(deep=True)
                 total=gen(total,appointment_44_1,"Datos administrativos DIPRES e INE")
                 total=fechas_2(total)
                 st.plotly_chart(total, theme="streamlit", use_container_width=True)    
-               
+                a=descargar_datos(datatotal) 
             else:
                 pass
 
@@ -1392,12 +1394,13 @@ with tab3:
                     
                     # Aplicar la función a cada fila del DataFrame
                     df_filtro['SERIE'] = df_filtro.apply(concatenar_filas, axis=1)
-            
+                    datadf_filtro=df_filtro.copy(deep=True)               
                     df_filtro=gen(df_filtro,appointment_44,"Datos administrativos DIPRES")
                     df_filtro=fechas_2(df_filtro)
                     
                     
                     st.plotly_chart(df_filtro, theme="streamlit", use_container_width=True)
+                    a=descargar_datos(datatotal) 
             except:
                 pass
 
@@ -1455,20 +1458,20 @@ with tab4:
                     "Seleccione el rango de fechas",
                     value=(ext_cuentas[0],ext_cuentas[1]),
                     format="YYYY/MM")
-
+        datacuentas=cuentas.copy(deep=True)
         cuentas=gen(cuentas,appointment_1,"Número de cuentas corrientes - Personas")
         cuentas=fechas_2(cuentas)
-
+        a=descargar_datos(datadesagregadas)
         st.plotly_chart(cuentas, theme="streamlit", use_container_width=True)
               
             
         
-        
+        datacuentas_2=cuentas_2.copy(deep=True)
         cuentas_2=gen(cuentas_2,appointment_1,"Número de cuentas corrientes - Empresas")
         cuentas_2=fechas_2(cuentas_2)
 
         st.plotly_chart(cuentas_2, theme="streamlit", use_container_width=True)
-
+        a=descargar_datos(datadesagregadas)
 
         
     
@@ -1479,18 +1482,18 @@ with tab4:
                     "Seleccione el rango de fechas ",
                     value=(ext_desagregadas[0],ext_desagregadas[1]),
                     format="YYYY/MM")
-    
+        datadesagregadas=desagregadas.copy(deep=True)
         desagregadas=gen(desagregadas,appointment_33,"Número de cuentas corrientes - Personas - Componentes")
         desagregadas=fechas_2(desagregadas)
     
         st.plotly_chart(desagregadas, theme="streamlit", use_container_width=True)
-    
-    
+        a=descargar_datos(datadesagregadas)
+        datadesagregadas_2=desagregadas_2.copy(deep=True)
         desagregadas_2=gen(desagregadas_2,appointment_33,"Número de cuentas corrientes - Empresas - Componentes")
         desagregadas_2=fechas_2(desagregadas_2)
     
         st.plotly_chart(desagregadas_2, theme="streamlit", use_container_width=True)
-        
+        a=descargar_datos(datadesagregadas_2)
 
         
         
