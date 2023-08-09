@@ -317,7 +317,7 @@ with tab1:
         with col1:
            if appointment:
                st.markdown("<h5 style=' color: black;'>Series estacionales. </h5>", unsafe_allow_html=True)
-
+               a3=descargar_datos(data_des)
                prod_bienes=gen_bar(prod_bienes,appointment,"Componentes de la variación anual: Producción de bienes")
                prod_bienes_2=prod_bienes_2[(prod_bienes_2["PERIODO"]>= appointment[0])&(prod_bienes_2["PERIODO"]<= appointment[1])]
                prod_bienes.add_trace(px.line(prod_bienes_2, x='PERIODO', y='VALOR', color="SERIE").data[0])
@@ -332,14 +332,14 @@ with tab1:
                componentes=eje_porcentaje(componentes)
                 
                st.plotly_chart(componentes, theme="streamlit", use_container_width=True)
-               a3=descargar_datos(data_des)
+               
 
             
      
         with col2:
             if appointment:
                 st.markdown("<h5 style=' color: black;'>Series desestacionalizadas. </h5>", unsafe_allow_html=True)
-
+                a4=descargar_datos(data_est)
                 des_prod_bienes=gen_bar(des_prod_bienes,appointment,"Componentes de la variación anual: Producción de bienes")
                 des_prod_bienes_2_=des_prod_bienes_2[(des_prod_bienes_2["PERIODO"]>= appointment[0])&(des_prod_bienes_2["PERIODO"]<= appointment[1])]
                 des_prod_bienes.add_trace(px.line(des_prod_bienes_2_, x='PERIODO', y='VALOR', color="SERIE").data[0])
@@ -354,7 +354,7 @@ with tab1:
                 des_componentes=eje_porcentaje(des_componentes)
                  
                 st.plotly_chart(des_componentes, theme="streamlit", use_container_width=True)
-                a4=descargar_datos(data_est)
+               
                 
 
 
@@ -428,10 +428,11 @@ with tab1:
                 format="YYYY/MM")
   
          if appointment:
+           dataprincipales=principales.copy(deep=True)
            principales=gen_bar(principales,appointment,"Componentes del PIB")
            principales=eje_porcentaje(principales)
            st.plotly_chart(principales, theme="streamlit", use_container_width=True)
-               
+           a6=descargar_datos(dataprincipales)      
            with st.expander("Detalle"):
                  st.write("""
                     Fuente: Banco Central.
@@ -498,28 +499,31 @@ with tab1:
          col1, col2 = st.columns(2)
          with col1:
              if appointment:
+                datainv_directa=inv_directa.copy(deep=True)
                 inv_directa=gen_bar(inv_directa,appointment,"Flujo inversión directa mensual en dólares")
                 inv_directa=fechas_2(inv_directa)
-
+                a7=descargar_datos(data_data14)  
                 st.plotly_chart(inv_directa, theme="streamlit", use_container_width=True)
-
+                dataañocontraaño=añocontraaño.copy(deep=True)
                 añocontraaño=gen_bar(añocontraaño,appointment,"Variación anual inversion extranjera en dólares")
                 añocontraaño=fechas_2(añocontraaño)
                 añocontraaño=eje_porcentaje(añocontraaño)
                 st.plotly_chart(añocontraaño, theme="streamlit", use_container_width=True)
-                
+                a7=descargar_datos(dataañocontraaño)  
                  
             
          with col2:
              if appointment:
+                datatrimestral=trimestral.copy(deep=True)
                 trimestral=gen_bar(trimestral,appointment,"Flujo inversión directa trimestral en dólares")
                 trimestral=fechas_2(trimestral)
                 st.plotly_chart(trimestral, theme="streamlit", use_container_width=True)
-
+                a11=descargar_datos(datatrimestral)  
+                dataAÑO=AÑO.copy(deep=True)
                 AÑO=gen_bar(AÑO,appointment,"Flujo de inversión directa anual en dólares")
                 AÑO=fechas_2(AÑO)
                 st.plotly_chart(AÑO, theme="streamlit", use_container_width=True)
-                
+                a11=descargar_datos(dataAÑO)  
       
          with st.expander("Detalle"):
                 st.write("""
