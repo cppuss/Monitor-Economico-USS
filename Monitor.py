@@ -156,7 +156,7 @@ def descargar_datos(data):
 data=pd.read_parquet("datos_monitor_1.parquet")
 
 
-tab_monitor,tab_presentacion  = st.tabs(["Visualización de Series","Generar reporte"])
+tab_monitor,tab_presentacion  = st.tabs(["VISUALIZACIÓN DE SERIES","GENERAR REPORTE"])
 
 
 with tab_monitor:
