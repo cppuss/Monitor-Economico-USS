@@ -1503,6 +1503,6 @@ with tab4:
         
         
     with st.expander("Detalle"):
-                 .write("""
+                 st.write("""
                     Fuente: Comisión del Meracdo Financiero.
                  """)
