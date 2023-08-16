@@ -264,1239 +264,1847 @@ ext_dataprincipales=extremos(principales)
 principales["SERIE"]=principales["NOMBRE_2"]
 
 
+tab_monitor,tab_presentacion  = st.tabs(["Visualización de Series","Generar reporte"])
 
 
-
-with tab1:
-    st.write('En esta sección se encuentras las variables de actividad económica y crecimiento.')
-    
-    tab11,tab12,tab13,tab14,tab15,tab16=st.tabs(["IMACEC","COMPONENTES IMACEC","PRODUCTO INTERNO BRUTO","COMPONENTES PIB","FORMACIÓN DE CAPITAL","INVERSIÓN EXTRANJERA"])
-    
-    with tab11:
-        st.write('Índice Mensual de Actividad Económica :tractor: ')
-        
-        appointment = st.slider(
-            "Seleccione el rango de fechas",
-            value=(ext_imacec_or[0],ext_imacec_or[1]),
-            format="YYYY/MM")
-    
-        col1, col2 = st.columns(2)
-        with col1:
-           if appointment:
-               imacec_or_1=gen(imacec_or,appointment,"Variación anual del IMACEC")
-               imacec_or_1=fechas_2(imacec_or_1)
-               imacec_or_1=eje_porcentaje(imacec_or_1)
-             
-               st.plotly_chart(imacec_or_1, theme="streamlit", use_container_width=True)
-               a=descargar_datos(data_imacec_or)
-
-                
-        with col2:
-            if appointment:
+with tab_monitor:
+  with tab1:
+      st.write('En esta sección se encuentras las variables de actividad económica y crecimiento.')
+      
+      tab11,tab12,tab13,tab14,tab15,tab16=st.tabs(["IMACEC","COMPONENTES IMACEC","PRODUCTO INTERNO BRUTO","COMPONENTES PIB","FORMACIÓN DE CAPITAL","INVERSIÓN EXTRANJERA"])
+      
+      with tab11:
+          st.write('Índice Mensual de Actividad Económica :tractor: ')
           
-              imacec_des=gen(imacec_des,appointment,"Variación anual del IMACEC desestacionalizado")
-              imacec_des=fechas_2(imacec_des)
-              imacec_des=eje_porcentaje(imacec_des)
-              st.plotly_chart(imacec_des, theme="streamlit", use_container_width=True)
-              a2=descargar_datos(data_imacec_des)
-         
-        
-        
-        with st.expander("Detalle"):
-             st.write("""
-                 Fuente: Banco Central.
-                 """)    
-           
-    
-          
-                 
-    with tab12:
-        st.write('Componentes de la variación anual del Índice Mensual de Actividad Económica')
-    
-        
-        appointment = st.slider(
-            "Seleccione el rango de fechas",
-            value=(ext_des[0],ext_des[1]),
-            format="YYYY/MM")
-    
-        col1, col2 = st.columns(2)
-        with col1:
-           if appointment:
-               st.markdown("<h5 style=' color: black;'>Series estacionales. </h5>", unsafe_allow_html=True)
-               a3=descargar_datos(data_des)
-               prod_bienes=gen_bar(prod_bienes,appointment,"Componentes de la variación anual: Producción de bienes")
-               prod_bienes_2=prod_bienes_2[(prod_bienes_2["PERIODO"]>= appointment[0])&(prod_bienes_2["PERIODO"]<= appointment[1])]
-               prod_bienes.add_trace(px.line(prod_bienes_2, x='PERIODO', y='VALOR', color="SERIE").data[0])
-               prod_bienes=fechas_2(prod_bienes)
-               prod_bienes=eje_porcentaje(prod_bienes)
+          appointment = st.slider(
+              "Seleccione el rango de fechas",
+              value=(ext_imacec_or[0],ext_imacec_or[1]),
+              format="YYYY/MM")
+      
+          col1, col2 = st.columns(2)
+          with col1:
+             if appointment:
+                 imacec_or_1=gen(imacec_or,appointment,"Variación anual del IMACEC")
+                 imacec_or_1=fechas_2(imacec_or_1)
+                 imacec_or_1=eje_porcentaje(imacec_or_1)
                
-               st.plotly_chart(prod_bienes, theme="streamlit", use_container_width=True)
+                 st.plotly_chart(imacec_or_1, theme="streamlit", use_container_width=True)
+                 a=descargar_datos(data_imacec_or)
+  
+                  
+          with col2:
+              if appointment:
+            
+                imacec_des=gen(imacec_des,appointment,"Variación anual del IMACEC desestacionalizado")
+                imacec_des=fechas_2(imacec_des)
+                imacec_des=eje_porcentaje(imacec_des)
+                st.plotly_chart(imacec_des, theme="streamlit", use_container_width=True)
+                a2=descargar_datos(data_imacec_des)
+           
+          
+          
+          with st.expander("Detalle"):
+               st.write("""
+                   Fuente: Banco Central.
+                   """)    
+             
+      
+            
+                   
+      with tab12:
+          st.write('Componentes de la variación anual del Índice Mensual de Actividad Económica')
+      
+          
+          appointment = st.slider(
+              "Seleccione el rango de fechas",
+              value=(ext_des[0],ext_des[1]),
+              format="YYYY/MM")
+      
+          col1, col2 = st.columns(2)
+          with col1:
+             if appointment:
+                 st.markdown("<h5 style=' color: black;'>Series estacionales. </h5>", unsafe_allow_html=True)
+                 a3=descargar_datos(data_des)
+                 prod_bienes=gen_bar(prod_bienes,appointment,"Componentes de la variación anual: Producción de bienes")
+                 prod_bienes_2=prod_bienes_2[(prod_bienes_2["PERIODO"]>= appointment[0])&(prod_bienes_2["PERIODO"]<= appointment[1])]
+                 prod_bienes.add_trace(px.line(prod_bienes_2, x='PERIODO', y='VALOR', color="SERIE").data[0])
+                 prod_bienes=fechas_2(prod_bienes)
+                 prod_bienes=eje_porcentaje(prod_bienes)
+                 
+                 st.plotly_chart(prod_bienes, theme="streamlit", use_container_width=True)
+                
+             
+                 componentes=gen_bar(componentes,appointment,"Componentes principales de la variación anual del IMACEC")
+                 componentes=fechas_2(componentes)
+                 componentes=eje_porcentaje(componentes)
+                  
+                 st.plotly_chart(componentes, theme="streamlit", use_container_width=True)
+                 
+  
               
-           
-               componentes=gen_bar(componentes,appointment,"Componentes principales de la variación anual del IMACEC")
-               componentes=fechas_2(componentes)
-               componentes=eje_porcentaje(componentes)
-                
-               st.plotly_chart(componentes, theme="streamlit", use_container_width=True)
-               
-
-            
-     
-        with col2:
-            if appointment:
-                st.markdown("<h5 style=' color: black;'>Series desestacionalizadas. </h5>", unsafe_allow_html=True)
-                a4=descargar_datos(data_est)
-                des_prod_bienes=gen_bar(des_prod_bienes,appointment,"Componentes de la variación anual: Producción de bienes")
-                des_prod_bienes_2_=des_prod_bienes_2[(des_prod_bienes_2["PERIODO"]>= appointment[0])&(des_prod_bienes_2["PERIODO"]<= appointment[1])]
-                des_prod_bienes.add_trace(px.line(des_prod_bienes_2_, x='PERIODO', y='VALOR', color="SERIE").data[0])
-                des_prod_bienes=fechas_2(des_prod_bienes)
-                des_prod_bienes=eje_porcentaje(des_prod_bienes)
-                
-                st.plotly_chart(des_prod_bienes, theme="streamlit", use_container_width=True)
-               
-            
-                des_componentes=gen_bar(des_componentes,appointment,"Componentes principales de la variación anual del IMACEC")
-                des_componentes=fechas_2(des_componentes)
-                des_componentes=eje_porcentaje(des_componentes)
+       
+          with col2:
+              if appointment:
+                  st.markdown("<h5 style=' color: black;'>Series desestacionalizadas. </h5>", unsafe_allow_html=True)
+                  a4=descargar_datos(data_est)
+                  des_prod_bienes=gen_bar(des_prod_bienes,appointment,"Componentes de la variación anual: Producción de bienes")
+                  des_prod_bienes_2_=des_prod_bienes_2[(des_prod_bienes_2["PERIODO"]>= appointment[0])&(des_prod_bienes_2["PERIODO"]<= appointment[1])]
+                  des_prod_bienes.add_trace(px.line(des_prod_bienes_2_, x='PERIODO', y='VALOR', color="SERIE").data[0])
+                  des_prod_bienes=fechas_2(des_prod_bienes)
+                  des_prod_bienes=eje_porcentaje(des_prod_bienes)
+                  
+                  st.plotly_chart(des_prod_bienes, theme="streamlit", use_container_width=True)
                  
-                st.plotly_chart(des_componentes, theme="streamlit", use_container_width=True)
-               
-                
-
-
-        no_minero=gen(no_minero,appointment,"Variación anual: IMACEC e IMACEC No minero")
-        no_minero=fechas_2(no_minero)
-        no_minero=eje_porcentaje(no_minero)
-        no_minero.add_trace(px.line(imacec_or, x='PERIODO', y='VALOR', color="SERIE",color_discrete_sequence=["red"]).data[0])
-
-        st.plotly_chart(no_minero, theme="streamlit", use_container_width=True)
-         
-        with st.expander("Detalle"):
-             st.write("""
-                Fuente: Banco Central.
-             """)  
-        
-                
-    with tab13:    
-        st.write('Producto Interno Bruto')
-        
-        col1, col2 = st.columns(2)
-        with col1:
-            appointment_1 = st.slider(
-                    "Seleccione el rango de fechas",
-                    value=(ext_nom[0],ext_nom[1]),
-                    format="YYYY/MM")
-            
-            if appointment_1:
-                nom=gen(nom,appointment_1,"Variación anual del PIB Trimestral")
-                nom=fechas_2(nom)
-                nom=eje_porcentaje(nom)
-
-                st.plotly_chart(nom, theme="streamlit", use_container_width=True)
-                a4=descargar_datos(data_nom)          
-                
-        with col2:
-            appointment_2 = st.slider(
-                     "Seleccione el rango de fechas ",
-                     value=(ext_per[0],ext_per[1]),
-                     format="YYYY")
-            
-            if appointment_2:
-                per=gen(per,appointment_2,"PIB percápita [USD]")
-                per=fechas_2(per)
-                
-                st.plotly_chart(per, theme="streamlit", use_container_width=True)
-                a5=descargar_datos(data_per)         
-
-        
-        appointment_3 = st.slider(
-                 "Seleccione el rango de fechas  ",
-                 value=(ext_nom_2[0],ext_nom_2[1]),
-                 format="YYYY/MM")
-        nom_2=gen(nom_2,appointment_3,"PIB Anual volúmen a precios del año anterior [USD]")
-        nom_2=fechas_2(nom_2)
-        
-        st.plotly_chart(nom_2, theme="streamlit", use_container_width=True)
-        a6=descargar_datos(data_nom_2)     
-
-        
-        with st.expander("Detalle"):
-             st.write("""
-                Fuente: Banco Central.
-             """)   
-
-    
-    with tab14:    
-         st.write('Componentes PIB ')
-         appointment = st.slider(
-                "Seleccione el rango de fechas ",
-                value=(ext_dataprincipales[0],ext_dataprincipales[1]),
-                format="YYYY/MM")
+              
+                  des_componentes=gen_bar(des_componentes,appointment,"Componentes principales de la variación anual del IMACEC")
+                  des_componentes=fechas_2(des_componentes)
+                  des_componentes=eje_porcentaje(des_componentes)
+                   
+                  st.plotly_chart(des_componentes, theme="streamlit", use_container_width=True)
+                 
+                  
   
-         if appointment:
-           dataprincipales=principales.copy(deep=True)
-           principales=gen_bar(principales,appointment,"Componentes del PIB")
-           principales=eje_porcentaje(principales)
-           st.plotly_chart(principales, theme="streamlit", use_container_width=True)
-           a6=descargar_datos(dataprincipales)      
-           with st.expander("Detalle"):
-                 st.write("""
-                    Fuente: Banco Central.
-                 """)
-
-    with tab15:    
-         st.write('Formación bruta de capital')
-         appointment = st.slider(
-            "Seleccione el rango de fechas ",
-            value=(ext_data14[0],ext_data14[1]),
-            format="YYYY/MM")
   
-         if appointment:
-           componentes14=gen_bar(componentes14,appointment,"Formación bruta de capital")
-           des_prod_bienes_2_=des_prod_bienes_2[(des_prod_bienes_2["PERIODO"]>= appointment[0])&(des_prod_bienes_2["PERIODO"]<= appointment[1])]
-           fbcf_=fbcf[(fbcf["PERIODO"] >= appointment[0])&(fbcf["PERIODO"]<=appointment[1])]
-           componentes14.add_trace(px.line(fbcf_, x='PERIODO', y='VALOR', color="SERIE").data[0])
-           componentes14=fechas_2(componentes14)
-           prod_bienes=eje_porcentaje(componentes14)
+          no_minero=gen(no_minero,appointment,"Variación anual: IMACEC e IMACEC No minero")
+          no_minero=fechas_2(no_minero)
+          no_minero=eje_porcentaje(no_minero)
+          no_minero.add_trace(px.line(imacec_or, x='PERIODO', y='VALOR', color="SERIE",color_discrete_sequence=["red"]).data[0])
+  
+          st.plotly_chart(no_minero, theme="streamlit", use_container_width=True)
            
-           st.plotly_chart(componentes14, theme="streamlit", use_container_width=True)
-           a7=descargar_datos(data_data14)  
+          with st.expander("Detalle"):
+               st.write("""
+                  Fuente: Banco Central.
+               """)  
+          
+                  
+      with tab13:    
+          st.write('Producto Interno Bruto')
+          
+          col1, col2 = st.columns(2)
+          with col1:
+              appointment_1 = st.slider(
+                      "Seleccione el rango de fechas",
+                      value=(ext_nom[0],ext_nom[1]),
+                      format="YYYY/MM")
+              
+              if appointment_1:
+                  nom=gen(nom,appointment_1,"Variación anual del PIB Trimestral")
+                  nom=fechas_2(nom)
+                  nom=eje_porcentaje(nom)
+  
+                  st.plotly_chart(nom, theme="streamlit", use_container_width=True)
+                  a4=descargar_datos(data_nom)          
+                  
+          with col2:
+              appointment_2 = st.slider(
+                       "Seleccione el rango de fechas ",
+                       value=(ext_per[0],ext_per[1]),
+                       format="YYYY")
+              
+              if appointment_2:
+                  per=gen(per,appointment_2,"PIB percápita [USD]")
+                  per=fechas_2(per)
+                  
+                  st.plotly_chart(per, theme="streamlit", use_container_width=True)
+                  a5=descargar_datos(data_per)         
+  
+          
+          appointment_3 = st.slider(
+                   "Seleccione el rango de fechas  ",
+                   value=(ext_nom_2[0],ext_nom_2[1]),
+                   format="YYYY/MM")
+          nom_2=gen(nom_2,appointment_3,"PIB Anual volúmen a precios del año anterior [USD]")
+          nom_2=fechas_2(nom_2)
+          
+          st.plotly_chart(nom_2, theme="streamlit", use_container_width=True)
+          a6=descargar_datos(data_nom_2)     
+  
+          
+          with st.expander("Detalle"):
+               st.write("""
+                  Fuente: Banco Central.
+               """)   
+  
+      
+      with tab14:    
+           st.write('Componentes PIB ')
+           appointment = st.slider(
+                  "Seleccione el rango de fechas ",
+                  value=(ext_dataprincipales[0],ext_dataprincipales[1]),
+                  format="YYYY/MM")
+    
+           if appointment:
+             dataprincipales=principales.copy(deep=True)
+             principales=gen_bar(principales,appointment,"Componentes del PIB")
+             principales=eje_porcentaje(principales)
+             st.plotly_chart(principales, theme="streamlit", use_container_width=True)
+             a6=descargar_datos(dataprincipales)      
+             with st.expander("Detalle"):
+                   st.write("""
+                      Fuente: Banco Central.
+                   """)
+  
+      with tab15:    
+           st.write('Formación bruta de capital')
+           appointment = st.slider(
+              "Seleccione el rango de fechas ",
+              value=(ext_data14[0],ext_data14[1]),
+              format="YYYY/MM")
+    
+           if appointment:
+             componentes14=gen_bar(componentes14,appointment,"Formación bruta de capital")
+             des_prod_bienes_2_=des_prod_bienes_2[(des_prod_bienes_2["PERIODO"]>= appointment[0])&(des_prod_bienes_2["PERIODO"]<= appointment[1])]
+             fbcf_=fbcf[(fbcf["PERIODO"] >= appointment[0])&(fbcf["PERIODO"]<=appointment[1])]
+             componentes14.add_trace(px.line(fbcf_, x='PERIODO', y='VALOR', color="SERIE").data[0])
+             componentes14=fechas_2(componentes14)
+             prod_bienes=eje_porcentaje(componentes14)
              
+             st.plotly_chart(componentes14, theme="streamlit", use_container_width=True)
+             a7=descargar_datos(data_data14)  
+               
+             with st.expander("Detalle"):
+               st.write("""
+                  Fuente: Banco Central.
+               """)   
+    
+     
+      
+      with tab16:   
+           st.write('Inversión extranjera')
+           
+           data16=data[data["CATEGORIA3"]=="COMPONENTES PRINCIPALES"]
+          
+           inv_directa=data16[data16["NOMBRE_1"]=="Cuenta financiera de la balanza de pagos, pasivos flujos (millones de dólares) "]
+           inv_directa["SERIE"]=inv_directa["NOMBRE_2"]
+           inv_directa["VALOR"]=inv_directa["VALOR"]*1000
+           inv_directa=inv_directa.sort_values("PERIODO")
+           ext_inv_directa=extremos(data16)
+  
+           añocontraaño=inv_directa.copy(deep=True)
+           añocontraaño["VALOR"]=añocontraaño["VALOR"]/añocontraaño["VALOR"].shift(12)-1
+           añocontraaño=añocontraaño.dropna()
+           añocontraaño["SERIE"]="Variación inversion extranjera"
+          
+           trimestral=inv_directa.copy(deep=True)
+           trimestral["VALOR"]=trimestral["VALOR"].rolling(window=3).sum()
+           trimestral=trimestral.dropna()
+           trimestral["SERIE"]="Inversión trimestral"
+           
+           AÑO=inv_directa.copy(deep=True)
+           AÑO["VALOR"] = AÑO.groupby(AÑO["PERIODO"].dt.year)["VALOR"].transform("sum")
+           where=(AÑO["PERIODO"].dt.month==12)|(AÑO["PERIODO"]==AÑO["PERIODO"].iloc[-1])
+           AÑO=AÑO[where]
+  
+           AÑO=AÑO.dropna()
+           AÑO["SERIE"]="Valor Anual"
+            
+           appointment = st.slider(
+              "Seleccione el rango de fechas ",
+              value=(ext_inv_directa[0],ext_inv_directa[1]),
+              format="YYYY/MM")
+           col1, col2 = st.columns(2)
+           with col1:
+               if appointment:
+                  datainv_directa=inv_directa.copy(deep=True)
+                  inv_directa=gen_bar(inv_directa,appointment,"Flujo inversión directa mensual en dólares")
+                  inv_directa=fechas_2(inv_directa)
+                  st.plotly_chart(inv_directa, theme="streamlit", use_container_width=True)
+                  a7=descargar_datos(datainv_directa) 
+                  dataañocontraaño=añocontraaño.copy(deep=True)
+                  añocontraaño=gen_bar(añocontraaño,appointment,"Variación anual inversion extranjera en dólares")
+                  añocontraaño=fechas_2(añocontraaño)
+                  añocontraaño=eje_porcentaje(añocontraaño)
+                  st.plotly_chart(añocontraaño, theme="streamlit", use_container_width=True)
+                  a7=descargar_datos(dataañocontraaño)  
+                   
+              
+           with col2:
+               if appointment:
+                  datatrimestral=trimestral.copy(deep=True)
+                  trimestral=gen_bar(trimestral,appointment,"Flujo inversión directa trimestral en dólares")
+                  trimestral=fechas_2(trimestral)
+                  st.plotly_chart(trimestral, theme="streamlit", use_container_width=True)
+                  a11=descargar_datos(datatrimestral)  
+                  dataAÑO=AÑO.copy(deep=True)
+                  AÑO=gen_bar(AÑO,appointment,"Flujo de inversión directa anual en dólares")
+                  AÑO=fechas_2(AÑO)
+                  st.plotly_chart(AÑO, theme="streamlit", use_container_width=True)
+                  a11=descargar_datos(dataAÑO)  
+        
            with st.expander("Detalle"):
-             st.write("""
-                Fuente: Banco Central.
-             """)   
+                  st.write("""
+                          Fuente: Banco Central.
+                           """)
+              
+              
+              
+                 
+  #INFLACIÓN
+  
+  data2=data[data["CATEGORIA"]=="INFLACION"]
+  data2["VALOR"]=data2["VALOR"]/100
+  
+  
+  men="IPC, IPC sin volátiles e IPC volátiles, variación mensual, información empalmada"
+  anu="IPC, IPC sin volátiles e IPC volátiles, variación anual, información empalmada"
+  
+  inf_men=data2[(data2["NOMBRE_1"]==men)&(data2["NOMBRE_2"]=="IPC General")]
+  inf_men["SERIE"]=inf_men["NOMBRE_2"]
+  inf_anu=data2[(data2["NOMBRE_1"]==anu)&(data2["NOMBRE_2"]=="IPC General")]
+  inf_anu["SERIE"]=inf_anu["NOMBRE_2"]
+  inf_anu1=inf_anu.copy(deep=True)
+  
+  comp_men=data2[(data2["NOMBRE_1"]==men)&~(data2["NOMBRE_2"]=="IPC General")]
+  comp_men["SERIE"]=comp_men["NOMBRE_2"]
+  com_anu=data2[(data2["NOMBRE_1"]==anu)&~(data2["NOMBRE_2"]=="IPC General")]
+  com_anu["SERIE"]=com_anu["NOMBRE_2"]
+  comp_1=com_anu[com_anu["SERIE"].isin(["IPC sin volátiles","IPC volátil"])]
+  comp_2=com_anu[~com_anu["SERIE"].isin(["IPC sin volátiles","IPC volátil"])]
+  
+  ext_inf_men=extremos(inf_men)
+  data_inf_men=inf_men.copy(deep=True)
+  
+  ext_inf_anu=extremos(inf_anu)
+  data_inf_anu=inf_anu.copy(deep=True)
+  
+  ext_com_inf_men=extremos(comp_men)
+  data_comp_men=comp_men.copy(deep=True)
+  
+  ext_com_inf_anu=extremos(com_anu)
+  data_com_anu=com_anu.copy(deep=True)
+  
+  with tab2:
+      st.write('En esta sección se encuentras las distitnas componentes de inflación')
+        
+      tab21,tab22=st.tabs(["INFLACIÓN ANUAL","INFLACIÓN MENSUAL"])
+      
+      
+      with tab21:
+          appointment_1 = st.slider(
+                     "Seleccione el rango de fechas",
+                     value=(ext_inf_anu[0],ext_inf_anu[1]),
+                     format="YYYY/MM")
+          
+          col1, col2 = st.columns(2)
+  
+          with col1:
+              
+              if appointment_1:
+                  inf_anu=gen(inf_anu,appointment_1,"Variación anual del IPC")
+                  inf_anu=fechas_2(inf_anu)
+                  inf_anu=eje_porcentaje(inf_anu)
+  
+                  st.plotly_chart(inf_anu, theme="streamlit", use_container_width=True)
+                  a7=descargar_datos(data_inf_anu)  
+          
+          with col2:
+              
+              if appointment_1:
+                  com_anu=gen(com_anu,appointment_1,"Principales componentes de la variación anual IPC")
+                  com_anu=fechas_2(com_anu)
+                  com_anu=eje_porcentaje(com_anu)
+                  
+                  st.plotly_chart(com_anu, theme="streamlit", use_container_width=True)
+                  a7=descargar_datos(data_com_anu)     
+                  
+          with col1:
+             
+             if appointment_1:
+                 comp_1.loc[comp_1['NOMBRE_2'] == "IPC sin volátiles", 'VALOR'] = comp_1.loc[comp_1['NOMBRE_2'] == "IPC sin volátiles", 'VALOR']*0.651
+                 comp_1.loc[comp_1['NOMBRE_2'] == "IPC volátil", 'VALOR'] = comp_1.loc[comp_1['NOMBRE_2'] == "IPC volátil", 'VALOR']*0.349
+                 
+                 datacomp_1=comp_1.copy(deep=True)
+                 comp_1=gen_bar(comp_1,appointment_1,"Variación anual IPC: volátiles y sin volátiles")
+                
+                 inf_anu_=inf_anu1[(inf_anu1["PERIODO"] >= appointment_1[0])&(inf_anu1["PERIODO"]<=appointment_1[1])]
+                 comp_1.add_trace(px.line(inf_anu_, x='PERIODO', y='VALOR', color="SERIE").data[0])
+                 
+                 
+                 comp_1=fechas_2(comp_1)
+                 comp_1=eje_porcentaje(comp_1)
+      
+                 st.plotly_chart(comp_1, theme="streamlit", use_container_width=True)
+                 a7=descargar_datos(datacomp_1)      
+         
+          with col2:
+             
+             if appointment_1:
+         
+                 comp_2.loc[comp_2['NOMBRE_2'] == "IPC Servicios sin volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] == "IPC Servicios sin volátiles", 'VALOR']*0.384
+                 comp_2.loc[comp_2['NOMBRE_2'] == "IPC Bienes sin volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] == "IPC Bienes sin volátiles", 'VALOR']*0.267
+                 comp_2.loc[comp_2['NOMBRE_2'] == "IPC Alimentos volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] =="IPC Alimentos volátiles" , 'VALOR']*0.101
+                 comp_2.loc[comp_2['NOMBRE_2'] == "IPC Energía volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] =="IPC Energía volátiles", 'VALOR']*0.075
+                 comp_2.loc[comp_2['NOMBRE_2'] == "IPC Resto de volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] == "IPC Resto de volátiles", 'VALOR']*0.172
+                 datacomp_2=comp_2.copy(deep=True)
+  
+                 
+                 comp_2=gen_bar(comp_2,appointment_1,"Variación anual de componentes secundarias IPC")
+                
+                 inf_anu_=inf_anu1[(inf_anu1["PERIODO"] >= appointment_1[0])&(inf_anu1["PERIODO"]<=appointment_1[1])]
+                 comp_2.add_trace(px.line(inf_anu_, x='PERIODO', y='VALOR', color="SERIE").data[0])
+                 
+                 
+                 comp_2=fechas_2(comp_2)
+                 comp_2=eje_porcentaje(comp_2)
+      
+                 st.plotly_chart(comp_2, theme="streamlit", use_container_width=True)
+                 a7=descargar_datos(datacomp_2)     
+                 
+          with st.expander("Detalle"):
+                   st.write("""
+                      Fuente: Banco Central.
+                   """)
+                 
+                 
+  
+      with tab22:
+          appointment_1 = st.slider(
+                     "Seleccione el rango de fechas",
+                     value=(ext_inf_men[0],ext_inf_men[1]),
+                     format="YYYY/MM")
+          
+          col1, col2 = st.columns(2)
+           
+          with col1:
+              
+              if appointment_1:
+                  datainf_men=inf_men.copy(deep=True)
+                  inf_men=gen(inf_men,appointment_1,"Variación porcentual IPC mensual")
+                  inf_men=fechas_2(inf_men)
+                  inf_men=eje_porcentaje(inf_men)
+  
+                  st.plotly_chart(inf_men, theme="streamlit", use_container_width=True)
+                  a8=descargar_datos(datainf_men)  
+                        
+          with col2:
+              
+              if appointment_1:
+                  datacomp_men=comp_men.copy(deep=True)
+                  comp_men=gen(comp_men,appointment_1,"Variación porcentual componentes IPC mensual")
+                  comp_men=fechas_2(comp_men)
+                  comp_men=eje_porcentaje(comp_men)
+                  
+                  st.plotly_chart(comp_men, theme="streamlit", use_container_width=True)
+                  a8=descargar_datos(datacomp_men) 
+  
+               
+          with st.expander("Detalle"):
+              st.write("""
+                      Fuente: Banco Central.
+                   """)
+  
+  
+  data3=data[data["CATEGORIA"]=="MERCADO LABORAL"]
+  #MERCADO LABORAL
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  with tab3:
+      st.write('En esta sección se encuentra información del mercado laboral')
+          
+      tab31,tab32,tab33,tab34,tab35,tab36,tab37=st.tabs(["EMPLEO NACIONAL","EMPLEO POR GENERO","INFORMALIDAD","CATEGORÍAS","ÍNDICES DE REMUNERACIONES","SERIES ADMINISTRATIVAS: SP","SERIES ADMINISTRATIVAS: DIPRES"])
+      
+      
+      with tab31:
+          emp_tasas_nac=data3[(data3["CATEGORIA2"]=="EMPLEO - TASAS")&(data3["CATEGORIA3"]=="Nacional")]
+          emp_bruto=data3[(data3["CATEGORIA2"]=="EMPLEO - BRUTOS")&(data3["CATEGORIA3"]=="Nacional")]
+          emp_bruto["SERIE"]=emp_bruto["NOMBRE_2"]
+          emp_bruto["VALOR"]=emp_bruto["VALOR"]*1000
+          
+          ext_emp_bruto=extremos(emp_bruto)
+          
+          data_emp_bruto=emp_bruto.copy(deep=True)
+          data_emp_bruto=data_emp_bruto[["PERIODO","VALOR","SERIE"]]
+          
+          
+          oc=emp_tasas_nac[emp_tasas_nac["NOMBRE_1"]=="Tasa de desocupación Nacional"]
+          oc["SERIE"]=oc["NOMBRE_2"]
+          oc["VALOR"]=oc["VALOR"]/100
+  
+          des=emp_tasas_nac[~(emp_tasas_nac["NOMBRE_1"]=="Tasa de desocupación Nacional")]
+          des["SERIE"]=des["NOMBRE_2"]
+          des["VALOR"]=des["VALOR"]/100
+  
+  
+          
+          ext_oc=extremos(oc)
+          data_oc=oc.copy(deep=True)
+          data_oc=data_oc[["PERIODO","VALOR","SERIE"]]
+          
+          ext_des=extremos(des)
+          data_des=des.copy(deep=True)
+          data_des=data_des[["PERIODO","VALOR","SERIE"]]
+       
+          
+          appointment_1 = st.slider(
+                      "Seleccione el rango de fechas",
+                      value=(ext_oc[0],ext_oc[1]),
+                      format="YYYY/MM")
+          
+          col1, col2 = st.columns(2)
+           
+          with col1:
+              
+              if appointment_1:
+                  dataoc=oc.copy(deep=True)
+                  oc=gen(oc,appointment_1,"Tasa de desocupación")
+                  oc=fechas_2(oc)
+                  oc=eje_porcentaje(oc)
+          
+                  st.plotly_chart(oc, theme="streamlit", use_container_width=True)
+                  a=descargar_datos(dataoc) 
+                        
+          with col2:
+              
+              if appointment_1:
+                  datades=des.copy(deep=True)
+                  des=gen(des,appointment_1,"Tasas de ocupación y participación")
+                  des=fechas_2(des)
+                  des=eje_porcentaje(des)
+                  
+                  st.plotly_chart(des, theme="streamlit", use_container_width=True)
+                  a=descargar_datos(datades)     
+  
+           
+          dataemp_bruto=emp_bruto.copy(deep=True)
+          emp_bruto=gen(emp_bruto,appointment_1,"Desagregación población en Edad de Trabajar")
+          emp_bruto=fechas_2(emp_bruto)
+          
+          st.plotly_chart(emp_bruto, theme="streamlit", use_container_width=True)
+          a=descargar_datos(dataemp_bruto)     
+    
+        
+          
+          
+          informalidad=data3[(data3["CATEGORIA2"]=="INFORMALIDAD")&(data3["NOMBRE_1"]=="Tasa de informalidad Nacional")]
+          informalidad["SERIE"]=informalidad["NOMBRE_2"]
+          informalidad["VALOR"]=informalidad["VALOR"]/100
+          informalidad=informalidad.sort_values(by="PERIODO")
+          ext_infor=extremos(informalidad)
+          data_infor=informalidad.copy(deep=True)
+          data_infor=data_infor[["PERIODO","VALOR","SERIE"]]
+          
+          
+      
+                 
+      
+      with tab32:
+         emp_tasas_nac=data3[(data3["CATEGORIA2"]=="EMPLEO - TASAS")&~(data3["CATEGORIA3"]=="Nacional")]
+         emp_bruto=data3[(data3["CATEGORIA2"]=="EMPLEO - BRUTOS")&~(data3["CATEGORIA3"]=="Nacional")]
+         emp_bruto["SERIE"]=emp_bruto["NOMBRE_2"]
+         emp_bruto["VALOR"]=emp_bruto["VALOR"]*1000
+         
+         
+         ext_emp_bruto=extremos(emp_bruto)
+         data_emp_bruto=emp_bruto.copy(deep=True)
+         data_emp_bruto=data_emp_bruto[["PERIODO","VALOR","SERIE"]]
+        
+         oc=emp_tasas_nac[emp_tasas_nac["NOMBRE_1"].isin(["Tasa de desocupación Hombres","Tasa de desocupación Mujeres"])]
+         oc["SERIE"]=oc["NOMBRE_2"]
+         oc["VALOR"]=oc["VALOR"]/100
+         des=emp_tasas_nac[~emp_tasas_nac["NOMBRE_1"].isin(["Tasa de desocupación Hombres","Tasa de desocupación Mujeres"])]
+         des["SERIE"]=des["NOMBRE_2"]
+         des["VALOR"]=des["VALOR"]/100
+         
+         ext_oc=extremos(oc)
+         data_oc=oc.copy(deep=True)
+         data_oc=data_oc[["PERIODO","VALOR","SERIE"]]
+         
+         ext_des=extremos(des)
+         data_des=des.copy(deep=True)
+         data_des=data_des[["PERIODO","VALOR","SERIE"]]
+      
+         
+         appointment_1 = st.slider(
+                     "Seleccione el rango de fechas ",
+                     value=(ext_oc[0],ext_oc[1]),
+                     format="YYYY/MM")
+         
+         col1, col2 = st.columns(2)
+          
+         with col1:
+             
+             if appointment_1:
+                 dataoc=oc.copy(deep=True)
+                 oc=gen(oc,appointment_1,"Tasas de desocupación")
+                 oc=fechas_2(oc)
+                 oc=eje_porcentaje(oc)
+         
+                 st.plotly_chart(oc, theme="streamlit", use_container_width=True)
+                 a=descargar_datos(dataoc)     
+  
+                       
+         with col2:
+             
+             if appointment_1:
+                 datades=des.copy(deep=True)
+                 des=gen(des,appointment_1,"Tasas de ocupación y participación")
+                 des=fechas_2(des)
+                 des=eje_porcentaje(des)
+                 
+                 st.plotly_chart(des, theme="streamlit", use_container_width=True)
+                 a=descargar_datos(datades)
+  
+  
+         
+         options = ["Población en edad de trabajar","Fuerza de Trabajo","Ocupados","Desocupados","Cesantes","Buscando Trabajo (1 vez)"    ]
+      
+         user_input = st.multiselect(label='Serie a comparar por género', options=options)
+         if user_input:
+             if len(user_input)==1:
+                 emp_bruto=data3[(data3["CATEGORIA2"]=="EMPLEO - BRUTOS")&~(data3["CATEGORIA3"]=="Nacional")]
+                 emp_bruto["SERIE"]=emp_bruto["NOMBRE_2"]
+                 emp_bruto=emp_bruto[(emp_bruto["NOMBRE_1"].isin([user_input[0]+" Hombres",user_input[0]+" Mujeres"]))]
+                 dataemp_bruto=emp_bruto.copy(deep=True)
+                 emp_bruto=gen(emp_bruto,appointment_1,"Comparación por sexo: "+user_input[0])
+                 emp_bruto=fechas_2(emp_bruto)
+          
+                 st.plotly_chart(emp_bruto, theme="streamlit", use_container_width=True)
+                 a=descargar_datos(dataemp_bruto)
+  
+      
+             if len(user_input)==2:
+                 emp_bruto=data3[(data3["CATEGORIA2"]=="EMPLEO - BRUTOS")&~(data3["CATEGORIA3"]=="Nacional")]
+                 emp_bruto["SERIE"]=emp_bruto["NOMBRE_2"]
+                 emp_bruto=emp_bruto[(emp_bruto["NOMBRE_1"].isin([user_input[0]+" Hombres",user_input[0]+" Mujeres",user_input[1]+" Hombres",user_input[1]+" Mujeres"]))]
+                 dataemp_bruto=emp_bruto.copy(deep=True)
+                 emp_bruto=gen(emp_bruto,appointment_1,"Comparación por sexo: "+user_input[0] +" y "+user_input[1])
+                 emp_bruto=fechas_2(emp_bruto)
+           
+                 st.plotly_chart(emp_bruto, theme="streamlit", use_container_width=True)
+                 a=descargar_datos(dataemp_bruto) 
+  
+  
+             if len(user_input)>2:
+                 emp_bruto=data3[(data3["CATEGORIA2"]=="EMPLEO - BRUTOS")&~(data3["CATEGORIA3"]=="Nacional")]
+                 emp_bruto["SERIE"]=emp_bruto["NOMBRE_2"]
+                 series=[]
+                 for i in np.linspace(0,len(user_input)-1,len(user_input)):
+                     i=int(i)
+                     hom=user_input[i]+" Hombres"
+                     series.append(hom)
+                     muj=user_input[i]+" Mujeres"
+                     series.append(muj)
+                         
+                 emp_bruto=emp_bruto[(emp_bruto["NOMBRE_1"].isin(series))]
+                 dataemp_bruto=emp_bruto.copy(deep=True)
+                 emp_bruto=gen(emp_bruto,appointment_1,"Comparación métricas por sexo")
+                 emp_bruto=fechas_2(emp_bruto)
+           
+                 st.plotly_chart(emp_bruto, theme="streamlit", use_container_width=True)
+                 a=descargar_datos(dataemp_bruto) 
+  
+               
+         
+          
+          
+      
+              
+  
+      with tab33:
+          
+          INF=data3[(data3["CATEGORIA2"]=="INFORMALIDAD - N")&(data3["NOMBRE_1"]=="Informalidad Nacional")]
+          INF["SERIE"]=INF["NOMBRE_2"]
+          INF["VALOR"]=INF["VALOR"]*1000
+          INF=INF.sort_values(by="PERIODO")
+          ext_INF=extremos(INF) 
+          
+          INF_SEX=data3[(data3["CATEGORIA2"]=="INFORMALIDAD - N")&~(data3["NOMBRE_1"]=="Informalidad Nacional")]
+          INF_SEX["SERIE"]=INF_SEX["NOMBRE_2"]
+          INF_SEX["VALOR"]=INF_SEX["VALOR"]*1000
+          INF_SEX=INF_SEX.sort_values(by="PERIODO")
+          
+          informalidad=data3[(data3["CATEGORIA2"]=="INFORMALIDAD")]
+          informalidad["SERIE"]=informalidad["NOMBRE_2"]
+          informalidad["VALOR"]=informalidad["VALOR"]/100
+          informalidad=informalidad.sort_values(by="PERIODO")
+          ext_infor=extremos(informalidad)
+          data_infor=informalidad.copy(deep=True)
+          data_infor=data_infor[["PERIODO","VALOR","SERIE"]]
+         
+          appointment_inf = st.slider(
+                      "Seleccione el rango de fechas       ",
+                      value=(ext_INF[0],ext_INF[1]),
+                      format="YYYY/MM")
+  
+          
+          if appointment_inf:
+                dataINF_SEX=INF_SEX.copy(deep=True)
+                INF_SEX=gen_bar(INF_SEX,appointment,"Número de informales")
+                INF=INF[(INF["PERIODO"] >= appointment_inf[0])&(INF["PERIODO"]<=appointment_inf[1])]
+                INF_SEX.add_trace(px.line(INF, x='PERIODO', y='VALOR', color="SERIE").data[0])
+                INF_SEX=fechas_2(INF_SEX)
+                st.plotly_chart(INF_SEX, theme="streamlit", use_container_width=True)
+                a=descargar_datos(dataINF_SEX) 
+          appointment_3 = st.slider(
+                      "Seleccione el rango de fechas   ",
+                      value=(ext_infor[0],ext_infor[1]),
+                      format="YYYY/MM")
+  
+                
+          
+          if appointment_3:
+              datainformalidad=informalidad.copy(deep=True)
+              informalidad=gen(informalidad,appointment_3,"Tasas de Informalidad")
+              informalidad=fechas_2(informalidad)
+              informalidad=eje_porcentaje(informalidad)
+              
+              st.plotly_chart(informalidad, theme="streamlit", use_container_width=True)
+              a=descargar_datos(datainformalidad) 
+  
+      with tab34:
+              
+          cate_nac=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&(data3["CATEGORIA3"]=="Nacional")]
+          
+          cate_nac["VALOR"]=cate_nac["VALOR"]*1000        
+          cate_nac["SERIE"]=cate_nac["NOMBRE_2"]
+          cate_nac=cate_nac.sort_values(by="PERIODO")
+          ext_cate_nac=extremos(cate_nac)
+          data_cate_nac=cate_nac.copy(deep=True)
+          data_cate_nac=data_cate_nac[["PERIODO","VALOR","SERIE"]]
+      
+          appointment_5 = st.slider(
+                       "Seleccione el rango de fechas    ",
+                       value=(ext_cate_nac[0],ext_cate_nac[1]),
+                       format="YYYY/MM")
+          
+          if appointment_5:
+               datacate_nac=cate_nac.copy(deep=True)
+               cate_nac=gen(cate_nac,appointment_5,"Categorías de ocupados")
+               cate_nac=fechas_2(cate_nac)
+  
+               
+               st.plotly_chart(cate_nac, theme="streamlit", use_container_width=True)
+               a=descargar_datos(datacate_nac)
+          
+          
+  
+          
+          cate_sex=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&~(data3["CATEGORIA3"]=="Nacional")]    
+          cate_sex["VALOR"]=cate_sex["VALOR"]*1000
+    
+          cate_sex["SERIE"]=cate_sex["NOMBRE_1"]
+          ext_cate_sex=extremos(cate_sex)
+          data_cate_sex=cate_sex.copy(deep=True)
+          data_cate_sex=data_cate_sex[["PERIODO","VALOR","SERIE"]]
+          
+          appointment_6 = st.slider(
+                       "Seleccione el rango de fechas      ",
+                       value=(ext_cate_sex[0],ext_cate_sex[1]),
+                       format="YYYY/MM")
+        
+          options = ["Independientes","Dependientes","Asalariados","Sector privado","Sector público","Trabajo Doméstico" ]
+    
+          user_input = st.multiselect(label='Serie a comparar por género', options=options)
+          
+          if appointment_6 or user_input:
+              if len(user_input)==1:
+                  cate_sex=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&~(data3["CATEGORIA3"]=="Nacional")]
+                  cate_sex["SERIE"]=cate_sex["NOMBRE_1"]
+                
+                  cate_sex=cate_sex[(cate_sex["NOMBRE_1"].isin([user_input[0]+" Hombres",user_input[0]+" Mujeres"]))]
+                  datacate_sex=cate_sex.copy(deep=True)
+                  cate_sex=gen(cate_sex,appointment_6,"Comparación ocupados por sexo: "+user_input[0])
+                  cate_sex=fechas_2(cate_sex)
+           
+                  st.plotly_chart(cate_sex, theme="streamlit", use_container_width=True)
+                  a=descargar_datos(datacate_sex)
+             
+              if len(user_input)==2:
+                  cate_sex=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&~(data3["CATEGORIA3"]=="(AS)")]
+                  cate_sex["SERIE"]=cate_sex["NOMBRE_1"]
+                  cate_sex=cate_sex[(cate_sex["NOMBRE_1"].isin([user_input[0]+" Hombres",user_input[0]+" Mujeres",user_input[1]+" Hombres",user_input[1]+" Mujeres"]))]
+                  datacate_sex=cate_sex.copy(deep=True)
+                  cate_sex=gen(cate_sex,appointment_6,"Comparación ocupados por sexo: "+user_input[0] +" y "+user_input[1])
+                  cate_sex=fechas_2(cate_sex)
+            
+                  st.plotly_chart(cate_sex, theme="streamlit", use_container_width=True)
+                  a=descargar_datos(datacate_sex)
   
    
-    
-    with tab16:   
-         st.write('Inversión extranjera')
-         
-         data16=data[data["CATEGORIA3"]=="COMPONENTES PRINCIPALES"]
-        
-         inv_directa=data16[data16["NOMBRE_1"]=="Cuenta financiera de la balanza de pagos, pasivos flujos (millones de dólares) "]
-         inv_directa["SERIE"]=inv_directa["NOMBRE_2"]
-         inv_directa["VALOR"]=inv_directa["VALOR"]*1000
-         inv_directa=inv_directa.sort_values("PERIODO")
-         ext_inv_directa=extremos(data16)
-
-         añocontraaño=inv_directa.copy(deep=True)
-         añocontraaño["VALOR"]=añocontraaño["VALOR"]/añocontraaño["VALOR"].shift(12)-1
-         añocontraaño=añocontraaño.dropna()
-         añocontraaño["SERIE"]="Variación inversion extranjera"
-        
-         trimestral=inv_directa.copy(deep=True)
-         trimestral["VALOR"]=trimestral["VALOR"].rolling(window=3).sum()
-         trimestral=trimestral.dropna()
-         trimestral["SERIE"]="Inversión trimestral"
-         
-         AÑO=inv_directa.copy(deep=True)
-         AÑO["VALOR"] = AÑO.groupby(AÑO["PERIODO"].dt.year)["VALOR"].transform("sum")
-         where=(AÑO["PERIODO"].dt.month==12)|(AÑO["PERIODO"]==AÑO["PERIODO"].iloc[-1])
-         AÑO=AÑO[where]
-
-         AÑO=AÑO.dropna()
-         AÑO["SERIE"]="Valor Anual"
-          
-         appointment = st.slider(
-            "Seleccione el rango de fechas ",
-            value=(ext_inv_directa[0],ext_inv_directa[1]),
-            format="YYYY/MM")
-         col1, col2 = st.columns(2)
-         with col1:
-             if appointment:
-                datainv_directa=inv_directa.copy(deep=True)
-                inv_directa=gen_bar(inv_directa,appointment,"Flujo inversión directa mensual en dólares")
-                inv_directa=fechas_2(inv_directa)
-                st.plotly_chart(inv_directa, theme="streamlit", use_container_width=True)
-                a7=descargar_datos(datainv_directa) 
-                dataañocontraaño=añocontraaño.copy(deep=True)
-                añocontraaño=gen_bar(añocontraaño,appointment,"Variación anual inversion extranjera en dólares")
-                añocontraaño=fechas_2(añocontraaño)
-                añocontraaño=eje_porcentaje(añocontraaño)
-                st.plotly_chart(añocontraaño, theme="streamlit", use_container_width=True)
-                a7=descargar_datos(dataañocontraaño)  
-                 
-            
-         with col2:
-             if appointment:
-                datatrimestral=trimestral.copy(deep=True)
-                trimestral=gen_bar(trimestral,appointment,"Flujo inversión directa trimestral en dólares")
-                trimestral=fechas_2(trimestral)
-                st.plotly_chart(trimestral, theme="streamlit", use_container_width=True)
-                a11=descargar_datos(datatrimestral)  
-                dataAÑO=AÑO.copy(deep=True)
-                AÑO=gen_bar(AÑO,appointment,"Flujo de inversión directa anual en dólares")
-                AÑO=fechas_2(AÑO)
-                st.plotly_chart(AÑO, theme="streamlit", use_container_width=True)
-                a11=descargar_datos(dataAÑO)  
-      
-         with st.expander("Detalle"):
-                st.write("""
-                        Fuente: Banco Central.
-                         """)
-            
-            
-            
-               
-#INFLACIÓN
-
-data2=data[data["CATEGORIA"]=="INFLACION"]
-data2["VALOR"]=data2["VALOR"]/100
-
-
-men="IPC, IPC sin volátiles e IPC volátiles, variación mensual, información empalmada"
-anu="IPC, IPC sin volátiles e IPC volátiles, variación anual, información empalmada"
-
-inf_men=data2[(data2["NOMBRE_1"]==men)&(data2["NOMBRE_2"]=="IPC General")]
-inf_men["SERIE"]=inf_men["NOMBRE_2"]
-inf_anu=data2[(data2["NOMBRE_1"]==anu)&(data2["NOMBRE_2"]=="IPC General")]
-inf_anu["SERIE"]=inf_anu["NOMBRE_2"]
-inf_anu1=inf_anu.copy(deep=True)
-
-comp_men=data2[(data2["NOMBRE_1"]==men)&~(data2["NOMBRE_2"]=="IPC General")]
-comp_men["SERIE"]=comp_men["NOMBRE_2"]
-com_anu=data2[(data2["NOMBRE_1"]==anu)&~(data2["NOMBRE_2"]=="IPC General")]
-com_anu["SERIE"]=com_anu["NOMBRE_2"]
-comp_1=com_anu[com_anu["SERIE"].isin(["IPC sin volátiles","IPC volátil"])]
-comp_2=com_anu[~com_anu["SERIE"].isin(["IPC sin volátiles","IPC volátil"])]
-
-ext_inf_men=extremos(inf_men)
-data_inf_men=inf_men.copy(deep=True)
-
-ext_inf_anu=extremos(inf_anu)
-data_inf_anu=inf_anu.copy(deep=True)
-
-ext_com_inf_men=extremos(comp_men)
-data_comp_men=comp_men.copy(deep=True)
-
-ext_com_inf_anu=extremos(com_anu)
-data_com_anu=com_anu.copy(deep=True)
-
-with tab2:
-    st.write('En esta sección se encuentras las distitnas componentes de inflación')
-      
-    tab21,tab22=st.tabs(["INFLACIÓN ANUAL","INFLACIÓN MENSUAL"])
-    
-    
-    with tab21:
-        appointment_1 = st.slider(
-                   "Seleccione el rango de fechas",
-                   value=(ext_inf_anu[0],ext_inf_anu[1]),
-                   format="YYYY/MM")
-        
-        col1, col2 = st.columns(2)
-
-        with col1:
-            
-            if appointment_1:
-                inf_anu=gen(inf_anu,appointment_1,"Variación anual del IPC")
-                inf_anu=fechas_2(inf_anu)
-                inf_anu=eje_porcentaje(inf_anu)
-
-                st.plotly_chart(inf_anu, theme="streamlit", use_container_width=True)
-                a7=descargar_datos(data_inf_anu)  
-        
-        with col2:
-            
-            if appointment_1:
-                com_anu=gen(com_anu,appointment_1,"Principales componentes de la variación anual IPC")
-                com_anu=fechas_2(com_anu)
-                com_anu=eje_porcentaje(com_anu)
-                
-                st.plotly_chart(com_anu, theme="streamlit", use_container_width=True)
-                a7=descargar_datos(data_com_anu)     
-                
-        with col1:
-           
-           if appointment_1:
-               comp_1.loc[comp_1['NOMBRE_2'] == "IPC sin volátiles", 'VALOR'] = comp_1.loc[comp_1['NOMBRE_2'] == "IPC sin volátiles", 'VALOR']*0.651
-               comp_1.loc[comp_1['NOMBRE_2'] == "IPC volátil", 'VALOR'] = comp_1.loc[comp_1['NOMBRE_2'] == "IPC volátil", 'VALOR']*0.349
-               
-               datacomp_1=comp_1.copy(deep=True)
-               comp_1=gen_bar(comp_1,appointment_1,"Variación anual IPC: volátiles y sin volátiles")
-              
-               inf_anu_=inf_anu1[(inf_anu1["PERIODO"] >= appointment_1[0])&(inf_anu1["PERIODO"]<=appointment_1[1])]
-               comp_1.add_trace(px.line(inf_anu_, x='PERIODO', y='VALOR', color="SERIE").data[0])
-               
-               
-               comp_1=fechas_2(comp_1)
-               comp_1=eje_porcentaje(comp_1)
-    
-               st.plotly_chart(comp_1, theme="streamlit", use_container_width=True)
-               a7=descargar_datos(datacomp_1)      
-       
-        with col2:
-           
-           if appointment_1:
-       
-               comp_2.loc[comp_2['NOMBRE_2'] == "IPC Servicios sin volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] == "IPC Servicios sin volátiles", 'VALOR']*0.384
-               comp_2.loc[comp_2['NOMBRE_2'] == "IPC Bienes sin volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] == "IPC Bienes sin volátiles", 'VALOR']*0.267
-               comp_2.loc[comp_2['NOMBRE_2'] == "IPC Alimentos volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] =="IPC Alimentos volátiles" , 'VALOR']*0.101
-               comp_2.loc[comp_2['NOMBRE_2'] == "IPC Energía volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] =="IPC Energía volátiles", 'VALOR']*0.075
-               comp_2.loc[comp_2['NOMBRE_2'] == "IPC Resto de volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] == "IPC Resto de volátiles", 'VALOR']*0.172
-               datacomp_2=comp_2.copy(deep=True)
-
-               
-               comp_2=gen_bar(comp_2,appointment_1,"Variación anual de componentes secundarias IPC")
-              
-               inf_anu_=inf_anu1[(inf_anu1["PERIODO"] >= appointment_1[0])&(inf_anu1["PERIODO"]<=appointment_1[1])]
-               comp_2.add_trace(px.line(inf_anu_, x='PERIODO', y='VALOR', color="SERIE").data[0])
-               
-               
-               comp_2=fechas_2(comp_2)
-               comp_2=eje_porcentaje(comp_2)
-    
-               st.plotly_chart(comp_2, theme="streamlit", use_container_width=True)
-               a7=descargar_datos(datacomp_2)     
-               
-        with st.expander("Detalle"):
-                 st.write("""
-                    Fuente: Banco Central.
-                 """)
-               
-               
-
-    with tab22:
-        appointment_1 = st.slider(
-                   "Seleccione el rango de fechas",
-                   value=(ext_inf_men[0],ext_inf_men[1]),
-                   format="YYYY/MM")
-        
-        col1, col2 = st.columns(2)
-         
-        with col1:
-            
-            if appointment_1:
-                datainf_men=inf_men.copy(deep=True)
-                inf_men=gen(inf_men,appointment_1,"Variación porcentual IPC mensual")
-                inf_men=fechas_2(inf_men)
-                inf_men=eje_porcentaje(inf_men)
-
-                st.plotly_chart(inf_men, theme="streamlit", use_container_width=True)
-                a8=descargar_datos(datainf_men)  
-                      
-        with col2:
-            
-            if appointment_1:
-                datacomp_men=comp_men.copy(deep=True)
-                comp_men=gen(comp_men,appointment_1,"Variación porcentual componentes IPC mensual")
-                comp_men=fechas_2(comp_men)
-                comp_men=eje_porcentaje(comp_men)
-                
-                st.plotly_chart(comp_men, theme="streamlit", use_container_width=True)
-                a8=descargar_datos(datacomp_men) 
-
-             
-        with st.expander("Detalle"):
-            st.write("""
-                    Fuente: Banco Central.
-                 """)
-
-
-data3=data[data["CATEGORIA"]=="MERCADO LABORAL"]
-#MERCADO LABORAL
-
-
-
-
-
-
-
-
-
-
-
-with tab3:
-    st.write('En esta sección se encuentra información del mercado laboral')
-        
-    tab31,tab32,tab33,tab34,tab35,tab36,tab37=st.tabs(["EMPLEO NACIONAL","EMPLEO POR GENERO","INFORMALIDAD","CATEGORÍAS","ÍNDICES DE REMUNERACIONES","SERIES ADMINISTRATIVAS: SP","SERIES ADMINISTRATIVAS: DIPRES"])
-    
-    
-    with tab31:
-        emp_tasas_nac=data3[(data3["CATEGORIA2"]=="EMPLEO - TASAS")&(data3["CATEGORIA3"]=="Nacional")]
-        emp_bruto=data3[(data3["CATEGORIA2"]=="EMPLEO - BRUTOS")&(data3["CATEGORIA3"]=="Nacional")]
-        emp_bruto["SERIE"]=emp_bruto["NOMBRE_2"]
-        emp_bruto["VALOR"]=emp_bruto["VALOR"]*1000
-        
-        ext_emp_bruto=extremos(emp_bruto)
-        
-        data_emp_bruto=emp_bruto.copy(deep=True)
-        data_emp_bruto=data_emp_bruto[["PERIODO","VALOR","SERIE"]]
-        
-        
-        oc=emp_tasas_nac[emp_tasas_nac["NOMBRE_1"]=="Tasa de desocupación Nacional"]
-        oc["SERIE"]=oc["NOMBRE_2"]
-        oc["VALOR"]=oc["VALOR"]/100
-
-        des=emp_tasas_nac[~(emp_tasas_nac["NOMBRE_1"]=="Tasa de desocupación Nacional")]
-        des["SERIE"]=des["NOMBRE_2"]
-        des["VALOR"]=des["VALOR"]/100
-
-
-        
-        ext_oc=extremos(oc)
-        data_oc=oc.copy(deep=True)
-        data_oc=data_oc[["PERIODO","VALOR","SERIE"]]
-        
-        ext_des=extremos(des)
-        data_des=des.copy(deep=True)
-        data_des=data_des[["PERIODO","VALOR","SERIE"]]
-     
-        
-        appointment_1 = st.slider(
-                    "Seleccione el rango de fechas",
-                    value=(ext_oc[0],ext_oc[1]),
-                    format="YYYY/MM")
-        
-        col1, col2 = st.columns(2)
-         
-        with col1:
-            
-            if appointment_1:
-                dataoc=oc.copy(deep=True)
-                oc=gen(oc,appointment_1,"Tasa de desocupación")
-                oc=fechas_2(oc)
-                oc=eje_porcentaje(oc)
-        
-                st.plotly_chart(oc, theme="streamlit", use_container_width=True)
-                a=descargar_datos(dataoc) 
-                      
-        with col2:
-            
-            if appointment_1:
-                datades=des.copy(deep=True)
-                des=gen(des,appointment_1,"Tasas de ocupación y participación")
-                des=fechas_2(des)
-                des=eje_porcentaje(des)
-                
-                st.plotly_chart(des, theme="streamlit", use_container_width=True)
-                a=descargar_datos(datades)     
-
-         
-        dataemp_bruto=emp_bruto.copy(deep=True)
-        emp_bruto=gen(emp_bruto,appointment_1,"Desagregación población en Edad de Trabajar")
-        emp_bruto=fechas_2(emp_bruto)
-        
-        st.plotly_chart(emp_bruto, theme="streamlit", use_container_width=True)
-        a=descargar_datos(dataemp_bruto)     
-  
-      
-        
-        
-        informalidad=data3[(data3["CATEGORIA2"]=="INFORMALIDAD")&(data3["NOMBRE_1"]=="Tasa de informalidad Nacional")]
-        informalidad["SERIE"]=informalidad["NOMBRE_2"]
-        informalidad["VALOR"]=informalidad["VALOR"]/100
-        informalidad=informalidad.sort_values(by="PERIODO")
-        ext_infor=extremos(informalidad)
-        data_infor=informalidad.copy(deep=True)
-        data_infor=data_infor[["PERIODO","VALOR","SERIE"]]
-        
-        
-    
-               
-    
-    with tab32:
-       emp_tasas_nac=data3[(data3["CATEGORIA2"]=="EMPLEO - TASAS")&~(data3["CATEGORIA3"]=="Nacional")]
-       emp_bruto=data3[(data3["CATEGORIA2"]=="EMPLEO - BRUTOS")&~(data3["CATEGORIA3"]=="Nacional")]
-       emp_bruto["SERIE"]=emp_bruto["NOMBRE_2"]
-       emp_bruto["VALOR"]=emp_bruto["VALOR"]*1000
-       
-       
-       ext_emp_bruto=extremos(emp_bruto)
-       data_emp_bruto=emp_bruto.copy(deep=True)
-       data_emp_bruto=data_emp_bruto[["PERIODO","VALOR","SERIE"]]
-      
-       oc=emp_tasas_nac[emp_tasas_nac["NOMBRE_1"].isin(["Tasa de desocupación Hombres","Tasa de desocupación Mujeres"])]
-       oc["SERIE"]=oc["NOMBRE_2"]
-       oc["VALOR"]=oc["VALOR"]/100
-       des=emp_tasas_nac[~emp_tasas_nac["NOMBRE_1"].isin(["Tasa de desocupación Hombres","Tasa de desocupación Mujeres"])]
-       des["SERIE"]=des["NOMBRE_2"]
-       des["VALOR"]=des["VALOR"]/100
-       
-       ext_oc=extremos(oc)
-       data_oc=oc.copy(deep=True)
-       data_oc=data_oc[["PERIODO","VALOR","SERIE"]]
-       
-       ext_des=extremos(des)
-       data_des=des.copy(deep=True)
-       data_des=data_des[["PERIODO","VALOR","SERIE"]]
-    
-       
-       appointment_1 = st.slider(
-                   "Seleccione el rango de fechas ",
-                   value=(ext_oc[0],ext_oc[1]),
-                   format="YYYY/MM")
-       
-       col1, col2 = st.columns(2)
-        
-       with col1:
-           
-           if appointment_1:
-               dataoc=oc.copy(deep=True)
-               oc=gen(oc,appointment_1,"Tasas de desocupación")
-               oc=fechas_2(oc)
-               oc=eje_porcentaje(oc)
-       
-               st.plotly_chart(oc, theme="streamlit", use_container_width=True)
-               a=descargar_datos(dataoc)     
-
-                     
-       with col2:
-           
-           if appointment_1:
-               datades=des.copy(deep=True)
-               des=gen(des,appointment_1,"Tasas de ocupación y participación")
-               des=fechas_2(des)
-               des=eje_porcentaje(des)
-               
-               st.plotly_chart(des, theme="streamlit", use_container_width=True)
-               a=descargar_datos(datades)
-
-
-       
-       options = ["Población en edad de trabajar","Fuerza de Trabajo","Ocupados","Desocupados","Cesantes","Buscando Trabajo (1 vez)"    ]
-    
-       user_input = st.multiselect(label='Serie a comparar por género', options=options)
-       if user_input:
-           if len(user_input)==1:
-               emp_bruto=data3[(data3["CATEGORIA2"]=="EMPLEO - BRUTOS")&~(data3["CATEGORIA3"]=="Nacional")]
-               emp_bruto["SERIE"]=emp_bruto["NOMBRE_2"]
-               emp_bruto=emp_bruto[(emp_bruto["NOMBRE_1"].isin([user_input[0]+" Hombres",user_input[0]+" Mujeres"]))]
-               dataemp_bruto=emp_bruto.copy(deep=True)
-               emp_bruto=gen(emp_bruto,appointment_1,"Comparación por sexo: "+user_input[0])
-               emp_bruto=fechas_2(emp_bruto)
-        
-               st.plotly_chart(emp_bruto, theme="streamlit", use_container_width=True)
-               a=descargar_datos(dataemp_bruto)
-
-    
-           if len(user_input)==2:
-               emp_bruto=data3[(data3["CATEGORIA2"]=="EMPLEO - BRUTOS")&~(data3["CATEGORIA3"]=="Nacional")]
-               emp_bruto["SERIE"]=emp_bruto["NOMBRE_2"]
-               emp_bruto=emp_bruto[(emp_bruto["NOMBRE_1"].isin([user_input[0]+" Hombres",user_input[0]+" Mujeres",user_input[1]+" Hombres",user_input[1]+" Mujeres"]))]
-               dataemp_bruto=emp_bruto.copy(deep=True)
-               emp_bruto=gen(emp_bruto,appointment_1,"Comparación por sexo: "+user_input[0] +" y "+user_input[1])
-               emp_bruto=fechas_2(emp_bruto)
-         
-               st.plotly_chart(emp_bruto, theme="streamlit", use_container_width=True)
-               a=descargar_datos(dataemp_bruto) 
-
-
-           if len(user_input)>2:
-               emp_bruto=data3[(data3["CATEGORIA2"]=="EMPLEO - BRUTOS")&~(data3["CATEGORIA3"]=="Nacional")]
-               emp_bruto["SERIE"]=emp_bruto["NOMBRE_2"]
-               series=[]
-               for i in np.linspace(0,len(user_input)-1,len(user_input)):
-                   i=int(i)
-                   hom=user_input[i]+" Hombres"
-                   series.append(hom)
-                   muj=user_input[i]+" Mujeres"
-                   series.append(muj)
-                       
-               emp_bruto=emp_bruto[(emp_bruto["NOMBRE_1"].isin(series))]
-               dataemp_bruto=emp_bruto.copy(deep=True)
-               emp_bruto=gen(emp_bruto,appointment_1,"Comparación métricas por sexo")
-               emp_bruto=fechas_2(emp_bruto)
-         
-               st.plotly_chart(emp_bruto, theme="streamlit", use_container_width=True)
-               a=descargar_datos(dataemp_bruto) 
-
-             
-       
-        
-        
-    
-            
-
-    with tab33:
-        
-        INF=data3[(data3["CATEGORIA2"]=="INFORMALIDAD - N")&(data3["NOMBRE_1"]=="Informalidad Nacional")]
-        INF["SERIE"]=INF["NOMBRE_2"]
-        INF["VALOR"]=INF["VALOR"]*1000
-        INF=INF.sort_values(by="PERIODO")
-        ext_INF=extremos(INF) 
-        
-        INF_SEX=data3[(data3["CATEGORIA2"]=="INFORMALIDAD - N")&~(data3["NOMBRE_1"]=="Informalidad Nacional")]
-        INF_SEX["SERIE"]=INF_SEX["NOMBRE_2"]
-        INF_SEX["VALOR"]=INF_SEX["VALOR"]*1000
-        INF_SEX=INF_SEX.sort_values(by="PERIODO")
-        
-        informalidad=data3[(data3["CATEGORIA2"]=="INFORMALIDAD")]
-        informalidad["SERIE"]=informalidad["NOMBRE_2"]
-        informalidad["VALOR"]=informalidad["VALOR"]/100
-        informalidad=informalidad.sort_values(by="PERIODO")
-        ext_infor=extremos(informalidad)
-        data_infor=informalidad.copy(deep=True)
-        data_infor=data_infor[["PERIODO","VALOR","SERIE"]]
-       
-        appointment_inf = st.slider(
-                    "Seleccione el rango de fechas       ",
-                    value=(ext_INF[0],ext_INF[1]),
-                    format="YYYY/MM")
-
-        
-        if appointment_inf:
-              dataINF_SEX=INF_SEX.copy(deep=True)
-              INF_SEX=gen_bar(INF_SEX,appointment,"Número de informales")
-              INF=INF[(INF["PERIODO"] >= appointment_inf[0])&(INF["PERIODO"]<=appointment_inf[1])]
-              INF_SEX.add_trace(px.line(INF, x='PERIODO', y='VALOR', color="SERIE").data[0])
-              INF_SEX=fechas_2(INF_SEX)
-              st.plotly_chart(INF_SEX, theme="streamlit", use_container_width=True)
-              a=descargar_datos(dataINF_SEX) 
-        appointment_3 = st.slider(
-                    "Seleccione el rango de fechas   ",
-                    value=(ext_infor[0],ext_infor[1]),
-                    format="YYYY/MM")
-
-              
-        
-        if appointment_3:
-            datainformalidad=informalidad.copy(deep=True)
-            informalidad=gen(informalidad,appointment_3,"Tasas de Informalidad")
-            informalidad=fechas_2(informalidad)
-            informalidad=eje_porcentaje(informalidad)
-            
-            st.plotly_chart(informalidad, theme="streamlit", use_container_width=True)
-            a=descargar_datos(datainformalidad) 
-
-    with tab34:
-            
-        cate_nac=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&(data3["CATEGORIA3"]=="Nacional")]
-        
-        cate_nac["VALOR"]=cate_nac["VALOR"]*1000        
-        cate_nac["SERIE"]=cate_nac["NOMBRE_2"]
-        cate_nac=cate_nac.sort_values(by="PERIODO")
-        ext_cate_nac=extremos(cate_nac)
-        data_cate_nac=cate_nac.copy(deep=True)
-        data_cate_nac=data_cate_nac[["PERIODO","VALOR","SERIE"]]
-    
-        appointment_5 = st.slider(
-                     "Seleccione el rango de fechas    ",
-                     value=(ext_cate_nac[0],ext_cate_nac[1]),
-                     format="YYYY/MM")
-        
-        if appointment_5:
-             datacate_nac=cate_nac.copy(deep=True)
-             cate_nac=gen(cate_nac,appointment_5,"Categorías de ocupados")
-             cate_nac=fechas_2(cate_nac)
-
-             
-             st.plotly_chart(cate_nac, theme="streamlit", use_container_width=True)
-             a=descargar_datos(datacate_nac)
-        
-        
-
-        
-        cate_sex=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&~(data3["CATEGORIA3"]=="Nacional")]    
-        cate_sex["VALOR"]=cate_sex["VALOR"]*1000
-  
-        cate_sex["SERIE"]=cate_sex["NOMBRE_1"]
-        ext_cate_sex=extremos(cate_sex)
-        data_cate_sex=cate_sex.copy(deep=True)
-        data_cate_sex=data_cate_sex[["PERIODO","VALOR","SERIE"]]
-        
-        appointment_6 = st.slider(
-                     "Seleccione el rango de fechas      ",
-                     value=(ext_cate_sex[0],ext_cate_sex[1]),
-                     format="YYYY/MM")
-      
-        options = ["Independientes","Dependientes","Asalariados","Sector privado","Sector público","Trabajo Doméstico" ]
-  
-        user_input = st.multiselect(label='Serie a comparar por género', options=options)
-        
-        if appointment_6 or user_input:
-            if len(user_input)==1:
-                cate_sex=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&~(data3["CATEGORIA3"]=="Nacional")]
-                cate_sex["SERIE"]=cate_sex["NOMBRE_1"]
-              
-                cate_sex=cate_sex[(cate_sex["NOMBRE_1"].isin([user_input[0]+" Hombres",user_input[0]+" Mujeres"]))]
-                datacate_sex=cate_sex.copy(deep=True)
-                cate_sex=gen(cate_sex,appointment_6,"Comparación ocupados por sexo: "+user_input[0])
-                cate_sex=fechas_2(cate_sex)
-         
-                st.plotly_chart(cate_sex, theme="streamlit", use_container_width=True)
-                a=descargar_datos(datacate_sex)
-           
-            if len(user_input)==2:
-                cate_sex=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&~(data3["CATEGORIA3"]=="(AS)")]
-                cate_sex["SERIE"]=cate_sex["NOMBRE_1"]
-                cate_sex=cate_sex[(cate_sex["NOMBRE_1"].isin([user_input[0]+" Hombres",user_input[0]+" Mujeres",user_input[1]+" Hombres",user_input[1]+" Mujeres"]))]
-                datacate_sex=cate_sex.copy(deep=True)
-                cate_sex=gen(cate_sex,appointment_6,"Comparación ocupados por sexo: "+user_input[0] +" y "+user_input[1])
-                cate_sex=fechas_2(cate_sex)
-          
-                st.plotly_chart(cate_sex, theme="streamlit", use_container_width=True)
-                a=descargar_datos(datacate_sex)
-
- 
-            if len(user_input)>2:
-                cate_sex=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&~(data3["CATEGORIA3"]=="Nacional")]
-                cate_sex["SERIE"]=cate_sex["NOMBRE_1"]
-                series=[]
-                for i in np.linspace(0,len(user_input)-1,len(user_input)):
-                    i=int(i)
-                    hom=user_input[i]+" Hombres"
-                    series.append(hom)
-                    muj=user_input[i]+" Mujeres"
-                    series.append(muj)
-                        
-                cate_sex=cate_sex[(cate_sex["NOMBRE_1"].isin(series))]
-                datacate_sex=cate_sex.copy(deep=True)
-                cate_sex=gen(cate_sex,appointment_6,"Comparación ocupados por sexo")
-                cate_sex=fechas_2(cate_sex)
-          
-                st.plotly_chart(cate_sex, theme="streamlit", use_container_width=True)
-                a=descargar_datos(datacate_sex) 
-             
-        
-
-        with tab35:
-    
-            ind_rem_men_r=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="REAL")]
-            ind_rem_men_n=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="NOMINAL")]
-            ind_rem_men_r["SERIE"]="Variación mensual real"     
-            ind_rem_men_n["SERIE"]="Variación mensual nominal"    
-        
-            ind_rem_men_r["VALOR"]=ind_rem_men_r["VALOR"]/ind_rem_men_r["VALOR"].shift(1)-1
-            ind_rem_men_r=ind_rem_men_r.dropna()
-         
-            ind_rem_men_n["VALOR"]=ind_rem_men_n["VALOR"]/ind_rem_men_n["VALOR"].shift(1)-1
-            ind_rem_men_n=ind_rem_men_n.dropna()
-    
-        
-            ind_rem_men_r=ind_rem_men_r.sort_values(by="PERIODO")
-            ind_rem_men_n=ind_rem_men_n.sort_values(by="PERIODO")
-          
-            
-            ext_ind_rem_men_n=extremos(ind_rem_men_n)
-            data_ind_rem_men_n=ind_rem_men_n.copy(deep=True)
-            data_ind_rem_men_n=data_ind_rem_men_n[["PERIODO","VALOR","SERIE"]]
-            
-            ext_ind_rem_men_n=extremos(ind_rem_men_r)
-            data_ind_rem_men_r=ind_rem_men_r.copy(deep=True)
-            data_ind_rem_men_r=data_ind_rem_men_r[["PERIODO","VALOR","SERIE"]]
-           
-     
-            appointment_44 = st.slider(
-                        "Seleccione el rango de fechas    ",
-                        value=(ext_ind_rem_men_n[0],ext_ind_rem_men_n[1]),
-                        format="YYYY/MM")
-             
-        
-      
-            col1, col2 = st.columns(2)
-             
-            with col1:
-                
-                if appointment_44:
-                    dataind_rem_men_r=ind_rem_men_r.copy(deep=True)
-                    ind_rem_men_r=gen(ind_rem_men_r,appointment_44,"Variación real mensual Índice de remuneraciones")
-                    ind_rem_men_r=fechas_2(ind_rem_men_r)
-                    ind_rem_men_r=eje_porcentaje(ind_rem_men_r)
-            
-                    st.plotly_chart(ind_rem_men_r, theme="streamlit", use_container_width=True)
-                    a=descargar_datos(dataind_rem_men_r)
-
+              if len(user_input)>2:
+                  cate_sex=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&~(data3["CATEGORIA3"]=="Nacional")]
+                  cate_sex["SERIE"]=cate_sex["NOMBRE_1"]
+                  series=[]
+                  for i in np.linspace(0,len(user_input)-1,len(user_input)):
+                      i=int(i)
+                      hom=user_input[i]+" Hombres"
+                      series.append(hom)
+                      muj=user_input[i]+" Mujeres"
+                      series.append(muj)
                           
-            with col2:
-                
-                if appointment_44:
-                    dataind_rem_men_n=ind_rem_men_n.copy(deep=True)
-                    ind_rem_men_n=gen(ind_rem_men_n,appointment_44,"Variación nominal mensual Índice de remuneraciones")
-                    ind_rem_men_n=fechas_2(ind_rem_men_n)
-                    ind_rem_men_n=eje_porcentaje(ind_rem_men_n)
-                    
-                    st.plotly_chart(ind_rem_men_n, theme="streamlit", use_container_width=True)
-                    a=descargar_datos(dataind_rem_men_n)
-
-          
-            ind_rem_men_r=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="REAL")]
-            ind_rem_men_n=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="NOMINAL")]
-            ind_rem_men_r["SERIE"]="Variación anual real"     
-            ind_rem_men_n["SERIE"]="Variación anual nominal"    
-        
-            ind_rem_men_r["VALOR"]=ind_rem_men_r["VALOR"]/ind_rem_men_r["VALOR"].shift(12)-1
-            ind_rem_men_r=ind_rem_men_r.dropna()
-         
-            ind_rem_men_n["VALOR"]=ind_rem_men_n["VALOR"]/ind_rem_men_n["VALOR"].shift(12)-1
-            ind_rem_men_n=ind_rem_men_n.dropna()
-        
-        
-            ind_rem_men_r=ind_rem_men_r.sort_values(by="PERIODO")
-            ind_rem_men_n=ind_rem_men_n.sort_values(by="PERIODO")
-          
-           
-            ext_ind_rem_men_n=extremos(ind_rem_men_n)
-            data_ind_rem_men_n=ind_rem_men_n.copy(deep=True)
-            data_ind_rem_men_n=data_ind_rem_men_n[["PERIODO","VALOR","SERIE"]]
+                  cate_sex=cate_sex[(cate_sex["NOMBRE_1"].isin(series))]
+                  datacate_sex=cate_sex.copy(deep=True)
+                  cate_sex=gen(cate_sex,appointment_6,"Comparación ocupados por sexo")
+                  cate_sex=fechas_2(cate_sex)
             
-            ext_ind_rem_men_n=extremos(ind_rem_men_r)
-            data_ind_rem_men_r=ind_rem_men_r.copy(deep=True)
-            data_ind_rem_men_r=data_ind_rem_men_r[["PERIODO","VALOR","SERIE"]]
-           
-        
-            appointment_44 = st.slider(
-                        "Seleccione el rango de fechas     ",
-                        value=(ext_ind_rem_men_n[0],ext_ind_rem_men_n[1]),
-                        format="YYYY/MM")
-             
-        
-        
-            col1, col2 = st.columns(2)
-             
-            with col1:
-                
-                if appointment_44:
-                    dataind_rem_men_r=ind_rem_men_r.copy(deep=True)
-                    ind_rem_men_r=gen(ind_rem_men_r,appointment_44,"Variación real anual Índice de remuneraciones")
-                    ind_rem_men_r=fechas_2(ind_rem_men_r)
-                    ind_rem_men_r=eje_porcentaje(ind_rem_men_r)
-            
-                    st.plotly_chart(ind_rem_men_r, theme="streamlit", use_container_width=True)
-                    a=descargar_datos(dataind_rem_men_r)
-                              
-            with col2:
-                
-                if appointment_44:
-                    dataind_rem_men_n=ind_rem_men_n.copy(deep=True)
-                    ind_rem_men_n=gen(ind_rem_men_n,appointment_44,"Variación nomianl anual Índice de remuneraciones")
-                    ind_rem_men_n=fechas_2(ind_rem_men_n)
-                    ind_rem_men_n=eje_porcentaje(ind_rem_men_n)
-                    
-                    st.plotly_chart(ind_rem_men_n, theme="streamlit", use_container_width=True)
-                    a=descargar_datos(dataind_rem_men_n)
+                  st.plotly_chart(cate_sex, theme="streamlit", use_container_width=True)
+                  a=descargar_datos(datacate_sex) 
+               
+          
+  
+          with tab35:
       
-        with tab36:
-            st.markdown("<h5 style=' color: black;'>Comparación de los resultados de la Encuesta Nacional de Empleo (INE) con las series administrativas de la Superintendencia de Pensiones (SP). </h5>", unsafe_allow_html=True)
+              ind_rem_men_r=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="REAL")]
+              ind_rem_men_n=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="NOMINAL")]
+              ind_rem_men_r["SERIE"]="Variación mensual real"     
+              ind_rem_men_n["SERIE"]="Variación mensual nominal"    
+          
+              ind_rem_men_r["VALOR"]=ind_rem_men_r["VALOR"]/ind_rem_men_r["VALOR"].shift(1)-1
+              ind_rem_men_r=ind_rem_men_r.dropna()
+           
+              ind_rem_men_n["VALOR"]=ind_rem_men_n["VALOR"]/ind_rem_men_n["VALOR"].shift(1)-1
+              ind_rem_men_n=ind_rem_men_n.dropna()
+      
+          
+              ind_rem_men_r=ind_rem_men_r.sort_values(by="PERIODO")
+              ind_rem_men_n=ind_rem_men_n.sort_values(by="PERIODO")
             
-            series_adm=data3[(data3["CATEGORIA2"]=="SERIES ADMINISTRATIVAS")&(data3["CATEGORIA3"]=="COTIZANTES")]
-            series_adm["SERIE"]=series_adm["NOMBRE_1"]
-            where=series_adm["NOMBRE_1"].isin(["Cotizantes-INE","Cotizantes-SP"])
-            series_adm=series_adm[where]
-            series_adm=series_adm.sort_values(by="PERIODO")
-    
-            ext_series_adm=extremos(series_adm)
-            data_series_adm=series_adm.copy(deep=True)
-            data_series_adm=data_series_adm[["PERIODO","VALOR","SERIE"]]
-        
-            appointment_1 = st.slider(
-                          "Seleccione el rango de fechas       ",
-                          value=(ext_series_adm[0],ext_series_adm[1]),
+              
+              ext_ind_rem_men_n=extremos(ind_rem_men_n)
+              data_ind_rem_men_n=ind_rem_men_n.copy(deep=True)
+              data_ind_rem_men_n=data_ind_rem_men_n[["PERIODO","VALOR","SERIE"]]
+              
+              ext_ind_rem_men_n=extremos(ind_rem_men_r)
+              data_ind_rem_men_r=ind_rem_men_r.copy(deep=True)
+              data_ind_rem_men_r=data_ind_rem_men_r[["PERIODO","VALOR","SERIE"]]
+             
+       
+              appointment_44 = st.slider(
+                          "Seleccione el rango de fechas    ",
+                          value=(ext_ind_rem_men_n[0],ext_ind_rem_men_n[1]),
                           format="YYYY/MM")
+               
+          
+        
+              col1, col2 = st.columns(2)
+               
+              with col1:
+                  
+                  if appointment_44:
+                      dataind_rem_men_r=ind_rem_men_r.copy(deep=True)
+                      ind_rem_men_r=gen(ind_rem_men_r,appointment_44,"Variación real mensual Índice de remuneraciones")
+                      ind_rem_men_r=fechas_2(ind_rem_men_r)
+                      ind_rem_men_r=eje_porcentaje(ind_rem_men_r)
+              
+                      st.plotly_chart(ind_rem_men_r, theme="streamlit", use_container_width=True)
+                      a=descargar_datos(dataind_rem_men_r)
+  
+                            
+              with col2:
+                  
+                  if appointment_44:
+                      dataind_rem_men_n=ind_rem_men_n.copy(deep=True)
+                      ind_rem_men_n=gen(ind_rem_men_n,appointment_44,"Variación nominal mensual Índice de remuneraciones")
+                      ind_rem_men_n=fechas_2(ind_rem_men_n)
+                      ind_rem_men_n=eje_porcentaje(ind_rem_men_n)
+                      
+                      st.plotly_chart(ind_rem_men_n, theme="streamlit", use_container_width=True)
+                      a=descargar_datos(dataind_rem_men_n)
+  
             
-            sub11 = st.checkbox(label='Incluir límite inferior y superior')
-    
-            if appointment_1 and not sub11:
+              ind_rem_men_r=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="REAL")]
+              ind_rem_men_n=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="NOMINAL")]
+              ind_rem_men_r["SERIE"]="Variación anual real"     
+              ind_rem_men_n["SERIE"]="Variación anual nominal"    
+          
+              ind_rem_men_r["VALOR"]=ind_rem_men_r["VALOR"]/ind_rem_men_r["VALOR"].shift(12)-1
+              ind_rem_men_r=ind_rem_men_r.dropna()
+           
+              ind_rem_men_n["VALOR"]=ind_rem_men_n["VALOR"]/ind_rem_men_n["VALOR"].shift(12)-1
+              ind_rem_men_n=ind_rem_men_n.dropna()
+          
+          
+              ind_rem_men_r=ind_rem_men_r.sort_values(by="PERIODO")
+              ind_rem_men_n=ind_rem_men_n.sort_values(by="PERIODO")
+            
+             
+              ext_ind_rem_men_n=extremos(ind_rem_men_n)
+              data_ind_rem_men_n=ind_rem_men_n.copy(deep=True)
+              data_ind_rem_men_n=data_ind_rem_men_n[["PERIODO","VALOR","SERIE"]]
+              
+              ext_ind_rem_men_n=extremos(ind_rem_men_r)
+              data_ind_rem_men_r=ind_rem_men_r.copy(deep=True)
+              data_ind_rem_men_r=data_ind_rem_men_r[["PERIODO","VALOR","SERIE"]]
+             
+          
+              appointment_44 = st.slider(
+                          "Seleccione el rango de fechas     ",
+                          value=(ext_ind_rem_men_n[0],ext_ind_rem_men_n[1]),
+                          format="YYYY/MM")
+               
+          
+          
+              col1, col2 = st.columns(2)
+               
+              with col1:
+                  
+                  if appointment_44:
+                      dataind_rem_men_r=ind_rem_men_r.copy(deep=True)
+                      ind_rem_men_r=gen(ind_rem_men_r,appointment_44,"Variación real anual Índice de remuneraciones")
+                      ind_rem_men_r=fechas_2(ind_rem_men_r)
+                      ind_rem_men_r=eje_porcentaje(ind_rem_men_r)
+              
+                      st.plotly_chart(ind_rem_men_r, theme="streamlit", use_container_width=True)
+                      a=descargar_datos(dataind_rem_men_r)
+                                
+              with col2:
+                  
+                  if appointment_44:
+                      dataind_rem_men_n=ind_rem_men_n.copy(deep=True)
+                      ind_rem_men_n=gen(ind_rem_men_n,appointment_44,"Variación nomianl anual Índice de remuneraciones")
+                      ind_rem_men_n=fechas_2(ind_rem_men_n)
+                      ind_rem_men_n=eje_porcentaje(ind_rem_men_n)
+                      
+                      st.plotly_chart(ind_rem_men_n, theme="streamlit", use_container_width=True)
+                      a=descargar_datos(dataind_rem_men_n)
+        
+          with tab36:
+              st.markdown("<h5 style=' color: black;'>Comparación de los resultados de la Encuesta Nacional de Empleo (INE) con las series administrativas de la Superintendencia de Pensiones (SP). </h5>", unsafe_allow_html=True)
+              
+              series_adm=data3[(data3["CATEGORIA2"]=="SERIES ADMINISTRATIVAS")&(data3["CATEGORIA3"]=="COTIZANTES")]
+              series_adm["SERIE"]=series_adm["NOMBRE_1"]
+              where=series_adm["NOMBRE_1"].isin(["Cotizantes-INE","Cotizantes-SP"])
+              series_adm=series_adm[where]
+              series_adm=series_adm.sort_values(by="PERIODO")
+      
+              ext_series_adm=extremos(series_adm)
+              data_series_adm=series_adm.copy(deep=True)
+              data_series_adm=data_series_adm[["PERIODO","VALOR","SERIE"]]
+          
+              appointment_1 = st.slider(
+                            "Seleccione el rango de fechas       ",
+                            value=(ext_series_adm[0],ext_series_adm[1]),
+                            format="YYYY/MM")
+              
+              sub11 = st.checkbox(label='Incluir límite inferior y superior')
+      
+              if appointment_1 and not sub11:
+                    
+                    series_adm=gen(series_adm,appointment_1,"Número de cotizantes")
+                    series_adm=fechas_2(series_adm)
+      
+                   
+                    st.plotly_chart(series_adm, theme="streamlit", use_container_width=True)
+                    
+  
+        
+          
+              if appointment_1 and sub11:
+                  series_adm=data3[(data3["CATEGORIA2"]=="SERIES ADMINISTRATIVAS")&(data3["CATEGORIA3"]=="COTIZANTES")]
+                  series_adm["SERIE"]=series_adm["NOMBRE_1"]
+                  series_adm=series_adm.sort_values(by="PERIODO")
                   
                   series_adm=gen(series_adm,appointment_1,"Número de cotizantes")
                   series_adm=fechas_2(series_adm)
-    
-                 
+         
+                  
                   st.plotly_chart(series_adm, theme="streamlit", use_container_width=True)
                   
-
-      
+              
+  
+  
         
-            if appointment_1 and sub11:
-                series_adm=data3[(data3["CATEGORIA2"]=="SERIES ADMINISTRATIVAS")&(data3["CATEGORIA3"]=="COTIZANTES")]
-                series_adm["SERIE"]=series_adm["NOMBRE_1"]
-                series_adm=series_adm.sort_values(by="PERIODO")
-                
-                series_adm=gen(series_adm,appointment_1,"Número de cotizantes")
-                series_adm=fechas_2(series_adm)
+              
+              series_adm_2=data3[(data3["CATEGORIA2"]=="SERIES ADMINISTRATIVAS")&(data3["CATEGORIA3"]=="VARIACIONES ANUALES")]
+              series_adm_2["SERIE"]=series_adm_2["NOMBRE_1"]
+              series_adm_2["VALOR"]=series_adm_2["VALOR"]/100
+              series_adm_2=series_adm_2.sort_values(by="PERIODO")
        
-                
-                st.plotly_chart(series_adm, theme="streamlit", use_container_width=True)
-                
-            
-
-
-      
-            
-            series_adm_2=data3[(data3["CATEGORIA2"]=="SERIES ADMINISTRATIVAS")&(data3["CATEGORIA3"]=="VARIACIONES ANUALES")]
-            series_adm_2["SERIE"]=series_adm_2["NOMBRE_1"]
-            series_adm_2["VALOR"]=series_adm_2["VALOR"]/100
-            series_adm_2=series_adm_2.sort_values(by="PERIODO")
-     
-            ext_series_adm_2=extremos(series_adm_2)
-
-            
-            series_adm_2=gen(series_adm_2,appointment_1,"Variación anual del número de cotizantes: ENE y SP")
-            series_adm_2=fechas_2(series_adm_2)
-            series_adm_2=eje_porcentaje(series_adm_2)
-           
-            st.plotly_chart(series_adm_2, theme="streamlit", use_container_width=True)
-            
-            
-            
-        
-        with tab37:        
-            # Cargar el dataframe
-            
-            trimestres = {'T1': '03-31', 'T2': '06-30', 'T3': '09-30', 'T4': '12-31'}
-                   
-            def convertir_a_fecha(trimestre):
-                trimestre, año = trimestre.split(' ')
-                fecha = trimestres[trimestre] + '-' + año
-                return pd.to_datetime(fecha, format='%m-%d-%Y')
-    
-
-            
-            st.markdown("<h5 style=' color: black;'> Cifras administrativas y encuesta INE. </h5>", unsafe_allow_html=True)
-   
-            appointment_44_1 = st.slider(
-                        "Seleccione el rango de fechas          ",
-                        value=(ext_ind_rem_men_n[0],ext_ind_rem_men_n[1]),
-                        format="YYYY/MM")
-
-            if appointment_44_1:
-                
-                df_dipres = pd.read_excel('Dipres.xlsx')  
-                df_dipres=df_dipres.replace("nan",np.nan)
-                df_dipres=df_dipres.replace("-",np.nan)
-                del df_dipres["Periodo"]
-                df_dipres["Ministerio"] = df_dipres["Ministerio"].str[3:]
-
-                total=df_dipres.copy(deep=True)
-                total=total.groupby("Grupo de Interés").sum()
-                del total["Ministerio"],total['Calidad Jurídica'], total['Estamento'], total['Tipo'], total['Rango edad'],total['Sexo']
-                   
-                total=total.stack()
-                total=total.reset_index()
-                total=total.rename(columns={"Grupo de Interés":"SERIE","level_1":"PERIODO",0:"VALOR"})
-                
-                total=total[total["SERIE"].isin(['Totales','Resto del Gobierno Central'])]
-                
-                total.loc[total["SERIE"]=='Totales',"SERIE"]="Total Gobierno Central"
-                total.loc[total["SERIE"]=='Resto del Gobierno Central',"SERIE"]="Gobierno Central (excluye servicios de educación y salud)"
-    
-    
-                
-                total["PERIODO"]=total["PERIODO"].apply(convertir_a_fecha)
-                
-                cate_nac=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&(data3["CATEGORIA3"]=="Nacional")]
-                cate_nac["VALOR"]=cate_nac["VALOR"]  
-                cate_nac["SERIE"]=cate_nac["NOMBRE_2"]
-                cate_nac=cate_nac.sort_values(by="PERIODO")
-                nacional=cate_nac[cate_nac["SERIE"]=="Sector privado Nacional"]
-                nacional=nacional[["SERIE","PERIODO","VALOR"]]
-                
-                nacional=nacional.pivot(index="PERIODO",values="VALOR",columns="SERIE")
-                total=total.pivot(index="PERIODO",values="VALOR",columns="SERIE")
-                total=total[total.index>appointment_44_1[0]]
-                
-                total=total.merge(nacional,how="left",left_index=True,right_index=True)
-                
-                total=total/total.shift(1)-1
-                total=total.dropna()
-                total=(total+1).cumprod()*100
-    
-                
-                first_date = total.index.min() - pd.DateOffset(months=3)
-                for column in total.columns:
-                    total.loc[first_date, column] = 100
-                
-                total=total.stack()
-                
-                total=total.reset_index()
-                
-                total["VALOR"]=total[0]
-                total=total.sort_values(by="PERIODO")
-                datatotal=total.copy(deep=True)
-                total=gen(total,appointment_44_1,"Datos administrativos DIPRES e INE")
-                total=fechas_2(total)
-                st.plotly_chart(total, theme="streamlit", use_container_width=True)    
-                a=descargar_datos(datatotal) 
-            else:
-                pass
-
-
-            
-            
-            appointment_44 = st.slider(
-                        "Seleccione el rango de fechas        ",
-                        value=(ext_ind_rem_men_n[0],ext_ind_rem_men_n[1]),
-                        format="YYYY/MM")
-
-
-            st.markdown("<h5 style=' color: black;'> Análisis por Ministerio </h5>", unsafe_allow_html=True)
-   
-
-            
-            filtro_ministerio = st.multiselect('Filtrar por Ministerio', df_dipres["Ministerio"].drop_duplicates())
-
-            
-            if filtro_ministerio:
-                df_filtro=df_dipres.copy(deep=True)
-                df_filtro=df_filtro[df_filtro["Ministerio"].isin(filtro_ministerio)]
-                filtro_características = st.multiselect('Filtrar por características', df_dipres.columns[1:7])
-
-            try: 
-                if filtro_características:
-                    df_filtro=df_filtro.copy(deep=True)
-                        
+              ext_series_adm_2=extremos(series_adm_2)
+  
+              
+              series_adm_2=gen(series_adm_2,appointment_1,"Variación anual del número de cotizantes: ENE y SP")
+              series_adm_2=fechas_2(series_adm_2)
+              series_adm_2=eje_porcentaje(series_adm_2)
+             
+              st.plotly_chart(series_adm_2, theme="streamlit", use_container_width=True)
+              
+              
+              
+          
+          with tab37:        
+              # Cargar el dataframe
+              
+              trimestres = {'T1': '03-31', 'T2': '06-30', 'T3': '09-30', 'T4': '12-31'}
                      
-                    
-                    agrupador={
-                    'Ministerio':'Calidad Jurídica',    
-                    'Calidad Jurídica': 'Estamento', 
-                     'Estamento':  'Tipo', 
-                     'Tipo':  'Rango edad', 
-                     'Rango edad':  'Sexo',
-                     'Sexo':'Grupo de Interés' 
-                     }
-                    
-                    ordenador={
-                    'Ministerio':0,
-                    'Calidad Jurídica': 1, 
-                     'Estamento':  2, 
-                     'Tipo':  3, 
-                     'Rango edad':  4,
-                     'Sexo':5 
-                     }
-                    
-                    def orden_personalizado(valor):
-                        return ordenador.get(valor, float('inf'))
-                    
-                    valor_maximo = max(filtro_características, key=orden_personalizado)
-                    
-                    
-                    if 'Grupo de Interés' not in filtro_características:
-                        valor_maximo = max(filtro_características, key=orden_personalizado)
-                        df_filtro=df_filtro.loc[df_filtro[agrupador[valor_maximo]]=="Totales"]
-                    else:
-                        pass
-                    
-                                    # Seleccionar solo las columnas numéricas
-                    columnas_numericas = df_filtro.select_dtypes(include=[float, int]).columns
-                    
-                    # Aplicar el groupby y la suma solo a las columnas numéricas
-                    df_filtro = df_filtro.groupby((["Ministerio"]+filtro_características))[columnas_numericas].sum()
-                    
-                    df_filtro=df_filtro.stack()
-                    df_filtro=df_filtro.reset_index()
-    
-    
-                    trimestres = {'T1': '03-31', 'T2': '06-30', 'T3': '09-30', 'T4': '12-31'}
-                    
-                    # Función para convertir el valor de trimestre a fecha
+              def convertir_a_fecha(trimestre):
+                  trimestre, año = trimestre.split(' ')
+                  fecha = trimestres[trimestre] + '-' + año
+                  return pd.to_datetime(fecha, format='%m-%d-%Y')
+      
+  
+              
+              st.markdown("<h5 style=' color: black;'> Cifras administrativas y encuesta INE. </h5>", unsafe_allow_html=True)
+     
+              appointment_44_1 = st.slider(
+                          "Seleccione el rango de fechas          ",
+                          value=(ext_ind_rem_men_n[0],ext_ind_rem_men_n[1]),
+                          format="YYYY/MM")
+  
+              if appointment_44_1:
                   
-            
-                    df_filtro[df_filtro.columns[-2]] = df_filtro[df_filtro.columns[-2]].astype(str)  
-                    df_filtro[df_filtro.columns[-2]] = df_filtro[df_filtro.columns[-2]].apply(convertir_a_fecha)
-                    df_filtro=df_filtro.rename(columns={df_filtro.columns[-2]:"PERIODO",0:"VALOR"})
+                  df_dipres = pd.read_excel('Dipres.xlsx')  
+                  df_dipres=df_dipres.replace("nan",np.nan)
+                  df_dipres=df_dipres.replace("-",np.nan)
+                  del df_dipres["Periodo"]
+                  df_dipres["Ministerio"] = df_dipres["Ministerio"].str[3:]
+  
+                  total=df_dipres.copy(deep=True)
+                  total=total.groupby("Grupo de Interés").sum()
+                  del total["Ministerio"],total['Calidad Jurídica'], total['Estamento'], total['Tipo'], total['Rango edad'],total['Sexo']
+                     
+                  total=total.stack()
+                  total=total.reset_index()
+                  total=total.rename(columns={"Grupo de Interés":"SERIE","level_1":"PERIODO",0:"VALOR"})
+                  
+                  total=total[total["SERIE"].isin(['Totales','Resto del Gobierno Central'])]
+                  
+                  total.loc[total["SERIE"]=='Totales',"SERIE"]="Total Gobierno Central"
+                  total.loc[total["SERIE"]=='Resto del Gobierno Central',"SERIE"]="Gobierno Central (excluye servicios de educación y salud)"
+      
+      
+                  
+                  total["PERIODO"]=total["PERIODO"].apply(convertir_a_fecha)
+                  
+                  cate_nac=data3[(data3["CATEGORIA2"]=="CATEGORIAS")&(data3["CATEGORIA3"]=="Nacional")]
+                  cate_nac["VALOR"]=cate_nac["VALOR"]  
+                  cate_nac["SERIE"]=cate_nac["NOMBRE_2"]
+                  cate_nac=cate_nac.sort_values(by="PERIODO")
+                  nacional=cate_nac[cate_nac["SERIE"]=="Sector privado Nacional"]
+                  nacional=nacional[["SERIE","PERIODO","VALOR"]]
+                  
+                  nacional=nacional.pivot(index="PERIODO",values="VALOR",columns="SERIE")
+                  total=total.pivot(index="PERIODO",values="VALOR",columns="SERIE")
+                  total=total[total.index>appointment_44_1[0]]
+                  
+                  total=total.merge(nacional,how="left",left_index=True,right_index=True)
+                  
+                  total=total/total.shift(1)-1
+                  total=total.dropna()
+                  total=(total+1).cumprod()*100
+      
+                  
+                  first_date = total.index.min() - pd.DateOffset(months=3)
+                  for column in total.columns:
+                      total.loc[first_date, column] = 100
+                  
+                  total=total.stack()
+                  
+                  total=total.reset_index()
+                  
+                  total["VALOR"]=total[0]
+                  total=total.sort_values(by="PERIODO")
+                  datatotal=total.copy(deep=True)
+                  total=gen(total,appointment_44_1,"Datos administrativos DIPRES e INE")
+                  total=fechas_2(total)
+                  st.plotly_chart(total, theme="streamlit", use_container_width=True)    
+                  a=descargar_datos(datatotal) 
+              else:
+                  pass
+  
+  
+              
+              
+              appointment_44 = st.slider(
+                          "Seleccione el rango de fechas        ",
+                          value=(ext_ind_rem_men_n[0],ext_ind_rem_men_n[1]),
+                          format="YYYY/MM")
+  
+  
+              st.markdown("<h5 style=' color: black;'> Análisis por Ministerio </h5>", unsafe_allow_html=True)
+     
+  
+              
+              filtro_ministerio = st.multiselect('Filtrar por Ministerio', df_dipres["Ministerio"].drop_duplicates())
+  
+              
+              if filtro_ministerio:
+                  df_filtro=df_dipres.copy(deep=True)
+                  df_filtro=df_filtro[df_filtro["Ministerio"].isin(filtro_ministerio)]
+                  filtro_características = st.multiselect('Filtrar por características', df_dipres.columns[1:7])
+  
+              try: 
+                  if filtro_características:
+                      df_filtro=df_filtro.copy(deep=True)
+                          
+                       
+                      
+                      agrupador={
+                      'Ministerio':'Calidad Jurídica',    
+                      'Calidad Jurídica': 'Estamento', 
+                       'Estamento':  'Tipo', 
+                       'Tipo':  'Rango edad', 
+                       'Rango edad':  'Sexo',
+                       'Sexo':'Grupo de Interés' 
+                       }
+                      
+                      ordenador={
+                      'Ministerio':0,
+                      'Calidad Jurídica': 1, 
+                       'Estamento':  2, 
+                       'Tipo':  3, 
+                       'Rango edad':  4,
+                       'Sexo':5 
+                       }
+                      
+                      def orden_personalizado(valor):
+                          return ordenador.get(valor, float('inf'))
+                      
+                      valor_maximo = max(filtro_características, key=orden_personalizado)
+                      
+                      
+                      if 'Grupo de Interés' not in filtro_características:
+                          valor_maximo = max(filtro_características, key=orden_personalizado)
+                          df_filtro=df_filtro.loc[df_filtro[agrupador[valor_maximo]]=="Totales"]
+                      else:
+                          pass
+                      
+                                      # Seleccionar solo las columnas numéricas
+                      columnas_numericas = df_filtro.select_dtypes(include=[float, int]).columns
+                      
+                      # Aplicar el groupby y la suma solo a las columnas numéricas
+                      df_filtro = df_filtro.groupby((["Ministerio"]+filtro_características))[columnas_numericas].sum()
+                      
+                      df_filtro=df_filtro.stack()
+                      df_filtro=df_filtro.reset_index()
+      
+      
+                      trimestres = {'T1': '03-31', 'T2': '06-30', 'T3': '09-30', 'T4': '12-31'}
+                      
+                      # Función para convertir el valor de trimestre a fecha
                     
-                    def concatenar_filas(row):
-                        columnas_concatenadas = ' - '.join([str(value) for value in row[:-2]])
-                        return columnas_concatenadas
-                    
-                    # Aplicar la función a cada fila del DataFrame
-                    df_filtro['SERIE'] = df_filtro.apply(concatenar_filas, axis=1)
-                    datadf_filtro=df_filtro.copy(deep=True)               
-                    df_filtro=gen(df_filtro,appointment_44,"Datos administrativos DIPRES")
-                    df_filtro=fechas_2(df_filtro)
-                    
-                    
-                    st.plotly_chart(df_filtro, theme="streamlit", use_container_width=True)
-                    a=descargar_datos(datadf_filtro) 
-            except:
-                pass
+              
+                      df_filtro[df_filtro.columns[-2]] = df_filtro[df_filtro.columns[-2]].astype(str)  
+                      df_filtro[df_filtro.columns[-2]] = df_filtro[df_filtro.columns[-2]].apply(convertir_a_fecha)
+                      df_filtro=df_filtro.rename(columns={df_filtro.columns[-2]:"PERIODO",0:"VALOR"})
+                      
+                      def concatenar_filas(row):
+                          columnas_concatenadas = ' - '.join([str(value) for value in row[:-2]])
+                          return columnas_concatenadas
+                      
+                      # Aplicar la función a cada fila del DataFrame
+                      df_filtro['SERIE'] = df_filtro.apply(concatenar_filas, axis=1)
+                      datadf_filtro=df_filtro.copy(deep=True)               
+                      df_filtro=gen(df_filtro,appointment_44,"Datos administrativos DIPRES")
+                      df_filtro=fechas_2(df_filtro)
+                      
+                      
+                      st.plotly_chart(df_filtro, theme="streamlit", use_container_width=True)
+                      a=descargar_datos(datadf_filtro) 
+              except:
+                  pass
+  
+  
+      
+  #CUENTAS CORRIENTES
+  
+  data4=data[data["CATEGORIA"]=="CUENTAS CORRIENTES"]
+  cuentas=data4[(data4["NOMBRE_1"]=="TOTAL")&~(data4["CATEGORIA2"]=="Jurídica")]
+  
+  cuentas["SERIE"]=cuentas["NOMBRE_1"]
+  
+  ext_cuentas=extremos(cuentas)
+  data_cuentas=cuentas.copy(deep=True)
+  data_cuentas=data_cuentas[["PERIODO","VALOR","SERIE"]]
+  
+              
+  
+  cuentas_2=data4[(data4["NOMBRE_1"]=="TOTAL")&(data4["CATEGORIA2"]=="Jurídica")]
+  cuentas_2["SERIE"]=cuentas_2["NOMBRE_1"]
+  
+  ext_cuentas_2=extremos(cuentas_2)
+  data_cuentas_2=cuentas_2.copy(deep=True)
+  data_cuentas_2=data_cuentas_2[["PERIODO","VALOR","SERIE"]]
+  
+  
+  desagregadas=data4[~(data4["NOMBRE_1"]=="TOTAL")&~(data4["CATEGORIA2"]=="Jurídica")]
+  desagregadas["SERIE"]=desagregadas["NOMBRE_1"]
+  
+  
+  ext_desagregadas=extremos(desagregadas)
+  data_desagregadas=desagregadas.copy(deep=True)
+  data_desagregadas=data_desagregadas[["PERIODO","VALOR","SERIE"]]
+  
+  
+  
+  
+  desagregadas_2=data4[~(data4["NOMBRE_1"]=="TOTAL")&(data4["CATEGORIA2"]=="Jurídica")]
+  desagregadas_2["SERIE"]=desagregadas_2["NOMBRE_1"]
+  
+  ext_desagregadas_2=extremos(desagregadas_2)
+  data_desagregadas_2=desagregadas_2.copy(deep=True)
+  data_desagregadas_2=data_desagregadas_2[["PERIODO","VALOR","SERIE"]]
+  
+  
+  
+  
+  
+  with tab4:
+      st.write('En esta sección se encuentra información de cuentas corrientes - datos CMF')
+      tab41,tab42=st.tabs(["TOTALES","DESAGREGADAS"])
+      with tab41:
+          
+          appointment_1 = st.slider(
+                      "Seleccione el rango de fechas",
+                      value=(ext_cuentas[0],ext_cuentas[1]),
+                      format="YYYY/MM")
+          datacuentas=cuentas.copy(deep=True)
+          cuentas=gen(cuentas,appointment_1,"Número de cuentas corrientes - Personas")
+          cuentas=fechas_2(cuentas)
+          
+          st.plotly_chart(cuentas, theme="streamlit", use_container_width=True)
+          a3=descargar_datos(datacuentas)     
+              
+          
+          datacuentas_2=cuentas_2.copy(deep=True)
+          cuentas_2=gen(cuentas_2,appointment_1,"Número de cuentas corrientes - Empresas")
+          cuentas_2=fechas_2(cuentas_2)
+  
+          st.plotly_chart(cuentas_2, theme="streamlit", use_container_width=True)
+          a2=descargar_datos(datacuentas_2)
+  
+          
+      
+  
+                      
+      with tab42:
+          appointment_33 = st.slider(
+                      "Seleccione el rango de fechas ",
+                      value=(ext_desagregadas[0],ext_desagregadas[1]),
+                      format="YYYY/MM")
+          datadesagregadas=desagregadas.copy(deep=True)
+          desagregadas=gen(desagregadas,appointment_33,"Número de cuentas corrientes - Personas - Componentes")
+          desagregadas=fechas_2(desagregadas)
+      
+          st.plotly_chart(desagregadas, theme="streamlit", use_container_width=True)
+          a4=descargar_datos(datadesagregadas)
+          datadesagregadas_2=desagregadas_2.copy(deep=True)
+          desagregadas_2=gen(desagregadas_2,appointment_33,"Número de cuentas corrientes - Empresas - Componentes")
+          desagregadas_2=fechas_2(desagregadas_2)
+      
+          st.plotly_chart(desagregadas_2, theme="streamlit", use_container_width=True)
+          a5=descargar_datos(datadesagregadas_2)
+  
+          
+          
+      with st.expander("Detalle"):
+                   st.write("""
+                      Fuente: Comisión del Meracdo Financiero.
+                   """)
 
 
+with tab_presentacion:
+  
+  def add_image(slide, image, left, top, width):
+      slide.shapes.add_picture(image, left=left, top=top, width=width)
+  
+  nombre_mes_espanol = [
+      "enero", "febrero", "marzo", "abril", "mayo", "junio",
+      "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
+  ]
+  
+  
+  
+  def porcentaje(dato, decimas):
+      porcentaje_str = str(np.round(dato * 100, decimas)).replace(".", ",") + "%"
+      return porcentaje_str
+  
+  def gen(imacec_des,rango,titulo):
+      imacec_des=imacec_des[(imacec_des["PERIODO"]> rango[0])&(imacec_des["PERIODO"]< rango[1])]
+      imacec_des = px.line(imacec_des, x="PERIODO", y="VALOR", color="SERIE" ,title='Mi gráfico de línea', 
+                labels={'x': 'Eje X', 'y': 'Eje Y'}, 
+                template='plotly_white', 
+                width=700, height=600)
+      imacec_des.update_layout(title={
+          'text': titulo,
+          'x':0.5,
+           'xanchor': 'center',
+           'yanchor': 'top' 
+            },legend=dict(
+              orientation="h",
+              yanchor="top",
+              y=-0.2,
+              xanchor="left",
+              x=0.01
+          ))
+      return imacec_des
+  
+  
+  
+  st.markdown("<h1 style='text-align: center; color: black;'>MONITOR ECONÓMICO CPP USS</h1>", unsafe_allow_html=True)
+  st.markdown("<h2 style='text-align: center; color: grey;'>Generar presentación con información económica</h2>", unsafe_allow_html=True)
+  
+  
+  st.write(' ')
+  
+  today = date.today()
+  
+  
+  
+  data=pd.read_parquet("datos_monitor_1.parquet")
+  
+  
+  data1=data[data["CATEGORIA"]=="ACTIVIDAD ECONOMICA"]
+  data2=data[data["CATEGORIA"]=="INFLACION"]
+  data3=data[data["CATEGORIA"]=="MERCADO LABORAL"]
+  data4=data[data["CATEGORIA"]=="CUENTAS CORRIENTES"]
+  
+  
+  
+  extremos_1=[data1["PERIODO"].iloc[0].to_pydatetime(),data2["PERIODO"].iloc[-1].to_pydatetime()]
+  extremos_2=[data2["PERIODO"].iloc[0].to_pydatetime(),data2["PERIODO"].iloc[-1].to_pydatetime()]
+  extremos_3=[data3["PERIODO"].iloc[0].to_pydatetime(),data3["PERIODO"].iloc[-1].to_pydatetime()]
+  
+  
+  
+  options = [ "ACTIVIDAD ECONÓMICA","INFLACIÓN","MERCADO LABORAL"]
+  user_input = st.multiselect(label='Selecciones la serie a utilizar', options=options)
+  
+  dic_options={"ACTIVIDAD ECONÓMICA":["ACTIVIDAD","COMPONENTES"],
+               "INFLACIÓN":["ANUAL"],
+               "MERCADO LABORAL":["DESOCUPACIÓN","INFORMALIDAD","REMUNERACIONES"]
+               }
+  
+  
+  submit=st.checkbox(label='Seleccionar todas las categorías')
+  if submit:
+      user_input=["ACTIVIDAD ECONÓMICA","INFLACIÓN","MERCADO LABORAL"]
+      
+  
+  
+  if options[0] in user_input:
+      serie=options[0]
+      st.subheader(serie)
+      user_input_1 = st.multiselect(label='Selecciones la serie a utilizar', options=dic_options[serie])
+      appointment_1 = st.slider("Seleccione el rango de fechas para la series. " + serie,
+                     value=(extremos_1[0],extremos_1[1]),
+                     format="YYYY/MM")
+  
+       
+  
+  if options[1] in user_input:
+      serie=options[1]
+      st.subheader(serie)
+      user_input_2 = st.multiselect(label='Selecciones la serie a utilizar', options=dic_options[serie])
+     
+      appointment_2 = st.slider(
+                              "Seleccione el rango de fechas para la serie.  " + serie,
+                              value=(extremos_2[0],extremos_2[1]),
+                              format="YYYY/MM")
+  
+        
     
-#CUENTAS CORRIENTES
-
-data4=data[data["CATEGORIA"]=="CUENTAS CORRIENTES"]
-cuentas=data4[(data4["NOMBRE_1"]=="TOTAL")&~(data4["CATEGORIA2"]=="Jurídica")]
-
-cuentas["SERIE"]=cuentas["NOMBRE_1"]
-
-ext_cuentas=extremos(cuentas)
-data_cuentas=cuentas.copy(deep=True)
-data_cuentas=data_cuentas[["PERIODO","VALOR","SERIE"]]
-
-            
-
-cuentas_2=data4[(data4["NOMBRE_1"]=="TOTAL")&(data4["CATEGORIA2"]=="Jurídica")]
-cuentas_2["SERIE"]=cuentas_2["NOMBRE_1"]
-
-ext_cuentas_2=extremos(cuentas_2)
-data_cuentas_2=cuentas_2.copy(deep=True)
-data_cuentas_2=data_cuentas_2[["PERIODO","VALOR","SERIE"]]
-
-
-desagregadas=data4[~(data4["NOMBRE_1"]=="TOTAL")&~(data4["CATEGORIA2"]=="Jurídica")]
-desagregadas["SERIE"]=desagregadas["NOMBRE_1"]
-
-
-ext_desagregadas=extremos(desagregadas)
-data_desagregadas=desagregadas.copy(deep=True)
-data_desagregadas=data_desagregadas[["PERIODO","VALOR","SERIE"]]
-
-
-
-
-desagregadas_2=data4[~(data4["NOMBRE_1"]=="TOTAL")&(data4["CATEGORIA2"]=="Jurídica")]
-desagregadas_2["SERIE"]=desagregadas_2["NOMBRE_1"]
-
-ext_desagregadas_2=extremos(desagregadas_2)
-data_desagregadas_2=desagregadas_2.copy(deep=True)
-data_desagregadas_2=data_desagregadas_2[["PERIODO","VALOR","SERIE"]]
-
-
-
-
-
-with tab4:
-    st.write('En esta sección se encuentra información de cuentas corrientes - datos CMF')
-    tab41,tab42=st.tabs(["TOTALES","DESAGREGADAS"])
-    with tab41:
-        
-        appointment_1 = st.slider(
-                    "Seleccione el rango de fechas",
-                    value=(ext_cuentas[0],ext_cuentas[1]),
-                    format="YYYY/MM")
-        datacuentas=cuentas.copy(deep=True)
-        cuentas=gen(cuentas,appointment_1,"Número de cuentas corrientes - Personas")
-        cuentas=fechas_2(cuentas)
-        
-        st.plotly_chart(cuentas, theme="streamlit", use_container_width=True)
-        a3=descargar_datos(datacuentas)     
-            
-        
-        datacuentas_2=cuentas_2.copy(deep=True)
-        cuentas_2=gen(cuentas_2,appointment_1,"Número de cuentas corrientes - Empresas")
-        cuentas_2=fechas_2(cuentas_2)
-
-        st.plotly_chart(cuentas_2, theme="streamlit", use_container_width=True)
-        a2=descargar_datos(datacuentas_2)
-
-        
-    
-
+  if options[2] in user_input:
+      serie=options[2]
+      st.subheader(serie)
+      user_input_3 = st.multiselect(label='Selecciones la serie a utilizar', options=dic_options[serie])
+      
+      appointment_3 = st.slider(
+                          "Seleccione el rango de fechas para la serie.   " + serie,
+                          value=(extremos_3[0],extremos_3[1]),
+                          format="YYYY/MM")
+  
+  sub1 = st.checkbox(label='Exportar como presentación')
+  
+  if sub1:
+      
+      title_1 = st.text_input('Título de la presentación', 'Informe de Actividad Económica')
+      submit = st.button(label='GENERAR PRESENTACIÓN')
+  
+      if submit and user_input == "":
+          st.warning("Selecionar una portada")
+  
+      elif submit and user_input != "":
+          with st.spinner('Generando presentación...'):
+              
+  
+  
+              try:
+                  data1=data1[(data1["PERIODO"]> appointment_1[0])&(data1["PERIODO"]< appointment_1[1])]
+              except:
+                  pass
+              try:
+                  data2=data2[(data2["PERIODO"]> appointment_2[0])&(data2["PERIODO"]< appointment_2[1])]
+              except:
+                  pass
+              try:
+                  data3=data3[(data3["PERIODO"]> appointment_3[0])&(data3["PERIODO"]< appointment_3[1])]
+              except:
+                  pass
+              try:
+                  data4=data4[(data4["PERIODO"]> appointment_4[0])&(data4["PERIODO"]< appointment_4[1])]
+              except:
+                  pass
+  
+              #ACTIVIDAD ECONÓMICA
+              def gen(imacec_des,rango,titulo):
+                  imacec_des=imacec_des[(imacec_des["PERIODO"]>= rango[0])&(imacec_des["PERIODO"]<= rango[1])]
+                  imacec_des = px.line(imacec_des, x="PERIODO", y="VALOR", color="SERIE" ,title='Mi gráfico de línea', 
+                            labels={'x': 'Eje X', 'y': 'Eje Y'}, 
+                            template='plotly_white', 
+                            width=700, height=600)
+                  imacec_des.update_yaxes(rangemode="tozero")
+                  imacec_des.update_layout(title={
+                      'text': titulo,
+                      'x':0.5,
+                       'xanchor': 'center',
+                       'yanchor': 'top' 
+                        },legend=dict(
+                          orientation="h",
+                          yanchor="top",
+                          y=-0.2,
+                          xanchor="left",
+                          x=0.01
+                      ))
+                  return imacec_des
+              def fechas_2(grafico):
+                  grafico.update_xaxes(
+                      rangeselector=dict(
+                          buttons=list([
+                              dict(count=3, label="3A", step="year", stepmode="backward"),
+                              dict(count=5, label="5A", step="year", stepmode="backward"),
+                              dict(count=10, label="10A", step="year", stepmode="backward"),
+                              dict(step="all")
+                          ])
+                      )
+                  )
+                  return grafico
+  
+              def eje_porcentaje(grafico):
+                  grafico.layout.yaxis.tickformat = ',.0%'
+                  return grafico    
+  
+              def gen_bar(imacec_des,rango,titulo):
+                  imacec_des=imacec_des[(imacec_des["PERIODO"] >=rango[0])&(imacec_des["PERIODO"] <= rango[1])]    
+                  imacec_des = px.bar(imacec_des, x="PERIODO", y="VALOR", color="SERIE", title='Mi gráfico de línea', 
+                            labels={'x': 'Eje X', 'y': 'Eje Y'}, 
+                            template='plotly_white', 
+                            width=700, height=600)
+                            # color_discrete_map=rename_dict)
+                  imacec_des.update_yaxes(rangemode="tozero")
+                  imacec_des.update_layout(title={
+                      'text': titulo,
+                      'x':0.5,
+                       'xanchor': 'center',
+                       'yanchor': 'top' 
+                        },legend=dict(
+                          orientation="h",
+                          yanchor="top",
+                          y=-0.2,
+                          xanchor="left",
+                          x=0.01
+                      ))
+                  return imacec_des
+  
+              #SLIDE 1 ACTIVIAD ECONOMICA
+              try:
+                  data11=data1[data1["CATEGORIA2"]=="IMACEC"]    
+                  imacec_or="Imacec empalmado, serie original (índice 2018=100)"
+                  imacec_or=data11[data11["NOMBRE_2"]==imacec_or]
+                  imacec_or["VALOR"]=imacec_or["VALOR"]/imacec_or["VALOR"].shift(12)-1
+                  uv_imacec_or=imacec_or["VALOR"].iloc[-1]
+                  FECHA_IMACEC = nombre_mes_espanol[imacec_or["PERIODO"].iloc[-1].month-1]
+      
+                  imacec_or=imacec_or.dropna()
+                  imacec_or["SERIE"]="Imacec (variación anual)"
+                  imacec_or_1=gen(imacec_or,appointment_1,"Variación anual del IMACEC")
+                  imacec_or_1=eje_porcentaje(imacec_or_1)
+  
+                  data13=data1[data1["CATEGORIA2"]=="PIB"]
+                  nom="PIB, volumen a precios del año anterior encadenado, referencia 2018 (miles de millones de pesos encadenados)"
+                  nom=data13[data13["NOMBRE_2"]==nom]
+                  nom["VALOR"]=nom["VALOR"]/nom["VALOR"].shift(4)-1
+                  uv_nom=nom["VALOR"].iloc[-1]
+                  FECHA_PIB= nombre_mes_espanol[nom["PERIODO"].iloc[-1].month-1]
+                  
+                  nom=nom.dropna()
+                  nom["SERIE"]="PIB Trimestral (variación YoY)"
+                  nom=gen(nom,appointment_1,"Variación Trimestral PIB")
+                  nom=eje_porcentaje(nom)
+  
+              #SLIDE 2 COMPONENTES
+  
+                  data12=data1[data1["CATEGORIA2"]=="IMACEC - COMPONENTES"]
+                  data12["VALOR"]=data12["VALOR"]/100
+                  est="Indicador mensual de actividad económica, Imacec, contribución porcentual respecto de igual periodo del año anterior, referencia 2018"
+                  est=data12[data12["NOMBRE_1"]==est]
+                  est["SERIE"]=est["NOMBRE_2"]
+                  
+                  
+                
+                  prod_bienes=est[est["NOMBRE_2"].isin(["Minería","Industria","Resto de bienes"])]
+                  
+                  uv_mineria=est[est["NOMBRE_2"]=="Minería"]["VALOR"].iloc[-1]              
+                  uv_indsutria=est[est["NOMBRE_2"]=="Industria"]["VALOR"].iloc[-1]
+                  uv_sericios=est[est["NOMBRE_2"]=="Resto de bienes"]["VALOR"].iloc[-1]
+                     
+                  prod_bienes=gen_bar(prod_bienes,appointment_1,"Componentes producción de bienes")
+                  prod_bienes=eje_porcentaje(prod_bienes)
+  
+  
+               
+                  componentes=est[est["NOMBRE_2"].isin(["Producción de bienes","Comercio","Servicios"])]
+                  componentes=gen_bar(componentes,appointment_1,"Componentes principales IMACEC")
+                  componentes=eje_porcentaje(componentes)
+                  
+              except:
+                  pass
+              #SLIDE 3 
+              try:
+                  data2=data[data["CATEGORIA"]=="INFLACION"]
+                  data2["VALOR"]=data2["VALOR"]/100
+                  anu="IPC, IPC sin volátiles e IPC volátiles, variación anual, información empalmada"
+                  inf_anu=data2[(data2["NOMBRE_1"]==anu)&(data2["NOMBRE_2"]=="IPC General")]
+                  uv_inf=inf_anu["VALOR"].iloc[-1]
+                  FECHA_IPC = nombre_mes_espanol[inf_anu["PERIODO"].iloc[-1].month-1]          
+                  inf_anu["SERIE"]=inf_anu["NOMBRE_2"]
+  
+                  inf_anu=gen(inf_anu,appointment_2,"Variación anual porcentual IPC")
+                  inf_anu=eje_porcentaje(inf_anu)
+  
+                  com_anu=data2[(data2["NOMBRE_1"]==anu)&~(data2["NOMBRE_2"]=="IPC General")]
+                  com_anu["SERIE"]=com_anu["NOMBRE_2"]
+                  comp_2=com_anu[~com_anu["SERIE"].isin(["IPC sin volátiles","IPC volátil"])]
+                 
+                  uv_servicios=com_anu[com_anu['NOMBRE_2'] == "IPC Servicios sin volátiles"]['VALOR'].iloc[-1]
+                  uv_bienes=com_anu[com_anu['NOMBRE_2'] == "IPC Bienes sin volátiles"]['VALOR'].iloc[-1]
+                  uv_alimentos=com_anu[com_anu['NOMBRE_2'] == "IPC Alimentos volátiles"]['VALOR'].iloc[-1]
+                  uv_energia=com_anu[com_anu['NOMBRE_2'] == "IPC Energía volátiles"]['VALOR'].iloc[-1]
+                  uv_volatiles=com_anu[com_anu['NOMBRE_2'] == "IPC Resto de volátiles"]['VALOR'].iloc[-1]
                     
-    with tab42:
-        appointment_33 = st.slider(
-                    "Seleccione el rango de fechas ",
-                    value=(ext_desagregadas[0],ext_desagregadas[1]),
-                    format="YYYY/MM")
-        datadesagregadas=desagregadas.copy(deep=True)
-        desagregadas=gen(desagregadas,appointment_33,"Número de cuentas corrientes - Personas - Componentes")
-        desagregadas=fechas_2(desagregadas)
+                  comp_2.loc[comp_2['NOMBRE_2'] == "IPC Servicios sin volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] == "IPC Servicios sin volátiles", 'VALOR']*0.384
+                  comp_2.loc[comp_2['NOMBRE_2'] == "IPC Bienes sin volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] == "IPC Bienes sin volátiles", 'VALOR']*0.267
+                  comp_2.loc[comp_2['NOMBRE_2'] == "IPC Alimentos volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] =="IPC Alimentos volátiles" , 'VALOR']*0.101
+                  comp_2.loc[comp_2['NOMBRE_2'] == "IPC Energía volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] =="IPC Energía volátiles", 'VALOR']*0.075
+                  comp_2.loc[comp_2['NOMBRE_2'] == "IPC Resto de volátiles", 'VALOR'] = comp_2.loc[comp_2['NOMBRE_2'] == "IPC Resto de volátiles", 'VALOR']*0.172
+                  
+                  comp_2=gen_bar(comp_2,appointment_2,"Componentes secundarias IPC")
+                  comp_2=eje_porcentaje(comp_2)  
+                  inf_anu_=inf_anu1[(inf_anu1["PERIODO"] >= appointment_2[0])&(inf_anu1["PERIODO"]<=appointment_2[1])]
+                  comp_2.add_trace(px.line(inf_anu_, x='PERIODO', y='VALOR', color="SERIE").data[0])
+  
+                  
+              except:
+                  pass
+  
+                  #SLIDE 4
+              try:
+                  data3=data[data["CATEGORIA"]=="MERCADO LABORAL"]
+                  data3["VALOR"]=data3["VALOR"]/100  
+                  emp_tasas_nac=data3[(data3["CATEGORIA2"]=="EMPLEO - TASAS")&(data3["CATEGORIA3"]=="Nacional")]
+                  oc=emp_tasas_nac[emp_tasas_nac["NOMBRE_1"]=="Tasa de desocupación Nacional"]
+                  
+                  ult_oc=oc["VALOR"].iloc[-1]
+                  FECHA_INE = nombre_mes_espanol[oc["PERIODO"].iloc[-1].month-1]  
+         
+                  oc["SERIE"]=oc["NOMBRE_2"]
+          
+                  oc=gen(oc,appointment_3,"Tasa de desocupación")
+                  oc=eje_porcentaje(oc)
+  
+                  emp_tasas_nac2=data3[(data3["CATEGORIA2"]=="EMPLEO - TASAS")&~(data3["CATEGORIA3"]=="Nacional")]
+                  oc2=emp_tasas_nac2[emp_tasas_nac2["NOMBRE_1"].isin(["Tasa de desocupación Hombres","Tasa de desocupación Mujeres"])]
+                  
+                  ult_oc_h=emp_tasas_nac2[emp_tasas_nac2["NOMBRE_1"]=="Tasa de desocupación Hombres"]["VALOR"].iloc[-1]
+                  ult_oc_m=emp_tasas_nac2[emp_tasas_nac2["NOMBRE_1"]=="Tasa de desocupación Mujeres"]["VALOR"].iloc[-1]
+     
+                  oc2["SERIE"]=oc2["NOMBRE_2"]
+                  oc2=gen(oc2,appointment_3,"Tasas de desocupación por género")
+                  oc2=eje_porcentaje(oc2)
+  
+                  informalidad=data3[(data3["CATEGORIA2"]=="INFORMALIDAD")&(data3["NOMBRE_1"]=="Tasa de informalidad Nacional")]
+  
+                  
+                  ult_informalidad=informalidad["VALOR"].iloc[-1]
+                  informalidad["SERIE"]=informalidad["NOMBRE_2"]
+  
+                  informalidad=informalidad.sort_values(by="PERIODO")
+                  informalidad=gen(informalidad,appointment_3,"Tasa de Informalidad")
+                  informalidad=eje_porcentaje(informalidad)
+                  
+                  informalidad2=data3[(data3["CATEGORIA2"]=="INFORMALIDAD")&~(data3["NOMBRE_1"]=="Tasa de informalidad Nacional")]
+                  
+                  ult_informalidad_h=informalidad2[informalidad2["NOMBRE_1"]=="Tasa de informalidad Hombres"]["VALOR"].iloc[-1]    
+                  ult_informalidad_m=informalidad2[informalidad2["NOMBRE_1"]=="Tasa de informalidad Mujeres"]["VALOR"].iloc[-1]    
+                  
+                  informalidad2["SERIE"]=informalidad2["NOMBRE_2"]
+                  informalidad2=informalidad2.sort_values(by="PERIODO")
+                  informalidad2=gen(informalidad2,appointment_3,"Tasas de Informalidad por género")
+  
+                  informalidad2=eje_porcentaje(informalidad2)
+  
+              #SLIDE 5
+  
+                  ind_rem_men_r=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="REAL")]
+                  ind_rem_men_n=data[(data["CATEGORIA2"]=="INDICE DE REMUNERACIONES")&(data["CATEGORIA3"]=="NOMINAL")]
+                  ind_rem_men_r["SERIE"]="Variación anual real "     
+                  ind_rem_men_n["SERIE"]="Variación anual nominal "    
+                  ind_rem_men_r["VALOR"]=ind_rem_men_r["VALOR"]/ind_rem_men_r["VALOR"].shift(12)-1
+                  ind_rem_men_r=ind_rem_men_r.dropna()
+                  ind_rem_men_n["VALOR"]=ind_rem_men_n["VALOR"]/ind_rem_men_n["VALOR"].shift(12)-1
+                  ind_rem_men_n=ind_rem_men_n.dropna()
+                  ind_rem_men_r=ind_rem_men_r.sort_values(by="PERIODO")
+                  ind_rem_men_n=ind_rem_men_n.sort_values(by="PERIODO")
+                  ult_remuneraciones=ind_rem_men_r["VALOR"].iloc[-1]
+  
+                  ind_rem_men_r=gen(ind_rem_men_r,appointment_3,"Variación anual real Índice de remuneraciones")
+                  ind_rem_men_r=eje_porcentaje(ind_rem_men_r)
+  
+                  ind_rem_men_n=gen(ind_rem_men_n,appointment_3,"Variación anual nominal Índice de remuneraciones")
+                  ind_rem_men_n=eje_porcentaje(ind_rem_men_n)
+              except:
+                  pass
+              
+              
+  
+          
+              prs=Presentation("plantilla-cpp.pptx")
+              xml_slides = prs.slides._sldIdLst  
+              slides = list(xml_slides)
+  
+  
+              #GENERAR PRESENTACIÓN
+              slide = prs.slides[0]
+              title =  slide.shapes.title.text_frame.paragraphs[0]
+              title.text = title_1
+              title.font.color.rgb = RGBColor(255, 255, 255)  # Color blanco
+              
+              title.font.bold = True  # Negrita
+  
+  
+              #AGREGAR GRAFICOS
+              width = Inches(5.75)
+              leftd = Inches(0.5)
+              lefti = Inches(7)
+              top= Inches(2)
+                   
+                  #SLIDE 1 ACTIVIAD ECONOMICA        
+              try:
+                  #SLIDE 1 ACTIVIAD ECONOMICA
+                  imacec_or_1.write_image("imacec.png")
+                  im1="imacec.png"
+                  add_image(prs.slides[2], image=im1, left=leftd, width=width, top=top)
+                  os.remove("imacec.png")
+  
+                  nom.write_image("nom.png")
+                  im2="nom.png"
+                  add_image(prs.slides[2], image=im2, left=lefti, width=width, top=top)
+                  os.remove("nom.png")    
+              except:
+                  pass 
+              
+              try:
+                  #SLIDE 2 COMPONENTES
+                  prod_bienes.write_image("prod.png")
+                  im3="prod.png"
+                  add_image(prs.slides[3], image=im3, left=leftd, width=width, top=top)
+                  os.remove("prod.png")
+  
+                  componentes.write_image("comp.png")
+                  im4="comp.png"
+                  add_image(prs.slides[3], image=im4, left=lefti, width=width, top=top)
+                  os.remove("comp.png")
+                  
+              except:
+                  pass
+              try:
+                  slide2 = prs.slides[2]
+                  texto = "El IMACEC de "+FECHA_IMACEC+" anotó una variación anual del "  +porcentaje(uv_imacec_or,2)+", el PIB trimestral de "+FECHA_PIB+" anotó una variación anual del "+porcentaje(uv_nom,1)+"."
+                  title_2 = slide2.shapes.title.text_frame.paragraphs[0]
+                  title_2.text = texto
+                  title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
+                  title_2.font.name = "Calibri" 
+                  title_2.font.size = Pt(18)
     
-        st.plotly_chart(desagregadas, theme="streamlit", use_container_width=True)
-        a4=descargar_datos(datadesagregadas)
-        datadesagregadas_2=desagregadas_2.copy(deep=True)
-        desagregadas_2=gen(desagregadas_2,appointment_33,"Número de cuentas corrientes - Empresas - Componentes")
-        desagregadas_2=fechas_2(desagregadas_2)
+  
+                  slide2 = prs.slides[3]
+                  texto = "La componentes de Minería, Industria y servicios en "+FECHA_IMACEC+" obtuvieron una variación anual del " +porcentaje(uv_mineria,1) +", " + porcentaje(uv_indsutria,1)+", " +porcentaje(uv_sericios,1)+ "."
+                  title_2 = slide2.shapes.title.text_frame.paragraphs[0]
+                  title_2.text = texto
+                  title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
+                  title_2.font.name = "Calibri" 
+                  title_2.font.size = Pt(18)
+              except:
+                  pass
+              
+              try:
+                  #SLIDE 3 
+                  inf_anu.write_image("inf_a.png")
+                  im5="inf_a.png"
+                  add_image(prs.slides[5], image=im5, left=leftd, width=width, top=top)
+                  os.remove("inf_a.png")
+                  comp_2.write_image("comp_2.png")
+                  im6="comp_2.png"
+                  add_image(prs.slides[5], image=im6, left=lefti, width=width, top=top)
+                  os.remove("comp_2.png")
+              except:
+                  pass
+              
+              try:
+                  mayor = np.max(np.abs([uv_servicios, uv_bienes, uv_alimentos, uv_energia, uv_volatiles]))
+                  etiqueta = np.argmax(np.abs([uv_servicios, uv_bienes, uv_alimentos, uv_energia, uv_volatiles]))
+                  etiquetas={0:"Servicios no volátiles",
+                          1:"Bienes no volátiles",
+                          2:"Alimentos",
+                          3:"Energía",
+                          4:"Resto de volátiles"}
+                  
+                  slide2 = prs.slides[5]
+                  texto = "La variación anual del IPC en "+FECHA_IPC+" alcanzó un "+ porcentaje(uv_inf,1)+". La mayor componente fue " +etiquetas[etiqueta] + " con un " + porcentaje(mayor,1)+"."
+                  title_2 = slide2.shapes.title.text_frame.paragraphs[0]
+                  title_2.text = texto
+                  title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
+                  title_2.font.name = "Calibri" 
+                  title_2.font.size = Pt(18)
+  
+              except:
+                  pass        
+              
+              try:
+                  #SLIDE 4
+                  oc.write_image("desocup.png")
+                  im7="desocup.png"
+                  add_image(prs.slides[7], image=im7, left=leftd, width=width, top=top)
+                  os.remove("desocup.png")
+  
+                  oc2.write_image("desoc2.png")
+                  im8="desoc2.png"
+                  add_image(prs.slides[7], image=im8, left=lefti, width=width, top=top)
+                  os.remove("desoc2.png")
+  
+                  informalidad.write_image("infor.png")
+                  im9="infor.png"
+                  add_image(prs.slides[8], image=im9, left=leftd, width=width, top=top)
+                  os.remove("infor.png")
+                  informalidad2.write_image("infor2.png")
+                  im10="infor2.png"
+                  add_image(prs.slides[8], image=im10, left=lefti, width=width, top=top)
+                  os.remove("infor2.png")
+  
+                  #SLIDE 5
+                  ind_rem_men_r.write_image("real.png")
+                  im11="real.png"
+                  add_image(prs.slides[9], image=im11, left=leftd, width=width, top=top)
+                  os.remove("real.png")
+  
+                  ind_rem_men_n.write_image("nominal.png")
+                  im12="nominal.png"
+                  add_image(prs.slides[9], image=im12, left=lefti, width=width, top=top)
+                  os.remove("nominal.png")
+              except:
+                  pass
+  
+              try:
+                  slide2 = prs.slides[7]
+                  texto = "La desocupación laboral en "+FECHA_INE+" alcanzó el "+ porcentaje(ult_oc,1) + ",mujeres se encuentran en el "+ porcentaje(ult_oc_m,1) +" y hombres en"+ porcentaje(ult_oc_h,1)+"."
+                  title_2 = slide2.shapes.title.text_frame.paragraphs[0]
+                  title_2.text = texto
+                  title_2.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
+                  title_2.font.name = "Calibri" 
+                  title_2.font.size = Pt(18)
+  
+                  slide3 = prs.slides[8]
+                  texto2 = "La Informalidad laboral en "+FECHA_INE+" alcanzó el "+ porcentaje(ult_informalidad,1) + ",mujeres se encuentran en el "+ porcentaje(ult_informalidad_m,1) +" y hombres en"+ porcentaje(ult_informalidad_h,1)+"."
+             
+                  title_3 = slide3.shapes.title.text_frame.paragraphs[0]
+                  title_3.text = texto2
+                  title_3.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
+                  title_3.font.name = "Calibri" 
+                  title_3.font.size = Pt(18)
+                  
+                  slide4 = prs.slides[9]
+                  texto3 = "Los salarios reales en "+FECHA_INE+" anotaron una variación anual del "+ porcentaje(ult_remuneraciones,1) +"."
+                  title_4 = slide4.shapes.title.text_frame.paragraphs[0]
+                  title_4.text = texto3
+                  title_4.font.color.rgb = RGBColor(0, 0, 0)  # Color blanco
+                  title_4.font.name = "Calibri" 
+                  title_4.font.size = Pt(18)
+              except:
+                  pass
+  
+              
+              try:       
+                  user_input_1=pd.DataFrame(user_input_1)
+              except:
+                  pass
+  
+              try:       
+                  user_input_2=pd.DataFrame(user_input_2)
+              except:
+                  pass
+              try:       
+                  user_input_3=pd.DataFrame(user_input_3)
+              except:
+                  pass
+  
+  
+              sacar=[]
+  
+              try:
+                  if "ACTIVIDAD" not in user_input_1.values:
+                      sacar.append(3)
+                  if "COMPONENTES" not in user_input_1.values:
+                      sacar.append(4)
+              except: 
+                  sacar.append(2)
+                  sacar.append(3)
+                  sacar.append(4)
+              
+              try:
+                  if "ANUAL" not in user_input_2.values:
+                      sacar.append(6)
+              except:
+                  sacar.append(5)
+                  sacar.append(6)
     
-        st.plotly_chart(desagregadas_2, theme="streamlit", use_container_width=True)
-        a5=descargar_datos(datadesagregadas_2)
+  
+  
+              try:
+                  if "DESOCUPACIÓN" not in user_input_3.values:
+                      sacar.append(8)
+                  if "INFORMALIDAD" not in user_input_3.values:
+                      sacar.append(9)
+                  if "REMUNERACIONES" not in user_input_3.values:
+                      sacar.append(10)
+  
+              except:
+                  sacar.append(7)
+                  sacar.append(8)
+                  sacar.append(9) 
+                  sacar.append(10) 
+  
+              x=1
+              for i in sacar:
+                  xml_slides = prs.slides._sldIdLst  
+                  slides = list(xml_slides)
+                  xml_slides.remove(slides[i-x]) 
+                  x=x+1
+  
+  
+  
+  
+              #GENERAR ARCHIVO
+              filename = 'presentación_{}_{}.pptx'.format("Economía", today)
+              binary_output = BytesIO()
+              prs.save(binary_output)
+              st.download_button(label='Descargar',
+                                 data=binary_output.getvalue(),
+                                 file_name=filename)
+  else:
+      pass
 
-        
-        
-    with st.expander("Detalle"):
-                 st.write("""
-                    Fuente: Comisión del Meracdo Financiero.
-                 """)
+
+
+
+
+
