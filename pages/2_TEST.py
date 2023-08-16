@@ -2,6 +2,9 @@
 import streamlit 
 from streamlit_extras.switch_page_button import switch_page
 
+from streamlit.runtime.scriptrunner import RerunData, RerunException
+from streamlit.source_util import get_pages
+
 import pandas as pd
 import plotly.express as px
 import numpy as np
