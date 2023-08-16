@@ -158,7 +158,7 @@ from streamlit_extras.switch_page_button import switch_page
 
 cambiar_a_presentacion = st.button("Generar reporte automático")
 if cambiar_a_presentacion:
-    switch_page("1_Generar Presentación")
+    switch_page("1_Generar Presentación.py")
 
 tab1, tab2,tab3,tab4 = st.tabs(["ACTIVIDAD ECONÓMICA","INFLACIÓN","MERCADO LABORAL","CUENTAS CORRIENTES"])
 
