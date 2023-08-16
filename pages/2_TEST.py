@@ -1,5 +1,7 @@
 
 import streamlit 
+from streamlit_extras.switch_page_button import switch_page
+
 import pandas as pd
 import plotly.express as px
 import numpy as np
@@ -23,7 +25,6 @@ streamlit.dataframe(data)
 
 
 
-from streamlit_extras.switch_page_button import switch_page
 
 want_to_contribute = streamlit.button("I want to contribute!")
 if want_to_contribute:
