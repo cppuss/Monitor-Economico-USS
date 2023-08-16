@@ -11,15 +11,15 @@ from pptx.dml.color import RGBColor
 from pptx.util import Inches
 import os
 
-st.markdown("<h1 style='text-align: center; color: black;'>Pruebas</h1>", unsafe_allow_html=True)
+streamlit.markdown("<h1 style='text-align: center; color: black;'>Pruebas</h1>", unsafe_allow_html=True)
 
 
 
-st.write(' ')
+streamlit.write(' ')
 
 data=pd.read_parquet("datos_monitor_1.parquet")
 data=data[data["CATEGORIA3"]=="NACIONAL"]
-st.dataframe(data)
+streamlit.dataframe(data)
 
 
 
