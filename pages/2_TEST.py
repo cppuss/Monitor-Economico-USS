@@ -28,7 +28,7 @@ streamlit.dataframe(data)
 
 want_to_contribute = streamlit.button("I want to contribute!")
 if want_to_contribute:
-    switch_page("1_generar presentacion.py")
+    switch_page("pages/1_generar presentacion.py")
 
 
 
