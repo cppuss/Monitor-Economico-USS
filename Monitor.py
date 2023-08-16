@@ -158,7 +158,7 @@ from streamlit_extras.switch_page_button import switch_page
 
 cambiar_a_presentacion = st.button("Generar reporte automático")
 if cambiar_a_presentacion:
-    import streamlit 
+    import streamlit as streamlit
     switch_page("1_Generar Presentación")  
     import streamlit as st
 
