@@ -157,7 +157,7 @@ def descargar_datos(data):
 data=pd.read_parquet("datos_monitor_1.parquet")
 
 
-cambiar_a_presentacion = st.button("Generar reporte automático")
+cambiar_a_presentacion = st.button("Generar reporte")
 if cambiar_a_presentacion:
 
     switch_page("Generar Presentación")
