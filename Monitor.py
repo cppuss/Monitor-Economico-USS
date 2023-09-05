@@ -1436,8 +1436,9 @@ data_cuentas_2=data_cuentas_2[["PERIODO","VALOR","SERIE"]]
 desagregadas=data4[~(data4["NOMBRE_1"]=="TOTAL")&~(data4["CATEGORIA2"]=="Jurídica")]
 desagregadas["SERIE"]=desagregadas["NOMBRE_1"]
 
-
+desagregadas=desagregadas.sort_values("PERIODO")
 ext_desagregadas=extremos(desagregadas)
+
 data_desagregadas=desagregadas.copy(deep=True)
 data_desagregadas=data_desagregadas[["PERIODO","VALOR","SERIE"]]
 
@@ -1447,6 +1448,7 @@ data_desagregadas=data_desagregadas[["PERIODO","VALOR","SERIE"]]
 desagregadas_2=data4[~(data4["NOMBRE_1"]=="TOTAL")&(data4["CATEGORIA2"]=="Jurídica")]
 desagregadas_2["SERIE"]=desagregadas_2["NOMBRE_1"]
 
+ext_desagregadas_2=ext_desagregadas_2.sort_values("PERIODO")
 ext_desagregadas_2=extremos(desagregadas_2)
 data_desagregadas_2=desagregadas_2.copy(deep=True)
 data_desagregadas_2=data_desagregadas_2[["PERIODO","VALOR","SERIE"]]
